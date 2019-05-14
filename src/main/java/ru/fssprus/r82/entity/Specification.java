@@ -2,10 +2,12 @@ package ru.fssprus.r82.entity;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,6 +18,9 @@ public class Specification extends Model{
 	
 	@ManyToMany(mappedBy = "specifications", fetch = FetchType.EAGER)
 	private Set<Question> questionList;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="specification")
+	private Set<Test> testList;
 
 	public String getName() {
 		return name;

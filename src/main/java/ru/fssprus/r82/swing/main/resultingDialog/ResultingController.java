@@ -33,7 +33,7 @@ public class ResultingController implements ActionListener{
 	
 	private void doShowWrongs() {
 		WrongAnswersController waController = 
-				new WrongAnswersController(new WrongAnswersDialog(800, 600,"Результаты теста"));
+				new WrongAnswersController(new WrongAnswersDialog(800, 600,"Результаты теста"), testingProcess.getWrongAmount());
 		
 		waController.setText(testingProcess.showWrongs());
 		waController.startCountdown();

@@ -7,12 +7,14 @@ import java.util.Timer;
 import ru.fssprus.r82.swing.main.ControllerWithTimer;
 
 public class WrongAnswersController extends ControllerWithTimer implements ActionListener {
-
+	private static final int TIME_FOR_ANSWER_MULTIPLIER = 2;
 	private WrongAnswersDialog waDialog;
 	private final Timer timer = new Timer();
+	private int timeSec;
 	
-	public WrongAnswersController(WrongAnswersDialog waDialog) {
+	public WrongAnswersController(WrongAnswersDialog waDialog, int time) {
 		this.waDialog = waDialog;
+		this.timeSec = time;
 		waDialog.getBtnClose().addActionListener(this);
 		setLblForInfo(waDialog.getLblTimeLeftSec());
 		setView(waDialog);
@@ -35,7 +37,7 @@ public class WrongAnswersController extends ControllerWithTimer implements Actio
 	}
 	
 	public void startCountdown() {
-		initTimer(10);
+		initTimer(timeSec * TIME_FOR_ANSWER_MULTIPLIER);
 	}
 
 }

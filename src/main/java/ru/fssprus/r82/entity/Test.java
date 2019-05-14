@@ -30,7 +30,14 @@ public class Test extends Model {
 	
 	@Column(name="testing_time")
 	private int testingTime;
-
+	
+	@Column(name="level")
+	private String level;
+	
+	@ManyToOne
+	@JoinColumn(name="specification_id")
+	private Specification specification;
+	
 	public Test() {
 		super();
 	}
@@ -87,4 +94,19 @@ public class Test extends Model {
 		this.totalQuestions = totalQuestions;
 	}
 
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
+	public Specification getSpecification() {
+		return specification;
+	}
+
+	public void setSpecification(Specification specification) {
+		this.specification = specification;
+	}
 }

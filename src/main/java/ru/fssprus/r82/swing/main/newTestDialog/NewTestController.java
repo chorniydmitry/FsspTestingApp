@@ -74,7 +74,7 @@ public class NewTestController implements ActionListener {
 		TestingProcess tp = initNewTestingProcess(specs, selectedLevel);
 		fillUserInfo(tp, userName, userSurname, userSecondName);
 
-		new TestController(new TestDialog(), tp, selectedLevel);
+		new TestController(new TestDialog(), specs, tp, selectedLevel);
 		view.dispose();
 
 	}

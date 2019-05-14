@@ -11,6 +11,8 @@ import ru.fssprus.r82.swing.main.newTestDialog.NewTestController;
 import ru.fssprus.r82.swing.main.newTestDialog.NewTestDialog;
 import ru.fssprus.r82.swing.main.settings.SettingsController;
 import ru.fssprus.r82.swing.main.settings.SettingsDialog;
+import ru.fssprus.r82.swing.main.statisticsDialog.StatisticsController;
+import ru.fssprus.r82.swing.main.statisticsDialog.StatisticsDialog;
 
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = -354084726011189758L;
@@ -59,7 +61,7 @@ public class MainFrame extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO 
+				new StatisticsController(new StatisticsDialog(800, 600));
 			}
 		});
 		btnExit.addActionListener(new ActionListener() {

@@ -78,12 +78,12 @@ public class TestDialog extends JDialog {
 			setPaused(hide);
 			taQuestionText.setBackground(Color.BLACK);
 			pnlAnswers.setBackground(Color.BLACK);
-			rbAnswers.forEach((n)->n.setBackground(Color.BLACK));
+			rbAnswers.forEach((n) -> n.setBackground(Color.BLACK));
 		} else {
 			setPaused(hide);
 			taQuestionText.setBackground(pnlQuestAndAnswers.getBackground());
 			pnlAnswers.setBackground(pnlQuestAndAnswers.getBackground());
-			rbAnswers.forEach((n)->n.setBackground(pnlQuestAndAnswers.getBackground()));
+			rbAnswers.forEach((n) -> n.setBackground(pnlQuestAndAnswers.getBackground()));
 		}
 		
 		revalidate();

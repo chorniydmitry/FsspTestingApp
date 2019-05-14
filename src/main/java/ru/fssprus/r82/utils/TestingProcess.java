@@ -24,6 +24,7 @@ import ru.fssprus.r82.service.UserService;
 
 public class TestingProcess {
 	private int curQuestionIndex;
+	private List<Specification> specs;
 	private List<Question> questions;
 	private List<Integer> correctAnswers;
 	private List<Integer> choises;
@@ -41,6 +42,7 @@ public class TestingProcess {
 	private User user;
 	
 	public TestingProcess(List<Specification> specs, List<Integer> amtQuestions) {
+		this.specs = specs;
 		loadQuestionsFromDB(specs, amtQuestions);
 		initLists();
 		loadAnswersForQuests();
@@ -108,7 +110,7 @@ public class TestingProcess {
 		return correctAnswersAmount;
 	}
 	
-	public void saveResultsToDB() {
+	public void saveResultsToDB(Specification spec, int level, int questTimeSec) {
 		countCorrectAnswers();
 		int correctAnswers = correctAnswersAmount;
 		
@@ -118,6 +120,11 @@ public class TestingProcess {
 		test.setScore(MarkCounter.countMarkInPercent(questions.size(), correctAnswers));
 		test.setUser(user);
 		
+		test.setSpecification(specs.get(0));
+		test.setLevel(String.valueOf(level));
+		test.setTestingTime(questTimeSec);
+		test.setTotalQuestions(questions.size());
+		
 		TestService service = new TestService();
 		service.add(test);
 	}
@@ -125,7 +132,7 @@ public class TestingProcess {
 	public String showWrongs() {
 		countCorrectAnswers();
 		int i = 0;
-		String returnValue = "<html style='font-size:12pt; font-family:Times New Roman;'><b>Список вопросов:</b><br /><br />";
+		String returnValue = "<html style='font-size:14pt; font-family:Times New Roman;'><b>Список вопросов:</b><br /><br />";
 		for (Boolean ans : correctUserAnswersList) {
 			if (!ans) {
 				String question = "<b>Вопрос:</b> " + questions.get(i).getTitle() + "<br /><br />";
@@ -144,12 +151,11 @@ public class TestingProcess {
 			}
 			i++;
 		}
-		
 		returnValue+="</html>";
 
 		return returnValue;
 	}
-
+	
 	private boolean loadAnswersForQuests() {
 		for (int i = 0; i < getQuestions().size(); i++) {
 			List<Answer> ansList = answerService.getAllByQuestion(0, 10, getQuestions().get(i));
@@ -246,10 +252,9 @@ public class TestingProcess {
 	}
 	
 	public boolean checkUncheckedLeft() {
-		for (Integer choise : choises) {
-			if(choise == -1)
+		for (Integer choise : choises) 
+			if(choise == -1) 
 				return true;
-		}
 		return false;
 	}
 
@@ -275,6 +280,25 @@ public class TestingProcess {
 
 	public void setUserSecondName(String userSecondName) {
 		this.userSecondName = userSecondName;
+	}
+
+	public int getNextUnansweredIndex() {
+		int index = -1;
+		for (int i = 0; i < choises.size(); i++) 
+			if(choises.get(i) == -1)
+				return i;
+		
+		return index;
+		
+	}
+
+	public int getWrongAmount() {
+		int amount = 0;
+		for (Boolean isCorrect : correctUserAnswersList)
+			if(!isCorrect)
+				amount++;
+	
+		return amount;
 	}
 
 
