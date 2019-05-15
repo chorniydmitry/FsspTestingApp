@@ -283,13 +283,11 @@ public class TestingProcess {
 	}
 
 	public int getNextUnansweredIndex() {
-		int index = -1;
-		for (int i = 0; i < choises.size(); i++) 
+		for (int i = 0; i < choises.size(); i++)
 			if(choises.get(i) == -1)
 				return i;
 		
-		return index;
-		
+		return -1;
 	}
 
 	public int getWrongAmount() {

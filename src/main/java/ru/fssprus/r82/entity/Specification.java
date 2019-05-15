@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="specification")
 public class Specification extends Model{
-	@Column(name="name", length=2048)
+	@Column(name="name", length=2048, unique=true)
 	private String name;
 	
 	@ManyToMany(mappedBy = "specifications", fetch = FetchType.EAGER)

@@ -89,19 +89,18 @@ public class NewTestDialog extends JDialog {
 				GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
 		
 		// 2nd row
-		this.add(lblName, new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.NORTH,
-				GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
-		
-		this.add(tfName, new GridBagConstraints(1, 1, 4, 1, 4, 1, GridBagConstraints.NORTHWEST,
-				GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
-
-		// 3rd row
 		this.add(lblSurname, new GridBagConstraints(0, 2, 1, 1, 1, 1, GridBagConstraints.NORTH,
 				GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
 		
 		this.add(tfSurname, new GridBagConstraints(1, 2, 4, 1, 4, 1, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
 
+		// 3rd row
+		this.add(lblName, new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.NORTH,
+				GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
+		
+		this.add(tfName, new GridBagConstraints(1, 1, 4, 1, 4, 1, GridBagConstraints.NORTHWEST,
+				GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
 		
 		// 4th row
 		this.add(lblSecondName, new GridBagConstraints(0, 3, 1, 1, 1, 1, GridBagConstraints.NORTH,

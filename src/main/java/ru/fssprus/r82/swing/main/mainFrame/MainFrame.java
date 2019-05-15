@@ -9,8 +9,8 @@ import javax.swing.JFrame;
 
 import ru.fssprus.r82.swing.main.newTestDialog.NewTestController;
 import ru.fssprus.r82.swing.main.newTestDialog.NewTestDialog;
-import ru.fssprus.r82.swing.main.settings.SettingsController;
-import ru.fssprus.r82.swing.main.settings.SettingsDialog;
+import ru.fssprus.r82.swing.main.settingsDialog.SettingsController;
+import ru.fssprus.r82.swing.main.settingsDialog.SettingsDialog;
 import ru.fssprus.r82.swing.main.statisticsDialog.StatisticsController;
 import ru.fssprus.r82.swing.main.statisticsDialog.StatisticsDialog;
 

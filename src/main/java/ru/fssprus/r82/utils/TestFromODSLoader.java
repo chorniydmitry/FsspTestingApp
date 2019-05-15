@@ -3,6 +3,7 @@ package ru.fssprus.r82.utils;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.swing.JFileChooser;
@@ -16,10 +17,19 @@ import org.jopendocument.dom.spreadsheet.SpreadSheet;
 
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Question;
+import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.service.QuestionService;
+import ru.fssprus.r82.service.SpecificationService;
 
 public class TestFromODSLoader {
+	private QuestionLevel level;
+	private String specName;
+	
+	public TestFromODSLoader(QuestionLevel level, String specName) {
+		this.level = level;
+		this.specName = specName;
+	}
 
 	public void doOpenODS() {
 		File csv = selectODSFileToOpen();
@@ -39,10 +49,7 @@ public class TestFromODSLoader {
 	private HashSet<Question> loadQuestionFromFile(File file) throws IOException {
 		final Sheet sheet = SpreadSheet.createFromFile(file).getSheet(0);
 
-		String fileName = file.getName();
-		String spec = fileName.substring(0, (fileName.length() - 4));
-
-		HashSet<Question> questions = getQuestionsFromSheet(sheet, spec);
+		HashSet<Question> questions = getQuestionsFromSheet(sheet, specName);
 
 		return questions;
 	}
@@ -52,6 +59,7 @@ public class TestFromODSLoader {
 		Set<Specification> specs = new HashSet<Specification>();
 		Specification spec = new Specification();
 		spec.setName(specification);
+		
 		specs.add(spec);
 
 		int currRow = 1;
@@ -65,6 +73,9 @@ public class TestFromODSLoader {
 			Question question = new Question();
 			question.setTitle(currTitle);
 			
+			Set<QuestionLevel> levels = new HashSet<QuestionLevel>();
+			levels.add(level);
+			question.setLevels(levels);
 
 			HashSet<Answer> answers = new HashSet<Answer>();
 			// Собираем ответы их правильность (подразумевая, что максимально возможно
@@ -95,16 +106,42 @@ public class TestFromODSLoader {
 	private void saveQuestionsToDB(HashSet<Question> questions) {
 		QuestionService qService = new QuestionService();
 		HashSet<Question> questionsToSave = new HashSet<Question>();
+		HashSet<Question> questionsToUpdate = new HashSet<Question>();
 		for (Question question : questions) {
 			String title = question.getTitle();
-			if(qService.getByName(0, 5, title).size() == 0)
+			
+			List<Question> qExistList = qService.getByName(0, 5, title);
+			if(qExistList.size() != 0) {
+				System.out.println("Вопрос существует! ");
+				System.out.println("Проверка существует ли с такой сложностью");
+				for (Question qExist : qExistList) {
+					for(QuestionLevel qExistLevel: qExist.getLevels()) {
+						if(qExistLevel == level) {
+							return;
+						}
+						else {
+							question.getLevels().add(level);
+							questionsToUpdate.add(qExist);
+							Set<Specification> specs = qExist.getSpecifications();
+							specs.forEach((n) -> System.out.println(n.getId() + " " + n.getName()));
+						}
+					}
+				}
+			} else {
 				questionsToSave.add(question);
+			}
+
 		}
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			for (Question question : questionsToSave) {
 				Transaction tx = session.beginTransaction();
 				session.save(question);
+				tx.commit();
+			}
+			for (Question question : questionsToUpdate) {
+				Transaction tx = session.beginTransaction();
+				session.update(question);
 				tx.commit();
 			}
 			session.close();

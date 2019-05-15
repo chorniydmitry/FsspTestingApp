@@ -3,8 +3,12 @@ package ru.fssprus.r82.entity;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -26,6 +30,12 @@ public class Question extends Model{
 	joinColumns=@JoinColumn(name="question_id"),
 	inverseJoinColumns=@JoinColumn(name="specification_id"))
 	private Set<Specification> specifications;
+	
+	
+    @ElementCollection(targetClass = QuestionLevel.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "question_level", joinColumns = @JoinColumn(name = "question_id", unique=false))
+    @Enumerated(EnumType.STRING)
+	private Set<QuestionLevel> levels;
 
 	public String getTitle() {
 		return title;
@@ -50,6 +60,13 @@ public class Question extends Model{
 	public void setSpecifications(Set<Specification> specifications) {
 		this.specifications = specifications;
 	}
-	
+
+	public Set<QuestionLevel> getLevels() {
+		return levels;
+	}
+
+	public void setLevels(Set<QuestionLevel> levels) {
+		this.levels = levels;
+	}
 	
 }

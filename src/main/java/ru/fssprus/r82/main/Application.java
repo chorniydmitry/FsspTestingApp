@@ -28,8 +28,8 @@ import ru.fssprus.r82.service.SpecificationService;
 import ru.fssprus.r82.swing.main.mainFrame.MainFrame;
 import ru.fssprus.r82.swing.main.resultingDialog.ResultingController;
 import ru.fssprus.r82.swing.main.resultingDialog.ResultingDialog;
-import ru.fssprus.r82.swing.main.settings.SettingsController;
-import ru.fssprus.r82.swing.main.settings.SettingsDialog;
+import ru.fssprus.r82.swing.main.settingsDialog.SettingsController;
+import ru.fssprus.r82.swing.main.settingsDialog.SettingsDialog;
 import ru.fssprus.r82.utils.TestFromODSLoader;
 import ru.fssprus.r82.utils.TestingProcess;
 
@@ -242,10 +242,6 @@ public class Application {
     	new ResultingController(dialog, new TestingProcess(null, null));
 	}
 
-	public static void loadFromODS() {
-		new TestFromODSLoader().doOpenODS();
-	}
-	
 	
 	public static void testMultSpecsTest() {
 		SpecificationService specificationService = new SpecificationService();

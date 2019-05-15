@@ -93,6 +93,8 @@ public class TestController extends ControllerWithTimer implements ActionListene
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		setUserChoise();
+		
 		if (e.getSource() == testDialog.getBtnNext())
 			doNextAction();
 
@@ -145,8 +147,6 @@ public class TestController extends ControllerWithTimer implements ActionListene
 	}
 	
 	private void goToQuestion(int number) {
-		setUserChoise();
-		
 		if (number >= testingProcess.getQuestions().size() || number < 0)
 			return;
 		

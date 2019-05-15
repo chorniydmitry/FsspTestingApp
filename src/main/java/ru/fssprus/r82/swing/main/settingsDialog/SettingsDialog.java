@@ -1,4 +1,4 @@
-package ru.fssprus.r82.swing.main.settings;
+package ru.fssprus.r82.swing.main.settingsDialog;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -9,11 +9,17 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import g.cope.swing.autocomplete.jcombobox.AutocompleteJComboBox;
+import g.cope.swing.autocomplete.jcombobox.StringSearchable;
+import ru.fssprus.r82.entity.QuestionLevel;
+import ru.fssprus.r82.entity.Specification;
+import ru.fssprus.r82.service.SpecificationService;
 import ru.fssprus.r82.utils.TestConstants;
 
 public class SettingsDialog extends JDialog {
@@ -61,8 +67,14 @@ public class SettingsDialog extends JDialog {
 	
 	private JButton btnSave = new JButton("Cохранить изменения");
 	
-	private JLabel lblLoadQuestionsSet = new JLabel("Загрузить набор вопросов из файла:");
-	private JButton btnLoadQuestionsSet = new JButton("+");
+	private JButton btnOpen = new JButton("Открыть файл");
+	private JPanel pnlAddingSet = new JPanel();
+	private JLabel lblSpecName = new JLabel("Специализация:");
+	private AutocompleteJComboBox accbSpecName;
+
+	private JLabel lblQuestLevel = new JLabel("Уровень сложности:");
+	private JComboBox<Object> cbQuestLevel = new JComboBox<Object>(QuestionLevel.values());
+	private JButton btnLoadQuestionsSet = new JButton("Добавить");
 	
 	private List<JTextField> tfsList = new ArrayList<JTextField>();
 	
@@ -119,6 +131,30 @@ public class SettingsDialog extends JDialog {
 	
 	private void initComponents() {
 		btnSave.setEnabled(false);
+		initTfSpec();
+	}
+	
+	private void initTfSpec() {
+		ArrayList<String> keywords = getSpecsNames();
+		StringSearchable searchable = new StringSearchable(keywords);
+	
+		accbSpecName = new AutocompleteJComboBox(searchable);
+		accbSpecName.addItem(null);
+		keywords.forEach((n)-> accbSpecName.addItem(n));
+		accbSpecName.setPrototypeDisplayValue("XXXXXXXXXXXXXXXXXXXX");
+		
+	}
+	
+	private ArrayList<String> getSpecsNames() {
+		ArrayList<String> specNames = new ArrayList<String>();
+		loadSpecsFromDB().forEach((n)-> specNames.add(n.getName()));
+		
+		return specNames;
+	}
+	
+	private List<Specification> loadSpecsFromDB() {
+		SpecificationService specService = new SpecificationService();
+		return specService.getAll();
 	}
 	
 	private void layoutDialog() {
@@ -136,19 +172,17 @@ public class SettingsDialog extends JDialog {
 		add(pnlAdvanced, new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(20, 20, 20, 20), 0, 0));
 		
-		add(pnlReserve, new GridBagConstraints(1, 1, 2, 1, 1, 1, GridBagConstraints.CENTER,
+		add(pnlReserve, new GridBagConstraints(1, 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(20, 20, 20, 20), 0, 0));
 		
 		// 3rd row
-		add(btnSave, new GridBagConstraints(1, 2, 1, 1, 1, 1, GridBagConstraints.CENTER,
-				GridBagConstraints.BOTH, new Insets(20, 20, 20, 20), 0, 0));
+		add(btnSave, new GridBagConstraints(0, 2, 2, 1, 1, 1, GridBagConstraints.CENTER,
+				GridBagConstraints.BOTH, new Insets(0, 20, 0, 20), 0, 0));
 		
 		// 4th row
-		add(lblLoadQuestionsSet, new GridBagConstraints(0, 3, 1, 1, 1, 1, GridBagConstraints.CENTER,
+		add(pnlAddingSet, new GridBagConstraints(0, 3, 2, 1, 1, 1, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(20, 20, 20, 20), 0, 0));
 		
-		add(btnLoadQuestionsSet, new GridBagConstraints(1, 3, 2, 1, 1, 1, GridBagConstraints.CENTER,
-				GridBagConstraints.BOTH, new Insets(20, 20, 20, 20), 0, 0));
 	}
 	
 	private void initGroupPanels() {
@@ -156,6 +190,8 @@ public class SettingsDialog extends JDialog {
 		pnlStandart.setBorder(BorderFactory.createTitledBorder("Стандартный"));
 		pnlAdvanced.setBorder(BorderFactory.createTitledBorder("Продвинутый"));
 		pnlReserve.setBorder(BorderFactory.createTitledBorder("Резерв"));
+		
+		pnlAddingSet.setBorder(BorderFactory.createTitledBorder("Загрузка набора вопросов из файла"));
 	}
 	
 	private void layoutGroupPanels() {
@@ -163,8 +199,42 @@ public class SettingsDialog extends JDialog {
 		doGrigBagGroupPanels(pnlStandart, lblStandartNum, tfStandartNum, lblStandartCommons, tfStandartCommons, lblStandartTime, tfStandartTime);
 		doGrigBagGroupPanels(pnlAdvanced, lblAdvancedNum, tfAdvancedNum, lblAdvancedCommons, tfAdvancedCommons, lblAdvancedTime, tfAdvancedTime);
 		doGrigBagGroupPanels(pnlReserve, lblReserveNum, tfReserveNum, lblReserveCommons, tfReserveCommons, lblReserveTime, tfReserveTime);
+		doGridBagAddSetPanel();
 	}
 	
+	private void doGridBagAddSetPanel() {
+		pnlAddingSet.setLayout(new GridBagLayout());
+		
+		
+		//gridx, gridy, gridwidth, gridheight, weightx, weighty, anchor, fill, insets(top, left, botom, right), ipadx, ipady
+		
+		
+		
+		
+		// 1st row
+		pnlAddingSet.add(btnOpen, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.NORTHWEST,
+				GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+		
+		// 2nd row
+		pnlAddingSet.add(lblSpecName, new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.NORTHWEST,
+				GridBagConstraints.HORIZONTAL, new Insets(5, 5, 0, 5), 0, 0));
+		
+		pnlAddingSet.add(lblQuestLevel, new GridBagConstraints(1, 1, 1, 1, 1, 1, GridBagConstraints.NORTHWEST,
+				GridBagConstraints.HORIZONTAL, new Insets(5, 5, 0, 5), 0, 0));
+		
+		// 3rd row
+		pnlAddingSet.add(accbSpecName, new GridBagConstraints(0, 2, 1, 1, 1, 1, GridBagConstraints.NORTHWEST,
+				GridBagConstraints.HORIZONTAL, new Insets(0, 5, 5, 5), 0, 0));
+		
+		pnlAddingSet.add(cbQuestLevel, new GridBagConstraints(1, 2, 1, 1, 1, 1, GridBagConstraints.NORTHWEST,
+				GridBagConstraints.HORIZONTAL, new Insets(0, 5, 5, 5), 0, 0));
+		
+		// 4th row
+		pnlAddingSet.add(btnLoadQuestionsSet, new GridBagConstraints(0, 3, 2, 1, 1, 1, GridBagConstraints.NORTHWEST,
+				GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+		
+	}
+
 	private void doGrigBagGroupPanels(JPanel panel, JLabel lbl1, JTextField tf1, JLabel lbl2, JTextField tf2,
 			 JLabel lbl3, JTextField tf3) {
 		panel.setLayout(new GridBagLayout());
@@ -173,22 +243,22 @@ public class SettingsDialog extends JDialog {
 		
 		// 1st row
 		panel.add(lbl1, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.NORTHWEST,
-				GridBagConstraints.HORIZONTAL, new Insets(20, 20, 20, 20), 0, 0));
+				GridBagConstraints.HORIZONTAL, new Insets(10, 10, 10, 10), 0, 0));
 		
 		panel.add(tf1, new GridBagConstraints(1, 0, 1, 1, 1, 1, GridBagConstraints.NORTHWEST,
-				GridBagConstraints.HORIZONTAL, new Insets(20, 20, 20, 20), 0, 0));
+				GridBagConstraints.HORIZONTAL, new Insets(10, 10, 10, 10), 0, 0));
 		// 2nd row
 		panel.add(lbl2, new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.NORTHWEST,
-				GridBagConstraints.HORIZONTAL, new Insets(20, 20, 20, 20), 0, 0));
+				GridBagConstraints.HORIZONTAL, new Insets(10, 10, 10, 10), 0, 0));
 		
 		panel.add(tf2, new GridBagConstraints(1, 1, 1, 1, 1, 1, GridBagConstraints.NORTHWEST,
-				GridBagConstraints.HORIZONTAL, new Insets(20, 20, 20, 20), 0, 0));
+				GridBagConstraints.HORIZONTAL, new Insets(10, 10, 10, 10), 0, 0));
 		// 3rd row
 		panel.add(lbl3, new GridBagConstraints(0, 2, 1, 1, 1, 1, GridBagConstraints.NORTHWEST,
-				GridBagConstraints.HORIZONTAL, new Insets(20, 20, 20, 20), 0, 0));
+				GridBagConstraints.HORIZONTAL, new Insets(10, 10, 10, 10), 0, 0));
 		
 		panel.add(tf3, new GridBagConstraints(1, 2, 1, 1, 1, 1, GridBagConstraints.NORTHWEST,
-				GridBagConstraints.HORIZONTAL, new Insets(20, 20, 20, 20), 0, 0));
+				GridBagConstraints.HORIZONTAL, new Insets(10, 10, 10, 10), 0, 0));
 	}
 
 	public JTextField getTfBaseNum() {
@@ -311,4 +381,20 @@ public class SettingsDialog extends JDialog {
 		this.tfsList = tfsList;
 	}
 	
+	public JComboBox<Object> getCbQuestLevel() {
+		return cbQuestLevel;
+	}
+
+	public void setCbQuestLevel(JComboBox<Object> cbQuestLevel) {
+		this.cbQuestLevel = cbQuestLevel;
+	}
+	
+	public AutocompleteJComboBox getAccbSpecName() {
+		return accbSpecName;
+	}
+
+	public void setAccbSpecName(AutocompleteJComboBox accbSpecName) {
+		this.accbSpecName = accbSpecName;
+	}
+
 }

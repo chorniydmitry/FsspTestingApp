@@ -1,4 +1,4 @@
-package ru.fssprus.r82.swing.main.settings;
+package ru.fssprus.r82.swing.main.settingsDialog;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.swing.main.MessageBox;
 import ru.fssprus.r82.utils.ApplicationConfiguration;
 import ru.fssprus.r82.utils.TestFromODSLoader;
@@ -91,7 +92,7 @@ public class SettingsController implements ActionListener, DocumentListener {
 
 	private void doLoadQuestionSet() {
 		settingsDialog.getBtnLoadQuestionsSet().setEnabled(false);
-		new TestFromODSLoader().doOpenODS();
+		new TestFromODSLoader((QuestionLevel) settingsDialog.getCbQuestLevel().getSelectedItem(), settingsDialog.getAccbSpecName().getSelectedItem().toString()).doOpenODS();
 		settingsDialog.getBtnLoadQuestionsSet().setEnabled(true);
 		MessageBox.showReadyDialog(settingsDialog);
 		
