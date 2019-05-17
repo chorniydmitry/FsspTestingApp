@@ -1,5 +1,6 @@
 package ru.fssprus.r82.swing.main.settingsDialog;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -67,7 +68,8 @@ public class SettingsDialog extends JDialog {
 	
 	private JButton btnSave = new JButton("Cохранить изменения");
 	
-	private JButton btnOpen = new JButton("Открыть файл");
+	private JButton btnOpenTextFile = new JButton("Открыть файл");
+	private JTextField tfFilePath = new JTextField();
 	private JPanel pnlAddingSet = new JPanel();
 	private JLabel lblSpecName = new JLabel("Специализация:");
 	private AutocompleteJComboBox accbSpecName;
@@ -90,6 +92,7 @@ public class SettingsDialog extends JDialog {
 		fillTfsList();
 		layoutDialog();
 		
+		setResizable(true);
 		setVisible(true);
 	}
 	
@@ -142,7 +145,6 @@ public class SettingsDialog extends JDialog {
 		accbSpecName.addItem(null);
 		keywords.forEach((n)-> accbSpecName.addItem(n));
 		accbSpecName.setPrototypeDisplayValue("XXXXXXXXXXXXXXXXXXXX");
-		
 	}
 	
 	private ArrayList<String> getSpecsNames() {
@@ -205,34 +207,32 @@ public class SettingsDialog extends JDialog {
 	private void doGridBagAddSetPanel() {
 		pnlAddingSet.setLayout(new GridBagLayout());
 		
-		
 		//gridx, gridy, gridwidth, gridheight, weightx, weighty, anchor, fill, insets(top, left, botom, right), ipadx, ipady
 		
-		
-		
-		
 		// 1st row
-		pnlAddingSet.add(btnOpen, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.NORTHWEST,
-				GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+		pnlAddingSet.add(btnOpenTextFile, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.NORTHWEST,
+				GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
+		
+		pnlAddingSet.add(tfFilePath, new GridBagConstraints(1, 0, 3, 1, 1, 1, GridBagConstraints.NORTHWEST,
+				GridBagConstraints.HORIZONTAL, new Insets(7, 5, 5, 5), 0, 0));
 		
 		// 2nd row
-		pnlAddingSet.add(lblSpecName, new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.NORTHWEST,
+		pnlAddingSet.add(lblSpecName, new GridBagConstraints(0, 1, 2, 1, 1, 0, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.HORIZONTAL, new Insets(5, 5, 0, 5), 0, 0));
 		
-		pnlAddingSet.add(lblQuestLevel, new GridBagConstraints(1, 1, 1, 1, 1, 1, GridBagConstraints.NORTHWEST,
+		pnlAddingSet.add(lblQuestLevel, new GridBagConstraints(2, 1, 2, 1, 1, 0, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.HORIZONTAL, new Insets(5, 5, 0, 5), 0, 0));
 		
 		// 3rd row
-		pnlAddingSet.add(accbSpecName, new GridBagConstraints(0, 2, 1, 1, 1, 1, GridBagConstraints.NORTHWEST,
+		pnlAddingSet.add(accbSpecName, new GridBagConstraints(0, 2, 2, 1, 1, 0, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.HORIZONTAL, new Insets(0, 5, 5, 5), 0, 0));
 		
-		pnlAddingSet.add(cbQuestLevel, new GridBagConstraints(1, 2, 1, 1, 1, 1, GridBagConstraints.NORTHWEST,
+		pnlAddingSet.add(cbQuestLevel, new GridBagConstraints(2, 2, 2, 1, 1, 0, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.HORIZONTAL, new Insets(0, 5, 5, 5), 0, 0));
 		
 		// 4th row
-		pnlAddingSet.add(btnLoadQuestionsSet, new GridBagConstraints(0, 3, 2, 1, 1, 1, GridBagConstraints.NORTHWEST,
+		pnlAddingSet.add(btnLoadQuestionsSet, new GridBagConstraints(0, 3, GridBagConstraints.REMAINDER, 1, 0, 0, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-		
 	}
 
 	private void doGrigBagGroupPanels(JPanel panel, JLabel lbl1, JTextField tf1, JLabel lbl2, JTextField tf2,
@@ -395,6 +395,22 @@ public class SettingsDialog extends JDialog {
 
 	public void setAccbSpecName(AutocompleteJComboBox accbSpecName) {
 		this.accbSpecName = accbSpecName;
+	}
+
+	public JButton getBtnOpenTextFile() {
+		return btnOpenTextFile;
+	}
+
+	public void setBtnOpenTextFile(JButton btnOpenTextFile) {
+		this.btnOpenTextFile = btnOpenTextFile;
+	}
+
+	public JTextField getTfFilePath() {
+		return tfFilePath;
+	}
+
+	public void setTfFilePath(JTextField tfFilePath) {
+		this.tfFilePath = tfFilePath;
 	}
 
 }

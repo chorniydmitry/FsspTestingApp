@@ -9,7 +9,11 @@ public interface SpecificationDao extends ItemDao<Specification> {
 	
 	public List<Specification> getByTitle(int startPos, int endPos, String title);
 	
+	public List<Specification> getAllByTitle(String title);
+	
 	public List<Specification> getByQuestion(int startPos, int endPos, Question questions);
+	
+	public List<Specification> getAllByQuestion(Question questions);
 	
 
 }

@@ -1,5 +1,6 @@
 package ru.fssprus.r82.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import ru.fssprus.r82.dao.SpecificationDao;
@@ -26,6 +27,13 @@ public class SpecificationService {
 	
 	public Specification getByID(Long id) {
 		return specificationDao.getById(id);
+	}
+	public void update(Specification specificationToUpdate) {
+		specificationDao.update(specificationToUpdate);
+	}
+
+	public List<Specification> getByName(String specName) {
+		return specificationDao.getByTitle(-1, -1, specName);
 	}
 	
 }

@@ -33,8 +33,10 @@ public class SpecifiactionDatabaseDao extends AbstractHibernateDao<Specification
 			criteriaQuery.select(root).where(builder.like(root.get("name"), "%" + title + "%"));
 
 			Query<Specification> query = session.createQuery(criteriaQuery);
-			query.setFirstResult(startPos);
-			query.setMaxResults(endPos);
+			if (!(endPos == -1 || startPos == -1)) {
+				query.setFirstResult(startPos);
+				query.setMaxResults(endPos);
+			}
 
 			specificationList = query.getResultList();
 
@@ -45,11 +47,15 @@ public class SpecifiactionDatabaseDao extends AbstractHibernateDao<Specification
 	}
 
 	@Override
+	public List<Specification> getAllByTitle(String title) {
+		return getByTitle(-1, -1, title);
+	}
+
+	@Override
 	public List<Specification> getByQuestion(int startPos, int endPos, Question question) {
 		List<Specification> specList = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
-			
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			CriteriaQuery<Specification> criteriaQuery = builder.createQuery(Specification.class);
 
@@ -57,16 +63,22 @@ public class SpecifiactionDatabaseDao extends AbstractHibernateDao<Specification
 			criteriaQuery.where(root.join("questionList").in(question));
 
 			Query<Specification> query = session.createQuery(criteriaQuery);
-			query.setFirstResult(startPos);
-			query.setMaxResults(endPos);
+			if (!(endPos == -1 || startPos == -1)) {
+				query.setFirstResult(startPos);
+				query.setMaxResults(endPos);
+			}
 
 			specList = query.getResultList();
-			
 
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		}
 		return specList;
+	}
+
+	@Override
+	public List<Specification> getAllByQuestion(Question questions) {
+		return getByQuestion(-1, -1, questions);
 	}
 
 }
