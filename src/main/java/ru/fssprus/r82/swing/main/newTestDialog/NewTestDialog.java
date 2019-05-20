@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import ru.fssprus.r82.entity.QuestionLevel;
+
 public class NewTestDialog extends JDialog {
 	private static final long serialVersionUID = 1342455118946206792L;
 	
@@ -39,9 +41,11 @@ public class NewTestDialog extends JDialog {
 	private JButton btnBegin = new JButton("Начать");
 	private JButton btnCancel = new JButton("Отмена");
 	
-	public NewTestDialog() {
-		setSize(new Dimension(500,300));
+	public NewTestDialog(int width, int height) {
+		setSize(new Dimension(width,height));
 		setLocationRelativeTo(null);
+		setUndecorated(true);
+		setAlwaysOnTop(true);
 		fillRadioButtons();
 		initPanelLevels();
 		layoutComponents();
@@ -54,10 +58,10 @@ public class NewTestDialog extends JDialog {
 	}
 	
 	private void fillRadioButtons() {
-		JRadioButton rb1 = new JRadioButton("Базовый");
-		JRadioButton rb2 = new JRadioButton("Стандартный");
-		JRadioButton rb3 = new JRadioButton("Продвинутый");
-		JRadioButton rb4 = new JRadioButton("Резерв");
+		JRadioButton rb1 = new JRadioButton(QuestionLevel.Базовый.toString());
+		JRadioButton rb2 = new JRadioButton(QuestionLevel.Стандартный.toString());
+		JRadioButton rb3 = new JRadioButton(QuestionLevel.Продвинутый.toString());
+		JRadioButton rb4 = new JRadioButton(QuestionLevel.Резерв.toString());
 		
 		rbLevels.add(rb1);
 		rbLevels.add(rb2);
@@ -89,17 +93,17 @@ public class NewTestDialog extends JDialog {
 				GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
 		
 		// 2nd row
-		this.add(lblSurname, new GridBagConstraints(0, 2, 1, 1, 1, 1, GridBagConstraints.NORTH,
+		this.add(lblName, new GridBagConstraints(0, 2, 1, 1, 1, 1, GridBagConstraints.NORTH,
 				GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
 		
-		this.add(tfSurname, new GridBagConstraints(1, 2, 4, 1, 4, 1, GridBagConstraints.NORTHWEST,
+		this.add(tfName, new GridBagConstraints(1, 2, 4, 1, 4, 1, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
 
 		// 3rd row
-		this.add(lblName, new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.NORTH,
+		this.add(lblSurname, new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.NORTH,
 				GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
 		
-		this.add(tfName, new GridBagConstraints(1, 1, 4, 1, 4, 1, GridBagConstraints.NORTHWEST,
+		this.add(tfSurname, new GridBagConstraints(1, 1, 4, 1, 4, 1, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
 		
 		// 4th row

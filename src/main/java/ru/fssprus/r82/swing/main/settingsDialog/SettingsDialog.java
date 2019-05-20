@@ -83,6 +83,8 @@ public class SettingsDialog extends JDialog {
 	public SettingsDialog(int width, int height) {
 		setSize(new Dimension(width, height));
 		setLocationRelativeTo(null);
+		setUndecorated(true);
+		setAlwaysOnTop(true);
 		
 		initComponents();
 		
@@ -188,10 +190,10 @@ public class SettingsDialog extends JDialog {
 	}
 	
 	private void initGroupPanels() {
-		pnlBase.setBorder(BorderFactory.createTitledBorder("Базовый"));
-		pnlStandart.setBorder(BorderFactory.createTitledBorder("Стандартный"));
-		pnlAdvanced.setBorder(BorderFactory.createTitledBorder("Продвинутый"));
-		pnlReserve.setBorder(BorderFactory.createTitledBorder("Резерв"));
+		pnlBase.setBorder(BorderFactory.createTitledBorder(QuestionLevel.Базовый.toString()));
+		pnlStandart.setBorder(BorderFactory.createTitledBorder(QuestionLevel.Стандартный.toString()));
+		pnlAdvanced.setBorder(BorderFactory.createTitledBorder(QuestionLevel.Продвинутый.toString()));
+		pnlReserve.setBorder(BorderFactory.createTitledBorder(QuestionLevel.Резерв.toString()));
 		
 		pnlAddingSet.setBorder(BorderFactory.createTitledBorder("Загрузка набора вопросов из файла"));
 	}

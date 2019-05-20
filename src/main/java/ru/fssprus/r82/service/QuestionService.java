@@ -1,5 +1,6 @@
 package ru.fssprus.r82.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -16,8 +17,16 @@ public class QuestionService {
 	// TODO: autowired
 	private QuestionDao questionDao = new QuestionDatabaseDao();
 
+	public Question getById(Long id) {
+		return questionDao.getById(id);
+	}
+
 	public List<Question> getByName(int startPos, int endPos, String name) {
 		return questionDao.getByTitle(startPos, endPos, name);
+	}
+
+	public List<Question> getByName(String title) {
+		return questionDao.getAllByTitle(title);
 	}
 
 	public List<Question> getByAnswer(int startPos, int endPos, Answer answer) {
@@ -40,16 +49,12 @@ public class QuestionService {
 		return questionDao.getAmountOfItems();
 	}
 
-	public Question getById(Long id) {
-		return questionDao.getById(id);
-	}
-
 	public List<Question> getAllBySpecification(Specification specification) {
 		return questionDao.getAllBySpecification(specification);
 	}
 
-	public void save(Question questionToSave) {
-		questionDao.add(questionToSave);
+	public List<Question> getAllBySpecificationAndLevel(Specification specification, QuestionLevel level) {
+		return questionDao.getAllBySpecificationAndLevel(specification, level);
 	}
 
 	public List<Question> getByNameAndSpecification(String name, Specification spec) {
@@ -62,21 +67,24 @@ public class QuestionService {
 
 	}
 
-	public List<Question> getByName(String title) {
-		return questionDao.getAllByTitle(title);
-	}
-
 	public void updateSet(HashSet<Question> questions) {
 		for (Question question : questions)
 			update(question);
 	}
 
+	public void save(Question questionToSave) {
+		questionDao.add(questionToSave);
+	}
+
 	public void update(Question question) {
 		List<Question> questionsFound = questionDao.getAllByTitle(question.getTitle());
+
+
 		// Если в БД уже есть вопрос с такой формулировкой
 		if (questionsFound.size() > 0) {
-
-			for (QuestionLevel lvl : questionsFound.get(0).getLevels()) {
+			ArrayList<QuestionLevel> levels = new ArrayList<QuestionLevel>();
+			levels.addAll(questionsFound.get(0).getLevels());
+			for (QuestionLevel lvl : levels) {
 				// Смотрим есть добавлена ли такая сложность для этого вопроса
 				for (QuestionLevel level : question.getLevels())
 					// Если добавлена - ничего не делаем
@@ -106,4 +114,5 @@ public class QuestionService {
 			save(question);
 		}
 	}
+
 }

@@ -22,6 +22,8 @@ public interface QuestionDao extends ItemDao<Question> {
 	
 	public List<Question> getAllBySpecification(Specification spec);
 	
+	public List<Question> getAllBySpecificationAndLevel(Specification spec, QuestionLevel level);
+	
 	public List<Question> getByIds(Set<Long> ids);
 	
 	public List<Question> getByNameAndSpecification(String name, Specification spec);
@@ -32,5 +34,7 @@ public interface QuestionDao extends ItemDao<Question> {
 
 	public List<Question> getByNameSpecificationAndLevel(String name, Set<Specification> specs,
 			Set<QuestionLevel> lvls);
+
+	public List<Question> getBySpecificationAndLevel(int startPos, int endPos, Specification spec, QuestionLevel level);
 
 }

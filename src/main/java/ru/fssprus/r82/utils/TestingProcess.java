@@ -13,6 +13,7 @@ import java.util.Set;
 
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Question;
+import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.entity.Role;
 import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.entity.Test;
@@ -41,8 +42,11 @@ public class TestingProcess {
 	private String userSecondName;
 	private User user;
 	
-	public TestingProcess(List<Specification> specs, List<Integer> amtQuestions) {
+	private String level;
+	
+	public TestingProcess(List<Specification> specs, List<Integer> amtQuestions, String level) {
 		this.specs = specs;
+		this.level = level;
 		loadQuestionsFromDB(specs, amtQuestions);
 		initLists();
 		loadAnswersForQuests();
@@ -60,7 +64,7 @@ public class TestingProcess {
 			questions = new ArrayList<Question>();
 		
 		for(int i = 0; i < specs.size(); i++) {
-			List<Question> allQuestionsList = questService.getAllBySpecification(specs.get(i));
+			List<Question> allQuestionsList = questService.getAllBySpecificationAndLevel(specs.get(i), QuestionLevel.valueOf(level));
 			Random rnd = new Random();
 			Set<Integer> randomIndexesSet = new HashSet<Integer>();
 			
@@ -110,7 +114,7 @@ public class TestingProcess {
 		return correctAnswersAmount;
 	}
 	
-	public void saveResultsToDB(Specification spec, int level, int questTimeSec) {
+	public void saveResultsToDB(Specification spec, int questTimeSec) {
 		countCorrectAnswers();
 		int correctAnswers = correctAnswersAmount;
 		
@@ -118,10 +122,11 @@ public class TestingProcess {
 		test.setCorrectAnswers(correctAnswers);
 		test.setDate(new Date());
 		test.setScore(MarkCounter.countMarkInPercent(questions.size(), correctAnswers));
+		test.setResult(MarkCounter.countInWords(questions.size(), correctAnswers));
 		test.setUser(user);
 		
 		test.setSpecification(specs.get(0));
-		test.setLevel(String.valueOf(level));
+		test.setLevel(level);
 		test.setTestingTime(questTimeSec);
 		test.setTotalQuestions(questions.size());
 		

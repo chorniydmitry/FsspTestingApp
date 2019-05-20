@@ -9,7 +9,7 @@ import javax.swing.table.AbstractTableModel;
 
 public class StatisticsTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 9016326237306342825L;
-	private int columnCount = 7;
+	private int columnCount = 9;
 	private ArrayList<Object[]> onScreenDataList;
 	private List<Color> rowColors = new ArrayList<Color>();
 
@@ -36,8 +36,12 @@ public class StatisticsTableModel extends AbstractTableModel {
         case 4:
         	return "Дата теста";
         case 5:
-        	return "Верных ответов";
+        	return "Время теста";
         case 6:
+        	return "Верных ответов";
+        case 7:
+        	return "%";
+        case 8: 
         	return "Результат";
         }
     return "";
@@ -57,6 +61,7 @@ public class StatisticsTableModel extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 			Object[] rows = onScreenDataList.get(rowIndex);
+
 			return rows[columnIndex];
 	}
 
@@ -82,6 +87,12 @@ public class StatisticsTableModel extends AbstractTableModel {
 	}
 
 	public void setRowColor(int row, Color c) {
+		rowColors.set(row, c);
+		fireTableRowsUpdated(row, row);
+	}
+	
+	public void setRowColor(int row, int color) {
+		Color c = new Color(color);
 		rowColors.set(row, c);
 		fireTableRowsUpdated(row, row);
 	}

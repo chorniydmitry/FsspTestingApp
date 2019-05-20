@@ -1,6 +1,5 @@
 package ru.fssprus.r82.dao.impl;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -20,8 +19,6 @@ import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.entity.Specification;
-import ru.fssprus.r82.service.QuestionService;
-import ru.fssprus.r82.service.SpecificationService;
 import ru.fssprus.r82.utils.HibernateUtil;
 
 public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implements QuestionDao {
@@ -82,6 +79,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 
 		return questionList;
 	}
+	
 
 	@Override
 	public List<Question> getAllByTitle(String title) {
@@ -146,10 +144,44 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 
 		return questionList;
 	}
+	
+	@Override
+	public List<Question> getBySpecificationAndLevel(int startPos, int endPos, Specification spec, QuestionLevel level) {
+		List<Question> questionList = null;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Question> criteriaQuery = builder.createQuery(Question.class);
+
+			Root<Question> root = criteriaQuery.from(Question.class);
+			criteriaQuery.where(
+					root.join("specifications").in(spec),
+					root.join("levels").in(level));
+
+			Query<Question> query = session.createQuery(criteriaQuery);
+
+			if (!(endPos == -1 || startPos == -1)) {
+				query.setFirstResult(startPos);
+				query.setMaxResults(endPos);
+			}
+
+			questionList = query.getResultList();
+
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		}
+
+		return questionList;
+	}
 
 	@Override
 	public List<Question> getAllBySpecification(Specification spec) {
 		return getBySpecification(-1, -1, spec);
+	}
+
+	@Override
+	public List<Question> getAllBySpecificationAndLevel(Specification spec, QuestionLevel level) {
+		return getBySpecificationAndLevel(-1, -1, spec, level);
 	}
 
 	@Override

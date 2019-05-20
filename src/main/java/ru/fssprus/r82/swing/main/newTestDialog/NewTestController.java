@@ -74,7 +74,7 @@ public class NewTestController implements ActionListener {
 		TestingProcess tp = initNewTestingProcess(specs, selectedLevel);
 		fillUserInfo(tp, userName, userSurname, userSecondName);
 
-		new TestController(new TestDialog(), specs, tp, selectedLevel);
+		new TestController(new TestDialog(1000, 800), specs, tp, selectedLevel);
 		view.dispose();
 
 	}
@@ -151,9 +151,18 @@ public class NewTestController implements ActionListener {
 		amountQuestionsForSpecs.add(specQuestsAmount);
 		amountQuestionsForSpecs.add(commonQuestsAmount);
 
-		TestingProcess testingProcess = new TestingProcess(specs, amountQuestionsForSpecs);
+		TestingProcess testingProcess = new TestingProcess(specs, amountQuestionsForSpecs, getSelectedLevel());
 
 		return testingProcess;
+	}
+	
+	private String getSelectedLevel() {
+		ArrayList<JRadioButton> rbs = view.getRbLevels();
+		for (int i = 0; i < rbs.size(); i++) {
+			if (rbs.get(i).isSelected()) 
+				return rbs.get(i).getText();
+		}
+		return null;
 	}
 
 	public NewTestDialog getView() {

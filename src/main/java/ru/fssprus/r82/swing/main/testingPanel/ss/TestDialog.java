@@ -42,10 +42,11 @@ public class TestDialog extends JDialog {
 	
 	private boolean isPaused = false;
 	
-	public TestDialog() {
-		setSize(1000, 800);
+	public TestDialog(int width, int height) {
+		setSize(width, height);
 		setLocationRelativeTo(null);
-		//setUndecorated(true);
+		setUndecorated(true);
+		setAlwaysOnTop(true);
 		setResizable(false);
 		initPanel();
 		getRootPane().setDefaultButton(btnNext);

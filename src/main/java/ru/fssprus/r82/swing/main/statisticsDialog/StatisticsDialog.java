@@ -13,6 +13,10 @@ public class StatisticsDialog extends JDialog {
 	public StatisticsDialog(int width, int heigth) {
 		setSize(new Dimension(width, heigth));
 		setLocationRelativeTo(null);
+		setUndecorated(true);
+		setAlwaysOnTop(true);
+		setUndecorated(true);
+		setAlwaysOnTop(true);
 		
 		init();
 		
