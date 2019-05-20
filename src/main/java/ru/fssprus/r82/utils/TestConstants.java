@@ -15,5 +15,10 @@ public class TestConstants {
 	public static final int STANDART_COMMONS = Integer.parseInt(ApplicationConfiguration.getItem("standart.common.percent"));
 	public static final int ADVANCED_COMMONS = Integer.parseInt(ApplicationConfiguration.getItem("advanced.common.percent"));
 	public static final int RESERVE_COMMONS = Integer.parseInt(ApplicationConfiguration.getItem("reserve.common.percent"));
+	
+	public static final String BASE_CAPTION = "Базовый";
+	public static final String STANDART_CAPTION = "Стандартный";
+	public static final String ADVANSED_CAPTION = "Продвинутый";
+	public static final String RESERVE_CAPTION = "Резерв";
 
 }

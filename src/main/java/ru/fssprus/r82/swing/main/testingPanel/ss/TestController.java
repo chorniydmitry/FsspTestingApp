@@ -25,14 +25,12 @@ public class TestController extends ControllerWithTimer implements ActionListene
 	private TestDialog testDialog;
 	private TestingProcess testingProcess;
 	private int questTimeSec;
-	private int level;
 
 	public TestController(TestDialog testDialog, List<Specification> specs, 
 			TestingProcess testingProcess, int selectedLevel) {
 		this.testingProcess = testingProcess;
 		this.testDialog = testDialog;
 		this.specs = specs;
-		this.level = selectedLevel;
 
 		setListeners();
 
@@ -131,7 +129,7 @@ public class TestController extends ControllerWithTimer implements ActionListene
 	
 	private void doFinishAction() {
 		testDialog.dispose();
-		testingProcess.saveResultsToDB(specs.get(0), level+1, (questTimeSec - getTimeLeft()));
+		testingProcess.saveResultsToDB(specs.get(0), (questTimeSec - getTimeLeft()));
 	}
 
 	private void doNextUnansweredAction() {

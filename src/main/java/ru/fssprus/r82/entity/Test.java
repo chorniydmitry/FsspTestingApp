@@ -28,6 +28,9 @@ public class Test extends Model {
 	@Column(name="score")
 	private int score;
 	
+	@Column(name="result")
+	private String result;
+	
 	@Column(name="testing_time")
 	private int testingTime;
 	
@@ -109,4 +112,13 @@ public class Test extends Model {
 	public void setSpecification(Specification specification) {
 		this.specification = specification;
 	}
+
+	public String getResult() {
+		return result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
+	}
+	
 }

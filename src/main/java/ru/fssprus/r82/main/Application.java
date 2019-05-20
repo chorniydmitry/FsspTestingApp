@@ -21,6 +21,7 @@ import ru.fssprus.r82.dao.impl.QuestionDatabaseDao;
 import ru.fssprus.r82.dao.impl.SpecifiactionDatabaseDao;
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Question;
+import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.service.AnswerService;
 import ru.fssprus.r82.service.QuestionService;
@@ -227,43 +228,23 @@ public class Application {
 		    } 
 		}
 	}
-	
-	public static void resultingDialogTest() {
-		ResultingDialog dialog = new ResultingDialog(400,250);
-    	dialog.setCaptions(10,
-    			20,
-    			"asdasd",
-    			"adsasd",
-    			"не удовлетворительно", 
-    			"A");
-    	
-    	dialog.setMarkColor(Color.GREEN);
-    	
-    	new ResultingController(dialog, new TestingProcess(null, null));
-	}
 
-	
-	public static void testMultSpecsTest() {
-		SpecificationService specificationService = new SpecificationService();
-		List<Specification> specList = specificationService.getByName(0, 1, "ОБЩИЕ");
-		specList.add(specificationService.getByName(0, 1, "Информатизация").get(0));
-		
-		List<Integer> amtForSpecs = new ArrayList<Integer>();
-		amtForSpecs.add(10);
-		amtForSpecs.add(5);
-		
-		TestingProcess process = new TestingProcess(specList, amtForSpecs);
-		
-		List<Question> questionsList = process.getQuestions();
-		
-		questionsList.forEach((n) -> System.out.println(n.getSpecifications().toString() +" "+ n.getTitle()));
-	}
-	
 	public static void testSettingsDialog() {
 		
 		SettingsDialog sd = new SettingsDialog(800, 600);
 		new SettingsController(sd);
 
+	}
+	
+	public static void testGetAllBySpecAndLevel() {
+		QuestionService qservice = new QuestionService();
+		SpecificationService sservice = new SpecificationService();
+		
+		Specification spec = sservice.getByName("Информатизация").get(0);
+		
+		List<Question> questions = qservice.getAllBySpecificationAndLevel(spec, QuestionLevel.Стандартный);
+	
+		questions.forEach((n) -> System.out.println(n));
 	}
 
 	
@@ -275,6 +256,7 @@ public class Application {
 			//getKeyCodes();
 			//resultingDialogTest();
 			//loadFromODS();
+		//testGetAllBySpecAndLevel();
 			appStart();
 		//	testSettingsDialog();
 			//testMultSpecsTest();

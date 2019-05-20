@@ -16,7 +16,6 @@ import ru.fssprus.r82.swing.main.statisticsDialog.StatisticsDialog;
 
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = -354084726011189758L;
-	
 	private JButton btnTest = new JButton("Тестирование");
 	private JButton btnSetting = new JButton("Настройки");
 	private JButton btnStatistics = new JButton("Статистика");
@@ -43,13 +42,12 @@ public class MainFrame extends JFrame {
 		btnTest.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				NewTestDialog newTestDialog = new NewTestDialog();
+				NewTestDialog newTestDialog = new NewTestDialog(500, 300);
 				new NewTestController(newTestDialog);
 			}
 		});
 		
 		btnSetting.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				SettingsDialog sd = new SettingsDialog(800, 600);
@@ -58,22 +56,17 @@ public class MainFrame extends JFrame {
 		});
 		
 		btnStatistics.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new StatisticsController(new StatisticsDialog(800, 600));
+				new StatisticsController(new StatisticsDialog(900, 600));
 			}
 		});
+		
 		btnExit.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.exit(1);
-				
 			}
 		});
 	}
-	
-	
-	
 }
