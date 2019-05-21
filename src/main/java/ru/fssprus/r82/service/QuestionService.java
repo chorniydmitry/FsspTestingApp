@@ -79,9 +79,18 @@ public class QuestionService {
 	public void update(Question question) {
 		List<Question> questionsFound = questionDao.getAllByTitle(question.getTitle());
 
-
+		int AnsOverlaps = 0;
 		// Если в БД уже есть вопрос с такой формулировкой
 		if (questionsFound.size() > 0) {
+
+			for (Answer answerFound : questionsFound.get(0).getAnswers()) {
+				for (Answer answerQuest : question.getAnswers()) {
+					if (answerQuest.getTitle() == answerFound.getTitle())
+						AnsOverlaps++;
+				}
+			}
+		}
+		if (AnsOverlaps >= 5) {
 			ArrayList<QuestionLevel> levels = new ArrayList<QuestionLevel>();
 			levels.addAll(questionsFound.get(0).getLevels());
 			for (QuestionLevel lvl : levels) {
@@ -96,21 +105,32 @@ public class QuestionService {
 						questionDao.update(questionsFound.get(0));
 					}
 			}
-			// Если вопроса с такой формулировкой нет - сохраняем его в БД
+
+		// Если вопроса с такой формулировкой нет - сохраняем его в БД
 		} else {
 			SpecificationService sService = new SpecificationService();
 
 			String specName = question.getSpecifications().iterator().next().getName().toString();
 
-			Set<Specification> ss = new HashSet<Specification>(sService.getByName(specName));
+			// Общие вопросы одинаковы для всех сложностей
+			if (specName.toUpperCase().equals("ОБЩИЕ")) {
+				HashSet<QuestionLevel> levels = new HashSet<QuestionLevel>();
+				levels.add(QuestionLevel.Базовый);
+				levels.add(QuestionLevel.Продвинутый);
+				levels.add(QuestionLevel.Стандартный);
+				levels.add(QuestionLevel.Резерв);
+				question.setLevels(levels);
+			}
+
+			Set<Specification> specsSet = new HashSet<Specification>(sService.getByName(specName));
 
 			if (sService.getByName(specName).size() == 0) {
 				Specification spec = new Specification();
 				spec.setName(specName);
-				ss.add(spec);
+				specsSet.add(spec);
 			}
 
-			question.setSpecifications(ss);
+			question.setSpecifications(specsSet);
 			save(question);
 		}
 	}

@@ -81,7 +81,7 @@ public class TestFromODSLoader {
 			HashSet<Answer> answers = new HashSet<Answer>();
 			// Собираем ответы их правильность (подразумевая, что максимально возможно
 			// количество = 5)
-			for (int i = 0; i <= 5; i++) {
+			for (int i = 0; i <= sheet.getColumnCount(); i++) {
 				int ansIndex = i * 2 + 3;
 				String currAnswer = sheet.getCellAt(ansIndex, currRow).getValue().toString();
 				boolean isAnswerCorrect = "1".equals(sheet.getCellAt(ansIndex + 1, currRow).getValue().toString());

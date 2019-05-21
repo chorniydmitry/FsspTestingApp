@@ -45,9 +45,8 @@ public class TestDialog extends JDialog {
 	public TestDialog(int width, int height) {
 		setSize(width, height);
 		setLocationRelativeTo(null);
-		setUndecorated(true);
-		setAlwaysOnTop(true);
 		setResizable(false);
+		setAlwaysOnTop(true);
 		initPanel();
 		getRootPane().setDefaultButton(btnNext);
 		setVisible(true);

@@ -83,7 +83,7 @@ public class SettingsDialog extends JDialog {
 	public SettingsDialog(int width, int height) {
 		setSize(new Dimension(width, height));
 		setLocationRelativeTo(null);
-		setUndecorated(true);
+		setResizable(false);
 		setAlwaysOnTop(true);
 		
 		initComponents();

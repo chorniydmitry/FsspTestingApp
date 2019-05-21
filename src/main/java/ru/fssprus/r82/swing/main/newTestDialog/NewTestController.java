@@ -37,7 +37,7 @@ public class NewTestController implements ActionListener {
 		view.getCbSpecification().addItem(null);
 
 		for (Specification spec : specList) {
-			if(spec.getName().equals("ОБЩИЕ"))
+			if(spec.getName().toUpperCase().equals("ОБЩИЕ"))
 				continue;
 			view.getCbSpecification().addItem(spec.getName());
 		}

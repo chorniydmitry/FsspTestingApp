@@ -1,6 +1,6 @@
 package ru.fssprus.r82.main;
 
-import java.awt.Color;
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -27,12 +27,9 @@ import ru.fssprus.r82.service.AnswerService;
 import ru.fssprus.r82.service.QuestionService;
 import ru.fssprus.r82.service.SpecificationService;
 import ru.fssprus.r82.swing.main.mainFrame.MainFrame;
-import ru.fssprus.r82.swing.main.resultingDialog.ResultingController;
-import ru.fssprus.r82.swing.main.resultingDialog.ResultingDialog;
 import ru.fssprus.r82.swing.main.settingsDialog.SettingsController;
 import ru.fssprus.r82.swing.main.settingsDialog.SettingsDialog;
-import ru.fssprus.r82.utils.TestFromODSLoader;
-import ru.fssprus.r82.utils.TestingProcess;
+import ru.fssprus.r82.utils.SpreadSheetParser;
 
 public class Application {
 	
@@ -246,7 +243,6 @@ public class Application {
 	
 		questions.forEach((n) -> System.out.println(n));
 	}
-
 	
 	public static void main(String[] args) throws IOException {
 	//	try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -256,9 +252,10 @@ public class Application {
 			//getKeyCodes();
 			//resultingDialogTest();
 			//loadFromODS();
-		//testGetAllBySpecAndLevel();
+			//testGetAllBySpecAndLevel();
+		
 			appStart();
-		//	testSettingsDialog();
+			//testSettingsDialog();
 			//testMultSpecsTest();
 			//testCorrectAnswersByQuestiosSet();
 			//testing3();

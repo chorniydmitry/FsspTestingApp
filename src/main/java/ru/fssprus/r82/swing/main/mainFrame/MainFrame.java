@@ -24,6 +24,7 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setUndecorated(true);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		setLayout(new FlowLayout());

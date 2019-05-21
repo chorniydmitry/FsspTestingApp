@@ -44,7 +44,7 @@ public class NewTestDialog extends JDialog {
 	public NewTestDialog(int width, int height) {
 		setSize(new Dimension(width,height));
 		setLocationRelativeTo(null);
-		setUndecorated(true);
+		setResizable(false);
 		setAlwaysOnTop(true);
 		fillRadioButtons();
 		initPanelLevels();

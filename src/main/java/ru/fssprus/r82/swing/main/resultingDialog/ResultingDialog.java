@@ -26,13 +26,15 @@ public class ResultingDialog extends JDialog {
 	private Color markColor = new Color(0x000000);
 
 	public ResultingDialog(int width, int height) {
-		this.setSize(width, height);
-		this.setLocationRelativeTo(null);
+		setSize(width, height);
+		setLocationRelativeTo(null);
+		setResizable(false);
+		setAlwaysOnTop(true);
 
 		initFonts();
 		layoutComponents();
 
-		this.setVisible(true);
+		setVisible(true);
 	}
 
 	private void initFonts() {

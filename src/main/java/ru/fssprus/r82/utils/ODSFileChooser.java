@@ -22,9 +22,12 @@ public class ODSFileChooser {
 
 	public File selectODSFileToOpen() {
 		JFileChooser fileChooser = new JFileChooser();
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("ODS FILES", "ods", "ods");
-		fileChooser.setFileFilter(filter);
-		return selectFileOption(fileChooser.showOpenDialog(null), fileChooser, ".ods");
+		FileNameExtensionFilter filterODS = new FileNameExtensionFilter("ODS FILES", "ods", "ods");
+		FileNameExtensionFilter filterXSLX = new FileNameExtensionFilter("XSLSX FILES", "xslx", "xlsx");
+		fileChooser.addChoosableFileFilter(filterODS);
+		fileChooser.addChoosableFileFilter(filterXSLX);
+		return selectFileOption(fileChooser.showOpenDialog(null), fileChooser, "");
 	}
+	
 
 }

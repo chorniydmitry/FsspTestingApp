@@ -36,5 +36,9 @@ public class SpecificationService {
 		return specificationDao.getByTitle(-1, -1, specName);
 	}
 	
+	public void save(Specification spec) {
+		specificationDao.add(spec);
+	}
+	
 }
 	
