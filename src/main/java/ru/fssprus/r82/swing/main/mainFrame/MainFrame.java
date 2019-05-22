@@ -1,5 +1,6 @@
 package ru.fssprus.r82.swing.main.mainFrame;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +22,7 @@ public class MainFrame extends JFrame {
 	private JButton btnStatistics = new JButton("Статистика");
 	private JButton btnExit = new JButton("Выход");
 	
+	private Dimension dimButtonSize = new Dimension(150, 150);
 	public MainFrame() {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setUndecorated(true);
@@ -28,6 +30,11 @@ public class MainFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		setLayout(new FlowLayout());
+		
+		btnTest.setPreferredSize(dimButtonSize);
+		btnSetting.setPreferredSize(dimButtonSize);
+		btnStatistics.setPreferredSize(dimButtonSize);
+		btnExit.setPreferredSize(dimButtonSize);
 		
 		add(btnTest);
 		add(btnSetting);
@@ -43,7 +50,7 @@ public class MainFrame extends JFrame {
 		btnTest.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				NewTestDialog newTestDialog = new NewTestDialog(500, 300);
+				NewTestDialog newTestDialog = new NewTestDialog(600, 300);
 				new NewTestController(newTestDialog);
 			}
 		});

@@ -14,7 +14,6 @@ import java.util.Set;
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.entity.QuestionLevel;
-import ru.fssprus.r82.entity.Role;
 import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.entity.Test;
 import ru.fssprus.r82.entity.User;
@@ -50,10 +49,15 @@ public class TestingProcess {
 		loadQuestionsFromDB(specs, amtQuestions);
 		initLists();
 		loadAnswersForQuests();
+		test();
+	}
+	
+	private void test() {
+		
 	}
 
 	private void initLists() {
-		correctAnswers = new ArrayList<Integer>();
+		correctAnswers = new ArrayList<Integer>(questions.size());
 		choises = new ArrayList<Integer>(Collections.nCopies(questions.size(), -1));
 		correctUserAnswersList = new ArrayList<Boolean>(Collections.nCopies(questions.size(), false));
 		answersMap = new HashMap<Integer, List<Answer>>();
@@ -163,10 +167,12 @@ public class TestingProcess {
 	
 	private boolean loadAnswersForQuests() {
 		for (int i = 0; i < getQuestions().size(); i++) {
-			List<Answer> ansList = answerService.getAllByQuestion(0, 10, getQuestions().get(i));
+			List<Answer> ansList = answerService.getAllByQuestion(0, 20, getQuestions().get(i));
+			
 			for (int j = 0; j < ansList.size(); j++) {
-				if (ansList.get(j).getIsCorrect())
+				if (ansList.get(j).getIsCorrect()) {
 					correctAnswers.add(j);
+				}
 			}
 			setAnswersForQuestion(i, ansList);
 		}
@@ -244,14 +250,10 @@ public class TestingProcess {
 
 	private void createNewUser(String userName, String userSurname, String userSecondName) {
 		user = new User();
-		Role role = Role.USER;
-		Set<Role> roles = new HashSet<Role>();
-		roles.add(role);
 		
 		user.setName(userName);
 		user.setSecondName(userSecondName);
 		user.setSurname(userSurname);
-		user.setRoles(roles);
 		
 		userService.add(user);
 	}

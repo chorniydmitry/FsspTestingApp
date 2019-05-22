@@ -1,6 +1,5 @@
 package ru.fssprus.r82.service;
 
-import java.util.Collection;
 import java.util.List;
 
 import ru.fssprus.r82.dao.SpecificationDao;

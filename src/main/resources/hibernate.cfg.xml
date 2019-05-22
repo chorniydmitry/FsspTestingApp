@@ -3,7 +3,7 @@
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
         "http://www.hibernate.org/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory>
+	<session-factory>
 		<property name="connetcion.driver_class">org.h2.Driver</property>
 		<property name="connection.url">jdbc:h2:./test</property>
 		<property name="connection.username">root</property>
@@ -12,13 +12,22 @@
 		<property name="show_sql">false</property>
 		<property name="hbm2ddl.auto">update</property>
 		<property name="connection.autocommit">true</property>
-		
-      	<mapping class="ru.fssprus.r82.entity.Answer"></mapping>
-      	<mapping class="ru.fssprus.r82.entity.Question"></mapping>
-      	<mapping class="ru.fssprus.r82.entity.Specification"></mapping>
-      	<mapping class="ru.fssprus.r82.entity.Role"></mapping>
-      	<mapping class="ru.fssprus.r82.entity.Test"></mapping>
-      	<mapping class="ru.fssprus.r82.entity.User"></mapping>
-      	
-    </session-factory>
+
+		<property name="connection.CharSet">utf8</property>
+		<property name="connection.characterEncoding">utf8</property>
+		<property name="connection.useUnicode">true</property>
+		<property name="hibernate.connection.CharSet">utf8</property>
+		<property name="hibernate.connection.characterEncoding">utf8</property>
+		<property name="hibernate.connection.useUnicode">true</property>
+		<property name="hibernate.hbm2ddl.charset_name">UTF-8</property>
+		<property name="hbm2ddl.charset_name">UTF-8</property>
+
+		<mapping class="ru.fssprus.r82.entity.Answer"></mapping>
+		<mapping class="ru.fssprus.r82.entity.Question"></mapping>
+		<mapping class="ru.fssprus.r82.entity.QuestionLevel"></mapping>
+		<mapping class="ru.fssprus.r82.entity.Specification"></mapping>
+		<mapping class="ru.fssprus.r82.entity.Test"></mapping>
+		<mapping class="ru.fssprus.r82.entity.User"></mapping>
+
+	</session-factory>
 </hibernate-configuration>

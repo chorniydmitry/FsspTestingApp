@@ -6,7 +6,6 @@ import java.io.IOException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.jopendocument.dom.spreadsheet.Range;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
 
 public class SpreadSheetAdapter {
@@ -90,7 +89,7 @@ public class SpreadSheetAdapter {
 			org.apache.poi.ss.usermodel.Cell cell = row.getCell(columnIndex);
 
 			if (cell.getCellType() == org.apache.poi.ss.usermodel.Cell.CELL_TYPE_NUMERIC) {
-				return String.valueOf(cell.getNumericCellValue());
+				return String.valueOf((int)cell.getNumericCellValue());
 			}
 			if (cell.getCellType() == org.apache.poi.ss.usermodel.Cell.CELL_TYPE_STRING) {
 				return cell.getStringCellValue();

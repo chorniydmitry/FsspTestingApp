@@ -20,7 +20,7 @@ import ru.fssprus.r82.service.QuestionService;
 import ru.fssprus.r82.service.SpecificationService;
 import ru.fssprus.r82.swing.main.MessageBox;
 import ru.fssprus.r82.utils.ApplicationConfiguration;
-import ru.fssprus.r82.utils.ODSFileChooser;
+import ru.fssprus.r82.utils.TestFileChooser;
 import ru.fssprus.r82.utils.SpreadSheetParser;
 
 public class SettingsController implements ActionListener, DocumentListener {
@@ -81,7 +81,7 @@ public class SettingsController implements ActionListener, DocumentListener {
 	}
 
 	private void doOpenTestFile() {
-		ODSFileChooser chooser = new ODSFileChooser();
+		TestFileChooser chooser = new TestFileChooser();
 		testFile = chooser.selectODSFileToOpen();
 		if (testFile != null)
 			try {

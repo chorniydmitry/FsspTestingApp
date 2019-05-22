@@ -70,7 +70,7 @@ public class NewTestController implements ActionListener {
 		int selectedLevel = view.getSelectedLevelIndex();
 		
 		List<Specification> specs = service.getByName(0, 1, userSelectedSpec);
-		specs.add(service.getByName(0, 1, "ОБЩИЕ").get(0));
+		specs.add(service.getByName(0, 1, "Общие").get(0));
 		TestingProcess tp = initNewTestingProcess(specs, selectedLevel);
 		fillUserInfo(tp, userName, userSurname, userSecondName);
 

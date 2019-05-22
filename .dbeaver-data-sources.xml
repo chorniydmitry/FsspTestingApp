@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data-sources>
-	<data-source id="h2_embedded-169c929ed80-33f5b80c16dbf6ed" provider="generic" driver="h2_embedded" name="H2 - testing" save-password="true" read-only="false">
-		<connection server="" database="./testing" url="jdbc:h2:./testing" user="root" password="QlZVdBQVJPc=" type="dev"/>
+	<data-source id="h2_embedded-16adec22e1b-1f208198ba565a2e" provider="generic" driver="h2_embedded" name="H2 - test" save-password="true" read-only="false">
+		<connection server="" database="./test" url="jdbc:h2:./test" user="root" password="QlZVdBQVJPc=" type="dev"/>
 	</data-source>
 	<filters/>
 </data-sources>
