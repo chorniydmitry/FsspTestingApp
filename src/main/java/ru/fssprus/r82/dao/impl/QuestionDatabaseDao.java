@@ -272,6 +272,27 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 		return questionList;
 	}
 
+	@Override
+	public int countBySpecificationAndLevel(Specification spec, QuestionLevel level) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Object> criteriaQuery = builder.createQuery();
+			Root<Question> root = criteriaQuery.from(Question.class);
+
+			criteriaQuery.select(builder.count(root));
+			criteriaQuery.where(root.join("specifications").in(spec),
+					root.join("levels").in(level));
+
+			TypedQuery<Object> q = session.createQuery(criteriaQuery);
+			return Integer.parseInt(q.getSingleResult().toString());
+
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+
 //  Получить список вопросов по списку id и спецификации
 //	select q.title, s.name
 //	from question as q, specification as s 

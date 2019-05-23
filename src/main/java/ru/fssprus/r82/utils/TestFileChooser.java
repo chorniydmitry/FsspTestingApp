@@ -20,7 +20,7 @@ public class TestFileChooser {
 		return file;
 	}
 
-	public File selectODSFileToOpen() {
+	public File selectSpreadSheetFileToOpen() {
 		JFileChooser fileChooser = new JFileChooser();
 		FileNameExtensionFilter filterODS = new FileNameExtensionFilter("ODS FILES", "ods", "ods");
 		FileNameExtensionFilter filterXSLX = new FileNameExtensionFilter("XSLSX FILES", "xslx", "xlsx");

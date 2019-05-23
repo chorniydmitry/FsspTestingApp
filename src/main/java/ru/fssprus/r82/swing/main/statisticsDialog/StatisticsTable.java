@@ -27,7 +27,7 @@ public class StatisticsTable extends JTable{
 		setDragEnabled(true);
 		setDropMode(DropMode.INSERT_ROWS);
 		//table.setTransferHandler(new TableRowTransferHandler(table));
-		setDefaultRenderer(Object.class, new StatisticsTableCellRenderer());
+		setDefaultRenderer(Object.class, new TableCellRenderer());
 
 		updateColumnWidths();
 	}

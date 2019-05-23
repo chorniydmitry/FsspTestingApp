@@ -82,7 +82,7 @@ public class SettingsController implements ActionListener, DocumentListener {
 
 	private void doOpenTestFile() {
 		TestFileChooser chooser = new TestFileChooser();
-		testFile = chooser.selectODSFileToOpen();
+		testFile = chooser.selectSpreadSheetFileToOpen();
 		if (testFile != null)
 			try {
 				settingsDialog.getTfFilePath().setText(testFile.getCanonicalFile().getPath());

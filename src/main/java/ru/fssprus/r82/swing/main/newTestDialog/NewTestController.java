@@ -8,7 +8,10 @@ import java.util.List;
 
 import javax.swing.JRadioButton;
 
+import ru.fssprus.r82.entity.Question;
+import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.entity.Specification;
+import ru.fssprus.r82.service.QuestionService;
 import ru.fssprus.r82.service.SpecificationService;
 import ru.fssprus.r82.swing.main.testingPanel.ss.TestController;
 import ru.fssprus.r82.swing.main.testingPanel.ss.TestDialog;
@@ -28,6 +31,8 @@ public class NewTestController implements ActionListener {
 	private void addActionListeners() {
 		view.getBtnBegin().addActionListener(this);
 		view.getBtnCancel().addActionListener(this);
+		
+		view.getCbSpecification().addActionListener(this);
 	}
 
 	private void loadSpecificationList() {
@@ -42,9 +47,27 @@ public class NewTestController implements ActionListener {
 			view.getCbSpecification().addItem(spec.getName());
 		}
 	}
+	private void doCheckSpecAndLevels() {
+		
+		view.getRbLevels().forEach((n) -> n.setEnabled(true));
+		
+		QuestionService qService = new QuestionService();
+		SpecificationService sService = new SpecificationService();
+		Specification specification = sService.getUniqueByName(String.valueOf(view.getCbSpecification().
+				getSelectedItem()));
+		
+		for (int i = 0; i < QuestionLevel.values().length; i++) {
+			int qPerLvl = qService.countBySpecificationAndLevel(specification, QuestionLevel.values()[i]);
+			if(qPerLvl == 0 || qPerLvl < TestConstants.BASE_QUESTS) 
+				view.getRbLevels().get(i).setEnabled(false);
+		}
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == view.getCbSpecification()) {
+			doCheckSpecAndLevels();
+		}
 		if (e.getSource() == view.getBtnBegin())
 			doBegin();
 		if (e.getSource() == view.getBtnCancel())

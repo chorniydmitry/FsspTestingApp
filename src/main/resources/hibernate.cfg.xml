@@ -28,6 +28,7 @@
 		<mapping class="ru.fssprus.r82.entity.Specification"></mapping>
 		<mapping class="ru.fssprus.r82.entity.Test"></mapping>
 		<mapping class="ru.fssprus.r82.entity.User"></mapping>
+		<mapping class="ru.fssprus.r82.entity.Password"></mapping>
 
 	</session-factory>
 </hibernate-configuration>

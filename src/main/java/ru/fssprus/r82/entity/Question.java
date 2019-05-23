@@ -18,7 +18,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="question")
-public class Question extends Model{
+public class Question extends Model {
 	@Column(name="title", length=2048)
 	private String title;
 	

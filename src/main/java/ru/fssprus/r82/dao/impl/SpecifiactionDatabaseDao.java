@@ -50,6 +50,13 @@ public class SpecifiactionDatabaseDao extends AbstractHibernateDao<Specification
 	public List<Specification> getAllByTitle(String title) {
 		return getByTitle(-1, -1, title);
 	}
+	
+	@Override
+	public Specification getUniqueByTitle(String title) {
+		if(getAllByTitle(title).size() == 0)
+			return null;
+		return getAllByTitle(title).get(0);
+	}
 
 	@Override
 	public List<Specification> getByQuestion(int startPos, int endPos, Question question) {

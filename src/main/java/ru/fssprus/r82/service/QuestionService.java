@@ -74,6 +74,10 @@ public class QuestionService {
 	public void save(Question questionToSave) {
 		questionDao.add(questionToSave);
 	}
+	
+	public int countBySpecificationAndLevel(Specification spec, QuestionLevel level) {
+		return questionDao.countBySpecificationAndLevel(spec, level);
+	}
 
 	public void update(Question question) {
 		List<Question> questionsFound = questionDao.getAllByTitle(question.getTitle());
@@ -89,7 +93,7 @@ public class QuestionService {
 				}
 			}
 		}
-		if (AnsOverlaps >= 5) {
+		if (AnsOverlaps >= question.getAnswers().size()) {
 			ArrayList<QuestionLevel> levels = new ArrayList<QuestionLevel>();
 			levels.addAll(questionsFound.get(0).getLevels());
 			for (QuestionLevel lvl : levels) {

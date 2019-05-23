@@ -52,6 +52,7 @@ public class NewTestDialog extends JDialog {
 		setVisible(true);
 	}
 	
+	
 	private void initPanelLevels() {
 		pnlLevels.setLayout(new FlowLayout());
 		rbLevels.forEach((n) -> pnlLevels.add(n));
@@ -72,6 +73,8 @@ public class NewTestDialog extends JDialog {
 		bgLevels.add(rb2);
 		bgLevels.add(rb3);
 		bgLevels.add(rb4);
+		
+		getRbLevels().forEach((n) -> n.setEnabled(false));
 	}
 	
 	public void resetUserInputComponents() {

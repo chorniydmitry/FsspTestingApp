@@ -35,6 +35,10 @@ public class SpecificationService {
 		return specificationDao.getByTitle(-1, -1, specName);
 	}
 	
+	public Specification getUniqueByName(String title) {
+		return specificationDao.getUniqueByTitle(title);
+	}
+	
 	public void save(Specification spec) {
 		specificationDao.add(spec);
 	}
