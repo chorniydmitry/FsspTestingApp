@@ -35,14 +35,14 @@ public class TestingProcess {
 	private QuestionService questService = new QuestionService();
 	private AnswerService answerService = new AnswerService();
 	private UserService userService = new UserService();
-	
+
 	private String userName;
 	private String userSurname;
 	private String userSecondName;
 	private User user;
-	
+
 	private String level;
-	
+
 	public TestingProcess(List<Specification> specs, List<Integer> amtQuestions, String level) {
 		this.specs = specs;
 		this.level = level;
@@ -51,9 +51,9 @@ public class TestingProcess {
 		loadAnswersForQuests();
 		test();
 	}
-	
+
 	private void test() {
-		
+
 	}
 
 	private void initLists() {
@@ -66,19 +66,21 @@ public class TestingProcess {
 	private void loadQuestionsFromDB(List<Specification> specs, List<Integer> amtQuestions) {
 		if (questions == null)
 			questions = new ArrayList<Question>();
-		
-		for(int i = 0; i < specs.size(); i++) {
-			List<Question> allQuestionsList = questService.getAllBySpecificationAndLevel(specs.get(i), QuestionLevel.valueOf(level));
+
+		for (int i = 0; i < specs.size(); i++) {
+			List<Question> allQuestionsList = questService.getAllBySpecificationAndLevel(specs.get(i),
+					QuestionLevel.valueOf(level));
+			
 			Random rnd = new Random();
 			Set<Integer> randomIndexesSet = new HashSet<Integer>();
-			
+
 			do {
 				randomIndexesSet.add(rnd.nextInt(allQuestionsList.size()));
-				
-			} while(randomIndexesSet.size() < amtQuestions.get(i));
-			
+
+			} while (randomIndexesSet.size() < amtQuestions.get(i));
+
 			randomIndexesSet.forEach((n) -> questions.add(allQuestionsList.get(n)));
-			
+
 			Collections.shuffle(questions);
 		}
 	}
@@ -90,50 +92,47 @@ public class TestingProcess {
 				i++;
 		correctAnswersAmount = i;
 	}
-	
+
 	public String getMarkOneToFive() {
-		return String.valueOf(
-				MarkCounter.countInOneToFive(questions.size(), correctAnswersAmount));
+		return String.valueOf(MarkCounter.countInOneToFive(questions.size(), correctAnswersAmount));
 	}
-	
+
 	public String getMarkLetter() {
-		return String.valueOf(
-				MarkCounter.countMarkInECTS(questions.size(), correctAnswersAmount));
+		return String.valueOf(MarkCounter.countMarkInECTS(questions.size(), correctAnswersAmount));
 	}
-	
+
 	public String getMarkText() {
-		return String.valueOf(
-				MarkCounter.countInWords(questions.size(), correctAnswersAmount));
+		return String.valueOf(MarkCounter.countInWords(questions.size(), correctAnswersAmount));
 	}
-	
+
 	public String getMarkPercent() {
-		return String.valueOf(
-				MarkCounter.countMarkInPercent(questions.size(), correctAnswersAmount));
+		return String.valueOf(MarkCounter.countMarkInPercent(questions.size(), correctAnswersAmount));
 	}
+
 	public Color getMarkColor() {
 		return MarkCounter.countInColors(questions.size(), correctAnswersAmount);
 	}
-	
+
 	public int getCorrectAnswersAmount() {
 		return correctAnswersAmount;
 	}
-	
+
 	public void saveResultsToDB(Specification spec, int questTimeSec) {
 		countCorrectAnswers();
 		int correctAnswers = correctAnswersAmount;
-		
+
 		Test test = new Test();
 		test.setCorrectAnswers(correctAnswers);
 		test.setDate(new Date());
 		test.setScore(MarkCounter.countMarkInPercent(questions.size(), correctAnswers));
 		test.setResult(MarkCounter.countInWords(questions.size(), correctAnswers));
 		test.setUser(user);
-		
+
 		test.setSpecification(specs.get(0));
 		test.setLevel(level);
 		test.setTestingTime(questTimeSec);
 		test.setTotalQuestions(questions.size());
-		
+
 		TestService service = new TestService();
 		service.add(test);
 	}
@@ -148,27 +147,29 @@ public class TestingProcess {
 				String answerChosen;
 				String answerCorrect;
 				String delimeter = "-------------------------<br />";
-				
-				if(choises.get(i) != -1)
-					answerChosen = "<b>Выбран ответ:</b> " + answersMap.get(i).get(choises.get(i)).getTitle() + "<br />";
+
+				if (choises.get(i) != -1)
+					answerChosen = "<b>Выбран ответ:</b> " + answersMap.get(i).get(choises.get(i)).getTitle()
+							+ "<br />";
 				else
 					answerChosen = "Ничего не выбрано<br />";
-				
-				answerCorrect = "<b>Верный ответ:</b> " + answersMap.get(i).get(correctAnswers.get(i)).getTitle() + "<br />";
-				
+
+				answerCorrect = "<b>Верный ответ:</b> " + answersMap.get(i).get(correctAnswers.get(i)).getTitle()
+						+ "<br />";
+
 				returnValue += question + answerChosen + answerCorrect + delimeter;
 			}
 			i++;
 		}
-		returnValue+="</html>";
+		returnValue += "</html>";
 
 		return returnValue;
 	}
-	
+
 	private boolean loadAnswersForQuests() {
 		for (int i = 0; i < getQuestions().size(); i++) {
 			List<Answer> ansList = answerService.getAllByQuestion(0, 20, getQuestions().get(i));
-			
+
 			for (int j = 0; j < ansList.size(); j++) {
 				if (ansList.get(j).getIsCorrect()) {
 					correctAnswers.add(j);
@@ -239,10 +240,10 @@ public class TestingProcess {
 		setUserName(userName);
 		setUserSurname(userSurname);
 		setUserSecondName(userSecondName);
-		
+
 		List<User> usersFromDB = userService.getByNameSurnameSecondName(0, 10, userName, userSurname, userSecondName);
-		
-		if(usersFromDB.size() == 0)
+
+		if (usersFromDB.size() == 0)
 			createNewUser(userName, userSurname, userSecondName);
 		else
 			user = usersFromDB.get(0);
@@ -250,17 +251,17 @@ public class TestingProcess {
 
 	private void createNewUser(String userName, String userSurname, String userSecondName) {
 		user = new User();
-		
+
 		user.setName(userName);
 		user.setSecondName(userSecondName);
 		user.setSurname(userSurname);
-		
+
 		userService.add(user);
 	}
-	
+
 	public boolean checkUncheckedLeft() {
-		for (Integer choise : choises) 
-			if(choise == -1) 
+		for (Integer choise : choises)
+			if (choise == -1)
 				return true;
 		return false;
 	}
@@ -291,20 +292,19 @@ public class TestingProcess {
 
 	public int getNextUnansweredIndex() {
 		for (int i = 0; i < choises.size(); i++)
-			if(choises.get(i) == -1)
+			if (choises.get(i) == -1)
 				return i;
-		
+
 		return -1;
 	}
 
 	public int getWrongAmount() {
 		int amount = 0;
 		for (Boolean isCorrect : correctUserAnswersList)
-			if(!isCorrect)
+			if (!isCorrect)
 				amount++;
-	
+
 		return amount;
 	}
-
 
 }

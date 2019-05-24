@@ -32,6 +32,8 @@ public class UserDatabaseDao extends AbstractHibernateDao<User> implements UserD
 			query.setMaxResults(endPos);
 
 			userList = query.getResultList();
+			
+			session.close();
 
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -58,6 +60,8 @@ public class UserDatabaseDao extends AbstractHibernateDao<User> implements UserD
 				query.setMaxResults(endPos);
 
 				userList = query.getResultList();
+				
+				session.close();
 
 			} catch (HibernateException e) {
 				e.printStackTrace();

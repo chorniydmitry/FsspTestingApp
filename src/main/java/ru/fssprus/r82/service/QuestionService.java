@@ -25,7 +25,7 @@ public class QuestionService {
 	}
 
 	public List<Question> getByName(String title) {
-		return questionDao.getAllByTitle(title);
+		return questionDao.getByTitle(-1, -1, title);
 	}
 
 	public List<Question> getByAnswer(int startPos, int endPos, Answer answer) {
@@ -49,11 +49,11 @@ public class QuestionService {
 	}
 
 	public List<Question> getAllBySpecification(Specification specification) {
-		return questionDao.getAllBySpecification(specification);
+		return questionDao.getBySpecification(-1,-1, specification);
 	}
 
 	public List<Question> getAllBySpecificationAndLevel(Specification specification, QuestionLevel level) {
-		return questionDao.getAllBySpecificationAndLevel(specification, level);
+		return questionDao.getBySpecificationAndLevel(-1, -1, specification, level);
 	}
 
 	public List<Question> getByNameAndSpecification(String name, Specification spec) {
@@ -78,22 +78,27 @@ public class QuestionService {
 	public int countBySpecificationAndLevel(Specification spec, QuestionLevel level) {
 		return questionDao.countBySpecificationAndLevel(spec, level);
 	}
+	
+	public List<Question> getAll(int startPos, int endPos) {
+		return questionDao.getAll(startPos, endPos);
+	}
 
 	public void update(Question question) {
-		List<Question> questionsFound = questionDao.getAllByTitle(question.getTitle());
-
+		List<Question> questionsFound = questionDao.getByTitle(-1, -1, question.getTitle());
+		
 		int AnsOverlaps = 0;
 		// Если в БД уже есть вопрос с такой формулировкой
 		if (questionsFound.size() > 0) {
 
 			for (Answer answerFound : questionsFound.get(0).getAnswers()) {
 				for (Answer answerQuest : question.getAnswers()) {
-					if (answerQuest.getTitle() == answerFound.getTitle())
+					if (answerQuest.getTitle().equals(answerFound.getTitle()))
 						AnsOverlaps++;
 				}
 			}
 		}
-		if (AnsOverlaps >= question.getAnswers().size()) {
+		
+		if (AnsOverlaps == question.getAnswers().size()) {
 			ArrayList<QuestionLevel> levels = new ArrayList<QuestionLevel>();
 			levels.addAll(questionsFound.get(0).getLevels());
 			for (QuestionLevel lvl : levels) {
@@ -136,6 +141,11 @@ public class QuestionService {
 			question.setSpecifications(specsSet);
 			save(question);
 		}
+	}
+
+	public int countAll() {
+		return questionDao.getAmountOfItems();
+		
 	}
 
 }

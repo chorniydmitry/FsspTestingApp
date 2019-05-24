@@ -16,6 +16,7 @@ public class PasswordDatabaseDao extends AbstractHibernateDao<Password> implemen
 
 	@Override
 	public boolean checkBySection(String section, String passToCheckMD5) {
+		boolean returnValue = false;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
 			CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -31,12 +32,14 @@ public class PasswordDatabaseDao extends AbstractHibernateDao<Password> implemen
 			String passFromDBMD5 = passwordMD5.getPasswordMD5();
 
 			if (passFromDBMD5.equals(passToCheckMD5))
-				return true;
+				returnValue = true;
+
+			session.close();
 
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		}
-		return false;
+		return returnValue;
 	}
 
 	@Override
@@ -58,6 +61,10 @@ public class PasswordDatabaseDao extends AbstractHibernateDao<Password> implemen
 
 			super.update(passwordMD5);
 
+			session.close();
+
+		} catch (HibernateException e) {
+			e.printStackTrace();
 		}
 	}
 

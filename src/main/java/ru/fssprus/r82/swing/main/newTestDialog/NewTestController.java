@@ -8,7 +8,6 @@ import java.util.List;
 
 import javax.swing.JRadioButton;
 
-import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.service.QuestionService;

@@ -45,6 +45,8 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 			Query<Question> query = session.createQuery(criteriaQuery);
 
 			questionList = query.getResultList();
+			
+			session.close();
 
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -72,6 +74,8 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 			}
 
 			questionList = query.getResultList();
+			
+			session.close();
 
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -80,11 +84,6 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 		return questionList;
 	}
 	
-
-	@Override
-	public List<Question> getAllByTitle(String title) {
-		return getByTitle(-1, -1, title);
-	}
 
 	@Override
 	public List<Question> getByAnswer(int startPos, int endPos, Answer answer) {
@@ -105,17 +104,14 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 			}
 
 			questionList = query.getResultList();
+			
+			session.close();
 
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		}
 
 		return questionList;
-	}
-
-	@Override
-	public List<Question> getAllByAnswer(Answer answer) {
-		return getByAnswer(-1, -1, answer);
 	}
 
 	@Override
@@ -137,6 +133,8 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 			}
 
 			questionList = query.getResultList();
+			
+			session.close();
 
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -166,6 +164,8 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 			}
 
 			questionList = query.getResultList();
+			
+			session.close();
 
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -175,17 +175,8 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 	}
 
 	@Override
-	public List<Question> getAllBySpecification(Specification spec) {
-		return getBySpecification(-1, -1, spec);
-	}
-
-	@Override
-	public List<Question> getAllBySpecificationAndLevel(Specification spec, QuestionLevel level) {
-		return getBySpecificationAndLevel(-1, -1, spec, level);
-	}
-
-	@Override
 	public int countItemsBySpecification(Specification spec) {
+		int returnValue = 0;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			CriteriaQuery<Object> criteriaQuery = builder.createQuery();
@@ -195,17 +186,21 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 			criteriaQuery.where(root.join("specifications").in(spec));
 
 			TypedQuery<Object> q = session.createQuery(criteriaQuery);
-			return Integer.parseInt(q.getSingleResult().toString());
+			
+			returnValue = Integer.parseInt(q.getSingleResult().toString());
+			
+			session.close();
 
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		}
 
-		return 0;
+		return returnValue;
 	}
 
 	@Override
 	public int getAmountOfItems() {
+		int returnValue = 0;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			CriteriaQuery<Object> criteriaQuery = builder.createQuery();
@@ -214,13 +209,15 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 			criteriaQuery.select(builder.count(root));
 
 			TypedQuery<Object> q = session.createQuery(criteriaQuery);
-			return Integer.parseInt(q.getSingleResult().toString());
-
+			
+			returnValue =  Integer.parseInt(q.getSingleResult().toString());
+			
+			session.close();
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		}
 
-		return 0;
+		return returnValue;
 	}
 
 	@Override
@@ -235,11 +232,11 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 			criteriaQuery.select(root).where((builder.like(root.get("title"), "%" + name + "%")),
 					(root.join("specifications").in(spec)));
 
-			// criteriaQuery.where(root.join("specifications").in(spec));
-
 			Query<Question> query = session.createQuery(criteriaQuery);
 
 			questionList = query.getResultList();
+			
+			session.close();
 
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -260,11 +257,11 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 			criteriaQuery.select(root).where((builder.like(root.get("title"), "%" + name + "%")),
 					(root.join("specifications").in(specs)), (root.join("levels").in(lvls)));
 
-			// criteriaQuery.where(root.join("specifications").in(spec));
-
 			Query<Question> query = session.createQuery(criteriaQuery);
 
 			questionList = query.getResultList();
+			
+			session.close();
 
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -274,6 +271,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 
 	@Override
 	public int countBySpecificationAndLevel(Specification spec, QuestionLevel level) {
+		int returnValue = 0;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			CriteriaQuery<Object> criteriaQuery = builder.createQuery();
@@ -284,13 +282,17 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 					root.join("levels").in(level));
 
 			TypedQuery<Object> q = session.createQuery(criteriaQuery);
-			return Integer.parseInt(q.getSingleResult().toString());
+			
+			
+			returnValue =  Integer.parseInt(q.getSingleResult().toString());
+			
+			session.close();
 
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		}
 
-		return 0;
+		return returnValue;
 	}
 
 //  Получить список вопросов по списку id и спецификации

@@ -83,7 +83,7 @@ public class MainFrame extends JFrame {
 		btnStatistics.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new StatisticsController(new StatisticsDialog(900, 600));
+				new StatisticsController(new StatisticsDialog(1024, 600));
 			}
 		});
 		

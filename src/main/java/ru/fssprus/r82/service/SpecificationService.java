@@ -36,7 +36,10 @@ public class SpecificationService {
 	}
 	
 	public Specification getUniqueByName(String title) {
-		return specificationDao.getUniqueByTitle(title);
+		List<Specification> specsByName = specificationDao.getByTitle(-1, -1, title);
+		if(specsByName.size() == 0)
+			return null;
+		return specsByName.get(0);
 	}
 	
 	public void save(Specification spec) {

@@ -69,7 +69,6 @@ public class TestDialog extends JDialog {
 		add(pnlDown, BorderLayout.SOUTH);
 		
 		setVisible(true);
-		
 	
 	}
 	
@@ -85,7 +84,6 @@ public class TestDialog extends JDialog {
 			pnlAnswers.setBackground(pnlQuestAndAnswers.getBackground());
 			rbAnswers.forEach((n) -> n.setBackground(pnlQuestAndAnswers.getBackground()));
 		}
-		
 		revalidate();
 	}
 	

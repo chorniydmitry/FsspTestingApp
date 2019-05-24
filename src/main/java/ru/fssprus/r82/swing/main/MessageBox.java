@@ -2,14 +2,10 @@ package ru.fssprus.r82.swing.main;
 
 import java.awt.Component;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-
-import ru.fssprus.r82.swing.main.settingsDialog.SettingsDialog;
-import ru.fssprus.r82.utils.CryptWithMD5;
 
 public class MessageBox extends JOptionPane {
 	private static final long serialVersionUID = -2426219006577522299L;

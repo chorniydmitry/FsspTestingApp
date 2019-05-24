@@ -39,23 +39,13 @@ public class SpecifiactionDatabaseDao extends AbstractHibernateDao<Specification
 			}
 
 			specificationList = query.getResultList();
+			
+			session.close();
 
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		}
 		return specificationList;
-	}
-
-	@Override
-	public List<Specification> getAllByTitle(String title) {
-		return getByTitle(-1, -1, title);
-	}
-	
-	@Override
-	public Specification getUniqueByTitle(String title) {
-		if(getAllByTitle(title).size() == 0)
-			return null;
-		return getAllByTitle(title).get(0);
 	}
 
 	@Override
@@ -76,16 +66,13 @@ public class SpecifiactionDatabaseDao extends AbstractHibernateDao<Specification
 			}
 
 			specList = query.getResultList();
+			
+			session.close();
 
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		}
 		return specList;
-	}
-
-	@Override
-	public List<Specification> getAllByQuestion(Question questions) {
-		return getByQuestion(-1, -1, questions);
 	}
 
 }

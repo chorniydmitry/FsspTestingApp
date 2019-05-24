@@ -14,7 +14,6 @@ import org.hibernate.query.Query;
 import ru.fssprus.r82.dao.AnswerDao;
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Question;
-import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.utils.HibernateUtil;
 
 public class AnswerDatabaseDao extends AbstractHibernateDao<Answer> implements AnswerDao {
@@ -35,6 +34,8 @@ public class AnswerDatabaseDao extends AbstractHibernateDao<Answer> implements A
 			query.setMaxResults(endPos);
 
 			answerList = query.getResultList();
+			
+			session.close();
 
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -58,6 +59,8 @@ public class AnswerDatabaseDao extends AbstractHibernateDao<Answer> implements A
 			query.setMaxResults(endPos);
 
 			answerList = query.getResultList();
+			
+			session.close();
 
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -81,6 +84,8 @@ public class AnswerDatabaseDao extends AbstractHibernateDao<Answer> implements A
 			query.setMaxResults(endPos);
 
 			answerList = query.getResultList();
+			
+			session.close();
 
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -104,17 +109,12 @@ public class AnswerDatabaseDao extends AbstractHibernateDao<Answer> implements A
 			query.setMaxResults(endPos);
 
 			answerList = query.getResultList();
+			
+			session.close();
 
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		}
 		return answerList;
 	}
-
-	@Override
-	public List<Answer> getBySpecification(int startPos, int endPos, Specification spec) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
