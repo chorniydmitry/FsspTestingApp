@@ -147,5 +147,10 @@ public class QuestionService {
 		return questionDao.getAmountOfItems();
 		
 	}
+	
+	public List<Question> getByNameSpecListLvlListAndId(String name, Set<Specification> specs, Set<QuestionLevel> levels, Long id) {
+		return questionDao.getByNameSpecListLvlListAndID(name, specs, levels, id);
+		
+	}
 
 }

@@ -68,6 +68,16 @@ public class QuestionListTable extends JTable{
 		}
 		
 	}
+
+	public QuestionListTableModel getTabModel() {
+		return tabModel;
+	}
+
+	public void setTabModel(QuestionListTableModel tabModel) {
+		this.tabModel = tabModel;
+	}
+	
+	
 	
 //	public void addTests(List<Test> tests) {
 //		for (int i = 0; i< tests.size(); i++) {

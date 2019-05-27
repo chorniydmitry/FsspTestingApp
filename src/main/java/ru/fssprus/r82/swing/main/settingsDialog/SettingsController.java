@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,6 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import g.cope.swing.autocomplete.jcombobox.AutocompleteJComboBox;
+import g.cope.swing.autocomplete.jcombobox.StringSearchable;
 import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.entity.Specification;
@@ -29,7 +32,32 @@ public class SettingsController implements ActionListener, DocumentListener {
 
 	public SettingsController(SettingsDialog settingsDialog) {
 		this.settingsDialog = settingsDialog;
+		initTfSpec();
+		settingsDialog.init();
 		setListeners();
+		
+	}
+	
+	private void initTfSpec() {
+		ArrayList<String> keywords = getSpecsNames();
+		StringSearchable searchable = new StringSearchable(keywords);
+	
+		settingsDialog.setAccbSpecName(new AutocompleteJComboBox(searchable));
+		settingsDialog.getAccbSpecName().addItem(null);
+		keywords.forEach((n)-> settingsDialog.getAccbSpecName().addItem(n));
+		settingsDialog.getAccbSpecName().setPrototypeDisplayValue("XXXXXXXXXXXXXXXXXXXX");
+	}
+	
+	private ArrayList<String> getSpecsNames() {
+		ArrayList<String> specNames = new ArrayList<String>();
+		loadSpecsFromDB().forEach((n)-> specNames.add(n.getName()));
+		
+		return specNames;
+	}
+	
+	private List<Specification> loadSpecsFromDB() {
+		SpecificationService specService = new SpecificationService();
+		return specService.getAll();
 	}
 
 	private void setListeners() {

@@ -96,7 +96,7 @@ public class Application {
 			
 		//	test();
 			
-			newPassForConfigure();
+		//	newPassForConfigure();
 
 			appStart();
 

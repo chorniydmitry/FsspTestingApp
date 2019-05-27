@@ -71,7 +71,7 @@ public class SettingsDialog extends JDialog {
 	private JTextField tfFilePath = new JTextField();
 	private JPanel pnlAddingSet = new JPanel();
 	private JLabel lblSpecName = new JLabel("Специализация:");
-	private AutocompleteJComboBox accbSpecName;
+	private AutocompleteJComboBox accbSpecName = new AutocompleteJComboBox(null);
 
 	private JLabel lblQuestLevel = new JLabel("Уровень сложности:");
 	private JComboBox<Object> cbQuestLevel = new JComboBox<Object>(QuestionLevel.values());
@@ -84,7 +84,10 @@ public class SettingsDialog extends JDialog {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setAlwaysOnTop(true);
-		
+
+	}
+	
+	public void init() {
 		initComponents();
 		
 		initGroupPanels();
@@ -135,29 +138,6 @@ public class SettingsDialog extends JDialog {
 	
 	private void initComponents() {
 		btnSave.setEnabled(false);
-		initTfSpec();
-	}
-	
-	private void initTfSpec() {
-		ArrayList<String> keywords = getSpecsNames();
-		StringSearchable searchable = new StringSearchable(keywords);
-	
-		accbSpecName = new AutocompleteJComboBox(searchable);
-		accbSpecName.addItem(null);
-		keywords.forEach((n)-> accbSpecName.addItem(n));
-		accbSpecName.setPrototypeDisplayValue("XXXXXXXXXXXXXXXXXXXX");
-	}
-	
-	private ArrayList<String> getSpecsNames() {
-		ArrayList<String> specNames = new ArrayList<String>();
-		loadSpecsFromDB().forEach((n)-> specNames.add(n.getName()));
-		
-		return specNames;
-	}
-	
-	private List<Specification> loadSpecsFromDB() {
-		SpecificationService specService = new SpecificationService();
-		return specService.getAll();
 	}
 	
 	private void layoutDialog() {

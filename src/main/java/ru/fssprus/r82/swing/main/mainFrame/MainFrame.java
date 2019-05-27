@@ -91,7 +91,7 @@ public class MainFrame extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new QuestionListController(new QuestionListDialog(1024,600));
+				new QuestionListController(new QuestionListDialog(1024,768));
 				
 			}
 		});
