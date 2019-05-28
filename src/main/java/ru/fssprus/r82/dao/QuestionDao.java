@@ -31,7 +31,12 @@ public interface QuestionDao extends ItemDao<Question> {
 
 	public int countBySpecificationAndLevel(Specification spec, QuestionLevel level);
 	
-	public List<Question> getByNameSpecListLvlListAndID(String name, Set<Specification> specs,
+	public List<Question> getByNameSpecListLvlListAndID(int startPos, int endPos, String name, Set<Specification> specs,
 			Set<QuestionLevel> lvls, Long id);
+	
+	public int countByNameSpecListLvlListAndID(String name, Set<Specification> specs,
+			Set<QuestionLevel> lvls, Long id);
+	
+	
 
 }

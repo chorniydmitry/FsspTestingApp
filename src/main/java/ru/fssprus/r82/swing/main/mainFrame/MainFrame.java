@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 
 import ru.fssprus.r82.service.PasswordService;
 import ru.fssprus.r82.swing.main.MessageBox;
+import ru.fssprus.r82.swing.main.adminDialog.AdminController;
+import ru.fssprus.r82.swing.main.adminDialog.AdminDialog;
 import ru.fssprus.r82.swing.main.newTestDialog.NewTestController;
 import ru.fssprus.r82.swing.main.newTestDialog.NewTestDialog;
 import ru.fssprus.r82.swing.main.questionListDialog.QuestionListController;
@@ -23,8 +25,9 @@ import ru.fssprus.r82.utils.CryptWithMD5;
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = -354084726011189758L;
 	private JButton btnTest = new JButton("Тестирование");
-	private JButton btnSetting = new JButton("Настройки");
-	private JButton btnQuestionsList = new JButton("Список вопросов");
+	//private JButton btnSetting = new JButton("Настройки");
+	//private JButton btnQuestionsList = new JButton("Список вопросов");
+	private JButton btnAdmin = new JButton("Администрирование");
 	private JButton btnStatistics = new JButton("Статистика");
 	private JButton btnExit = new JButton("Выход");
 	
@@ -39,14 +42,12 @@ public class MainFrame extends JFrame {
 		
 		btnTest.setPreferredSize(dimButtonSize);
 		btnStatistics.setPreferredSize(dimButtonSize);
-		btnSetting.setPreferredSize(dimButtonSize);
-		btnQuestionsList.setPreferredSize(dimButtonSize);
+		btnAdmin.setPreferredSize(dimButtonSize);
 		btnExit.setPreferredSize(dimButtonSize);
 		
 		add(btnTest);
 		add(btnStatistics);
-		add(btnSetting);
-		add(btnQuestionsList);
+		add(btnAdmin);
 		add(btnExit);
 		
 		addListeners();
@@ -63,20 +64,13 @@ public class MainFrame extends JFrame {
 			}
 		});
 		
-		btnSetting.addActionListener(new ActionListener() {
+		btnAdmin.addActionListener(new ActionListener() {
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				PasswordService passService = new PasswordService();
+				AdminDialog adminDialog = new AdminDialog(300,200);
+				new AdminController(adminDialog);
 				
-				String inputedPass = MessageBox.showInputPasswordDialog(MainFrame.this);
-				
-				boolean accessAllowed = passService.checkPassword("SETTINGS", 
-						CryptWithMD5.cryptWithMD5(inputedPass));
-				
-				if(accessAllowed) {
-					SettingsDialog sd = new SettingsDialog(800, 600);
-					new SettingsController(sd);
-				}
 			}
 		});
 		
@@ -87,14 +81,7 @@ public class MainFrame extends JFrame {
 			}
 		});
 		
-		btnQuestionsList.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new QuestionListController(new QuestionListDialog(1024,768));
-				
-			}
-		});
+
 		
 		btnExit.addActionListener(new ActionListener() {
 			@Override

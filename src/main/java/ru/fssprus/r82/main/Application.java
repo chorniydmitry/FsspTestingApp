@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.swing.SwingUtilities;
 
-import org.flywaydb.core.Flyway;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
@@ -15,8 +14,11 @@ import org.hibernate.cfg.Configuration;
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Password;
 import ru.fssprus.r82.entity.Question;
+import ru.fssprus.r82.entity.QuestionLevel;
+import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.service.AnswerService;
 import ru.fssprus.r82.service.QuestionService;
+import ru.fssprus.r82.service.SpecificationService;
 import ru.fssprus.r82.swing.main.mainFrame.MainFrame;
 import ru.fssprus.r82.utils.CryptWithMD5;
 import ru.fssprus.r82.utils.HibernateUtil;
@@ -81,6 +83,7 @@ public class Application {
 		} 
 		
 	}
+	
 
 	public static void main(String[] args) throws IOException {
 		
@@ -97,7 +100,7 @@ public class Application {
 		//	test();
 			
 		//	newPassForConfigure();
-
+			
 			appStart();
 
 			

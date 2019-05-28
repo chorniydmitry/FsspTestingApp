@@ -82,6 +82,16 @@ public class QuestionService {
 	public List<Question> getAll(int startPos, int endPos) {
 		return questionDao.getAll(startPos, endPos);
 	}
+	
+	public void update(Long id, Question questionModified) {
+		Question question = questionDao.getById(id);
+		question.setLevels(questionModified.getLevels());
+		question.setAnswers(questionModified.getAnswers());
+		question.setSpecifications(questionModified.getSpecifications());
+		question.setTitle(questionModified.getTitle());
+		
+		questionDao.update(question);
+	}
 
 	public void update(Question question) {
 		List<Question> questionsFound = questionDao.getByTitle(-1, -1, question.getTitle());
@@ -148,9 +158,18 @@ public class QuestionService {
 		
 	}
 	
-	public List<Question> getByNameSpecListLvlListAndId(String name, Set<Specification> specs, Set<QuestionLevel> levels, Long id) {
-		return questionDao.getByNameSpecListLvlListAndID(name, specs, levels, id);
+	public List<Question> getAllByNameSpecListLvlListAndId(String name, Set<Specification> specs, Set<QuestionLevel> levels, Long id) {
+		return questionDao.getByNameSpecListLvlListAndID(-1, -1, name, specs, levels, id);
 		
+	}
+	
+	public List<Question> getByNameSpecListLvlListAndId(int startPos, int endPos, String name, Set<Specification> specs, Set<QuestionLevel> levels, Long id) {
+		return questionDao.getByNameSpecListLvlListAndID(startPos, endPos, name, specs, levels, id);
+		
+	}
+	
+	public int countByNameSpecListLvlListAndId(String name, Set<Specification> specs, Set<QuestionLevel> levels, Long id) {
+		return questionDao.countByNameSpecListLvlListAndID(name, specs, levels, id);
 	}
 
 }

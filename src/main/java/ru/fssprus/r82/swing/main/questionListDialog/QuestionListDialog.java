@@ -26,7 +26,7 @@ public class QuestionListDialog extends JDialog {
 
 	private QuestionListTable tabQuestList = new QuestionListTable();
 	private JPanel pnlBottom = new JPanel();
-	private JPanel pnlTop = new JPanel();
+	private JPanel pnlFilter = new JPanel();
 
 	private JLabel lblId = new JLabel("ID");
 	private JLabel lblQuestionName = new JLabel("Формулировка");
@@ -39,7 +39,7 @@ public class QuestionListDialog extends JDialog {
 	private JTextField tfLevels = new JTextField(25);
 
 	private JButton btnFilter = new JButton("Фильтр");
-	private JButton btnReset = new JButton("Сбросить");
+	private JButton btnClearFilters = new JButton("Сбросить");
 
 	private JButton btnNextPage = new JButton(">");
 	private JButton btnPreviousPage = new JButton("<");
@@ -54,8 +54,9 @@ public class QuestionListDialog extends JDialog {
 
 	private ArrayList<JCheckBox> cbLevelsList = new ArrayList<JCheckBox>();
 
-	private JButton btnDiscard = new JButton("Сбросить");
-	private JButton btnSave = new JButton("Cохранить");
+	private JButton btnDiscardQuestionEditChanges = new JButton("Сбросить");
+	private JButton btnSaveQuestion = new JButton("Cохранить");
+	private JButton btnEditQuestion = new JButton("Редактировать");
 
 	private JLabel lblSpecName = new JLabel("Специализация: ");
 	private AutocompleteJComboBox accbSpecNames = new AutocompleteJComboBox(null);
@@ -72,8 +73,8 @@ public class QuestionListDialog extends JDialog {
 	}
 
 	public void init() {
-		initPanelTop();
-		add(pnlTop);
+		initPanelFilter();
+		add(pnlFilter);
 
 		JScrollPane scrollPane = new JScrollPane(tabQuestList);
 		add(scrollPane);
@@ -143,57 +144,60 @@ public class QuestionListDialog extends JDialog {
 		}
 
 		// last row
-		pnlQuestionEdit.add(btnDiscard, new GridBagConstraints(0, cbLevelsList.size() + 2 + MAX_ANSWERS, 1, 1, 0, 0,
+		pnlQuestionEdit.add(btnDiscardQuestionEditChanges, new GridBagConstraints(0, cbLevelsList.size() + 2 + MAX_ANSWERS, 1, 1, 0, 0,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
-		pnlQuestionEdit.add(btnSave, new GridBagConstraints(1, cbLevelsList.size() + 2 + MAX_ANSWERS, 1, 1, 0, 0,
+		pnlQuestionEdit.add(btnSaveQuestion, new GridBagConstraints(1, cbLevelsList.size() + 2 + MAX_ANSWERS, 1, 1, 0, 0,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-
+		
+		pnlQuestionEdit.add(btnEditQuestion, new GridBagConstraints(2, cbLevelsList.size() + 2 + MAX_ANSWERS, 1, 1, 0, 0,
+				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+		
 		pnlQuestionEdit.setVisible(true);
 
 	}
 
-	private void initPanelTop() {
-		pnlTop.setLayout(new GridBagLayout());
+	private void initPanelFilter() {
+		pnlFilter.setLayout(new GridBagLayout());
 
-		pnlTop.setBorder(BorderFactory.createTitledBorder("Панель фильтрации"));
+		pnlFilter.setBorder(BorderFactory.createTitledBorder("Панель фильтрации"));
 
 		// gridx, gridy, gridwidth, gridheight, weightx, weighty, anchor, fill,
 		// insets(top, left, botom, right), ipadx, ipady
 
 		// 1st row
-		pnlTop.add(lblId, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+		pnlFilter.add(lblId, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
 				new Insets(0, 0, 0, 0), 0, 0));
 
-		pnlTop.add(tfId, new GridBagConstraints(1, 0, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+		pnlFilter.add(tfId, new GridBagConstraints(1, 0, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
 				new Insets(0, 0, 0, 0), 0, 0));
 
-		pnlTop.add(lblQuestionName, new GridBagConstraints(2, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
+		pnlFilter.add(lblQuestionName, new GridBagConstraints(2, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
-		pnlTop.add(tfQuestionName, new GridBagConstraints(3, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
+		pnlFilter.add(tfQuestionName, new GridBagConstraints(3, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
-		pnlTop.add(btnFilter, new GridBagConstraints(4, 0, 1, GridBagConstraints.REMAINDER, 1, 1,
+		pnlFilter.add(btnFilter, new GridBagConstraints(4, 0, 1, GridBagConstraints.REMAINDER, 1, 1,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 		
-		pnlTop.add(btnReset, new GridBagConstraints(5, 0, 1, GridBagConstraints.REMAINDER, 1, 1,
+		pnlFilter.add(btnClearFilters, new GridBagConstraints(5, 0, 1, GridBagConstraints.REMAINDER, 1, 1,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
 		// 2nd row
-		pnlTop.add(lblSpecs, new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
+		pnlFilter.add(lblSpecs, new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
-		pnlTop.add(tfSpecs, new GridBagConstraints(1, 1, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+		pnlFilter.add(tfSpecs, new GridBagConstraints(1, 1, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
 				new Insets(0, 0, 0, 0), 0, 0));
 
-		pnlTop.add(lblLevels, new GridBagConstraints(2, 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
+		pnlFilter.add(lblLevels, new GridBagConstraints(2, 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
-		pnlTop.add(tfLevels, new GridBagConstraints(3, 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
+		pnlFilter.add(tfLevels, new GridBagConstraints(3, 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
-		pnlTop.setVisible(true);
+		pnlFilter.setVisible(true);
 	}
 
 	private void initPanelBottom() {
@@ -264,20 +268,20 @@ public class QuestionListDialog extends JDialog {
 		this.cbAnsList = cbAnsList;
 	}
 
-	public JButton getBtnDiscard() {
-		return btnDiscard;
+	public JButton getBtnDiscardQuestionEditChanges() {
+		return btnDiscardQuestionEditChanges;
 	}
 
-	public void setBtnDiscard(JButton btnDiscard) {
-		this.btnDiscard = btnDiscard;
+	public void setBtnDiscardQuestionEditChanges(JButton btnDiscardQuestionEditChanges) {
+		this.btnDiscardQuestionEditChanges = btnDiscardQuestionEditChanges;
 	}
 
-	public JButton getBtnSave() {
-		return btnSave;
+	public JButton getBtnSaveQuestion() {
+		return btnSaveQuestion;
 	}
 
-	public void setBtnSave(JButton btnSave) {
-		this.btnSave = btnSave;
+	public void setBtnSave(JButton btnSaveQuestion) {
+		this.btnSaveQuestion = btnSaveQuestion;
 	}
 
 	public ArrayList<JCheckBox> getCbLevelsList() {
@@ -327,7 +331,20 @@ public class QuestionListDialog extends JDialog {
 	public void setTfLevels(JTextField tfLevels) {
 		this.tfLevels = tfLevels;
 	}
-	
-	
 
+	public JButton getBtnClearFilters() {
+		return btnClearFilters;
+	}
+
+	public void setBtnClearFilters(JButton btnClearFilters) {
+		this.btnClearFilters = btnClearFilters;
+	}
+
+	public JButton getBtnEditQuestion() {
+		return btnEditQuestion;
+	}
+
+	public void setBtnEditQuestion(JButton btnEditQuestion) {
+		this.btnEditQuestion = btnEditQuestion;
+	}
 }

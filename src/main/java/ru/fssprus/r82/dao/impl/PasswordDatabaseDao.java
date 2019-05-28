@@ -1,5 +1,6 @@
 package ru.fssprus.r82.dao.impl;
 
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -10,6 +11,7 @@ import org.hibernate.query.Query;
 
 import ru.fssprus.r82.dao.PasswordDao;
 import ru.fssprus.r82.entity.Password;
+import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.utils.HibernateUtil;
 
 public class PasswordDatabaseDao extends AbstractHibernateDao<Password> implements PasswordDao {
@@ -66,6 +68,29 @@ public class PasswordDatabaseDao extends AbstractHibernateDao<Password> implemen
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public int getCountByName(String sectionName) {
+		int returnValue = 0;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Object> criteriaQuery = builder.createQuery();
+			Root<Password> root = criteriaQuery.from(Password.class);
+
+			criteriaQuery.select(builder.count(root));
+			criteriaQuery.where(builder.like(root.get("sectionName"), "%" + sectionName + "%"));
+
+			TypedQuery<Object> q = session.createQuery(criteriaQuery);
+
+			returnValue = Integer.parseInt(q.getSingleResult().toString());
+
+			session.close();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		}
+
+		return returnValue;
 	}
 
 }

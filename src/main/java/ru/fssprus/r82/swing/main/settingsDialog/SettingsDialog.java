@@ -20,7 +20,7 @@ import g.cope.swing.autocomplete.jcombobox.StringSearchable;
 import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.service.SpecificationService;
-import ru.fssprus.r82.utils.TestConstants;
+import ru.fssprus.r82.utils.AppConstants;
 
 public class SettingsDialog extends JDialog {
 	private static final long serialVersionUID = -3585887095900374897L;
@@ -49,21 +49,21 @@ public class SettingsDialog extends JDialog {
 	
 	private JPanel pnlReserve = new JPanel();
 	
-	private JTextField tfBaseNum = new JTextField(String.valueOf(TestConstants.BASE_QUESTS));
-	private JTextField tfBaseCommons = new JTextField(String.valueOf(TestConstants.BASE_COMMONS));
-	private JTextField tfBaseTime = new JTextField(String.valueOf(TestConstants.BASE_TIME));
+	private JTextField tfBaseNum = new JTextField(String.valueOf(AppConstants.BASE_QUESTS));
+	private JTextField tfBaseCommons = new JTextField(String.valueOf(AppConstants.BASE_COMMONS));
+	private JTextField tfBaseTime = new JTextField(String.valueOf(AppConstants.BASE_TIME));
 	
-	private JTextField tfStandartNum = new JTextField(String.valueOf(TestConstants.STANDART_QUESTS));
-	private JTextField tfStandartCommons = new JTextField(String.valueOf(TestConstants.STANDART_COMMONS));
-	private JTextField tfStandartTime = new JTextField(String.valueOf(TestConstants.STANDART_TIME));
+	private JTextField tfStandartNum = new JTextField(String.valueOf(AppConstants.STANDART_QUESTS));
+	private JTextField tfStandartCommons = new JTextField(String.valueOf(AppConstants.STANDART_COMMONS));
+	private JTextField tfStandartTime = new JTextField(String.valueOf(AppConstants.STANDART_TIME));
 	
-	private JTextField tfAdvancedNum = new JTextField(String.valueOf(TestConstants.ADVANCED_QUESTS));
-	private JTextField tfAdvancedCommons = new JTextField(String.valueOf(TestConstants.ADVANCED_COMMONS));
-	private JTextField tfAdvancedTime = new JTextField(String.valueOf(TestConstants.ADVANCED_TIME));
+	private JTextField tfAdvancedNum = new JTextField(String.valueOf(AppConstants.ADVANCED_QUESTS));
+	private JTextField tfAdvancedCommons = new JTextField(String.valueOf(AppConstants.ADVANCED_COMMONS));
+	private JTextField tfAdvancedTime = new JTextField(String.valueOf(AppConstants.ADVANCED_TIME));
 	
-	private JTextField tfReserveNum = new JTextField(String.valueOf(TestConstants.RESERVE_QUESTS));
-	private JTextField tfReserveCommons = new JTextField(String.valueOf(TestConstants.RESERVE_COMMONS));
-	private JTextField tfReserveTime = new JTextField(String.valueOf(TestConstants.RESERVE_TIME));
+	private JTextField tfReserveNum = new JTextField(String.valueOf(AppConstants.RESERVE_QUESTS));
+	private JTextField tfReserveCommons = new JTextField(String.valueOf(AppConstants.RESERVE_COMMONS));
+	private JTextField tfReserveTime = new JTextField(String.valueOf(AppConstants.RESERVE_TIME));
 	
 	private JButton btnSave = new JButton("Cохранить изменения");
 	

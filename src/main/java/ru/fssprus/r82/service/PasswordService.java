@@ -7,6 +7,10 @@ public class PasswordService {
 	//TODO: autowired
 	private PasswordDao passwordDao = new PasswordDatabaseDao();
 	
+	public int passwordIsSet(String sectionName) {
+		return passwordDao.getCountByName(sectionName);
+	}
+	
 	public boolean checkPassword(String sectionName, String passwordToCheck) {
 		return passwordDao.checkBySection(sectionName, passwordToCheck);
 	}

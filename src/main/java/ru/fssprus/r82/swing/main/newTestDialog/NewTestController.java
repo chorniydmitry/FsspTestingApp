@@ -14,7 +14,7 @@ import ru.fssprus.r82.service.QuestionService;
 import ru.fssprus.r82.service.SpecificationService;
 import ru.fssprus.r82.swing.main.testingPanel.ss.TestController;
 import ru.fssprus.r82.swing.main.testingPanel.ss.TestDialog;
-import ru.fssprus.r82.utils.TestConstants;
+import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.TestingProcess;
 
 public class NewTestController implements ActionListener {
@@ -57,7 +57,7 @@ public class NewTestController implements ActionListener {
 		
 		for (int i = 0; i < QuestionLevel.values().length; i++) {
 			int qPerLvl = qService.countBySpecificationAndLevel(specification, QuestionLevel.values()[i]);
-			if(qPerLvl == 0 || qPerLvl < TestConstants.BASE_QUESTS) 
+			if(qPerLvl == 0 || qPerLvl < AppConstants.BASE_QUESTS) 
 				view.getRbLevels().get(i).setEnabled(false);
 		}
 	}
@@ -147,20 +147,20 @@ public class NewTestController implements ActionListener {
 		switch (level) {
 		case 0:
 			amountOfQuestions = 
-			TestConstants.BASE_QUESTS;
-			commonPercent = TestConstants.BASE_COMMONS;
+			AppConstants.BASE_QUESTS;
+			commonPercent = AppConstants.BASE_COMMONS;
 			break;
 		case 1:
-			amountOfQuestions = TestConstants.STANDART_QUESTS;
-			commonPercent = TestConstants.STANDART_COMMONS;
+			amountOfQuestions = AppConstants.STANDART_QUESTS;
+			commonPercent = AppConstants.STANDART_COMMONS;
 			break;
 		case 2:
-			amountOfQuestions = TestConstants.ADVANCED_QUESTS;
-			commonPercent = TestConstants.ADVANCED_COMMONS;
+			amountOfQuestions = AppConstants.ADVANCED_QUESTS;
+			commonPercent = AppConstants.ADVANCED_COMMONS;
 			break;
 		case 3:
-			amountOfQuestions = TestConstants.RESERVE_QUESTS;
-			commonPercent = TestConstants.RESERVE_COMMONS;
+			amountOfQuestions = AppConstants.RESERVE_QUESTS;
+			commonPercent = AppConstants.RESERVE_COMMONS;
 			break;
 		}
 		

@@ -14,7 +14,7 @@ import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.swing.main.ControllerWithTimer;
 import ru.fssprus.r82.swing.main.resultingDialog.ResultingController;
 import ru.fssprus.r82.swing.main.resultingDialog.ResultingDialog;
-import ru.fssprus.r82.utils.TestConstants;
+import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.TestingProcess;
 
 public class TestController extends ControllerWithTimer implements ActionListener, KeyListener {
@@ -190,16 +190,16 @@ public class TestController extends ControllerWithTimer implements ActionListene
 		int timeSeconds = 0;
 		switch (level) {
 		case 0:
-			timeSeconds = TestConstants.BASE_TIME;
+			timeSeconds = AppConstants.BASE_TIME;
 			break;
 		case 1:
-			timeSeconds = TestConstants.STANDART_TIME;
+			timeSeconds = AppConstants.STANDART_TIME;
 			break;
 		case 2:
-			timeSeconds = TestConstants.ADVANCED_TIME;
+			timeSeconds = AppConstants.ADVANCED_TIME;
 			break;
 		case 3:
-			timeSeconds = TestConstants.RESERVE_TIME;
+			timeSeconds = AppConstants.RESERVE_TIME;
 			break;
 		}
 		return timeSeconds;

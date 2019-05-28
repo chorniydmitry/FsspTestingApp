@@ -269,35 +269,11 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 	}
 
 	@Override
-	public int countBySpecificationAndLevel(Specification spec, QuestionLevel level) {
-		int returnValue = 0;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			CriteriaBuilder builder = session.getCriteriaBuilder();
-			CriteriaQuery<Object> criteriaQuery = builder.createQuery();
-			Root<Question> root = criteriaQuery.from(Question.class);
-
-			criteriaQuery.select(builder.count(root));
-			criteriaQuery.where(root.join("specifications").in(spec), root.join("levels").in(level));
-
-			TypedQuery<Object> q = session.createQuery(criteriaQuery);
-
-			returnValue = Integer.parseInt(q.getSingleResult().toString());
-
-			session.close();
-
-		} catch (HibernateException e) {
-			e.printStackTrace();
-		}
-
-		return returnValue;
-	}
-
-	@Override
-	public List<Question> getByNameSpecListLvlListAndID(String name, Set<Specification> specs, Set<QuestionLevel> lvls,
-			Long id) {
+	public List<Question> getByNameSpecListLvlListAndID(int startPos, int endPos, String name, Set<Specification> specs,
+			Set<QuestionLevel> lvls, Long id) {
 		List<Question> questionList = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-
+			
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			CriteriaQuery<Question> criteriaQuery = builder.createQuery(Question.class);
 
@@ -323,6 +299,12 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 			criteriaQuery.select(root).where(predicates.toArray(new Predicate[] {}));
 
 			Query<Question> query = session.createQuery(criteriaQuery);
+			
+			if (!(endPos == -1) || !(startPos == -1)) {
+				
+				query.setFirstResult(startPos);
+				query.setMaxResults(endPos);
+			}
 
 			questionList = query.getResultList();
 
@@ -332,6 +314,73 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 			e.printStackTrace();
 		}
 		return questionList;
+	}
+	
+	@Override
+	public int countBySpecificationAndLevel(Specification spec, QuestionLevel level) {
+		int returnValue = 0;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Object> criteriaQuery = builder.createQuery();
+			Root<Question> root = criteriaQuery.from(Question.class);
+
+			criteriaQuery.select(builder.count(root));
+			criteriaQuery.where(root.join("specifications").in(spec), root.join("levels").in(level));
+
+			TypedQuery<Object> q = session.createQuery(criteriaQuery);
+
+			returnValue = Integer.parseInt(q.getSingleResult().toString());
+
+			session.close();
+
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		}
+
+		return returnValue;
+	}
+
+	@Override
+	public int countByNameSpecListLvlListAndID(String name, Set<Specification> specs, Set<QuestionLevel> lvls, Long id) {
+		int returnValue = 0;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Object> criteriaQuery = builder.createQuery();
+
+			Root<Question> root = criteriaQuery.from(Question.class);
+
+			List<Predicate> predicates = new ArrayList<Predicate>();
+
+			if (id != 0) {
+				predicates.add(builder.equal(root.get("id"), id));
+			}
+
+			if (!name.isEmpty()) {
+				predicates.add(builder.like(root.get("title"), "%" + name + "%"));
+			}
+			if (specs != null) {
+				predicates.add(root.join("specifications").in(specs));
+			}
+
+			if (lvls != null) {
+				predicates.add(root.join("levels").in(lvls));
+			}
+			
+			criteriaQuery.select(builder.count(root));
+			criteriaQuery.where(predicates.toArray(new Predicate[] {}));
+
+			TypedQuery<Object> q = session.createQuery(criteriaQuery);
+			
+			returnValue = Integer.parseInt(q.getSingleResult().toString());
+
+			session.close();
+
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		}
+		return returnValue;
+
 	}
 
 //  Получить список вопросов по списку id и спецификации
