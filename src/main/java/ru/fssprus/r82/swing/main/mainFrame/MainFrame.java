@@ -8,19 +8,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import ru.fssprus.r82.service.PasswordService;
-import ru.fssprus.r82.swing.main.MessageBox;
-import ru.fssprus.r82.swing.main.adminDialog.AdminController;
-import ru.fssprus.r82.swing.main.adminDialog.AdminDialog;
-import ru.fssprus.r82.swing.main.newTestDialog.NewTestController;
-import ru.fssprus.r82.swing.main.newTestDialog.NewTestDialog;
-import ru.fssprus.r82.swing.main.questionListDialog.QuestionListController;
-import ru.fssprus.r82.swing.main.questionListDialog.QuestionListDialog;
-import ru.fssprus.r82.swing.main.settingsDialog.SettingsController;
-import ru.fssprus.r82.swing.main.settingsDialog.SettingsDialog;
-import ru.fssprus.r82.swing.main.statisticsDialog.StatisticsController;
-import ru.fssprus.r82.swing.main.statisticsDialog.StatisticsDialog;
-import ru.fssprus.r82.utils.CryptWithMD5;
+import ru.fssprus.r82.swing.dialogs.adminDialog.AdminController;
+import ru.fssprus.r82.swing.dialogs.adminDialog.AdminDialog;
+import ru.fssprus.r82.swing.dialogs.newTestDialog.NewTestController;
+import ru.fssprus.r82.swing.dialogs.newTestDialog.NewTestDialog;
+import ru.fssprus.r82.swing.dialogs.statisticsDialog.StatisticsController;
+import ru.fssprus.r82.swing.dialogs.statisticsDialog.StatisticsDialog;
 
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = -354084726011189758L;
