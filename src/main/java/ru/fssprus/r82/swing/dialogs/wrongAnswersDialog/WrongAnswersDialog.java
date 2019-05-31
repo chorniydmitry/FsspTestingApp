@@ -11,10 +11,8 @@ import javax.swing.JScrollPane;
 import ru.fssprus.r82.swing.dialogs.CommonDialog;
 
 public class WrongAnswersDialog extends CommonDialog {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3594882748640500638L;
+	private static final String SECTION = "WRONG_ANS";
 	private JEditorPane taWrongs = new JEditorPane();
 	private JLabel lblTimeLeftSec = new JLabel();
 	private JButton btnClose = new JButton("Закрыть");
@@ -38,8 +36,12 @@ public class WrongAnswersDialog extends CommonDialog {
 	
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
 		super.init();
+	}
+	
+	@Override
+	protected String getSection() {
+		return SECTION;
 	}
 
 	public JEditorPane getTaWrongs() {
@@ -65,9 +67,4 @@ public class WrongAnswersDialog extends CommonDialog {
 	public void setBtnClose(JButton btnClose) {
 		this.btnClose = btnClose;
 	}
-
-
-	
-	
-
 }

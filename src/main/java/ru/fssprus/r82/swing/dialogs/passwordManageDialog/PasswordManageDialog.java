@@ -9,11 +9,13 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 
-import ru.fssprus.r82.swing.dialogs.CommonDialog;
+import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
 import ru.fssprus.r82.utils.AppConstants;
 
-public class PasswordManageDialog extends CommonDialog {
+public class PasswordManageDialog extends DialogWithPassword {
 	private static final long serialVersionUID = -4879337467270588965L;
+	
+	private static final String SECTION = "PASSWORDS";
 	
 	private static final String CAPT_CHANGE = "Сменить";
 
@@ -33,6 +35,11 @@ public class PasswordManageDialog extends CommonDialog {
 	public void init() {
 		initAndFillComponentsList();
 		super.init();
+	}
+	
+	@Override
+	protected String getSection() {
+		return SECTION;
 	}
 	
 	private void initAndFillComponentsList() {
@@ -90,4 +97,5 @@ public class PasswordManageDialog extends CommonDialog {
 	public void setPfList(ArrayList<JPasswordField> pfList) {
 		this.pfList = pfList;
 	}
+
 }

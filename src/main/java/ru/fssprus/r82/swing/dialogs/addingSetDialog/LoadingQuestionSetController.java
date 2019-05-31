@@ -3,13 +3,10 @@ package ru.fssprus.r82.swing.dialogs.addingSetDialog;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import g.cope.swing.autocomplete.jcombobox.AutocompleteJComboBox;
-import g.cope.swing.autocomplete.jcombobox.StringSearchable;
 import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.entity.Specification;
@@ -20,11 +17,11 @@ import ru.fssprus.r82.swing.ulils.MessageBox;
 import ru.fssprus.r82.utils.SpreadSheetParser;
 import ru.fssprus.r82.utils.TestFileChooser;
 
-public class AddingQuestionSetController extends CommonController<AddingQuestionSetDialog> {
+public class LoadingQuestionSetController extends CommonController<LoadingQuestionSetDialog> {
 	private File testFile;
 	
 	
-	public AddingQuestionSetController(AddingQuestionSetDialog dialog) {
+	public LoadingQuestionSetController(LoadingQuestionSetDialog dialog) {
 		super(dialog);
 		setKeyWords();
 	}

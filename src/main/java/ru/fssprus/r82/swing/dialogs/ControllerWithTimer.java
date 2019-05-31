@@ -1,13 +1,10 @@
-package ru.fssprus.r82.swing.ulils;
+package ru.fssprus.r82.swing.dialogs;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-
-import ru.fssprus.r82.swing.dialogs.CommonController;
-import ru.fssprus.r82.swing.dialogs.CommonDialog;
 
 public abstract class ControllerWithTimer<T extends CommonDialog> extends CommonController<T>{
 	private Timer timer = new Timer();

@@ -16,10 +16,12 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import ru.fssprus.r82.entity.QuestionLevel;
-import ru.fssprus.r82.swing.dialogs.CommonDialog;
+import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
+import ru.fssprus.r82.utils.AppConstants;
 
-public class NewTestDialog extends CommonDialog {
+public class NewTestDialog extends DialogWithPassword {
 	private static final long serialVersionUID = 1342455118946206792L;
+	private static final String SECTION = AppConstants.TEST_SECTION;
 	
 	private JLabel lblInfo = new JLabel("ИНФОРМАЦИЯ");
 	private JLabel lblName = new JLabel("Ваше имя:");
@@ -95,7 +97,10 @@ public class NewTestDialog extends CommonDialog {
 				GridBagConstraints.BOTH, new Insets(2, 2, 2, 2), 0, 0));
 	}
 	
-	
+	@Override
+	protected String getSection() {
+		return SECTION;
+	}
 	
 	private void initPanelLevels() {
 		pnlLevels.setLayout(new FlowLayout());
@@ -211,5 +216,6 @@ public class NewTestDialog extends CommonDialog {
 	public void setBgLevels(ButtonGroup bgLevels) {
 		this.bgLevels = bgLevels;
 	}
+
 }
 

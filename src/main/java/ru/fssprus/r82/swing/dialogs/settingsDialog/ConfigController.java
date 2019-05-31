@@ -11,10 +11,10 @@ import javax.swing.event.DocumentListener;
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.utils.ApplicationConfiguration;
 
-public class SettingsController extends CommonController<SettingsDialog> implements ActionListener, DocumentListener {
+public class ConfigController extends CommonController<ConfigDialog> implements ActionListener, DocumentListener {
 	
 
-	public SettingsController(SettingsDialog dialog) {
+	public ConfigController(ConfigDialog dialog) {
 		super(dialog);
 	}
 	

@@ -3,7 +3,7 @@ package ru.fssprus.r82.swing.dialogs.wrongAnswersDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import ru.fssprus.r82.swing.ulils.ControllerWithTimer;
+import ru.fssprus.r82.swing.dialogs.ControllerWithTimer;
 
 public class WrongAnswersController extends ControllerWithTimer<WrongAnswersDialog> implements ActionListener {
 	private static final int TIME_FOR_ANSWER_MULTIPLIER = 2;

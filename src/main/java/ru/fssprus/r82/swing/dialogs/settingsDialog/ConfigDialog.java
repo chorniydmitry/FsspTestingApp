@@ -13,11 +13,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import ru.fssprus.r82.entity.QuestionLevel;
-import ru.fssprus.r82.swing.dialogs.CommonDialog;
+import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
 import ru.fssprus.r82.utils.AppConstants;
 
-public class SettingsDialog extends CommonDialog {
+public class ConfigDialog extends DialogWithPassword {
 	private static final long serialVersionUID = -3585887095900374897L;
+	private static final String SECTION = AppConstants.CONFIG_SECTION;
 	
 	private static final String CAPT_AMOUNT = "Количество:";
 	private static final String CAPT_COMMON_PERC = "Процент Общих:";
@@ -67,9 +68,8 @@ public class SettingsDialog extends CommonDialog {
 	
 	private List<JTextField> tfsList = new ArrayList<JTextField>();
 	
-	public SettingsDialog(int width, int height) {
+	public ConfigDialog(int width, int height) {
 		super(width, height);
-
 	}
 	
 	@Override
@@ -85,6 +85,12 @@ public class SettingsDialog extends CommonDialog {
 		setResizable(true);
 		setVisible(true);
 	}
+	
+	@Override
+	protected String getSection() {
+		return SECTION;
+	}
+
 	
 	
 	private void setTfsNames() {
@@ -305,5 +311,4 @@ public class SettingsDialog extends CommonDialog {
 	public void setTfsList(List<JTextField> tfsList) {
 		this.tfsList = tfsList;
 	}
-
 }

@@ -30,4 +30,12 @@ public class PasswordService {
 		return passwordDao.getAll();
 	}
 	
+	public Password getBySection(String section) {
+		return passwordDao.getBySection(section);
+	}
+	
+	public void delete(Password p) {
+		passwordDao.remove(p);
+	}
+	
 }

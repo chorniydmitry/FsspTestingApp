@@ -17,9 +17,11 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 
 import ru.fssprus.r82.swing.dialogs.CommonDialog;
+import ru.fssprus.r82.utils.AppConstants;
 
 public class TestDialog extends CommonDialog {
 	private static final long serialVersionUID = 1355222097401941564L;
+	private static final String SECTION = AppConstants.TEST_SECTION;
 	
 	private static final int AMT_RAD_BUTTONS = 5;
 	
@@ -53,6 +55,7 @@ public class TestDialog extends CommonDialog {
 		requestFocus();
 		super.init();
 	}
+	
 	@Override
 	protected void layoutDialog() {
 		layoutPanelTop();
@@ -71,6 +74,11 @@ public class TestDialog extends CommonDialog {
 		
 		setVisible(true);
 		
+	}
+	
+	@Override
+	protected String getSection() {
+		return SECTION;
 	}
 	
 	private void layoutPanelTop() {
@@ -246,5 +254,5 @@ public class TestDialog extends CommonDialog {
 	public void setPaused(boolean isPaused) {
 		this.isPaused = isPaused;
 	}
-	
+
 }

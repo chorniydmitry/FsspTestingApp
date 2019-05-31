@@ -11,10 +11,33 @@ import org.hibernate.query.Query;
 
 import ru.fssprus.r82.dao.PasswordDao;
 import ru.fssprus.r82.entity.Password;
-import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.utils.HibernateUtil;
 
 public class PasswordDatabaseDao extends AbstractHibernateDao<Password> implements PasswordDao {
+
+	@Override
+	public Password getBySection(String sectionName) {
+		Password pass = null;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Password> criteriaQuery = builder.createQuery(Password.class);
+
+			Root<Password> root = criteriaQuery.from(Password.class);
+			criteriaQuery.select(root).where(builder.like(root.get("sectionName"), "%" + sectionName + "%"));
+
+			Query<Password> query = session.createQuery(criteriaQuery);
+
+			pass = query.getResultList().get(0);
+
+
+			session.close();
+
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} 
+		return pass;
+	}
 
 	@Override
 	public boolean checkBySection(String section, String passToCheckMD5) {
@@ -46,14 +69,13 @@ public class PasswordDatabaseDao extends AbstractHibernateDao<Password> implemen
 
 	@Override
 	public void update(String section, String newPassword) {
-
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			CriteriaQuery<Password> criteriaQuery = builder.createQuery(Password.class);
 
 			Root<Password> root = criteriaQuery.from(Password.class);
-			criteriaQuery.select(root).where(builder.like(root.get("section"), "%" + section + "%"));
+			criteriaQuery.select(root).where(builder.like(root.get("sectionName"), "%" + section + "%"));
 
 			Query<Password> query = session.createQuery(criteriaQuery);
 
@@ -69,7 +91,7 @@ public class PasswordDatabaseDao extends AbstractHibernateDao<Password> implemen
 			e.printStackTrace();
 		}
 	}
-
+	
 	@Override
 	public int getCountByName(String sectionName) {
 		int returnValue = 0;
@@ -92,5 +114,4 @@ public class PasswordDatabaseDao extends AbstractHibernateDao<Password> implemen
 
 		return returnValue;
 	}
-
 }

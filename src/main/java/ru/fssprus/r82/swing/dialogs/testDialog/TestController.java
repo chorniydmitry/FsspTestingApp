@@ -11,9 +11,9 @@ import javax.swing.JRadioButton;
 
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Specification;
+import ru.fssprus.r82.swing.dialogs.ControllerWithTimer;
 import ru.fssprus.r82.swing.dialogs.resultingDialog.ResultingController;
 import ru.fssprus.r82.swing.dialogs.resultingDialog.ResultingDialog;
-import ru.fssprus.r82.swing.ulils.ControllerWithTimer;
 import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.TestingProcess;
 

@@ -13,6 +13,7 @@ import ru.fssprus.r82.swing.dialogs.CommonDialog;
 
 public class ResultingDialog extends CommonDialog {
 	private static final long serialVersionUID = -8599425813178121954L;
+	private static final String SECTION = "RESULTS";
 
 	private JLabel lblMessageResult = new JLabel("Ваш результат:");
 	private JLabel lblMarkPercent = new JLabel();
@@ -75,6 +76,11 @@ public class ResultingDialog extends CommonDialog {
 
 		
 	}
+	
+	@Override
+	protected String getSection() {
+		return SECTION;
+	}
 
 	private void initFonts() {
 		Font f = new Font("Courier New", Font.BOLD, 18);
@@ -120,7 +126,4 @@ public class ResultingDialog extends CommonDialog {
 	public void setBtnClose(JButton btnClose) {
 		this.btnClose = btnClose;
 	}
-
-
-
 }

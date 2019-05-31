@@ -41,6 +41,40 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		doFilterAction();
 		showQuestions();
 	}
+	
+	@Override
+	protected void setListeners() {
+		dialog.getBtnFilter().addActionListener(this);
+		dialog.getBtnNextPage().addActionListener(this);
+		dialog.getBtnPreviousPage().addActionListener(this);
+		dialog.getBtnDiscardQuestionEditChanges().addActionListener(this);
+		dialog.getBtnEditQuestion().addActionListener(this);
+		dialog.getBtnClearFilters().addActionListener(this);
+		dialog.getBtnSaveQuestion().addActionListener(this);
+		setTableOnSelectionListener();
+
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == dialog.getBtnEditQuestion()) {
+			doEditAction();
+			return;
+		}
+		if (e.getSource() == dialog.getBtnSaveQuestion())
+			doSaveQuestionAction();
+
+		doUnselectTableLines();
+		if (e.getSource() == dialog.getBtnFilter())
+			doFilterAction();
+		if (e.getSource() == dialog.getBtnNextPage())
+			doNextPageAction();
+		if (e.getSource() == dialog.getBtnPreviousPage())
+			doPreviousPageAction();
+		if (e.getSource() == dialog.getBtnClearFilters())
+			doClearFiltersAction();
+
+	}
 
 	private void initTfSpec() {
 		ArrayList<String> keywords = getSpecsNames();
@@ -79,18 +113,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		return specService.getAll();
 	}
 
-	@Override
-	protected void setListeners() {
-		dialog.getBtnFilter().addActionListener(this);
-		dialog.getBtnNextPage().addActionListener(this);
-		dialog.getBtnPreviousPage().addActionListener(this);
-		dialog.getBtnDiscardQuestionEditChanges().addActionListener(this);
-		dialog.getBtnEditQuestion().addActionListener(this);
-		dialog.getBtnClearFilters().addActionListener(this);
-		dialog.getBtnSaveQuestion().addActionListener(this);
-		setTableOnSelectionListener();
 
-	}
 
 	private void setTableOnSelectionListener() {
 		ListSelectionModel cellSelectionModel = dialog.getTabQuestList().getSelectionModel();
@@ -149,27 +172,6 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	private int countTotalPages(int amountOfQuestions) {
 		this.totalPages = amountOfQuestions / ENTRIES_FOR_PAGE + 1;
 		return totalPages;
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == dialog.getBtnEditQuestion()) {
-			doEditAction();
-			return;
-		}
-		if (e.getSource() == dialog.getBtnSaveQuestion())
-			doSaveQuestionAction();
-
-		doUnselectTableLines();
-		if (e.getSource() == dialog.getBtnFilter())
-			doFilterAction();
-		if (e.getSource() == dialog.getBtnNextPage())
-			doNextPageAction();
-		if (e.getSource() == dialog.getBtnPreviousPage())
-			doPreviousPageAction();
-		if (e.getSource() == dialog.getBtnClearFilters())
-			doClearFiltersAction();
-
 	}
 
 	private void doSaveQuestionAction() {

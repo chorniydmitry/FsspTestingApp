@@ -9,4 +9,6 @@ public interface PasswordDao extends ItemDao<Password>{
 	public void update(String sectionName, String newPassword);
 	
 	public int getCountByName(String sectionName);
+	
+	public Password getBySection(String sectionName);
 }

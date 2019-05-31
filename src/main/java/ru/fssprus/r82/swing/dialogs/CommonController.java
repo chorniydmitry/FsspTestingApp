@@ -6,8 +6,10 @@ public abstract class CommonController<T extends CommonDialog> implements Action
 	protected T dialog;
 	public CommonController(T dialog) {
 		this.dialog = dialog;
-		dialog.init();
-		setListeners();
+		if(dialog.isAccessGained()) {
+			dialog.init();
+			setListeners();
+		}
 	}
 	
 	protected abstract void setListeners();

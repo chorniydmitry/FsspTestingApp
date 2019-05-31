@@ -6,10 +6,12 @@ import java.awt.Insets;
 
 import javax.swing.JButton;
 
-import ru.fssprus.r82.swing.dialogs.CommonDialog;
+import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
+import ru.fssprus.r82.utils.AppConstants;
 
-public class AdminDialog extends CommonDialog {
+public class AdminDialog extends DialogWithPassword {
 	private static final long serialVersionUID = -2557630253920656451L;
+	private static final String SECTION = AppConstants.ADMIN_SECTION;
 	
 	private JButton btnSettings = new JButton("Конфигурация");
 	private JButton btnQuestionLoad = new JButton("Выгрузка наборов вопросов");
@@ -36,6 +38,11 @@ public class AdminDialog extends CommonDialog {
 		add(btnPasswords, new GridBagConstraints(0, 3, GridBagConstraints.REMAINDER, 1, 1, 1,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 10, 10));
 		
+	}
+	
+	@Override
+	protected String getSection() {
+		return SECTION;
 	}
 
 	public JButton getBtnSettings() {

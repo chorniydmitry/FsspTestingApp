@@ -7,7 +7,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="password")
 public class Password extends Model {
-	@Column(name="section", length=255)
+	@Column(name="section", length=255, unique=true)
 	String sectionName;
 	@Column(name="passMD5", length=2048)
 	String passwordMD5;

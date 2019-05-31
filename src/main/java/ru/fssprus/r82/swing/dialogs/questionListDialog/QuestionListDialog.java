@@ -1,5 +1,7 @@
 package ru.fssprus.r82.swing.dialogs.questionListDialog;
 
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -17,10 +19,12 @@ import javax.swing.JTextField;
 
 import g.cope.swing.autocomplete.jcombobox.AutocompleteJComboBox;
 import ru.fssprus.r82.entity.QuestionLevel;
-import ru.fssprus.r82.swing.dialogs.CommonDialog;
+import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
+import ru.fssprus.r82.utils.AppConstants;
 
-public class QuestionListDialog extends CommonDialog {
+public class QuestionListDialog extends DialogWithPassword {
 	private static final long serialVersionUID = -8319908967500731744L;
+	private static final String SECTION = AppConstants.QUESTION_EDIT_SECTION;
 	public static final int MAX_ANSWERS = 5;
 
 	private QuestionListTable tabQuestList = new QuestionListTable();
@@ -37,6 +41,10 @@ public class QuestionListDialog extends CommonDialog {
 	private JTextField tfQuestionName = new JTextField(25);
 	private JTextField tfSpecs = new JTextField(25);
 	private JTextField tfLevels = new JTextField(25);
+	
+	private JButton btnAdd = new JButton("+");
+	private JButton btnRemove = new JButton("-");
+	private JPanel pnlAddRemove = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
 	private JButton btnFilter = new JButton("Фильтр");
 	private JButton btnClearFilters = new JButton("Сбросить");
@@ -64,23 +72,30 @@ public class QuestionListDialog extends CommonDialog {
 	public QuestionListDialog(int width, int height) {
 		super(width, height);
 	}
-
 	
 	@Override
 	protected void layoutDialog() {
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		
 		layoutPanelFilter();
+		
+		layoutPanelAddRemove();
 
 		layoutPanelBottom();
 		
 		layoutPanelQuestionEdit();
 		
 		add(pnlFilter);
+		add(pnlAddRemove);
 		add(scrollPane);
 		add(pnlBottom);
 		add(pnlQuestionEdit);
 		
+	}
+	
+	@Override
+	protected String getSection() {
+		return SECTION;
 	}
 
 	private void layoutPanelQuestionEdit() {
@@ -192,6 +207,15 @@ public class QuestionListDialog extends CommonDialog {
 				GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
 		pnlFilter.setVisible(true);
+	}
+	
+	private void layoutPanelAddRemove() {
+		Dimension dim = new Dimension(45,25);
+		btnAdd.setPreferredSize(dim);
+		btnRemove.setPreferredSize(dim);
+		
+		pnlAddRemove.add(btnAdd);
+		pnlAddRemove.add(btnRemove);
 	}
 
 	private void layoutPanelBottom() {
@@ -341,4 +365,24 @@ public class QuestionListDialog extends CommonDialog {
 	public void setBtnEditQuestion(JButton btnEditQuestion) {
 		this.btnEditQuestion = btnEditQuestion;
 	}
+
+	public JButton getBtnAdd() {
+		return btnAdd;
+	}
+
+	public void setBtnAdd(JButton btnAdd) {
+		this.btnAdd = btnAdd;
+	}
+
+	public JButton getBtnRemove() {
+		return btnRemove;
+	}
+
+	public void setBtnRemove(JButton btnRemove) {
+		this.btnRemove = btnRemove;
+	}
+	
+	
+	
+	
 }
