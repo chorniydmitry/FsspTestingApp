@@ -91,6 +91,8 @@ public class QuestionListTableModel extends AbstractTableModel {
 	}
 
 	public void addRow(Object[] row) {
+		if(row == null)
+			row = new Object[]{"", "", "", ""};
 		setRow(row, getRowCount());
 	}
 

@@ -51,16 +51,14 @@ public class QuestionListTable extends JTable{
 			Long id = question.getId();
 			String title = question.getTitle();
 			Set<QuestionLevel> levels = question.getLevels();
-			Set<Specification> specifications = question.getSpecifications();
+			Specification specification = question.getSpecification();
 			String lvlsString = "";
 			for(QuestionLevel ql: levels)
 				lvlsString += "[" + ql.name() + "] ";
 			
-			String specsString="";
-			for(Specification spec: specifications)
-				specsString += "[" + spec.getName() + "] ";
+			String specString=specification.getName();
 			
-			Object[] row = {id, title, lvlsString, specsString};
+			Object[] row = {id, title, lvlsString, specString};
 			
 			tabModel.setRow(row, i);
 

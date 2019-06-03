@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -25,11 +26,9 @@ public class Question extends Model {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="question", fetch = FetchType.EAGER)
 	private Set<Answer> answers;
 	
-	@ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name="question_specification", 
-	joinColumns=@JoinColumn(name="question_id", nullable=false), 
-	inverseJoinColumns=@JoinColumn(name="specification_id", nullable=false))
-	private Set<Specification> specifications;
+	@ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="specification_id") 
+	private Specification specification;
 	
     @ElementCollection(targetClass = QuestionLevel.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "question_level", joinColumns = @JoinColumn(name = "question_id", unique=false))
@@ -52,12 +51,12 @@ public class Question extends Model {
 		this.answers = answers;
 	}
 
-	public Set<Specification> getSpecifications() {
-		return specifications;
+	public Specification getSpecification() {
+		return specification;
 	}
 
-	public void setSpecifications(Set<Specification> specifications) {
-		this.specifications = specifications;
+	public void setSpecification(Specification specification) {
+		this.specification = specification;
 	}
 
 	public Set<QuestionLevel> getLevels() {
@@ -74,7 +73,7 @@ public class Question extends Model {
 		int result = 1;
 		result = prime * result + ((answers == null) ? 0 : answers.hashCode());
 		result = prime * result + ((levels == null) ? 0 : levels.hashCode());
-		result = prime * result + ((specifications == null) ? 0 : specifications.hashCode());
+		result = prime * result + ((specification == null) ? 0 : specification.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
 	}
@@ -98,10 +97,10 @@ public class Question extends Model {
 				return false;
 		} else if (!levels.equals(other.levels))
 			return false;
-		if (specifications == null) {
-			if (other.specifications != null)
+		if (specification == null) {
+			if (other.specification != null)
 				return false;
-		} else if (!specifications.equals(other.specifications))
+		} else if (!specification.equals(other.specification))
 			return false;
 		if (title == null) {
 			if (other.title != null)
@@ -113,7 +112,7 @@ public class Question extends Model {
 
 	@Override
 	public String toString() {
-		return "Question [title=" + title + ", answers=" + answers + ", specifications=" + specifications + ", levels="
+		return "Question [title=" + title + ", answers=" + answers + ", specification=" + specification + ", levels="
 				+ levels + "]";
 	}
 	

@@ -49,7 +49,7 @@ public class QuestionService {
 	}
 
 	public List<Question> getAllBySpecification(Specification specification) {
-		return questionDao.getBySpecification(-1,-1, specification);
+		return questionDao.getBySpecification(-1, -1, specification);
 	}
 
 	public List<Question> getAllBySpecificationAndLevel(Specification specification, QuestionLevel level) {
@@ -74,28 +74,28 @@ public class QuestionService {
 	public void save(Question questionToSave) {
 		questionDao.add(questionToSave);
 	}
-	
+
 	public int countBySpecificationAndLevel(Specification spec, QuestionLevel level) {
 		return questionDao.countBySpecificationAndLevel(spec, level);
 	}
-	
+
 	public List<Question> getAll(int startPos, int endPos) {
 		return questionDao.getAll(startPos, endPos);
 	}
-	
+
 	public void update(Long id, Question questionModified) {
 		Question question = questionDao.getById(id);
 		question.setLevels(questionModified.getLevels());
 		question.setAnswers(questionModified.getAnswers());
-		question.setSpecifications(questionModified.getSpecifications());
+		question.setSpecification(questionModified.getSpecification());
 		question.setTitle(questionModified.getTitle());
-		
+
 		questionDao.update(question);
 	}
 
 	public void update(Question question) {
 		List<Question> questionsFound = questionDao.getByTitle(-1, -1, question.getTitle());
-		
+
 		int AnsOverlaps = 0;
 		// Если в БД уже есть вопрос с такой формулировкой
 		if (questionsFound.size() > 0) {
@@ -107,7 +107,7 @@ public class QuestionService {
 				}
 			}
 		}
-		
+
 		if (AnsOverlaps == question.getAnswers().size()) {
 			ArrayList<QuestionLevel> levels = new ArrayList<QuestionLevel>();
 			levels.addAll(questionsFound.get(0).getLevels());
@@ -124,12 +124,11 @@ public class QuestionService {
 					}
 			}
 
-		// Если вопроса с такой формулировкой нет - сохраняем его в БД
+			// Если вопроса с такой формулировкой нет - сохраняем его в БД
 		} else {
 			SpecificationService sService = new SpecificationService();
-
-			String specName = question.getSpecifications().iterator().next().getName().toString();
-
+			String specName = question.getSpecification().getName();
+			
 			// Общие вопросы одинаковы для всех сложностей
 			if (specName.toUpperCase().equals("ОБЩИЕ")) {
 				HashSet<QuestionLevel> levels = new HashSet<QuestionLevel>();
@@ -139,36 +138,40 @@ public class QuestionService {
 				levels.add(QuestionLevel.Резерв);
 				question.setLevels(levels);
 			}
-
-			Set<Specification> specsSet = new HashSet<Specification>(sService.getByName(specName));
-
-			if (sService.getByName(specName).size() == 0) {
-				Specification spec = new Specification();
+			
+			
+			Specification spec = null;
+			if(sService.getByName(specName).size() > 0)
+				spec = sService.getByName(specName).get(0);
+			else {
+				spec = new Specification();
 				spec.setName(specName);
-				specsSet.add(spec);
 			}
-
-			question.setSpecifications(specsSet);
+			
+			question.setSpecification(spec);
 			save(question);
 		}
 	}
 
 	public int countAll() {
 		return questionDao.getAmountOfItems();
-		
+
 	}
-	
-	public List<Question> getAllByNameSpecListLvlListAndId(String name, Set<Specification> specs, Set<QuestionLevel> levels, Long id) {
+
+	public List<Question> getAllByNameSpecListLvlListAndId(String name, Set<Specification> specs,
+			Set<QuestionLevel> levels, Long id) {
 		return questionDao.getByNameSpecListLvlListAndID(-1, -1, name, specs, levels, id);
-		
+
 	}
-	
-	public List<Question> getByNameSpecListLvlListAndId(int startPos, int endPos, String name, Set<Specification> specs, Set<QuestionLevel> levels, Long id) {
+
+	public List<Question> getByNameSpecListLvlListAndId(int startPos, int endPos, String name, Set<Specification> specs,
+			Set<QuestionLevel> levels, Long id) {
 		return questionDao.getByNameSpecListLvlListAndID(startPos, endPos, name, specs, levels, id);
-		
+
 	}
-	
-	public int countByNameSpecListLvlListAndId(String name, Set<Specification> specs, Set<QuestionLevel> levels, Long id) {
+
+	public int countByNameSpecListLvlListAndId(String name, Set<Specification> specs, Set<QuestionLevel> levels,
+			Long id) {
 		return questionDao.countByNameSpecListLvlListAndID(name, specs, levels, id);
 	}
 

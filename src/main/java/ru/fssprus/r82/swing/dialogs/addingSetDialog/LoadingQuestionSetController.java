@@ -19,13 +19,12 @@ import ru.fssprus.r82.utils.TestFileChooser;
 
 public class LoadingQuestionSetController extends CommonController<LoadingQuestionSetDialog> {
 	private File testFile;
-	
-	
+
 	public LoadingQuestionSetController(LoadingQuestionSetDialog dialog) {
 		super(dialog);
 		setKeyWords();
 	}
-	
+
 	@Override
 	protected void setListeners() {
 		dialog.getBtnLoadQuestionsSet().addActionListener(this);
@@ -38,13 +37,13 @@ public class LoadingQuestionSetController extends CommonController<LoadingQuesti
 			doLoadQuestionSet();
 		if (e.getSource() == dialog.getBtnOpenTextFile())
 			doOpenTestFile();
-		
+
 	}
-	
+
 	private void setKeyWords() {
 
 	}
-	
+
 	private void doLoadQuestionSet() {
 		if (!validateFile()) {
 			MessageBox.showFileNotLoadedErrorDialog(dialog);
@@ -57,18 +56,19 @@ public class LoadingQuestionSetController extends CommonController<LoadingQuesti
 			dialog.getAccbSpecName().requestFocus();
 			return;
 		}
-		
+
 		dialog.getBtnLoadQuestionsSet().setEnabled(false);
 
 		SpreadSheetParser parser = new SpreadSheetParser();
 
-		HashSet<Question> questions = parser.parse(testFile, configureLevelsSet(), configureSpecsSet());
+		HashSet<Question> questions = parser.parse(testFile, configureLevelsSet(), configureSpec());
+
 		saveQuestionSetToDB(questions);
 
 		dialog.getBtnLoadQuestionsSet().setEnabled(true);
 		MessageBox.showReadyDialog(dialog);
 	}
-	
+
 	private void doOpenTestFile() {
 		TestFileChooser chooser = new TestFileChooser();
 		testFile = chooser.selectSpreadSheetFileToOpen();
@@ -79,7 +79,7 @@ public class LoadingQuestionSetController extends CommonController<LoadingQuesti
 				e.printStackTrace();
 			}
 	}
-	
+
 	private boolean validateFile() {
 		if (testFile == null || dialog.getTfFilePath().getText().isEmpty()
 				|| ((!dialog.getTfFilePath().getText().toUpperCase().endsWith(".ODS"))
@@ -95,7 +95,7 @@ public class LoadingQuestionSetController extends CommonController<LoadingQuesti
 			return false;
 		return true;
 	}
-	
+
 	private Set<QuestionLevel> configureLevelsSet() {
 		QuestionLevel level = (QuestionLevel) dialog.getCbQuestLevel().getSelectedItem();
 		Set<QuestionLevel> lvls = new HashSet<QuestionLevel>();
@@ -103,26 +103,25 @@ public class LoadingQuestionSetController extends CommonController<LoadingQuesti
 		return lvls;
 	}
 
-	private HashSet<Specification> configureSpecsSet() {
+	private Specification configureSpec() {
 		String specName = dialog.getAccbSpecName().getSelectedItem().toString();
-		
+
 		SpecificationService specService = new SpecificationService();
 
-		List<Specification> specsList = specService.getByName(specName);
-		if (specsList.size() == 0) {
-			Specification specification = new Specification();
-			specification.setName(specName);
-			specsList.add(specification);
+		Specification spec = null;
 
-			specService.save(specification);
+		if (specService.getByName(specName).size() > 0) {
+			spec = specService.getByName(specName).get(0);
+		} else {
+			spec = new Specification();
+			spec.setName(specName);
 		}
-		HashSet<Specification> specs = new HashSet<Specification>(specService.getByName(specName));
-		return specs;
+		return spec;
 	}
-	
+
 	private void saveQuestionSetToDB(HashSet<Question> questions) {
 		QuestionService qService = new QuestionService();
 		qService.updateSet(questions);
 	}
-	
+
 }

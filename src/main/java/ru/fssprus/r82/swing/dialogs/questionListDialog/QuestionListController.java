@@ -36,8 +36,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		super(dialog);
 		initTfSpec();
 		blockQuestionEditFields(true);
-		setListeners();
-
+		
 		doFilterAction();
 		showQuestions();
 	}
@@ -51,6 +50,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		dialog.getBtnEditQuestion().addActionListener(this);
 		dialog.getBtnClearFilters().addActionListener(this);
 		dialog.getBtnSaveQuestion().addActionListener(this);
+		dialog.getBtnAdd().addActionListener(this);
 		setTableOnSelectionListener();
 
 	}
@@ -73,7 +73,23 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 			doPreviousPageAction();
 		if (e.getSource() == dialog.getBtnClearFilters())
 			doClearFiltersAction();
+		if (e.getSource() == dialog.getBtnAdd())
+			doAddAction();
 
+	}
+
+	private void doAddAction() {
+		dialog.getTabQuestList().getTabModel().addRow(null);
+		Question emptyQuestion = new Question();
+		Set<Answer> emtyAnswers = new HashSet<Answer>();
+		Specification emptySpec = new Specification();
+		Set<QuestionLevel> emptyLevels = new HashSet<QuestionLevel>();
+		emptyQuestion.setAnswers(emtyAnswers);
+		emptyQuestion.setSpecification(emptySpec);
+		emptyQuestion.setLevels(emptyLevels);
+		questionsOnScreenList.add(emptyQuestion);
+		dialog.getTabQuestList().getTabModel().update();
+		
 	}
 
 	private void initTfSpec() {
@@ -145,7 +161,8 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 							}
 						}
 					}
-					String spec = currentQuestion.getSpecifications().iterator().next().getName();
+					String spec = currentQuestion.getSpecification().getName();
+					
 					dialog.getAccbSpecNames().setSelectedItem(spec);
 
 				}
@@ -202,12 +219,10 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 
 		SpecificationService specService = new SpecificationService();
 
-		List<Specification> spec = specService
+		List<Specification> specs = specService
 				.getByName(dialog.getAccbSpecNames().getSelectedItem().toString());
 
-		Set<Specification> specs = new HashSet<Specification>(spec);
-
-		currentQuestion.setSpecifications(specs);
+		currentQuestion.setSpecification(specs.get(0));
 
 		currentQuestion.setTitle(dialog.getTaQuestion().getText());
 

@@ -11,7 +11,7 @@ import ru.fssprus.r82.entity.Specification;
 
 public class SpreadSheetParser {
 	
-	public HashSet<Question> parse(File f, Set<QuestionLevel> lvl, HashSet<Specification> specs) {
+	public HashSet<Question> parse(File f, Set<QuestionLevel> lvl, Specification spec) {
 		SpreadSheetAdapter adapter = new SpreadSheetAdapter(f);
 		int columns = adapter.getColumnsCount();
 		int rows = adapter.getRowsCount();
@@ -25,7 +25,7 @@ public class SpreadSheetParser {
 				if(j == 2) {
 					question.setTitle(adapter.getCellValue(i, j));
 					question.setLevels(lvl);
-					question.setSpecifications(specs);
+					question.setSpecification(spec);
 				}
 				// 3 ... - формулировка ответа, его правильность
 				if(j >= 3) {
