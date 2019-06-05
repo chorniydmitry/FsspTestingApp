@@ -1,6 +1,8 @@
 package ru.fssprus.r82.swing.dialogs.questionListDialog;
 
 
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.List;
 import java.util.Set;
 
@@ -33,6 +35,15 @@ public class QuestionListTable extends JTable{
 		setDefaultRenderer(Object.class, new TableCellRenderer());
 
 		updateColumnWidths();
+	}
+	
+	public void scrollTableDown() {
+		addComponentListener(new ComponentAdapter() {
+			public void componentResized(ComponentEvent e) {
+				int lastIndex = getRowCount() - 1;
+				changeSelection(lastIndex, 0, false, false);
+			}
+		});
 	}
 
 	public void updateColumnWidths() {

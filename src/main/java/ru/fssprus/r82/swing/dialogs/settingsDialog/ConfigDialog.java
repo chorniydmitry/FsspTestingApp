@@ -90,8 +90,6 @@ public class ConfigDialog extends DialogWithPassword {
 	protected String getSection() {
 		return SECTION;
 	}
-
-	
 	
 	private void setTfsNames() {
 		tfBaseNum.setName("base.num");

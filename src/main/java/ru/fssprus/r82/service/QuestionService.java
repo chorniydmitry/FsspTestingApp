@@ -63,18 +63,8 @@ public class QuestionService {
 	public List<Question> getByNameSpecificationAndLevel(String name, Set<Specification> specs,
 			Set<QuestionLevel> lvls) {
 		return questionDao.getByNameSpecificationAndLevel(name, specs, lvls);
-
 	}
-
-	public void updateSet(HashSet<Question> questions) {
-		for (Question question : questions)
-			update(question);
-	}
-
-	public void save(Question questionToSave) {
-		questionDao.add(questionToSave);
-	}
-
+	
 	public int countBySpecificationAndLevel(Specification spec, QuestionLevel level) {
 		return questionDao.countBySpecificationAndLevel(spec, level);
 	}
@@ -83,10 +73,29 @@ public class QuestionService {
 		return questionDao.getAll(startPos, endPos);
 	}
 
+	public void updateSet(HashSet<Question> questions) {
+		for (Question question : questions)
+			update(question);
+	}
+
+	public void save(Question questionToSave) {
+		SpecificationService service = new SpecificationService();
+
+		if (service.getByName(questionToSave.getSpecification().getName()).size() == 0)
+			service.save(questionToSave.getSpecification());
+		
+		questionDao.add(questionToSave);
+	}
+
 	public void update(Long id, Question questionModified) {
 		Question question = questionDao.getById(id);
+		AnswerService ansService = new AnswerService();
+		if (question == null)
+			question = new Question();
+				
 		question.setLevels(questionModified.getLevels());
-		question.setAnswers(questionModified.getAnswers());
+		question.getAnswers().forEach((n)-> ansService.delete(n));
+		question.setAnswers(new HashSet<Answer>(questionModified.getAnswers()));
 		question.setSpecification(questionModified.getSpecification());
 		question.setTitle(questionModified.getTitle());
 
@@ -128,7 +137,7 @@ public class QuestionService {
 		} else {
 			SpecificationService sService = new SpecificationService();
 			String specName = question.getSpecification().getName();
-			
+
 			// Общие вопросы одинаковы для всех сложностей
 			if (specName.toUpperCase().equals("ОБЩИЕ")) {
 				HashSet<QuestionLevel> levels = new HashSet<QuestionLevel>();
@@ -138,16 +147,15 @@ public class QuestionService {
 				levels.add(QuestionLevel.Резерв);
 				question.setLevels(levels);
 			}
-			
-			
+
 			Specification spec = null;
-			if(sService.getByName(specName).size() > 0)
+			if (sService.getByName(specName).size() > 0)
 				spec = sService.getByName(specName).get(0);
 			else {
 				spec = new Specification();
 				spec.setName(specName);
 			}
-			
+
 			question.setSpecification(spec);
 			save(question);
 		}
@@ -173,6 +181,10 @@ public class QuestionService {
 	public int countByNameSpecListLvlListAndId(String name, Set<Specification> specs, Set<QuestionLevel> levels,
 			Long id) {
 		return questionDao.countByNameSpecListLvlListAndID(name, specs, levels, id);
+	}
+
+	public void delete(Question question) {
+		questionDao.remove(question);
 	}
 
 }

@@ -4,15 +4,16 @@ import java.awt.event.ActionListener;
 
 public abstract class CommonController<T extends CommonDialog> implements ActionListener {
 	protected T dialog;
+
 	public CommonController(T dialog) {
 		this.dialog = dialog;
-		if(dialog.isAccessGained()) {
-			dialog.init();
-			setListeners();
+		if ((dialog instanceof DialogWithPassword) && !(dialog.isAccessGained())) {
+			return;
 		}
+		dialog.init();
+		setListeners();
 	}
-	
+
 	protected abstract void setListeners();
-	
 
 }

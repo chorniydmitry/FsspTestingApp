@@ -18,14 +18,15 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import g.cope.swing.autocomplete.jcombobox.AutocompleteJComboBox;
+import g.cope.swing.autocomplete.jcombobox.StringSearchable;
 import ru.fssprus.r82.entity.QuestionLevel;
+import ru.fssprus.r82.service.SpecificationService;
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
 import ru.fssprus.r82.utils.AppConstants;
 
 public class QuestionListDialog extends DialogWithPassword {
 	private static final long serialVersionUID = -8319908967500731744L;
 	private static final String SECTION = AppConstants.QUESTION_EDIT_SECTION;
-	public static final int MAX_ANSWERS = 5;
 
 	private QuestionListTable tabQuestList = new QuestionListTable();
 	private JScrollPane scrollPane = new JScrollPane(tabQuestList);
@@ -94,6 +95,25 @@ public class QuestionListDialog extends DialogWithPassword {
 	}
 	
 	@Override
+	public void init() {
+		initTfSpecNames();
+		super.init();
+	}
+	
+	private void initTfSpecNames() {
+		SpecificationService specService = new SpecificationService();
+		
+		ArrayList<String> keywords = new ArrayList<String>();
+		specService.getAll().forEach((n) -> keywords.add(n.getName()));
+		
+		StringSearchable searchable = new StringSearchable(keywords);
+		setAccbSpecNames(new AutocompleteJComboBox(searchable));
+		getAccbSpecNames().addItem(null);
+		getAccbSpecNames().setPrototypeDisplayValue("XXXXXXXXXXXXXXXXXXXX");
+		keywords.forEach((n)-> getAccbSpecNames().addItem(n));
+	}
+	
+	@Override
 	protected String getSection() {
 		return SECTION;
 	}
@@ -105,7 +125,7 @@ public class QuestionListDialog extends DialogWithPassword {
 			cbLevelsList.add(new JCheckBox(qlevel.toString()));
 		}
 
-		for (int i = 0; i < MAX_ANSWERS; i++) {
+		for (int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
 			lblAnsList.add(new JLabel("Ответ " + (i + 1)));
 			tfAnsList.add(new JTextField());
 			cbAnsList.add(new JCheckBox());
@@ -141,7 +161,7 @@ public class QuestionListDialog extends DialogWithPassword {
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
 		// cbLevelsList.size()+1 row
-		for (int i = 0; i < MAX_ANSWERS; i++) {
+		for (int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
 			pnlQuestionEdit.add(lblAnsList.get(i), new GridBagConstraints(0, cbLevelsList.size() + 1 + i, 1, 1, 0, 0,
 					GridBagConstraints.WEST, GridBagConstraints.CENTER, new Insets(0, 0, 0, 0), 0, 0));
 
@@ -153,13 +173,13 @@ public class QuestionListDialog extends DialogWithPassword {
 		}
 
 		// last row
-		pnlQuestionEdit.add(btnDiscardQuestionEditChanges, new GridBagConstraints(0, cbLevelsList.size() + 2 + MAX_ANSWERS, 1, 1, 0, 0,
+		pnlQuestionEdit.add(btnDiscardQuestionEditChanges, new GridBagConstraints(0, cbLevelsList.size() + 2 + AppConstants.MAX_ANSWERS_AMOUNT, 1, 1, 0, 0,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
-		pnlQuestionEdit.add(btnSaveQuestion, new GridBagConstraints(1, cbLevelsList.size() + 2 + MAX_ANSWERS, 1, 1, 0, 0,
+		pnlQuestionEdit.add(btnSaveQuestion, new GridBagConstraints(1, cbLevelsList.size() + 2 + AppConstants.MAX_ANSWERS_AMOUNT, 1, 1, 0, 0,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 		
-		pnlQuestionEdit.add(btnEditQuestion, new GridBagConstraints(2, cbLevelsList.size() + 2 + MAX_ANSWERS, 1, 1, 0, 0,
+		pnlQuestionEdit.add(btnEditQuestion, new GridBagConstraints(2, cbLevelsList.size() + 2 + AppConstants.MAX_ANSWERS_AMOUNT, 1, 1, 0, 0,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 		
 		pnlQuestionEdit.setVisible(true);

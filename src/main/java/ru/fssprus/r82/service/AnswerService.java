@@ -27,4 +27,12 @@ public class AnswerService {
 	public List<Answer> getCorrectByQuestionSet(int startPos, int endPos, Set<Question> questions) {
 		return answerDao.getCorrectByQuestionSet(startPos, endPos, questions);
 	}
+	
+	public void delete(Answer ans) {
+		answerDao.remove(ans);
+	}
+	
+	public void save(Answer ans) {
+		answerDao.add(ans);
+	}
 }

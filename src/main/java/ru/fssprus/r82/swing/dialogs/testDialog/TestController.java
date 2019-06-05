@@ -30,7 +30,6 @@ public class TestController extends ControllerWithTimer<TestDialog> implements A
 		super(dialog, 0);
 		this.testingProcess = testingProcess;
 		this.specs = specs;
-
 		showQuestionContents(testingProcess.getCurrentQuestionIndex());
 		setLblForInfo(dialog.getLblTimeLeftSec());
 		setTimer(selectedLevel);
@@ -227,7 +226,7 @@ public class TestController extends ControllerWithTimer<TestDialog> implements A
 
 	private void showQuestion(int index) {
 		String questionText = testingProcess.getQuestions().get(index).getTitle();
-
+		
 		dialog.getLblQuestionInfo()
 				.setText("Вопрос № " + (index + 1) + " из " + testingProcess.getQuestions().size());
 

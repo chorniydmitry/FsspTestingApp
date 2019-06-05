@@ -10,17 +10,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="specification")
-public class Specification extends Model{
+@Table(name = "specification")
+public class Specification extends Model {
 	
-	@Column(name="name", length=2048, unique = true, nullable = false, updatable = false)
+	@OneToMany(cascade= CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy="specification")
+	private Set<Question> questionList;
+
+	@Column(name = "name", length = 2048, unique = true, nullable = false, updatable = false)
 	private String name;
-	
-//	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-//			mappedBy = "specifications")
-//	private Set<Question> questionList;
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="specification", fetch=FetchType.EAGER)
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "specification", fetch = FetchType.EAGER)
 	private Set<Test> testList;
 
 	public String getName() {
@@ -30,8 +29,13 @@ public class Specification extends Model{
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	//@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "specifications")
+
+	// @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy =
+	// "specifications")
+
+	public void setQuestionList(Set<Question> questionList) {
+		this.questionList = questionList;
+	}
 
 	@Override
 	public String toString() {
@@ -68,5 +72,9 @@ public class Specification extends Model{
 			return false;
 		return true;
 	}
-	
+
+	public Set<Question> getQuestionList() {
+		return questionList;
+	}
+
 }

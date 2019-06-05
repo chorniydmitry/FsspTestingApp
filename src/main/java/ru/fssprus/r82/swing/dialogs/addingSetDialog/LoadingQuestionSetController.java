@@ -60,8 +60,11 @@ public class LoadingQuestionSetController extends CommonController<LoadingQuesti
 		dialog.getBtnLoadQuestionsSet().setEnabled(false);
 
 		SpreadSheetParser parser = new SpreadSheetParser();
+		
+		Specification spec = new Specification();
+		spec.setName(dialog.getAccbSpecName().getSelectedItem().toString());
 
-		HashSet<Question> questions = parser.parse(testFile, configureLevelsSet(), configureSpec());
+		HashSet<Question> questions = parser.parse(testFile, configureLevelsSet(), spec);
 
 		saveQuestionSetToDB(questions);
 
@@ -101,22 +104,6 @@ public class LoadingQuestionSetController extends CommonController<LoadingQuesti
 		Set<QuestionLevel> lvls = new HashSet<QuestionLevel>();
 		lvls.add(level);
 		return lvls;
-	}
-
-	private Specification configureSpec() {
-		String specName = dialog.getAccbSpecName().getSelectedItem().toString();
-
-		SpecificationService specService = new SpecificationService();
-
-		Specification spec = null;
-
-		if (specService.getByName(specName).size() > 0) {
-			spec = specService.getByName(specName).get(0);
-		} else {
-			spec = new Specification();
-			spec.setName(specName);
-		}
-		return spec;
 	}
 
 	private void saveQuestionSetToDB(HashSet<Question> questions) {

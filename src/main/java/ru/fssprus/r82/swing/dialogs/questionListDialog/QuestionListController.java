@@ -10,16 +10,16 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import g.cope.swing.autocomplete.jcombobox.AutocompleteJComboBox;
-import g.cope.swing.autocomplete.jcombobox.StringSearchable;
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.entity.Specification;
+import ru.fssprus.r82.service.AnswerService;
 import ru.fssprus.r82.service.QuestionService;
 import ru.fssprus.r82.service.SpecificationService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.ulils.MessageBox;
+import ru.fssprus.r82.utils.AppConstants;
 
 public class QuestionListController extends CommonController<QuestionListDialog>{
 	private static final int ENTRIES_FOR_PAGE = 25;
@@ -34,7 +34,6 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 
 	public QuestionListController(QuestionListDialog dialog) {
 		super(dialog);
-		initTfSpec();
 		blockQuestionEditFields(true);
 		
 		doFilterAction();
@@ -51,6 +50,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		dialog.getBtnClearFilters().addActionListener(this);
 		dialog.getBtnSaveQuestion().addActionListener(this);
 		dialog.getBtnAdd().addActionListener(this);
+		dialog.getBtnRemove().addActionListener(this);
 		setTableOnSelectionListener();
 
 	}
@@ -65,6 +65,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 			doSaveQuestionAction();
 
 		doUnselectTableLines();
+		
 		if (e.getSource() == dialog.getBtnFilter())
 			doFilterAction();
 		if (e.getSource() == dialog.getBtnNextPage())
@@ -75,11 +76,30 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 			doClearFiltersAction();
 		if (e.getSource() == dialog.getBtnAdd())
 			doAddAction();
+		if (e.getSource() == dialog.getBtnRemove())
+			doRemoveAction();
 
+	}
+	
+	private void doRemoveAction() {
+		if(MessageBox.showConfirmQuestionDelete(dialog)) {
+			QuestionService service = new QuestionService();
+			service.delete(currentQuestion);
+		}
+		doFilterAction();
 	}
 
 	private void doAddAction() {
 		dialog.getTabQuestList().getTabModel().addRow(null);
+
+		questionsOnScreenList.add(createEmptyQuestion());
+		dialog.getTabQuestList().getTabModel().update();
+		dialog.getTabQuestList().scrollTableDown();
+		blockQEditElements(true);
+		
+	}
+	
+	private Question createEmptyQuestion() {
 		Question emptyQuestion = new Question();
 		Set<Answer> emtyAnswers = new HashSet<Answer>();
 		Specification emptySpec = new Specification();
@@ -87,19 +107,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		emptyQuestion.setAnswers(emtyAnswers);
 		emptyQuestion.setSpecification(emptySpec);
 		emptyQuestion.setLevels(emptyLevels);
-		questionsOnScreenList.add(emptyQuestion);
-		dialog.getTabQuestList().getTabModel().update();
-		
-	}
-
-	private void initTfSpec() {
-		ArrayList<String> keywords = getSpecsNames();
-		StringSearchable searchable = new StringSearchable(keywords);
-
-		dialog.setAccbSpecNames(new AutocompleteJComboBox(searchable));
-		dialog.getAccbSpecNames().addItem(null);
-		keywords.forEach((n) -> dialog.getAccbSpecNames().addItem(n));
-		dialog.getAccbSpecNames().setPrototypeDisplayValue("XXXXXXXXXXXXXXXXXXXX");
+		return emptyQuestion;
 	}
 
 	private void blockQuestionEditFields(boolean block) {
@@ -110,26 +118,11 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		}
 		dialog.getAccbSpecNames().setEditable(!block);
 
-		for (int i = 0; i < QuestionListDialog.MAX_ANSWERS; i++) {
+		for (int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
 			dialog.getTfAnsList().get(i).setEditable(!block);
-
 			dialog.getCbAnsList().get(i).setEnabled(!block);
 		}
 	}
-
-	private ArrayList<String> getSpecsNames() {
-		ArrayList<String> specNames = new ArrayList<String>();
-		loadSpecsFromDB().forEach((n) -> specNames.add(n.getName()));
-
-		return specNames;
-	}
-
-	private List<Specification> loadSpecsFromDB() {
-		SpecificationService specService = new SpecificationService();
-		return specService.getAll();
-	}
-
-
 
 	private void setTableOnSelectionListener() {
 		ListSelectionModel cellSelectionModel = dialog.getTabQuestList().getSelectionModel();
@@ -173,7 +166,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 
 	private void clearQuestionEditPanelContents() {
 		dialog.getTaQuestion().setText(null);
-		for (int i = 0; i < QuestionListDialog.MAX_ANSWERS; i++) {
+		for (int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
 			dialog.getTfAnsList().get(i).setText(null);
 			dialog.getCbAnsList().get(i).setSelected(false);
 		}
@@ -190,24 +183,28 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		this.totalPages = amountOfQuestions / ENTRIES_FOR_PAGE + 1;
 		return totalPages;
 	}
-
-	private void doSaveQuestionAction() {
-
-		QuestionService service = new QuestionService();
-
-		currentQuestion.setTitle(dialog.getTfQuestionName().getText());
-
-		List<Answer> answers = new ArrayList<Answer>(currentQuestion.getAnswers());
-
-		for (int i = 0; i < dialog.getCbAnsList().size(); i++) {
-			if (!dialog.getTfAnsList().get(i).getText().isEmpty()) {
-				answers.get(i).setQuestion(currentQuestion);
-				answers.get(i).setTitle(dialog.getTfAnsList().get(i).getText());
-				answers.get(i).setIsCorrect(dialog.getCbAnsList().get(i).isSelected());
+	
+	private Question configureQuestionFromUserInput() {
+		Question question = new Question();
+		
+		if(currentQuestion.getId() != null)
+			question.setId(currentQuestion.getId());
+		
+		question.setTitle(dialog.getTaQuestion().getText());
+		
+		List<Answer> answers = new ArrayList<Answer>();
+		for(int i = 0; i < dialog.getTfAnsList().size(); i++) {
+			String ansText = dialog.getTfAnsList().get(i).getText();
+			if(!ansText.isEmpty()) {
+				Answer answer = new Answer();
+				answer.setQuestion(question);
+				answer.setTitle(ansText);
+				answer.setIsCorrect(dialog.getCbAnsList().get(i).isSelected());
+				
+				answers.add(answer);
 			}
 		}
-
-		currentQuestion.setAnswers(new HashSet<Answer>(answers));
+		question.setAnswers(new HashSet<Answer>(answers));
 
 		Set<QuestionLevel> levels = new HashSet<QuestionLevel>();
 
@@ -215,18 +212,94 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 			if (dialog.getCbLevelsList().get(i).isSelected())
 				levels.add(QuestionLevel.valueOf(dialog.getCbLevelsList().get(i).getText()));
 
-		currentQuestion.setLevels(levels);
+		question.setLevels(levels);
 
 		SpecificationService specService = new SpecificationService();
 
 		List<Specification> specs = specService
 				.getByName(dialog.getAccbSpecNames().getSelectedItem().toString());
+		
+		Specification specToAdd = null;
+		if(specs.size() == 0) {
+			specToAdd = new Specification();
+			specToAdd.setName(String.valueOf(dialog.getAccbSpecNames().getSelectedItem()));
+		} else {
+			specToAdd = specs.get(0);
+		}
+			
+		question.setSpecification(specToAdd);
 
-		currentQuestion.setSpecification(specs.get(0));
+		
+		return question;
+	}
+	
+	private boolean validateQuestionSave() {
+		// Валидация текста вопроса
+		// Длина текста вопроса слишком маленькая
+		if(dialog.getTaQuestion().getText().length() < AppConstants.QUESTION_TEXT_MIN_LENGTH)
+			return false;
+		
+		//----------------
+		// Валидация ответов
+		boolean isAnyAnswerAsCorrectSelected = false;
+		int amountOfAnswers = 0;
+		for(int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
+			String currAnswer = dialog.getTfAnsList().get(i).getText();
+			// Длина текста ответа слишком маленькая
+			if(currAnswer.length() > 0 && currAnswer.length() < AppConstants.ANSWER_TEXT_MIN_LENGTH)
+				return false;
+			
+			if(!currAnswer.isEmpty()) {
+				amountOfAnswers ++;
+			// Пустой вопрос помечен как верный	
+			} else if(dialog.getCbAnsList().get(i).isSelected()){
+				return false;
+			}
+			
+			if(dialog.getCbAnsList().get(i).isSelected())
+				isAnyAnswerAsCorrectSelected = true;
+		}
+		// Не заполнено минимальное количество ответов
+		if(amountOfAnswers < AppConstants.MIN_ANSWERS_AMOUNT)
+			return false;
+		
+		// Ни один из ответов не помечен как верный
+		if(!isAnyAnswerAsCorrectSelected)
+			return false;
+		
+		//----------------
+		// Валидация сложности
+		boolean isAnyLevelSelected = false;
+		for(int i = 0; i < dialog.getCbLevelsList().size(); i++) 
+			if(dialog.getCbLevelsList().get(i).isSelected())
+				isAnyLevelSelected = true;
+		// Не выбрано ни одной сложности для вопроса
+		if(!isAnyLevelSelected)
+			return false;
+		
+		//----------------
+		// Валидация спецализации
+		// Не заполнена специализация
+		if(dialog.getAccbSpecNames().getSelectedItem().toString().isEmpty())
+			return false;
+		
+		return true;
+		
+	}
 
-		currentQuestion.setTitle(dialog.getTaQuestion().getText());
-
-		service.update(currentQuestion.getId(), currentQuestion);
+	private void doSaveQuestionAction() {
+		if(!validateQuestionSave()) {
+			MessageBox.showWrongQuestionSpecifiedErrorDialog(dialog);
+			return;
+		}
+		
+		QuestionService service = new QuestionService();
+		Question questionToSave = configureQuestionFromUserInput();
+		
+		if(questionToSave.getId() == null)
+			service.save(questionToSave);
+		else
+			service.update(questionToSave.getId(), questionToSave);
 
 		doFilterAction();
 	}
@@ -239,16 +312,17 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 
 		doFilterAction();
 	}
+	
+	private void blockQEditElements(boolean action) {
+		blockQuestionEditFields(false);
+		isQuestionEditFieldsBlocked = false;
+	}
 
 	private void doEditAction() {
-		if (isQuestionEditFieldsBlocked) {
-			blockQuestionEditFields(false);
-			isQuestionEditFieldsBlocked = false;
-		} else {
-			blockQuestionEditFields(true);
-			isQuestionEditFieldsBlocked = true;
-		}
-
+		if (isQuestionEditFieldsBlocked) 
+			blockQEditElements(false);
+		 else 
+			blockQEditElements(true);
 	}
 
 	private void doUnselectTableLines() {

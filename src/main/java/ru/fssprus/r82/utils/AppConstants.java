@@ -56,5 +56,10 @@ public class AppConstants {
 	public static final String[] SECTIONS_TEXT_ARR = { TEST_TEXT, STATISTICS_TEXT, 
 			ADMIN_TEXT, CONFIG_TEXT,QUESTION_EDIT_TEXT, QUESTION_LOAD_TEXT, 
 			MANAGE_PASSWORDS_TEXT };
-
+	
+	//прочие константы
+	public static final int MAX_ANSWERS_AMOUNT = 5;
+	public static final int MIN_ANSWERS_AMOUNT = 2;
+	public static final int ANSWER_TEXT_MIN_LENGTH = 3;
+	public static final int QUESTION_TEXT_MIN_LENGTH = 5;
 }

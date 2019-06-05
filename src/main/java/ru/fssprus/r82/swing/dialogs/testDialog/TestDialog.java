@@ -35,7 +35,7 @@ public class TestDialog extends CommonDialog {
 	
 	private JLabel lblQuestionInfo = new JLabel();
 	private JTextArea taQuestionText = new JTextArea();
-	private ArrayList<JRadioButton> rbAnswers = new ArrayList<JRadioButton>();
+	private ArrayList<JRadioButton> rbAnswers = new ArrayList<JRadioButton>(AMT_RAD_BUTTONS);
 	private ButtonGroup bgAnswers = new ButtonGroup();
 	
 	private JPanel pnlDown = new JPanel();
@@ -51,6 +51,7 @@ public class TestDialog extends CommonDialog {
 	
 	@Override
 	public void init() {
+		fillBgAnswers();
 		getRootPane().setDefaultButton(btnNext);
 		requestFocus();
 		super.init();
@@ -60,7 +61,7 @@ public class TestDialog extends CommonDialog {
 	protected void layoutDialog() {
 		layoutPanelTop();
 		layoutPanelDown();
-		fillBgAnswers();
+		
 		setFonts();
 		layoutPanelAnswers();
 		layoutPanelQuestAndAnswers();

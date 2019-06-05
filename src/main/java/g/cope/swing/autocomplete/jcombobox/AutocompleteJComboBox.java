@@ -67,7 +67,7 @@ public class AutocompleteJComboBox extends JComboBox<String> {
 
 						@Override
 						public void run() {
-							System.out.println(searchable == null);
+							
 							List<String> founds = new ArrayList<String>(
 									searchable.search(
 											tc.getText()));

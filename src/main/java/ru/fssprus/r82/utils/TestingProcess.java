@@ -49,11 +49,6 @@ public class TestingProcess {
 		loadQuestionsFromDB(specs, amtQuestions);
 		initLists();
 		loadAnswersForQuests();
-		test();
-	}
-
-	private void test() {
-
 	}
 
 	private void initLists() {
@@ -80,7 +75,7 @@ public class TestingProcess {
 			} while (randomIndexesSet.size() < amtQuestions.get(i));
 
 			randomIndexesSet.forEach((n) -> questions.add(allQuestionsList.get(n)));
-
+			
 			Collections.shuffle(questions);
 		}
 	}
@@ -177,6 +172,8 @@ public class TestingProcess {
 			}
 			setAnswersForQuestion(i, ansList);
 		}
+		
+		
 		return true;
 	}
 

@@ -123,7 +123,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 			CriteriaQuery<Question> criteriaQuery = builder.createQuery(Question.class);
 
 			Root<Question> root = criteriaQuery.from(Question.class);
-			criteriaQuery.where(root.join("specifications").in(spec));
+			criteriaQuery.where(root.join("specification").in(spec));
 
 			Query<Question> query = session.createQuery(criteriaQuery);
 
@@ -153,7 +153,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 			CriteriaQuery<Question> criteriaQuery = builder.createQuery(Question.class);
 
 			Root<Question> root = criteriaQuery.from(Question.class);
-			criteriaQuery.where(root.join("specifications").in(spec), root.join("levels").in(level));
+			criteriaQuery.where(root.join("specification").in(spec), root.join("levels").in(level));
 
 			Query<Question> query = session.createQuery(criteriaQuery);
 
@@ -182,7 +182,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 			Root<Question> root = criteriaQuery.from(Question.class);
 
 			criteriaQuery.select(builder.count(root));
-			criteriaQuery.where(root.join("specifications").in(spec));
+			criteriaQuery.where(root.join("specification").in(spec));
 
 			TypedQuery<Object> q = session.createQuery(criteriaQuery);
 
@@ -229,7 +229,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 
 			Root<Question> root = criteriaQuery.from(Question.class);
 			criteriaQuery.select(root).where((builder.like(root.get("title"), "%" + name + "%")),
-					(root.join("specifications").in(spec)));
+					(root.join("specification").in(spec)));
 
 			Query<Question> query = session.createQuery(criteriaQuery);
 
@@ -254,7 +254,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 
 			Root<Question> root = criteriaQuery.from(Question.class);
 			criteriaQuery.select(root).where((builder.like(root.get("title"), "%" + name + "%")),
-					(root.join("specifications").in(specs)), (root.join("levels").in(lvls)));
+					(root.join("specification").in(specs)), (root.join("levels").in(lvls)));
 
 			Query<Question> query = session.createQuery(criteriaQuery);
 
@@ -289,7 +289,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 				predicates.add(builder.like(root.get("title"), "%" + name + "%"));
 			}
 			if (specs != null) {
-				predicates.add(root.join("specifications").in(specs));
+				predicates.add(root.join("specification").in(specs));
 			}
 
 			if (lvls != null) {
@@ -325,7 +325,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 			Root<Question> root = criteriaQuery.from(Question.class);
 
 			criteriaQuery.select(builder.count(root));
-			criteriaQuery.where(root.join("specifications").in(spec), root.join("levels").in(level));
+			criteriaQuery.where(root.join("specification").in(spec), root.join("levels").in(level));
 
 			TypedQuery<Object> q = session.createQuery(criteriaQuery);
 
@@ -360,7 +360,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 				predicates.add(builder.like(root.get("title"), "%" + name + "%"));
 			}
 			if (specs != null) {
-				predicates.add(root.join("specifications").in(specs));
+				predicates.add(root.join("specification").in(specs));
 			}
 
 			if (lvls != null) {
