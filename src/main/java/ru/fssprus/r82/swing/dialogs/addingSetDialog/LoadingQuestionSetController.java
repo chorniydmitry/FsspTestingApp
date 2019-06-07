@@ -108,7 +108,7 @@ public class LoadingQuestionSetController extends CommonController<LoadingQuesti
 
 	private void saveQuestionSetToDB(HashSet<Question> questions) {
 		QuestionService qService = new QuestionService();
-		qService.updateSet(questions);
+		qService.addFilteringExistant(questions);
 	}
 
 }

@@ -40,8 +40,12 @@ public class QuestionService {
 		return questionDao.getByIds(list);
 	}
 
-	public int getItemsCountBySpecification(Specification spec) {
+	public int getCountBySpecification(Specification spec) {
 		return questionDao.countItemsBySpecification(spec);
+	}
+	
+	public int getCountBySpecificationAndLevel(Specification spec, QuestionLevel level) {
+		return questionDao.countBySpecificationAndLevel(spec, level);
 	}
 
 	public int getAmountOfItems() {
@@ -73,9 +77,9 @@ public class QuestionService {
 		return questionDao.getAll(startPos, endPos);
 	}
 
-	public void updateSet(HashSet<Question> questions) {
+	public void addFilteringExistant(HashSet<Question> questions) {
 		for (Question question : questions)
-			update(question);
+			addFilteringExistant(question);
 	}
 
 	public void save(Question questionToSave) {
@@ -102,7 +106,7 @@ public class QuestionService {
 		questionDao.update(question);
 	}
 
-	public void update(Question question) {
+	public void addFilteringExistant(Question question) {
 		List<Question> questionsFound = questionDao.getByTitle(-1, -1, question.getTitle());
 
 		int AnsOverlaps = 0;

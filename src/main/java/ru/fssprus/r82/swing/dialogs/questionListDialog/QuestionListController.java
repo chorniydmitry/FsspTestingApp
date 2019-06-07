@@ -14,32 +14,29 @@ import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.entity.Specification;
-import ru.fssprus.r82.service.AnswerService;
 import ru.fssprus.r82.service.QuestionService;
 import ru.fssprus.r82.service.SpecificationService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.ulils.MessageBox;
 import ru.fssprus.r82.utils.AppConstants;
 
-public class QuestionListController extends CommonController<QuestionListDialog>{
+public class QuestionListController extends CommonController<QuestionListDialog> {
 	private static final int ENTRIES_FOR_PAGE = 25;
-
 	private int currentPage = 0;
 	private int totalPages;
 	private int totalQuestions;
 	private List<Question> questionsOnScreenList = new ArrayList<Question>();
-	private boolean isQuestionEditFieldsBlocked = true;
 	private Question currentQuestion = null;
-
+	private boolean questionEditing = false;
 
 	public QuestionListController(QuestionListDialog dialog) {
 		super(dialog);
-		blockQuestionEditFields(true);
-		
+		blockQuestionEditPanel(true);
+
 		doFilterAction();
 		showQuestions();
 	}
-	
+
 	@Override
 	protected void setListeners() {
 		dialog.getBtnFilter().addActionListener(this);
@@ -52,20 +49,22 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		dialog.getBtnAdd().addActionListener(this);
 		dialog.getBtnRemove().addActionListener(this);
 		setTableOnSelectionListener();
-
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == dialog.getBtnEditQuestion()) {
 			doEditAction();
 			return;
 		}
-		if (e.getSource() == dialog.getBtnSaveQuestion())
+		
+		if (e.getSource() == dialog.getBtnSaveQuestion()) {
 			doSaveQuestionAction();
+			return;
+		}
 
 		doUnselectTableLines();
-		
+
 		if (e.getSource() == dialog.getBtnFilter())
 			doFilterAction();
 		if (e.getSource() == dialog.getBtnNextPage())
@@ -78,11 +77,54 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 			doAddAction();
 		if (e.getSource() == dialog.getBtnRemove())
 			doRemoveAction();
+		if(e.getSource() == dialog.getBtnDiscardQuestionEditChanges())
+			doDiscardChangesAction();
 
 	}
 	
+	private void doEditAction() {
+		if(dialog.getTabQuestList().getSelectedRows().length == 0)
+			return;
+		if (questionEditing) {
+			blockQuestionEditPanel(false);
+		} else {
+			blockQuestionEditPanel(true);
+		}
+	}
+
+	private void doSaveQuestionAction() {
+		if (!validateQuestionSave()) {
+			MessageBox.showWrongQuestionSpecifiedErrorDialog(dialog);
+			return;
+		}
+	
+		QuestionService service = new QuestionService();
+		Question questionToSave = configureQuestionFromUserInput();
+	
+		if (questionToSave.getId() == null)
+			service.save(questionToSave);
+		else
+			service.update(questionToSave.getId(), questionToSave);
+	
+		doFilterAction();
+	}
+
+	private void doClearFiltersAction() {
+		dialog.getTfId().setText(null);
+		dialog.getTfQuestionName().setText(null);
+		dialog.getTfSpecs().setText(null);
+		dialog.getTfLevels().setText(null);
+	
+		doFilterAction();
+	}
+
+	private void doUnselectTableLines() {
+		dialog.getTabQuestList().getSelectionModel().clearSelection();
+		clearQuestionEditPanelContents();
+	}
+
 	private void doRemoveAction() {
-		if(MessageBox.showConfirmQuestionDelete(dialog)) {
+		if (MessageBox.showConfirmQuestionDelete(dialog)) {
 			QuestionService service = new QuestionService();
 			service.delete(currentQuestion);
 		}
@@ -91,14 +133,84 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 
 	private void doAddAction() {
 		dialog.getTabQuestList().getTabModel().addRow(null);
-
 		questionsOnScreenList.add(createEmptyQuestion());
 		dialog.getTabQuestList().getTabModel().update();
 		dialog.getTabQuestList().scrollTableDown();
-		blockQEditElements(true);
+		blockQuestionEditPanel(false);
+	}
+	
+	private void doDiscardChangesAction() {
+		showQuestion(currentQuestion);
 		
 	}
 	
+	private void doPreviousPageAction() {
+		if (currentPage > 0) {
+			currentPage--;
+			doFilterAction();
+		}
+	
+	}
+
+	private void doNextPageAction() {
+		if ((currentPage + 1) < totalPages) {
+			currentPage++;
+			doFilterAction();
+		}
+	
+	}
+
+	private void doFilterAction() {
+		QuestionService questionService = new QuestionService();
+		String idText = dialog.getTfId().getText();
+		String specsText = dialog.getTfSpecs().getText();
+		String questTitleText = dialog.getTfQuestionName().getText();
+		String levelsText = dialog.getTfLevels().getText();
+		Long id = 0l;
+		try {
+			if (!idText.isEmpty())
+				id = Long.parseLong(idText);
+	
+			int start = currentPage * ENTRIES_FOR_PAGE;
+			int max = ENTRIES_FOR_PAGE;
+	
+			Set<QuestionLevel> levels = setLevels(levelsText);
+			Set<Specification> specs = setSpecs(specsText);
+	
+			totalQuestions = questionService.countByNameSpecListLvlListAndId(questTitleText, specs, levels, id);
+	
+			if (totalQuestions <= ENTRIES_FOR_PAGE) {
+				start = -1;
+				max = -1;
+			}
+			questionsOnScreenList = questionService.getByNameSpecListLvlListAndId(start, max, questTitleText, specs,
+					levels, id);
+	
+			showQuestions();
+	
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+	
+	}
+
+	private void blockQuestionEditPanel(boolean block) {
+		questionEditing = block;
+		dialog.getTaQuestion().setEditable(!block);
+	
+		for (int i = 0; i < dialog.getCbLevelsList().size(); i++) {
+			dialog.getCbLevelsList().get(i).setEnabled(!block);
+		}
+		dialog.getAccbSpecNames().setEditable(!block);
+	
+		for (int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
+			dialog.getTfAnsList().get(i).setEditable(!block);
+			dialog.getCbAnsList().get(i).setEnabled(!block);
+		}
+		dialog.getBtnSaveQuestion().setEnabled(!block);
+		dialog.getBtnDiscardQuestionEditChanges().setEnabled(!block);
+	}
+
 	private Question createEmptyQuestion() {
 		Question emptyQuestion = new Question();
 		Set<Answer> emtyAnswers = new HashSet<Answer>();
@@ -110,20 +222,6 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		return emptyQuestion;
 	}
 
-	private void blockQuestionEditFields(boolean block) {
-		dialog.getTaQuestion().setEditable(!block);
-
-		for (int i = 0; i < dialog.getCbLevelsList().size(); i++) {
-			dialog.getCbLevelsList().get(i).setEnabled(!block);
-		}
-		dialog.getAccbSpecNames().setEditable(!block);
-
-		for (int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
-			dialog.getTfAnsList().get(i).setEditable(!block);
-			dialog.getCbAnsList().get(i).setEnabled(!block);
-		}
-	}
-
 	private void setTableOnSelectionListener() {
 		ListSelectionModel cellSelectionModel = dialog.getTabQuestList().getSelectionModel();
 		cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -133,35 +231,38 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				if (dialog.getTabQuestList().getSelectedRows().length > 0) {
+					blockQuestionEditPanel(true);
 					clearQuestionEditPanelContents();
 					int[] selectedRow = dialog.getTabQuestList().getSelectedRows();
 					currentQuestion = questionsOnScreenList.get(selectedRow[0]);
-					List<Answer> answers = new ArrayList<Answer>(currentQuestion.getAnswers());
-
-					dialog.getTaQuestion().setText(currentQuestion.getTitle());
-
-					for (int i = 0; i < answers.size(); i++) {
-						dialog.getTfAnsList().get(i).setText(answers.get(i).getTitle());
-						dialog.getCbAnsList().get(i).setSelected(answers.get(i).getIsCorrect());
-					}
-
-					List<QuestionLevel> levelsList = new ArrayList<QuestionLevel>(currentQuestion.getLevels());
-					QuestionLevel[] levels = QuestionLevel.values();
-					for (int i = 0; i < levelsList.size(); i++) {
-						for (int j = 0; j < levels.length; j++) {
-							if (levelsList.get(i) == levels[j]) {
-								dialog.getCbLevelsList().get(j).setSelected(true);
-							}
-						}
-					}
-					String spec = currentQuestion.getSpecification().getName();
-					
-					dialog.getAccbSpecNames().setSelectedItem(spec);
-
+					doDiscardChangesAction();
 				}
 			}
 		});
+	}
+	
+	private void showQuestion(Question currentQuestion) {
+		List<Answer> answers = new ArrayList<Answer>(currentQuestion.getAnswers());
 
+		dialog.getTaQuestion().setText(currentQuestion.getTitle());
+
+		for (int i = 0; i < answers.size(); i++) {
+			dialog.getTfAnsList().get(i).setText(answers.get(i).getTitle());
+			dialog.getCbAnsList().get(i).setSelected(answers.get(i).getIsCorrect());
+		}
+
+		List<QuestionLevel> levelsList = new ArrayList<QuestionLevel>(currentQuestion.getLevels());
+		QuestionLevel[] levels = QuestionLevel.values();
+		for (int i = 0; i < levelsList.size(); i++) {
+			for (int j = 0; j < levels.length; j++) {
+				if (levelsList.get(i) == levels[j]) {
+					dialog.getCbLevelsList().get(j).setSelected(true);
+				}
+			}
+		}
+		String spec = currentQuestion.getSpecification().getName();
+
+		dialog.getAccbSpecNames().setSelectedItem(spec);
 	}
 
 	private void clearQuestionEditPanelContents() {
@@ -176,31 +277,30 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		}
 
 		dialog.getAccbSpecNames().setSelectedIndex(0);
-
 	}
 
 	private int countTotalPages(int amountOfQuestions) {
 		this.totalPages = amountOfQuestions / ENTRIES_FOR_PAGE + 1;
 		return totalPages;
 	}
-	
+
 	private Question configureQuestionFromUserInput() {
 		Question question = new Question();
-		
-		if(currentQuestion.getId() != null)
+
+		if (currentQuestion.getId() != null)
 			question.setId(currentQuestion.getId());
-		
+
 		question.setTitle(dialog.getTaQuestion().getText());
-		
+
 		List<Answer> answers = new ArrayList<Answer>();
-		for(int i = 0; i < dialog.getTfAnsList().size(); i++) {
+		for (int i = 0; i < dialog.getTfAnsList().size(); i++) {
 			String ansText = dialog.getTfAnsList().get(i).getText();
-			if(!ansText.isEmpty()) {
+			if (!ansText.isEmpty()) {
 				Answer answer = new Answer();
 				answer.setQuestion(question);
 				answer.setTitle(ansText);
 				answer.setIsCorrect(dialog.getCbAnsList().get(i).isSelected());
-				
+
 				answers.add(answer);
 			}
 		}
@@ -216,133 +316,69 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 
 		SpecificationService specService = new SpecificationService();
 
-		List<Specification> specs = specService
-				.getByName(dialog.getAccbSpecNames().getSelectedItem().toString());
-		
+		List<Specification> specs = specService.getByName(dialog.getAccbSpecNames().getSelectedItem().toString());
+
 		Specification specToAdd = null;
-		if(specs.size() == 0) {
+		if (specs.size() == 0) {
 			specToAdd = new Specification();
 			specToAdd.setName(String.valueOf(dialog.getAccbSpecNames().getSelectedItem()));
 		} else {
 			specToAdd = specs.get(0);
 		}
-			
+
 		question.setSpecification(specToAdd);
 
-		
 		return question;
 	}
-	
+
 	private boolean validateQuestionSave() {
 		// Валидация текста вопроса
 		// Длина текста вопроса слишком маленькая
-		if(dialog.getTaQuestion().getText().length() < AppConstants.QUESTION_TEXT_MIN_LENGTH)
+		if (dialog.getTaQuestion().getText().length() < AppConstants.QUESTION_TEXT_MIN_LENGTH)
 			return false;
-		
-		//----------------
+
+		// ----------------
 		// Валидация ответов
 		boolean isAnyAnswerAsCorrectSelected = false;
 		int amountOfAnswers = 0;
-		for(int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
+		for (int i = 0; i < AppConstants.MAX_ANSWERS_AMOUNT; i++) {
 			String currAnswer = dialog.getTfAnsList().get(i).getText();
-			// Длина текста ответа слишком маленькая
-			if(currAnswer.length() > 0 && currAnswer.length() < AppConstants.ANSWER_TEXT_MIN_LENGTH)
-				return false;
-			
-			if(!currAnswer.isEmpty()) {
-				amountOfAnswers ++;
-			// Пустой вопрос помечен как верный	
-			} else if(dialog.getCbAnsList().get(i).isSelected()){
+
+			if (!currAnswer.isEmpty()) {
+				amountOfAnswers++;
+				// Пустой вопрос помечен как верный
+			} else if (dialog.getCbAnsList().get(i).isSelected()) {
 				return false;
 			}
-			
-			if(dialog.getCbAnsList().get(i).isSelected())
+
+			if (dialog.getCbAnsList().get(i).isSelected())
 				isAnyAnswerAsCorrectSelected = true;
 		}
 		// Не заполнено минимальное количество ответов
-		if(amountOfAnswers < AppConstants.MIN_ANSWERS_AMOUNT)
+		if (amountOfAnswers < AppConstants.MIN_ANSWERS_AMOUNT)
 			return false;
-		
+
 		// Ни один из ответов не помечен как верный
-		if(!isAnyAnswerAsCorrectSelected)
+		if (!isAnyAnswerAsCorrectSelected)
 			return false;
-		
-		//----------------
+
+		// ----------------
 		// Валидация сложности
 		boolean isAnyLevelSelected = false;
-		for(int i = 0; i < dialog.getCbLevelsList().size(); i++) 
-			if(dialog.getCbLevelsList().get(i).isSelected())
+		for (int i = 0; i < dialog.getCbLevelsList().size(); i++)
+			if (dialog.getCbLevelsList().get(i).isSelected())
 				isAnyLevelSelected = true;
 		// Не выбрано ни одной сложности для вопроса
-		if(!isAnyLevelSelected)
+		if (!isAnyLevelSelected)
 			return false;
-		
-		//----------------
+
+		// ----------------
 		// Валидация спецализации
 		// Не заполнена специализация
-		if(dialog.getAccbSpecNames().getSelectedItem().toString().isEmpty())
+		if (dialog.getAccbSpecNames().getSelectedItem().toString().isEmpty())
 			return false;
-		
+
 		return true;
-		
-	}
-
-	private void doSaveQuestionAction() {
-		if(!validateQuestionSave()) {
-			MessageBox.showWrongQuestionSpecifiedErrorDialog(dialog);
-			return;
-		}
-		
-		QuestionService service = new QuestionService();
-		Question questionToSave = configureQuestionFromUserInput();
-		
-		if(questionToSave.getId() == null)
-			service.save(questionToSave);
-		else
-			service.update(questionToSave.getId(), questionToSave);
-
-		doFilterAction();
-	}
-
-	private void doClearFiltersAction() {
-		dialog.getTfId().setText(null);
-		dialog.getTfQuestionName().setText(null);
-		dialog.getTfSpecs().setText(null);
-		dialog.getTfLevels().setText(null);
-
-		doFilterAction();
-	}
-	
-	private void blockQEditElements(boolean action) {
-		blockQuestionEditFields(false);
-		isQuestionEditFieldsBlocked = false;
-	}
-
-	private void doEditAction() {
-		if (isQuestionEditFieldsBlocked) 
-			blockQEditElements(false);
-		 else 
-			blockQEditElements(true);
-	}
-
-	private void doUnselectTableLines() {
-		dialog.getTabQuestList().getSelectionModel().clearSelection();
-		clearQuestionEditPanelContents();
-	}
-
-	private void doPreviousPageAction() {
-		if (currentPage > 0) {
-			currentPage--;
-			doFilterAction();
-		}
-
-	}
-
-	private void doNextPageAction() {
-		if ((currentPage + 1) < totalPages) {
-			currentPage++;
-			doFilterAction();
-		}
 
 	}
 
@@ -381,44 +417,8 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	}
 
 	private void showQuestions() {
-		dialog.getLblPageInfo()
-				.setText("Cтраница " + (currentPage + 1) + " из " + countTotalPages(totalQuestions));
+		dialog.getLblPageInfo().setText("Cтраница " + (currentPage + 1) + " из " + countTotalPages(totalQuestions));
 		dialog.getTabQuestList().addQuestions(questionsOnScreenList);
-	}
-
-	private void doFilterAction() {
-		QuestionService questionService = new QuestionService();
-		String idText = dialog.getTfId().getText();
-		String specsText = dialog.getTfSpecs().getText();
-		String questTitleText = dialog.getTfQuestionName().getText();
-		String levelsText = dialog.getTfLevels().getText();
-		Long id = 0l;
-		try {
-			if (!idText.isEmpty())
-				id = Long.parseLong(idText);
-
-			int start = currentPage * ENTRIES_FOR_PAGE;
-			int max = ENTRIES_FOR_PAGE;
-			
-			Set<QuestionLevel> levels = setLevels(levelsText);
-			Set<Specification> specs = setSpecs(specsText);
-
-			totalQuestions = questionService.countByNameSpecListLvlListAndId(questTitleText, specs,
-					levels, id);
-			
-			if(totalQuestions <= ENTRIES_FOR_PAGE) {
-				start = -1;
-				max = -1;
-			}
-			questionsOnScreenList = questionService.getByNameSpecListLvlListAndId(start, max, questTitleText,
-					specs, levels, id);
-			
-			showQuestions();
-			
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
-
 	}
 
 }

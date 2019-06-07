@@ -44,11 +44,21 @@ public class TestingProcess {
 	private String level;
 
 	public TestingProcess(List<Specification> specs, List<Integer> amtQuestions, String level) {
+		System.out.println("Testing process");
+		specs.forEach((n)->System.out.println(n));
+		amtQuestions.forEach((n)-> System.out.println(n));
+		System.out.println(level);
 		this.specs = specs;
+		System.out.println(3.1);
 		this.level = level;
+		System.out.println(3.2);
 		loadQuestionsFromDB(specs, amtQuestions);
+		System.out.println(3.3);
 		initLists();
+		System.out.println(3.4);
 		loadAnswersForQuests();
+		System.out.println(3.5);
+
 	}
 
 	private void initLists() {
@@ -71,6 +81,7 @@ public class TestingProcess {
 
 			do {
 				randomIndexesSet.add(rnd.nextInt(allQuestionsList.size()));
+				
 
 			} while (randomIndexesSet.size() < amtQuestions.get(i));
 

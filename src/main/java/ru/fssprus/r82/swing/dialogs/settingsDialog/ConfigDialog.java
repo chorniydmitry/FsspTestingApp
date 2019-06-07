@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
 import ru.fssprus.r82.utils.AppConstants;
+import ru.fssprus.r82.utils.ApplicationConfiguration;
 
 public class ConfigDialog extends DialogWithPassword {
 	private static final long serialVersionUID = -3585887095900374897L;
@@ -48,21 +49,21 @@ public class ConfigDialog extends DialogWithPassword {
 	
 	private JPanel pnlReserve = new JPanel();
 	
-	private JTextField tfBaseNum = new JTextField(String.valueOf(AppConstants.BASE_QUESTS));
-	private JTextField tfBaseCommons = new JTextField(String.valueOf(AppConstants.BASE_COMMONS));
-	private JTextField tfBaseTime = new JTextField(String.valueOf(AppConstants.BASE_TIME));
+	private JTextField tfBaseNum = new JTextField();
+	private JTextField tfBaseCommons = new JTextField();
+	private JTextField tfBaseTime = new JTextField();
 	
-	private JTextField tfStandartNum = new JTextField(String.valueOf(AppConstants.STANDART_QUESTS));
-	private JTextField tfStandartCommons = new JTextField(String.valueOf(AppConstants.STANDART_COMMONS));
-	private JTextField tfStandartTime = new JTextField(String.valueOf(AppConstants.STANDART_TIME));
+	private JTextField tfStandartNum = new JTextField();
+	private JTextField tfStandartCommons = new JTextField();
+	private JTextField tfStandartTime = new JTextField();
 	
-	private JTextField tfAdvancedNum = new JTextField(String.valueOf(AppConstants.ADVANCED_QUESTS));
-	private JTextField tfAdvancedCommons = new JTextField(String.valueOf(AppConstants.ADVANCED_COMMONS));
-	private JTextField tfAdvancedTime = new JTextField(String.valueOf(AppConstants.ADVANCED_TIME));
+	private JTextField tfAdvancedNum = new JTextField();
+	private JTextField tfAdvancedCommons = new JTextField();
+	private JTextField tfAdvancedTime = new JTextField();
 	
-	private JTextField tfReserveNum = new JTextField(String.valueOf(AppConstants.RESERVE_QUESTS));
-	private JTextField tfReserveCommons = new JTextField(String.valueOf(AppConstants.RESERVE_COMMONS));
-	private JTextField tfReserveTime = new JTextField(String.valueOf(AppConstants.RESERVE_TIME));
+	private JTextField tfReserveNum = new JTextField();
+	private JTextField tfReserveCommons = new JTextField();
+	private JTextField tfReserveTime = new JTextField();
 	
 	private JButton btnSave = new JButton("Cохранить изменения");
 	
@@ -91,6 +92,24 @@ public class ConfigDialog extends DialogWithPassword {
 		return SECTION;
 	}
 	
+	private void loadTFsText() {
+		 tfBaseNum.setText(String.valueOf(ApplicationConfiguration.getItem("base.num")));
+		 tfBaseCommons.setText(String.valueOf(ApplicationConfiguration.getItem("base.common.percent")));
+		 tfBaseTime.setText(String.valueOf(ApplicationConfiguration.getItem("base.time")));
+		
+		 tfStandartNum.setText(String.valueOf(ApplicationConfiguration.getItem("standart.num")));
+		 tfStandartCommons.setText(String.valueOf(ApplicationConfiguration.getItem("standart.common.percent")));
+		 tfStandartTime.setText(String.valueOf(ApplicationConfiguration.getItem("standart.time")));
+		
+		 tfAdvancedNum.setText(String.valueOf(ApplicationConfiguration.getItem("advanced.num")));
+		 tfAdvancedCommons.setText(String.valueOf(ApplicationConfiguration.getItem("advanced.common.percent")));
+		 tfAdvancedTime.setText(String.valueOf(ApplicationConfiguration.getItem("advanced.time")));
+		
+		 tfReserveNum.setText(String.valueOf(ApplicationConfiguration.getItem("reserve.num")));
+		 tfReserveCommons.setText(String.valueOf(ApplicationConfiguration.getItem("reserve.common.percent")));
+		 tfReserveTime.setText(String.valueOf(ApplicationConfiguration.getItem("reserve.time")));
+	}
+	
 	private void setTfsNames() {
 		tfBaseNum.setName("base.num");
 		tfBaseTime.setName("base.time");
@@ -109,7 +128,7 @@ public class ConfigDialog extends DialogWithPassword {
 		tfReserveCommons.setName("reserve.common.percent");
 	}
 	
-	private void fillTfsList() {
+	public void fillTfsList() {
 		tfsList.add(tfBaseNum);
 		tfsList.add(tfBaseCommons);
 		tfsList.add(tfBaseTime);
@@ -128,6 +147,7 @@ public class ConfigDialog extends DialogWithPassword {
 	}
 	
 	private void initComponents() {
+		loadTFsText();
 		btnSave.setEnabled(false);
 	}
 	

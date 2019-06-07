@@ -45,15 +45,19 @@ public class ConfigController extends CommonController<ConfigDialog> implements 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == dialog.getBtnSave())
+		if (e.getSource() == dialog.getBtnSave()) {
 			doSave();
+			dialog.fillTfsList();
+			dialog.revalidate();
+			dialog.repaint();
+		}
 	}
 
 	private void doSave() {
 		if (validateFields()) {
 			dialog.getTfsList().forEach((n) -> ApplicationConfiguration.saveItem(n.getName(), n.getText()));
 			enableBtnSave(false);
-			clearFields();
+			uncolorFields();
 		}
 	}
 
@@ -69,7 +73,7 @@ public class ConfigController extends CommonController<ConfigDialog> implements 
 		return fieldsValidated;
 	}
 
-	private void clearFields() {
+	private void uncolorFields() {
 		dialog.getTfsList().forEach((n) -> n.setBackground(Color.WHITE));
 	}
 

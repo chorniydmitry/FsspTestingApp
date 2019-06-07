@@ -1,34 +1,6 @@
 package ru.fssprus.r82.utils;
 
 public class AppConstants {
-	// Константы конфигурации приложения
-	public static final int BASE_QUESTS = Integer
-			.parseInt(ApplicationConfiguration.getItem("base.num"));
-	public static final int STANDART_QUESTS = Integer
-			.parseInt(ApplicationConfiguration.getItem("standart.num"));
-	public static final int ADVANCED_QUESTS = Integer
-			.parseInt(ApplicationConfiguration.getItem("advanced.num"));
-	public static final int RESERVE_QUESTS = Integer
-			.parseInt(ApplicationConfiguration.getItem("reserve.num"));
-
-	public static final int BASE_TIME = Integer
-			.parseInt(ApplicationConfiguration.getItem("base.time"));
-	public static final int STANDART_TIME = Integer
-			.parseInt(ApplicationConfiguration.getItem("standart.time"));
-	public static final int ADVANCED_TIME = Integer
-			.parseInt(ApplicationConfiguration.getItem("advanced.time"));
-	public static final int RESERVE_TIME = Integer
-			.parseInt(ApplicationConfiguration.getItem("reserve.time"));
-
-	public static final int BASE_COMMONS = Integer
-			.parseInt(ApplicationConfiguration.getItem("base.common.percent"));
-	public static final int STANDART_COMMONS = Integer
-			.parseInt(ApplicationConfiguration.getItem("standart.common.percent"));
-	public static final int ADVANCED_COMMONS = Integer
-			.parseInt(ApplicationConfiguration.getItem("advanced.common.percent"));
-	public static final int RESERVE_COMMONS = Integer
-			.parseInt(ApplicationConfiguration.getItem("reserve.common.percent"));
-
 	// Константы разделов приложения
 	public static final int SECTIONS_AMOUNT = 7;
 	public static final String ADMIN_SECTION = "ADMIN";
@@ -60,6 +32,6 @@ public class AppConstants {
 	//прочие константы
 	public static final int MAX_ANSWERS_AMOUNT = 5;
 	public static final int MIN_ANSWERS_AMOUNT = 2;
-	public static final int ANSWER_TEXT_MIN_LENGTH = 3;
 	public static final int QUESTION_TEXT_MIN_LENGTH = 5;
+	public static final int MINIMUM_QUESTIONS_TO_INIT_TEST = 30;
 }

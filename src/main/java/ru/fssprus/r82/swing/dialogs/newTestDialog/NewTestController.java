@@ -14,8 +14,11 @@ import ru.fssprus.r82.service.SpecificationService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.dialogs.testDialog.TestController;
 import ru.fssprus.r82.swing.dialogs.testDialog.TestDialog;
+import ru.fssprus.r82.swing.ulils.MessageBox;
 import ru.fssprus.r82.utils.AppConstants;
+import ru.fssprus.r82.utils.ApplicationConfiguration;
 import ru.fssprus.r82.utils.TestingProcess;
+import ru.fssprus.r82.utils.Utils;
 
 public class NewTestController extends CommonController<NewTestDialog> {
 
@@ -34,19 +37,64 @@ public class NewTestController extends CommonController<NewTestDialog> {
 		
 	}
 	
-	private void loadSpecificationList() {
-		SpecificationService service = new SpecificationService();
-		List<Specification> specList = service.getAll();
-
-		dialog.getCbSpecification().addItem(null);
-
-		for (Specification spec : specList) {
-			if(spec.getName().toUpperCase().equals("ОБЩИЕ"))
-				continue;
-			dialog.getCbSpecification().addItem(spec.getName());
-		}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == dialog.getCbSpecification())
+			doCheckSpecAndLevels();
+		if (e.getSource() == dialog.getBtnBegin())
+			doBegin();
+		if (e.getSource() == dialog.getBtnCancel())
+			doCancel();
 	}
+
+	private void doBegin() {
+		dialog.resetUserInputComponents();
+		
+		if (!validateFields())
+			return;
+		
+		SpecificationService service = new SpecificationService();
 	
+		String userName = dialog.getTfName().getText();
+		String userSurname = dialog.getTfSurname().getText();
+		String userSecondName = dialog.getTfSecondName().getText();
+		String userSelectedSpec = String.valueOf(dialog.getCbSpecification().getSelectedItem());
+		int selectedLevel = dialog.getSelectedLevelIndex();
+		
+		List<Specification> specs = service.getByName(0, 1, userSelectedSpec);
+		
+		Specification commonSpec = service.getUniqueByName("Общие");
+		
+		QuestionService qService = new QuestionService();
+		
+		int amountOfCommons  = qService.getCountBySpecificationAndLevel(commonSpec, QuestionLevel.values()[selectedLevel]);
+		int minimumCommons = Utils.countMinimumCommonQuestionsForLevel(selectedLevel);
+		
+		if((commonSpec == null) || (amountOfCommons < minimumCommons)) {
+			MessageBox.showNotEnoughCommonQuestionError(dialog);
+			return;
+		}
+		
+		
+		System.out.println(1);
+		specs.add(commonSpec);
+		System.out.println(2);
+		TestingProcess tp = initNewTestingProcess(specs, selectedLevel);
+		System.out.println(3);
+		fillUserInfo(tp, userName, userSurname, userSecondName);
+		System.out.println(4);
+	
+		new TestController(new TestDialog(1000, 800), specs, tp, selectedLevel);
+		System.out.println(5);
+		dialog.dispose();
+		System.out.println(6);
+	
+	}
+
+	private void doCancel() {
+		dialog.dispose();
+	}
+
 	private void doCheckSpecAndLevels() {
 		dialog.getRbLevels().forEach((n) -> n.setEnabled(true));
 		
@@ -58,53 +106,15 @@ public class NewTestController extends CommonController<NewTestDialog> {
 		for (int i = 0; i < QuestionLevel.values().length; i++) {
 			int qPerLvl = qService.countBySpecificationAndLevel(specification, QuestionLevel.values()[i]);
 			
-			if(qPerLvl == 0 || qPerLvl < AppConstants.BASE_QUESTS) 
+			if((qPerLvl == 0) || (qPerLvl < AppConstants.MINIMUM_QUESTIONS_TO_INIT_TEST))
 				dialog.getRbLevels().get(i).setEnabled(false);
 		}
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == dialog.getCbSpecification())
-			doCheckSpecAndLevels();
-		if (e.getSource() == dialog.getBtnBegin())
-			doBegin();
-		if (e.getSource() == dialog.getBtnCancel())
-			doCancel();
-	}
-
-	private void doCancel() {
-		dialog.dispose();
-	}
-
-	private void doBegin() {
-		dialog.resetUserInputComponents();
-		
-		if (!validateFields())
-			return;
-		
-		SpecificationService service = new SpecificationService();
-
-		String userName = dialog.getTfName().getText();
-		String userSurname = dialog.getTfSurname().getText();
-		String userSecondName = dialog.getTfSecondName().getText();
-		String userSelectedSpec = String.valueOf(dialog.getCbSpecification().getSelectedItem());
-		int selectedLevel = dialog.getSelectedLevelIndex();
-		
-		List<Specification> specs = service.getByName(0, 1, userSelectedSpec);
-		specs.add(service.getByName(0, 1, "Общие").get(0));
-		TestingProcess tp = initNewTestingProcess(specs, selectedLevel);
-		fillUserInfo(tp, userName, userSurname, userSecondName);
-
-		new TestController(new TestDialog(1000, 800), specs, tp, selectedLevel);
-		dialog.dispose();
-
 	}
 
 	private boolean validateFields() {
 		
 		boolean validationPassed = true;
-
+	
 		if (dialog.getTfName().getText().isEmpty()) {
 			dialog.getTfName().setBackground(Color.RED);
 			validationPassed = false;
@@ -118,22 +128,35 @@ public class NewTestController extends CommonController<NewTestDialog> {
 			validationPassed = false;
 		}
 		Object cbValue = dialog.getCbSpecification().getSelectedItem();
-
+	
 		if (cbValue == null) {
 			dialog.getCbSpecification().setBackground(Color.RED);
 			validationPassed = false;
 		}
-
+	
 		if (dialog.getSelectedLevelIndex() == -1) {
 			for (JRadioButton lvls : dialog.getRbLevels())
 				lvls.setBackground(Color.RED);
 			validationPassed = false;
 		}
-
+	
 		return validationPassed;
-
+	
 	}
 
+	private void loadSpecificationList() {
+		SpecificationService service = new SpecificationService();
+		List<Specification> specList = service.getAll();
+
+		dialog.getCbSpecification().addItem(null);
+
+		for (Specification spec : specList) {
+			if(spec.getName().toUpperCase().equals("ОБЩИЕ"))
+				continue;
+			dialog.getCbSpecification().addItem(spec.getName());
+		}
+	}
+	
 	private void fillUserInfo(TestingProcess testingProcess, String userName, String userSurname,
 			String userSecondName) {
 		testingProcess.fillUserInfo(userName, userSurname, userSecondName);
@@ -141,6 +164,9 @@ public class NewTestController extends CommonController<NewTestDialog> {
 	
 
 	private TestingProcess initNewTestingProcess(List<Specification> specs, int level) {
+		specs.forEach((n) -> System.out.println(n));
+		System.out.println();
+		System.out.println(level);
 
 		int amountOfQuestions = 0;
 		int commonPercent = 0;
@@ -148,20 +174,20 @@ public class NewTestController extends CommonController<NewTestDialog> {
 		switch (level) {
 		case 0:
 			amountOfQuestions = 
-			AppConstants.BASE_QUESTS;
-			commonPercent = AppConstants.BASE_COMMONS;
+					Integer.parseInt(ApplicationConfiguration.getItem("base.num"));
+			commonPercent = Integer.parseInt(ApplicationConfiguration.getItem("base.common.percent"));
 			break;
 		case 1:
-			amountOfQuestions = AppConstants.STANDART_QUESTS;
-			commonPercent = AppConstants.STANDART_COMMONS;
+			amountOfQuestions = Integer.parseInt(ApplicationConfiguration.getItem("standart.num"));
+			commonPercent = Integer.parseInt(ApplicationConfiguration.getItem("standart.common.percent"));
 			break;
 		case 2:
-			amountOfQuestions = AppConstants.ADVANCED_QUESTS;
-			commonPercent = AppConstants.ADVANCED_COMMONS;
+			amountOfQuestions = Integer.parseInt(ApplicationConfiguration.getItem("advanced.num"));
+			commonPercent = Integer.parseInt(ApplicationConfiguration.getItem("advanced.common.percent"));
 			break;
 		case 3:
-			amountOfQuestions = AppConstants.RESERVE_QUESTS;
-			commonPercent = AppConstants.RESERVE_COMMONS;
+			amountOfQuestions = Integer.parseInt(ApplicationConfiguration.getItem("reserve.num"));
+			commonPercent = Integer.parseInt(ApplicationConfiguration.getItem("reserve.common.percent"));
 			break;
 		}
 		
@@ -173,9 +199,9 @@ public class NewTestController extends CommonController<NewTestDialog> {
 		List<Integer> amountQuestionsForSpecs = new ArrayList<Integer>();
 		amountQuestionsForSpecs.add(specQuestsAmount);
 		amountQuestionsForSpecs.add(commonQuestsAmount);
-
+		System.out.println(2.1);
 		TestingProcess testingProcess = new TestingProcess(specs, amountQuestionsForSpecs, getSelectedLevel());
-
+		System.out.println(2.2);
 		return testingProcess;
 	}
 	
