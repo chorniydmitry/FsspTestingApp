@@ -1,4 +1,4 @@
-package ru.fssprus.r82.swing.dialogs.questionListDialog;
+package ru.fssprus.r82.swing.ulils;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -7,13 +7,19 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-public class QuestionListTableModel extends AbstractTableModel {
-	private static final long serialVersionUID = 9016326237306342825L;
-	private int columnCount = 4;
+public class CommonTableModel extends AbstractTableModel {
+
+	private static final long serialVersionUID = -9209664050296683407L;
+
+	private String[] columnNames;
+	private int columnCount;
 	private ArrayList<Object[]> onScreenDataList;
 	private List<Color> rowColors = new ArrayList<Color>();
 
-	public QuestionListTableModel() {
+	public CommonTableModel(String[] names) {
+		this.columnNames = names; 
+		columnCount = names.length;
+		
 		onScreenDataList = new ArrayList<Object[]>();
 		rowColors = new ArrayList<Color>();
 		for (int i = 0; i < onScreenDataList.size(); i++) {
@@ -24,17 +30,11 @@ public class QuestionListTableModel extends AbstractTableModel {
 
 	@Override
 	public String getColumnName(int column) {
-		switch (column) {
-		case 0:
-			return "id";
-		case 1:
-			return "Формулировка";
-		case 2:
-			return "Уровни";
-		case 3:
-			return "Спецификация";
+		if(column < 0 || column >= columnCount) {
+			System.err.println("Не верный индекс столбца!");
+			return null;
 		}
-		return "";
+		return columnNames[column];
 	}
 
 	@Override
@@ -91,8 +91,13 @@ public class QuestionListTableModel extends AbstractTableModel {
 	}
 
 	public void addRow(Object[] row) {
-		if(row == null)
-			row = new Object[]{"", "", "", ""};
+		if(row == null) {
+			row = (Object[]) new Object();
+			for(int i = 0; i < columnCount; i++) {
+				row[i] = new Object();
+			}
+		}
+		
 		setRow(row, getRowCount());
 	}
 
@@ -103,6 +108,8 @@ public class QuestionListTableModel extends AbstractTableModel {
 		}
 		onScreenDataList.add(rowIndex, row);
 		rowColors.add(Color.WHITE);
+		
+		update();
 	}
 
 	public void updateRow(Object[] row, int rowIndex) {
@@ -156,4 +163,5 @@ public class QuestionListTableModel extends AbstractTableModel {
 	public ArrayList<Object[]> getOnScreenDataList() {
 		return onScreenDataList;
 	}
+
 }

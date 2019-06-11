@@ -17,6 +17,8 @@ import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.service.QuestionService;
 import ru.fssprus.r82.service.SpecificationService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
+import ru.fssprus.r82.swing.ulils.CommonTable;
+import ru.fssprus.r82.swing.ulils.CommonTableModel;
 import ru.fssprus.r82.swing.ulils.MessageBox;
 import ru.fssprus.r82.utils.AppConstants;
 
@@ -28,9 +30,16 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	private List<Question> questionsOnScreenList = new ArrayList<Question>();
 	private Question currentQuestion = null;
 	private boolean questionEditing = false;
+	
+	private CommonTable table;
+	private CommonTableModel tableModel;
 
 	public QuestionListController(QuestionListDialog dialog) {
 		super(dialog);
+		
+		this.table = dialog.getTabPanel().getCommonTable();
+		this.tableModel = dialog.getTabPanel().getCommonTable().getTabModel();
+		
 		blockQuestionEditPanel(true);
 
 		doFilterAction();
@@ -40,14 +49,10 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	@Override
 	protected void setListeners() {
 		dialog.getBtnFilter().addActionListener(this);
-		dialog.getBtnNextPage().addActionListener(this);
-		dialog.getBtnPreviousPage().addActionListener(this);
 		dialog.getBtnDiscardQuestionEditChanges().addActionListener(this);
 		dialog.getBtnEditQuestion().addActionListener(this);
 		dialog.getBtnClearFilters().addActionListener(this);
 		dialog.getBtnSaveQuestion().addActionListener(this);
-		dialog.getBtnAdd().addActionListener(this);
-		dialog.getBtnRemove().addActionListener(this);
 		setTableOnSelectionListener();
 	}
 
@@ -67,23 +72,15 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 
 		if (e.getSource() == dialog.getBtnFilter())
 			doFilterAction();
-		if (e.getSource() == dialog.getBtnNextPage())
-			doNextPageAction();
-		if (e.getSource() == dialog.getBtnPreviousPage())
-			doPreviousPageAction();
 		if (e.getSource() == dialog.getBtnClearFilters())
 			doClearFiltersAction();
-		if (e.getSource() == dialog.getBtnAdd())
-			doAddAction();
-		if (e.getSource() == dialog.getBtnRemove())
-			doRemoveAction();
 		if(e.getSource() == dialog.getBtnDiscardQuestionEditChanges())
 			doDiscardChangesAction();
 
 	}
 	
 	private void doEditAction() {
-		if(dialog.getTabQuestList().getSelectedRows().length == 0)
+		if(table.getSelectedRows().length == 0)
 			return;
 		if (questionEditing) {
 			blockQuestionEditPanel(false);
@@ -119,7 +116,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	}
 
 	private void doUnselectTableLines() {
-		dialog.getTabQuestList().getSelectionModel().clearSelection();
+		table.getSelectionModel().clearSelection();
 		clearQuestionEditPanelContents();
 	}
 
@@ -131,35 +128,11 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		doFilterAction();
 	}
 
-	private void doAddAction() {
-		dialog.getTabQuestList().getTabModel().addRow(null);
-		questionsOnScreenList.add(createEmptyQuestion());
-		dialog.getTabQuestList().getTabModel().update();
-		dialog.getTabQuestList().scrollTableDown();
-		blockQuestionEditPanel(false);
-	}
-	
 	private void doDiscardChangesAction() {
 		showQuestion(currentQuestion);
 		
 	}
 	
-	private void doPreviousPageAction() {
-		if (currentPage > 0) {
-			currentPage--;
-			doFilterAction();
-		}
-	
-	}
-
-	private void doNextPageAction() {
-		if ((currentPage + 1) < totalPages) {
-			currentPage++;
-			doFilterAction();
-		}
-	
-	}
-
 	private void doFilterAction() {
 		QuestionService questionService = new QuestionService();
 		String idText = dialog.getTfId().getText();
@@ -211,29 +184,17 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		dialog.getBtnDiscardQuestionEditChanges().setEnabled(!block);
 	}
 
-	private Question createEmptyQuestion() {
-		Question emptyQuestion = new Question();
-		Set<Answer> emtyAnswers = new HashSet<Answer>();
-		Specification emptySpec = new Specification();
-		Set<QuestionLevel> emptyLevels = new HashSet<QuestionLevel>();
-		emptyQuestion.setAnswers(emtyAnswers);
-		emptyQuestion.setSpecification(emptySpec);
-		emptyQuestion.setLevels(emptyLevels);
-		return emptyQuestion;
-	}
-
 	private void setTableOnSelectionListener() {
-		ListSelectionModel cellSelectionModel = dialog.getTabQuestList().getSelectionModel();
-		cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		ListSelectionModel cellSelectionModel = table.getSelectionModel();
 
 		cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
 
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				if (dialog.getTabQuestList().getSelectedRows().length > 0) {
+				if (table.getSelectedRows().length > 0) {
 					blockQuestionEditPanel(true);
 					clearQuestionEditPanelContents();
-					int[] selectedRow = dialog.getTabQuestList().getSelectedRows();
+					int[] selectedRow = table.getSelectedRows();
 					currentQuestion = questionsOnScreenList.get(selectedRow[0]);
 					doDiscardChangesAction();
 				}
@@ -415,10 +376,41 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		return null;
 
 	}
+	
+	private ArrayList<Object[]> convertToDataForTable() {
+		ArrayList<Object[]> data = new ArrayList<>();
+		
+		for(int i = 0; i < questionsOnScreenList.size(); i++) {
+			Question question = questionsOnScreenList.get(i);
+			
+			Long id = question.getId();
+			String title = question.getTitle();
+			Set<QuestionLevel> levels = question.getLevels();
+			Specification specification = question.getSpecification();
+			String lvlsString = "";
+			for(QuestionLevel ql: levels)
+				lvlsString += "[" + ql.name() + "] ";
+			
+			String specString=specification.getName();
+			
+			Object[] row = {id, title, lvlsString, specString};
+			
+			data.add(row);
+			
+			//tabModel.setRow(row, i);
+
+			//tabModel.update();
+		}
+		return data;
+	}
 
 	private void showQuestions() {
-		dialog.getLblPageInfo().setText("Cтраница " + (currentPage + 1) + " из " + countTotalPages(totalQuestions));
-		dialog.getTabQuestList().addQuestions(questionsOnScreenList);
+		dialog.getTabPanel().getTfPage().setText((String.valueOf(currentPage + 1)));
+		dialog.getTabPanel().getTfPage().setToolTipText(" из " + countTotalPages(totalQuestions));
+		
+		
+		tableModel.clearTable();
+		tableModel.addData(convertToDataForTable());
 	}
 
 }

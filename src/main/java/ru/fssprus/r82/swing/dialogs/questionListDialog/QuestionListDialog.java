@@ -1,7 +1,5 @@
 package ru.fssprus.r82.swing.dialogs.questionListDialog;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -22,14 +20,14 @@ import g.cope.swing.autocomplete.jcombobox.StringSearchable;
 import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.service.SpecificationService;
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
+import ru.fssprus.r82.swing.ulils.TablePanel;
+import ru.fssprus.r82.swing.ulils.TablePanelController;
 import ru.fssprus.r82.utils.AppConstants;
 
 public class QuestionListDialog extends DialogWithPassword {
 	private static final long serialVersionUID = -8319908967500731744L;
 	private static final String SECTION = AppConstants.QUESTION_EDIT_SECTION;
 
-	private QuestionListTable tabQuestList = new QuestionListTable();
-	private JScrollPane scrollPane = new JScrollPane(tabQuestList);
 	private JPanel pnlBottom = new JPanel();
 	private JPanel pnlFilter = new JPanel();
 
@@ -43,16 +41,8 @@ public class QuestionListDialog extends DialogWithPassword {
 	private JTextField tfSpecs = new JTextField(25);
 	private JTextField tfLevels = new JTextField(25);
 	
-	private JButton btnAdd = new JButton("+");
-	private JButton btnRemove = new JButton("-");
-	private JPanel pnlAddRemove = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
 	private JButton btnFilter = new JButton("Фильтр");
 	private JButton btnClearFilters = new JButton("Сбросить");
-
-	private JButton btnNextPage = new JButton(">");
-	private JButton btnPreviousPage = new JButton("<");
-	private JLabel lblPageInfo = new JLabel();
 
 	private JPanel pnlQuestionEdit = new JPanel();
 	private JTextArea taQuestion = new JTextArea();
@@ -69,9 +59,20 @@ public class QuestionListDialog extends DialogWithPassword {
 
 	private JLabel lblSpecName = new JLabel("Специализация: ");
 	private AutocompleteJComboBox accbSpecNames = new AutocompleteJComboBox(null);
+	
+	private TablePanel tabPanel;
 
 	public QuestionListDialog(int width, int height) {
 		super(width, height);
+		initTable();
+	}
+	
+	private void initTable() {
+		int[] widths = {20, 150, 50, 50};
+		String[] names = {"id","Формулировка", "Уровни", "Спецификация" };
+		
+		tabPanel = new TablePanel(widths, names);
+		new TablePanelController(tabPanel);
 	}
 	
 	@Override
@@ -80,15 +81,11 @@ public class QuestionListDialog extends DialogWithPassword {
 		
 		layoutPanelFilter();
 		
-		layoutPanelAddRemove();
-
-		layoutPanelBottom();
-		
 		layoutPanelQuestionEdit();
 		
 		add(pnlFilter);
-		add(pnlAddRemove);
-		add(scrollPane);
+		add(tabPanel);
+		
 		add(pnlBottom);
 		add(pnlQuestionEdit);
 		
@@ -229,26 +226,6 @@ public class QuestionListDialog extends DialogWithPassword {
 		pnlFilter.setVisible(true);
 	}
 	
-	private void layoutPanelAddRemove() {
-		Dimension dim = new Dimension(45,25);
-		btnAdd.setPreferredSize(dim);
-		btnRemove.setPreferredSize(dim);
-		
-		pnlAddRemove.add(btnAdd);
-		pnlAddRemove.add(btnRemove);
-	}
-
-	private void layoutPanelBottom() {
-		pnlBottom.add(btnPreviousPage);
-		pnlBottom.add(lblPageInfo);
-		pnlBottom.add(btnNextPage);
-
-		pnlBottom.setVisible(true);
-	}
-
-	public QuestionListTable getTabQuestList() {
-		return tabQuestList;
-	}
 
 	public JButton getBtnFilter() {
 		return btnFilter;
@@ -256,30 +233,6 @@ public class QuestionListDialog extends DialogWithPassword {
 
 	public void setBtnFilter(JButton btnFilter) {
 		this.btnFilter = btnFilter;
-	}
-
-	public JButton getBtnNextPage() {
-		return btnNextPage;
-	}
-
-	public void setBtnNextPage(JButton btnNextPage) {
-		this.btnNextPage = btnNextPage;
-	}
-
-	public JButton getBtnPreviousPage() {
-		return btnPreviousPage;
-	}
-
-	public void setBtnPreviousPage(JButton btnPreviousPage) {
-		this.btnPreviousPage = btnPreviousPage;
-	}
-
-	public JLabel getLblPageInfo() {
-		return lblPageInfo;
-	}
-
-	public void setLblPageInfo(JLabel lblPageInfo) {
-		this.lblPageInfo = lblPageInfo;
 	}
 
 	public JTextArea getTaQuestion() {
@@ -386,23 +339,13 @@ public class QuestionListDialog extends DialogWithPassword {
 		this.btnEditQuestion = btnEditQuestion;
 	}
 
-	public JButton getBtnAdd() {
-		return btnAdd;
+	public TablePanel getTabPanel() {
+		return tabPanel;
 	}
 
-	public void setBtnAdd(JButton btnAdd) {
-		this.btnAdd = btnAdd;
+	public void setTabPanel(TablePanel tabPanel) {
+		this.tabPanel = tabPanel;
 	}
-
-	public JButton getBtnRemove() {
-		return btnRemove;
-	}
-
-	public void setBtnRemove(JButton btnRemove) {
-		this.btnRemove = btnRemove;
-	}
-	
-	
 	
 	
 }
