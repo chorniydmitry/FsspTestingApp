@@ -64,15 +64,12 @@ public class QuestionListDialog extends DialogWithPassword {
 
 	public QuestionListDialog(int width, int height) {
 		super(width, height);
-		initTable();
 	}
 	
 	private void initTable() {
-		int[] widths = {20, 150, 50, 50};
+		int[] widths = {20, 550, 200, 200};
 		String[] names = {"id","Формулировка", "Уровни", "Спецификация" };
-		
 		tabPanel = new TablePanel(widths, names);
-		new TablePanelController(tabPanel);
 	}
 	
 	@Override
@@ -93,6 +90,7 @@ public class QuestionListDialog extends DialogWithPassword {
 	
 	@Override
 	public void init() {
+		initTable();
 		initTfSpecNames();
 		super.init();
 	}
