@@ -32,9 +32,8 @@ public class PasswordManageController extends CommonController<PasswordManageDia
 			}
 		}
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
+	
+	private void doAction(ActionEvent e) {
 		for (int i = 0; i < AppConstants.SECTIONS_AMOUNT; i++) {
 			if (e.getSource() == dialog.getBtnList().get(i)) {
 				String section = dialog.getBtnList().get(i).getName();
@@ -60,10 +59,11 @@ public class PasswordManageController extends CommonController<PasswordManageDia
 		}
 	}
 
+
 	@Override
 	protected void setListeners() {
 		for (int i = 0; i < AppConstants.SECTIONS_AMOUNT; i++) {
-			dialog.getBtnList().get(i).addActionListener(this);
+			dialog.getBtnList().get(i).addActionListener(listener -> doAction(listener));
 			dialog.getPfList().get(i).getDocument().addDocumentListener(this);
 		}
 	}

@@ -1,17 +1,14 @@
 package ru.fssprus.r82.swing.dialogs.addingSetDialog;
 
-import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.service.QuestionService;
-import ru.fssprus.r82.service.SpecificationService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.ulils.MessageBox;
 import ru.fssprus.r82.utils.SpreadSheetParser;
@@ -27,17 +24,8 @@ public class LoadingQuestionSetController extends CommonController<LoadingQuesti
 
 	@Override
 	protected void setListeners() {
-		dialog.getBtnLoadQuestionsSet().addActionListener(this);
-		dialog.getBtnOpenTextFile().addActionListener(this);
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == dialog.getBtnLoadQuestionsSet())
-			doLoadQuestionSet();
-		if (e.getSource() == dialog.getBtnOpenTextFile())
-			doOpenTestFile();
-
+		dialog.getBtnLoadQuestionsSet().addActionListener(listener -> doLoadQuestionSet());
+		dialog.getBtnOpenTextFile().addActionListener(listener -> doOpenTestFile());
 	}
 
 	private void setKeyWords() {

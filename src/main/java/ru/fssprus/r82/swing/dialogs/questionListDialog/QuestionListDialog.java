@@ -21,7 +21,6 @@ import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.service.SpecificationService;
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
 import ru.fssprus.r82.swing.ulils.TablePanel;
-import ru.fssprus.r82.swing.ulils.TablePanelController;
 import ru.fssprus.r82.utils.AppConstants;
 
 public class QuestionListDialog extends DialogWithPassword {

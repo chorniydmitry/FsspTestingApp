@@ -16,19 +16,10 @@ public class ResultingController extends CommonController<ResultingDialog>{
 	
 	@Override
 	protected void setListeners() {
-		dialog.getBtnShowWrongs().addActionListener(this);
-		dialog.getBtnClose().addActionListener(this);
+		dialog.getBtnShowWrongs().addActionListener(listener->doShowWrongs());
+		dialog.getBtnClose().addActionListener(listener->doClose());
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == dialog.getBtnShowWrongs())
-			doShowWrongs();
-		if(e.getSource() == dialog.getBtnClose())
-			doClose();
-		
-	}
-	
 	private void doShowWrongs() {
 		WrongAnswersController waController = 
 				new WrongAnswersController(new WrongAnswersDialog(800, 600), testingProcess.getWrongAmount());

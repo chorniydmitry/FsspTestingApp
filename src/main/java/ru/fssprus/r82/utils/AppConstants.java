@@ -1,5 +1,7 @@
 package ru.fssprus.r82.utils;
 
+import java.awt.Color;
+
 public class AppConstants {
 	// Константы разделов приложения
 	public static final int SECTIONS_AMOUNT = 7;
@@ -34,4 +36,5 @@ public class AppConstants {
 	public static final int MIN_ANSWERS_AMOUNT = 2;
 	public static final int QUESTION_TEXT_MIN_LENGTH = 5;
 	public static final int MINIMUM_QUESTIONS_TO_INIT_TEST = 30;
+	public static final Color TABLE_SELECTION_COLOR = new Color(200, 255, 200);
 }

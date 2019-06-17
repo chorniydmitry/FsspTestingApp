@@ -42,4 +42,13 @@ public class Utils {
 		}
 		return countMinimumCommonQuestionsForLevel(level);
 	}
+	
+	public static boolean isNumeric(String strNum) {
+		try {
+			Integer.parseInt(strNum);
+		} catch (NumberFormatException | NullPointerException nfe) {
+			return false;
+		}
+		return true;
+	}
 }

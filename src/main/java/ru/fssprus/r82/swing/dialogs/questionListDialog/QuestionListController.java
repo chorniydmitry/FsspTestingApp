@@ -1,6 +1,5 @@
 package ru.fssprus.r82.swing.dialogs.questionListDialog;
 
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -36,7 +35,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		super(dialog);
 		this.table = dialog.getTabPanel().getCommonTable();
 		this.tableModel = dialog.getTabPanel().getCommonTable().getTabModel();
-		
+
 		TablePanelController tablePanelController = new TablePanelController(dialog.getTabPanel());
 		tablePanelController.setSubscriber(this);
 
@@ -48,37 +47,15 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 
 	@Override
 	protected void setListeners() {
-		dialog.getBtnFilter().addActionListener(this);
-		dialog.getBtnDiscardQuestionEditChanges().addActionListener(this);
-		dialog.getBtnEditQuestion().addActionListener(this);
-		dialog.getBtnClearFilters().addActionListener(this);
-		dialog.getBtnSaveQuestion().addActionListener(this);
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == dialog.getBtnEditQuestion()) {
-			doEditAction();
-			return;
-		}
-
-		if (e.getSource() == dialog.getBtnSaveQuestion()) {
-			doSaveQuestionAction();
-			return;
-		}
-
-		doUnselectTableLines();
-
-		if (e.getSource() == dialog.getBtnFilter())
-			doFilterAction();
-		if (e.getSource() == dialog.getBtnClearFilters())
-			doClearFiltersAction();
-		if (e.getSource() == dialog.getBtnDiscardQuestionEditChanges())
-			doDiscardChangesAction();
+		dialog.getBtnFilter().addActionListener(listener -> doFilterAction());
+		dialog.getBtnDiscardQuestionEditChanges().addActionListener(listener -> doDiscardChangesAction());
+		dialog.getBtnEditQuestion().addActionListener(listener -> doEditAction());
+		dialog.getBtnClearFilters().addActionListener(listener -> doClearFiltersAction());
+		dialog.getBtnSaveQuestion().addActionListener(listener -> doSaveQuestionAction());
 	}
 
 	private void doEditAction() {
-		if (table.getSelectedRows().length == 0)
+		if (table.getLastSelectedIndex()== -1)
 			return;
 		if (questionEditing) {
 			blockQuestionEditPanel(false);
@@ -105,6 +82,8 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	}
 
 	private void doClearFiltersAction() {
+		doUnselectTableLines();
+
 		dialog.getTfId().setText(null);
 		dialog.getTfQuestionName().setText(null);
 		dialog.getTfSpecs().setText(null);
@@ -118,20 +97,15 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		clearQuestionEditPanelContents();
 	}
 
-	private void doRemoveAction() {
-		if (MessageBox.showConfirmQuestionDelete(dialog)) {
-			QuestionService service = new QuestionService();
-			service.delete(currentQuestion);
-		}
-		doFilterAction();
-	}
-
 	private void doDiscardChangesAction() {
+		doUnselectTableLines();
 		showQuestion(currentQuestion);
 
 	}
 
 	private void doFilterAction() {
+		doUnselectTableLines();
+
 		QuestionService questionService = new QuestionService();
 		String idText = dialog.getTfId().getText();
 		String specsText = dialog.getTfSpecs().getText();
@@ -156,7 +130,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 			}
 			questionsOnScreenList = questionService.getByNameSpecListLvlListAndId(start, max, questTitleText, specs,
 					levels, id);
-
+			
 			showQuestions();
 
 		} catch (NumberFormatException e) {
@@ -189,6 +163,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 
 		for (int i = 0; i < answers.size(); i++) {
 			dialog.getTfAnsList().get(i).setText(answers.get(i).getTitle());
+			dialog.getTfAnsList().get(i).setCaretPosition(0);
 			dialog.getCbAnsList().get(i).setSelected(answers.get(i).getIsCorrect());
 		}
 
@@ -385,21 +360,66 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	}
 
 	private void showQuestions() {
-		dialog.getTabPanel().getTfPage().setText((String.valueOf(currentPage + 1)));
-		dialog.getTabPanel().getTfPage().setToolTipText(" из " + countTotalPages(totalQuestions));
+		dialog.getTabPanel().getTfPage().setText(String.valueOf(currentPage + 1));
+		dialog.getTabPanel().getLblPagesTotal().setText(" из " + countTotalPages(totalQuestions));
 
 		tableModel.clearTable();
 		tableModel.addData(convertToDataForTable());
 	}
 
+	private void addBlankQuestion() {
+		Question q = new Question();
+		q.setAnswers(new HashSet<Answer>(5));
+		q.setLevels(new HashSet<QuestionLevel>(4));
+		q.setSpecification(new Specification());
+
+		questionsOnScreenList.add(q);
+
+	}
+
 	@Override
 	public void update(int index) {
-		System.out.println("*");
+		if (index >= questionsOnScreenList.size())
+			addBlankQuestion();
 		blockQuestionEditPanel(true);
 		clearQuestionEditPanelContents();
 		currentQuestion = questionsOnScreenList.get(index);
 		doDiscardChangesAction();
+		
+	}
 
+	@Override
+	public void nextPage() {
+		if(currentPage+1 < totalPages)
+			currentPage++;
+		doFilterAction();
+		
+	}
+
+	@Override
+	public void previousPage() {
+		if(currentPage > 0)
+			currentPage--;
+		doFilterAction();
+		
+	}
+
+	@Override
+	public void delete(int index) {
+		if (MessageBox.showConfirmQuestionDelete(dialog)) {
+			QuestionService service = new QuestionService();
+			service.delete(currentQuestion);
+		}
+		doFilterAction();
+		
+	}
+
+	@Override
+	public void goToPage(int page) {
+		if(page <= totalPages && page > 0)
+			currentPage = page -1;
+		
+		doFilterAction();
 	}
 
 }

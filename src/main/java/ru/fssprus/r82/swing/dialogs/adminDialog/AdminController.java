@@ -1,7 +1,5 @@
 package ru.fssprus.r82.swing.dialogs.adminDialog;
 
-import java.awt.event.ActionEvent;
-
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.dialogs.addingSetDialog.LoadingQuestionSetController;
 import ru.fssprus.r82.swing.dialogs.addingSetDialog.LoadingQuestionSetDialog;
@@ -20,23 +18,10 @@ public class AdminController extends CommonController<AdminDialog> {
 
 	@Override
 	protected void setListeners() {
-		dialog.getBtnPasswords().addActionListener(this);
-		dialog.getBtnQuestionEdit().addActionListener(this);
-		dialog.getBtnQuestionLoad().addActionListener(this);
-		dialog.getBtnSettings().addActionListener(this);
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == dialog.getBtnPasswords())
-			doOpenManagePasswordsDialog();
-		if (e.getSource() == dialog.getBtnQuestionEdit())
-			doOpenQuestionEditDialog();
-		if (e.getSource() == dialog.getBtnQuestionLoad())
-			doOpenQuestionLoagingDialog();
-		if (e.getSource() == dialog.getBtnSettings())
-			doOpenSettingsDialog();
-
+		dialog.getBtnPasswords().addActionListener(listener -> doOpenManagePasswordsDialog());
+		dialog.getBtnQuestionEdit().addActionListener(listener -> doOpenQuestionEditDialog());
+		dialog.getBtnQuestionLoad().addActionListener(listener -> doOpenQuestionLoagingDialog());
+		dialog.getBtnSettings().addActionListener(listener -> doOpenSettingsDialog());
 	}
 
 	private void doOpenSettingsDialog() {

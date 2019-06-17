@@ -1,7 +1,6 @@
 package ru.fssprus.r82.swing.dialogs.newTestDialog;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,23 +29,13 @@ public class NewTestController extends CommonController<NewTestDialog> {
 
 	@Override
 	protected void setListeners() {
-		dialog.getBtnBegin().addActionListener(this);
-		dialog.getBtnCancel().addActionListener(this);
+		dialog.getBtnBegin().addActionListener(listener -> doBegin());
+		dialog.getBtnCancel().addActionListener(listener -> doCancel());
 		
-		dialog.getCbSpecification().addActionListener(this);
+		dialog.getCbSpecification().addActionListener(listener -> doCheckSpecAndLevels());
 		
 	}
 	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == dialog.getCbSpecification())
-			doCheckSpecAndLevels();
-		if (e.getSource() == dialog.getBtnBegin())
-			doBegin();
-		if (e.getSource() == dialog.getBtnCancel())
-			doCancel();
-	}
-
 	private void doBegin() {
 		dialog.resetUserInputComponents();
 		

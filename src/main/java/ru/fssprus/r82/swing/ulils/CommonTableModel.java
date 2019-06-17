@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import ru.fssprus.r82.utils.AppConstants;
+
 public class CommonTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = -9209664050296683407L;
@@ -24,7 +26,7 @@ public class CommonTableModel extends AbstractTableModel {
 		rowColors = new ArrayList<Color>();
 		for (int i = 0; i < onScreenDataList.size(); i++) {
 			onScreenDataList.add(new Object[getColumnCount()]);
-			rowColors.add(Color.WHITE);
+			rowColors.add(Color.GREEN);
 		}
 	}
 
@@ -74,10 +76,21 @@ public class CommonTableModel extends AbstractTableModel {
 			update();
 		}
 	}
+	
+	public void uncolorAll() {
+		for(int i = 0; i< rowColors.size(); i++) {
+			rowColors.set(i, Color.WHITE);
+		}
+	}
 
 	public void setRowColor(int row, Color c) {
 		rowColors.set(row, c);
 		fireTableRowsUpdated(row, row);
+	}
+	
+	public void setRowSelected(int row) {
+		uncolorAll();
+		setRowColor(row, AppConstants.TABLE_SELECTION_COLOR);
 	}
 
 	public void setRowColor(int row, int color) {

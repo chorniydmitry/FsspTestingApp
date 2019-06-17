@@ -1,16 +1,18 @@
 package ru.fssprus.r82.swing.ulils;
 
+import java.awt.Component;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 import javax.swing.DropMode;
 import javax.swing.JTable;
-
-import ru.fssprus.r82.swing.dialogs.statisticsDialog.TableCellRenderer;
+import javax.swing.table.DefaultTableCellRenderer;
 
 public class CommonTable extends JTable {
 	private static final long serialVersionUID = 1281533315206385819L;
 	private CommonTableModel tabModel;
+	
+	private int lastSelectedIndex = -1;
 	
 	public CommonTable(int[] widths, String[] names) {
 		initTableModel(names);
@@ -35,6 +37,11 @@ public class CommonTable extends JTable {
 		
 	}
 	
+	public void unselectAll() {
+		getTabModel().uncolorAll();
+		setLastSelectedIndex(-1);
+	}
+	
 	public void scrollTableDown() {
 		addComponentListener(new ComponentAdapter() {
 			public void componentResized(ComponentEvent e) {
@@ -57,4 +64,27 @@ public class CommonTable extends JTable {
 		this.tabModel = tabModel;
 	}
 
+	public int getLastSelectedIndex() {
+		return lastSelectedIndex;
+	}
+
+	public void setLastSelectedIndex(int lastSelectedIndex) {
+		this.lastSelectedIndex = lastSelectedIndex;
+	}
+	
+	public class TableCellRenderer extends DefaultTableCellRenderer {
+
+		private static final long serialVersionUID = 7406284718249927491L;
+
+		@Override
+	    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+	        CommonTableModel model = (CommonTableModel) table.getModel();
+	        Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+	        c.setBackground(model.getRowColor(row));
+	        return c;
+	    }
+	}
+
+
 }
+

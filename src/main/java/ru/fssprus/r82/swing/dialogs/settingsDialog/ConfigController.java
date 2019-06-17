@@ -10,6 +10,7 @@ import javax.swing.event.DocumentListener;
 
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.utils.ApplicationConfiguration;
+import ru.fssprus.r82.utils.Utils;
 
 public class ConfigController extends CommonController<ConfigDialog> implements ActionListener, DocumentListener {
 	
@@ -65,7 +66,7 @@ public class ConfigController extends CommonController<ConfigDialog> implements 
 		boolean fieldsValidated = true;
 		for (JTextField tf : dialog.getTfsList()) {
 			String text = tf.getText();
-			if (!isNumeric(text)) {
+			if (!Utils.isNumeric(text)) {
 				tf.setBackground(Color.RED);
 				fieldsValidated = false;
 			}
@@ -77,12 +78,4 @@ public class ConfigController extends CommonController<ConfigDialog> implements 
 		dialog.getTfsList().forEach((n) -> n.setBackground(Color.WHITE));
 	}
 
-	public static boolean isNumeric(String strNum) {
-		try {
-			Integer.parseInt(strNum);
-		} catch (NumberFormatException | NullPointerException nfe) {
-			return false;
-		}
-		return true;
-	}
 }

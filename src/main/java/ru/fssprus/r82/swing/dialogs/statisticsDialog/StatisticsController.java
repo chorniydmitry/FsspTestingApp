@@ -1,6 +1,5 @@
 package ru.fssprus.r82.swing.dialogs.statisticsDialog;
 
-import java.awt.event.ActionEvent;
 import java.util.List;
 
 import ru.fssprus.r82.entity.Test;
@@ -14,12 +13,6 @@ public class StatisticsController extends CommonController<StatisticsDialog> {
 		loadTestsFromDB();
 	}
 	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	protected void setListeners() {
 		// TODO Auto-generated method stub
