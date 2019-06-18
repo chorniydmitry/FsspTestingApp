@@ -32,7 +32,7 @@ public class QuestionListDialog extends DialogWithPassword {
 
 	private JLabel lblId = new JLabel("ID");
 	private JLabel lblQuestionName = new JLabel("Формулировка");
-	private JLabel lblSpecs = new JLabel("Cпецификации");
+	private JLabel lblSpecs = new JLabel("Cпецификация");
 	private JLabel lblLevels = new JLabel("Уровни");
 
 	private JTextField tfId = new JTextField(25);

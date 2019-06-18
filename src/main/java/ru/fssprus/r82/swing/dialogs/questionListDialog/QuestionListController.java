@@ -79,10 +79,12 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 			service.update(questionToSave.getId(), questionToSave);
 
 		doFilterAction();
+		blockQuestionEditPanel(true);
 	}
 
 	private void doClearFiltersAction() {
-		doUnselectTableLines();
+		clearQuestionEditPanelContents();
+		table.unselectAll();
 
 		dialog.getTfId().setText(null);
 		dialog.getTfQuestionName().setText(null);
@@ -92,19 +94,15 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		doFilterAction();
 	}
 
-	private void doUnselectTableLines() {
-		table.getSelectionModel().clearSelection();
-		clearQuestionEditPanelContents();
-	}
-
 	private void doDiscardChangesAction() {
-		doUnselectTableLines();
+		clearQuestionEditPanelContents();
 		showQuestion(currentQuestion);
 
 	}
 
 	private void doFilterAction() {
-		doUnselectTableLines();
+		clearQuestionEditPanelContents();
+		table.unselectAll();
 
 		QuestionService questionService = new QuestionService();
 		String idText = dialog.getTfId().getText();
@@ -140,6 +138,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	}
 
 	private void blockQuestionEditPanel(boolean block) {
+		System.out.println(block);
 		questionEditing = block;
 		dialog.getTaQuestion().setEditable(!block);
 
@@ -352,9 +351,6 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 
 			data.add(row);
 
-			// tabModel.setRow(row, i);
-
-			// tabModel.update();
 		}
 		return data;
 	}
@@ -374,14 +370,14 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		q.setSpecification(new Specification());
 
 		questionsOnScreenList.add(q);
-
+		
+		dialog.getBtnEditQuestion().doClick();
 	}
 
 	@Override
 	public void update(int index) {
 		if (index >= questionsOnScreenList.size())
 			addBlankQuestion();
-		blockQuestionEditPanel(true);
 		clearQuestionEditPanelContents();
 		currentQuestion = questionsOnScreenList.get(index);
 		doDiscardChangesAction();
@@ -393,7 +389,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		if(currentPage+1 < totalPages)
 			currentPage++;
 		doFilterAction();
-		
+		blockQuestionEditPanel(true);
 	}
 
 	@Override
@@ -401,7 +397,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		if(currentPage > 0)
 			currentPage--;
 		doFilterAction();
-		
+		blockQuestionEditPanel(true);
 	}
 
 	@Override

@@ -1,27 +1,42 @@
 package ru.fssprus.r82.swing.dialogs.statisticsDialog;
 
-import javax.swing.JScrollPane;
-
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
+import ru.fssprus.r82.swing.ulils.CommonTable;
+import ru.fssprus.r82.swing.ulils.TablePanel;
 import ru.fssprus.r82.utils.AppConstants;
 
 public class StatisticsDialog extends DialogWithPassword {
 	private static final long serialVersionUID = -1487357130550152798L;
 	private static final String SECTION = AppConstants.STATISTICS_SECTION;
-	private StatisticsTable tabStat = new StatisticsTable();
-	private JScrollPane scrollPane = new JScrollPane(tabStat);
+	
+	private TablePanel tablePanel;
 	
 	public StatisticsDialog(int width, int heigth) {
 		super(width, heigth);
+		initTablePanel();
 	}
 	
-	public StatisticsTable getTabStat() {
-		return tabStat;
+	private void initTablePanel() {
+		int[] widths = { 20, 250, 125, 75, 125, 50, 50, 50, 125};
+		String[] names = {"#", "ФИО пользователя", "Специализация", 
+				"Уровень", "Дата теста", "Время теста", 
+				"Верных ответов", "%", "Результат"};
+		tablePanel = new TablePanel(widths, names);
+		
+        
+	}
+	
+	public TablePanel getTabPanel() {
+		return tablePanel;
+	}
+	
+	public CommonTable getTable() {
+		return tablePanel.getCommonTable();
 	}
 
 	@Override
 	protected void layoutDialog() {
-		add(scrollPane);
+		add(tablePanel);
 		
 	}
 
