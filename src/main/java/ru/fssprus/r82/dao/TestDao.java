@@ -4,4 +4,6 @@ import ru.fssprus.r82.entity.Test;
 
 public interface TestDao extends ItemDao<Test> {
 
+	int getAmountOfItems();
+
 }

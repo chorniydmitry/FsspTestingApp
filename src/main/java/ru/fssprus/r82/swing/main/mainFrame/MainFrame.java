@@ -18,13 +18,11 @@ import ru.fssprus.r82.swing.dialogs.statisticsDialog.StatisticsDialog;
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = -354084726011189758L;
 	private JButton btnTest = new JButton("Тестирование");
-	//private JButton btnSetting = new JButton("Настройки");
-	//private JButton btnQuestionsList = new JButton("Список вопросов");
 	private JButton btnAdmin = new JButton("Администрирование");
 	private JButton btnStatistics = new JButton("Статистика");
 	private JButton btnExit = new JButton("Выход");
 	
-	private Dimension dimButtonSize = new Dimension(175, 75);
+	private Dimension dimButtonSize = new Dimension(200, 50);
 	public MainFrame() {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setUndecorated(true);

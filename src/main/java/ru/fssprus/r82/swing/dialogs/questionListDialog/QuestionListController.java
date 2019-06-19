@@ -20,7 +20,7 @@ import ru.fssprus.r82.swing.ulils.UpdatableController;
 import ru.fssprus.r82.utils.AppConstants;
 
 public class QuestionListController extends CommonController<QuestionListDialog> implements UpdatableController {
-	private static final int ENTRIES_FOR_PAGE = 25;
+	private static final int ENTRIES_FOR_PAGE = AppConstants.TABLE_ROWS_LIMIT;
 	private int currentPage = 0;
 	private int totalPages;
 	private int totalQuestions;
@@ -138,7 +138,6 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	}
 
 	private void blockQuestionEditPanel(boolean block) {
-		System.out.println(block);
 		questionEditing = block;
 		dialog.getTaQuestion().setEditable(!block);
 
@@ -365,8 +364,8 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 
 	private void addBlankQuestion() {
 		Question q = new Question();
-		q.setAnswers(new HashSet<Answer>(5));
-		q.setLevels(new HashSet<QuestionLevel>(4));
+		q.setAnswers(new HashSet<Answer>(AppConstants.MAX_ANSWERS_AMOUNT));
+		q.setLevels(new HashSet<QuestionLevel>(QuestionLevel.values().length));
 		q.setSpecification(new Specification());
 
 		questionsOnScreenList.add(q);
@@ -375,7 +374,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	}
 
 	@Override
-	public void update(int index) {
+	public void edit(int index) {
 		if (index >= questionsOnScreenList.size())
 			addBlankQuestion();
 		clearQuestionEditPanelContents();

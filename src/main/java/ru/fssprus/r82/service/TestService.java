@@ -18,4 +18,12 @@ public class TestService {
 		return testDao.getAll(fromId, toId);
 	}
 	
+	public int countAll() {
+		return testDao.getAmountOfItems();
+	}
+	
+	public void delete(Test test) {
+		testDao.remove(test);
+	}
+	
 }

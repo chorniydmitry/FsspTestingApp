@@ -52,7 +52,7 @@ public class TablePanelController {
 			table.getTabModel().setRowSelected(selectedRow[0]);
 			
 			table.setLastSelectedIndex(selectedRow[0]);
-			subscriberController.update(selectedRow[0]);
+			subscriberController.edit(selectedRow[0]);
 		}
 
 	}
@@ -70,7 +70,7 @@ public class TablePanelController {
 	private void doDeleteAction() {
 		int lastSelectedIndex = table.getLastSelectedIndex();
 		
-		if (lastSelectedIndex > 0 && lastSelectedIndex <= table.getRowCount()) 
+		if (lastSelectedIndex >= 0 && lastSelectedIndex <= table.getRowCount()) 
 			subscriberController.delete(lastSelectedIndex);
 			
 		table.unselectAll();
@@ -80,7 +80,8 @@ public class TablePanelController {
 	private void doAddAction() {
 		table.unselectAll();
 		table.getTabModel().uncolorAll();
-		tablePanel.getCommonTable().getTabModel().addRow(new Object[] { "", "", "", "" });
+		
+		tablePanel.getCommonTable().getTabModel().addRow(new Object[table.getTabModel().getColumnCount()]);
 		tablePanel.getCommonTable().scrollTableDown();
 	}
 

@@ -1,0 +1,1000 @@
+  168  ./start_Gallean
+  169  su
+  170  ./Track-o-Bot 
+  171  mv Track-o-Bot /bin
+  172  su
+  173  Track-o-Bot 
+  174  su
+  175  Track-o-Bot 
+  176  /bin/Track-o-Bot 
+  177  su
+  178  ls
+  179  cd ..
+  180  su
+  181  ./PortBattleNET-62 
+  182  ./uninstall-Darkest\ Dungeon.sh 
+  183  ./uninstall-Dins\ Curse.sh 
+  184  ./uninstall-Hearthlands.sh 
+  185  sudo apt remove virtualbox
+  186  apt remove virtualbox
+  187  su
+  188  su
+  189  mvn install
+  190  ./PortBattleNET-68 
+  191  su
+  192  java -jar payment-order-0.0.1-SNAPSHOT.jar 
+  193  java -jar ./payment-order-0.0.1-SNAPSHOT.jar 
+  194  su
+  195  java -jar ./payment-order-0.0.1-SNAPSHOT.jar 
+  196  su
+  197  java -jar ./payment-order-0.0.1-SNAPSHOT.jar 
+  198  java -jar payment-order-0.0.1-SNAPSHOT.jar 
+  199  java -jar JRandomGenerator-0.0.1-SNAPSHOT-jar-with-dependencies.jar 
+  200  java -jar ./payment-order-0.0.1-SNAPSHOT.jar 
+  201  history | grep netstat
+  202  su
+  203  chmod +x ./PortBattleNET-70 
+  204  ./PortBattleNET-70 
+  205  su
+  206  groovy test.groovy
+  207  clear
+  208  groovy test.groovy
+  209  clear
+  210  groovy test.groovy
+  211  clear
+  212  groovy test.groovy
+  213  clear
+  214  groovy test.groovy
+  215  clear
+  216  groovy test.groovy
+  217  clear
+  218  groovy test.groovy
+  219  clear
+  220  groovy test.groovy
+  221  clear
+  222  groovy test.groovy
+  223  su
+  224  nano ~/.local/share/applications/eclipse.desktop
+  225  su
+  226  ./PortBattleNET-78
+  227  cd ..
+  228  su
+  229  ./PortBattleNET-70
+  230  java -jar ./payment-order-0.0.1-SNAPSHOT.jar 
+  231  java -jar -Dsun.java2d.cmm=sun.java2d.cmm.kcms.KcmsServiceProvider ./payment-order-0.0.1-SNAPSHOT.jar 
+  232  su
+  233  ./PortBattleNET-78
+  234  su
+  235  git clone https://github.com/erikdubois/LinuxMint182i3.git
+  236  ls
+  237  cd LinuxMint182i3/
+  238  ls
+  239  cd installation/
+  240  ls
+  241  su
+  242  qwe
+  243  yy
+  244  lxappearance 
+  245  nano ~/.config/i3/config
+  246  gedit ~/.config/i3/config
+  247  leafpad ~/.config/i3/config
+  248  geany  ~/.config/i3/config
+  249  mc ~/.config/i3/config
+  250  mcedit ~/.config/i3/config
+  251  firefox
+  252  mcedit ~/.config/i3/config
+  253  rofi -show run
+  254  su
+  255  rofi -show run
+  256  mcedit ~/.config/i3/config
+  257  i3-msg exit
+  258  su
+  259  leafpad ~/.config/i3/config
+  260  compton -f
+  261  lxappearance 
+  262  firefox
+  263  lxappearance 
+  264  lxappearance 
+  265  leafpad ~/.config/i3/config
+  266  xprop
+  267  rofi -show run -lines 3 -eh 2 -width 100 -padding 600 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 18"
+  268  rofi -show run -lines 3 -eh 2 -width 100 -padding 600 -opacity "50" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 18"
+  269  rofi -show run -lines 3 -eh 2 -width 100 -padding 600 -opacity "50" -bw 0 -bc "red" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 18"
+  270  rofi -show run -lines 3 -eh 2 -width 100 -padding 600 -opacity "50" -bw 0 -bc "red" -bg "red" -fg "green" -hlbg "blue" -hlfg "yello" -font "System San Francisco Display 18"
+  271  rofi -show run -lines 3 -eh 2 -width 100 -padding 600 -opacity "50" -bw ffffff -bc "red" -bg "red" -fg "green" -hlbg "blue" -hlfg "yello" -font "System San Francisco Display 18"
+  272  xprop
+  273  clear
+  274  xprop
+  275  compton -f
+  276  pavucontrol 
+  277  vim
+  278  su
+  279  cd ~/.config/i3/
+  280  ls
+  281  rm -rf *.save*
+  282  ls
+  283  nano i3blocks.conf 
+  284  su
+  285  nano i3blocks.conf 
+  286  cd ~/.config/i3/
+  287  nano i3blocks.conf 
+  288  "
+  289  su
+  290  xprop
+  291  /mnt/pksp/startclient.sh 
+  292  su
+  293  cd ~/.purple/
+  294  ls
+  295  cd logs
+  296  ls
+  297  cd bonjour
+  298  ls
+  299  cd chernyj/
+  300  ls
+  301  cd alimova@O82023-XXXXXXXX/
+  302  ls
+  303  vim 2019-03-12.111146+0300MSK.html 
+  304  cd .myscripts/
+  305  ls
+  306  cd ..
+  307  cd .local/
+  308  ls
+  309  cd share/
+  310  ls
+  311  cd icons/
+  312  ls
+  313  thunar
+  314  cd .conf
+  315  cd .config/
+  316  cd i3/
+  317  ls
+  318  nano config 
+  319  ~/.myscripts/ais_launch.sh
+  320  mkdir ./.myscripts
+  321  cd .myscripts/
+  322  touch ais_launch.sh
+  323  nano ais_launch.sh 
+  324  ais_launch.sh 
+  325  ./ais_launch.sh 
+  326  chmod +x ./ais_launch.sh 
+  327  ./ais_launch.sh 
+  328  su
+  329  ./ais_launch.sh 
+  330  cd /home/user/.local/share/applications
+  331  cd ..
+  332  ls
+  333  cd .local/
+  334  ls
+  335  cd share
+  336  ls
+  337  cd applications/
+  338  ls
+  339  touch ais.desctop
+  340  nano ais.desktop 
+  341  nano ais.desctop 
+  342  leafpad ais.desctop 
+  343  nano ais.desctop 
+  344  leafpad ais.desctop 
+  345  cd .local/
+  346  ls
+  347  cd share/
+  348  ls
+  349  cd ap
+  350  cd applications/
+  351  ls
+  352  nano ais.desktop
+  353  cd ~/.config/i3/
+  354  ls
+  355  nano config
+  356  xev
+  357  chmod u+x /home/dmitry/.myscripts/ais_launch.sh 
+  358  /home/dmitry/.myscripts/ais_launch.sh 
+  359  nano ~/.config/i3/config 
+  360  su
+  361  nano ~/.config/i3/config 
+  362  cd Рабочий\ стол/
+  363  ls
+  364  cat по\ подписям 
+  365  ssh 10.82.75.146
+  366  su
+  367  su
+  368  /home/dmitry/.myscripts/ais_launch.sh
+  369  nano ~/.config/i3/i3blocks.conf
+  370  touch ./key_layout
+  371  nano ./key_layout 
+  372  nano ~/.config/i3/i3blocks.conf
+  373  mv ./key_layout ~/.config/i3/
+  374  cd ~/.config/i3/
+  375  ls
+  376  nano i3blocks.conf
+  377  pwd
+  378  ls
+  379  nano ./i3blocks.conf
+  380  nano key_layout 
+  381  chmod u+x ./key_layout 
+  382  su
+  383  leafpad ~/.config/i3/config 
+  384  su
+  385  vim
+  386  ls
+  387  vim bk2
+  388  mv bk2 ohter
+  389  ls
+  390  rm -rf crl
+  391  su
+  392  ls
+  393  cd .config/
+  394  ls
+  395  cd i3
+  396  ls
+  397  vim i3blocks.conf
+  398  apt install gxkbb
+  399  su
+  400  vim .config/i3/config
+  401  ыг
+  402  su
+  403  cd Рабочий\ стол/
+  404  ls
+  405  nano команды\ linux 
+  406  nano по\ подписям 
+  407  leafpad по\ подписям 
+  408  mkdir commands
+  409  mkdir bk2
+  410  cd bk2
+  411  cd ..
+  412  rm -rf bk2
+  413  mkdir other
+  414  cd other
+  415  vim bk
+  416  su
+  417  vim ./.config/i3/config
+  418  cd Рабочий\ стол/
+  419  ls -la
+  420  vim ГАРАНТ 
+  421  smtube
+  422  xprop
+  423  smtube
+  424  vim .config/i3/config
+  425  xprop
+  426  su
+  427  exit
+  428  vlc .config/i3/config 
+  429  vim .config/i3/config 
+  430  cd commands/
+  431  ls
+  432  vim по\ подписям 
+  433  ls
+  434  cd commands ls
+  435  cd commands
+  436  ls
+  437  cd ..
+  438  cd Рабочий\ стол/
+  439  ls
+  440  mv команды linux ~/commands/
+  441  mv "команды linux" ~/commands/
+  442  mv "по подписям" ~/commands/
+  443  mv "установка jre 1.8.txt" ~/commands/
+  444  mv Цикл\ арест.txt ~/other
+  445  ls
+  446  mv ГАРАНТ ~/other
+  447  cat sos_update.sh 
+  448  cd ~/other/
+  449  ls
+  450  cd ..
+  451  cd txt
+  452  ls
+  453  cd ..
+  454  ls
+  455  rm whatsie-2.1.0-linux-amd64.deb 
+  456  rm -rf txt
+  457  rm SpravkiBKsetup_ver._2.4.1.msi 
+  458  rm PlayOnLinux\'s\ virtual\ drives
+  459  rm PortBattleNET-7*
+  460  rm hs_err_pid5907.log 
+  461  cd i3
+  462  ls
+  463  cd ..
+  464  rm -rf i3
+  465  cd oher
+  466  cd ohter
+  467  cat ohter
+  468  mv ohter ~/other/bk2
+  469  cd other
+  470  ls
+  471  cat bk2
+  472  su
+  473  pavucontrol 
+  474  su
+  475  ranger --copy-config=all
+  476  ranger
+  477  vim ~/.config/ranger/rc.conf
+  478  su
+  479  cd ~/.config/ranger
+  480  ls
+  481  vim ./rc.conf 
+  482  leafpad ./rc.conf 
+  483  ~/.config/
+  484  cd ~/.config/
+  485  ls
+  486  su
+  487  ranger
+  488  vim ~/.config/ranger/rifle.conf
+  489  ranger
+  490  ranger
+  491  su
+  492  vim ~/.config/i3/config
+  493  reboot now
+  494  su
+  495  thunar
+  496  ranger
+  497  ranger
+  498  su
+  499  cd Рабочий\ стол/
+  500  ls
+  501  ./Terminal_GlobalNet.desktop 
+  502  ranger
+  503  nano ~/commands/по\ подписям 
+  504  ыг
+  505  su
+  506  ranger
+  507  vim ~/.config/i3/config
+  508  su
+  509  ls .profile 
+  510  vim .profile
+  511  vim ~/.config/i3/config
+  512  Screenshot
+  513  vim ~/commands/vim
+  514  vim ~/.conf/i3/config
+  515  vim ~/.config/i3/config
+  516  ls
+  517  cd Изображения/
+  518  ls
+  519  su
+  520  pidof java
+  521  kill 27051
+  522  pidof
+  523  xprop
+  524  xpidof
+  525  kill 32764
+  526  mysql --version
+  527  envice /mnt/share/00_Воловикова/с рабочего стола/ВСЕ/КАНЦЕЛЯРИЯ/ОТДЕЛ КАДРОВ/В кадры/больничный заявление.pdf
+  528  envice "/mnt/share/00_Воловикова/с рабочего стола/ВСЕ/КАНЦЕЛЯРИЯ/ОТДЕЛ КАДРОВ/В кадры/больничный заявление.pdf"
+  529  cat ~/commands/команды\ linux 
+  530  find /mnt/share -name "*больничный*" -print
+  531  su
+  532  xprop
+  533  kill 
+  534  kill 1477
+  535  xprop
+  536  kill 20685
+  537  xprop
+  538  kill 23097
+  539  su
+  540  cd .purple/
+  541  ls
+  542  cd logs
+  543  ls
+  544  cd bonjour/
+  545  ls
+  546  cd chernyj/
+  547  ls
+  548  cd evenshtejn@O82023-20100134/
+  549  ls
+  550  cat 2019-03-19.180200+0300MSK.html 
+  551  cat 2019-03-19.164753+0300MSK.html 
+  552  su
+  553  su
+  554  cd commands/
+  555  ls
+  556  vim по по\ подписям 
+  557  ssh 10.82.75.148
+  558  su
+  559  exit
+  560  cd commands/
+  561  ls
+  562  mv команды\ linux linux
+  563  ls
+  564  mv по\ подписям sign
+  565  mv у jre1.8
+  566  mv установка\ jre\ 1.8.txt jre1.8
+  567  ls
+  568  vim sign
+  569  mvn --version
+  570  maven --version
+  571  su
+  572  vim commands/sign
+  573  su
+  574  rofi
+  575  vim .config/i3/config
+  576  gvim .config/i3/config
+  577  gvim commands/i3keyslist
+  578  vim .config/i3/config
+  579  su
+  580  vim .config/i3/config
+  581  vim commands/vim
+  582  su
+  583  vim commands/vim
+  584  su
+  585  vim .profile
+  586  vim .bash_profile
+  587  vim .Xresources
+  588  su
+  589  vim .config/i3/config
+  590  ls | grep '.X*'
+  591  ls -lah
+  592  vim .Xresources
+  593  rm .Xresources 
+  594  reboot now
+  595  su
+  596  vim .Xresources
+  597  su
+  598  vim .config/i3/config
+  599  vim .Xresources
+  600  ssh 10.82.75.135
+  601  su
+  602  ssh 10.82.75.155
+  603  service ssh status
+  604  ssh status
+  605  su
+  606  whereis service
+  607  ls -la ~eq
+  608  ssh
+  609  ssh -F
+  610  vim .config/i3/config
+  611  cd .config/i3/
+  612  ls
+  613  rm config.save 
+  614  vim config
+  615  ls -lah
+  616  vim .config.swp
+  617  cd .config/i3
+  618  ls -lah
+  619  rm .config.swo
+  620  rm .config.swp
+  621  ls -lah
+  622  vim key_layout
+  623  ls
+  624  rm key_layout.save 
+  625  ls
+  626  cd plugins/
+  627  ls
+  628  cd ..
+  629  vim config 
+  630  i3lock
+  631  vim config 
+  632  su
+  633  vim .config/i3/config
+  634  vim commands/linux
+  635  su
+  636  man sudoers
+  637  sudoers ssh dmitry
+  638  su
+  639  ssh 10.82.75.150
+  640  ssh root@10.82.75.150
+  641  ls -lah
+  642  vim .Xresources
+  643  ssh 10.82.75.134
+  644  ssh root@10.82.75.143
+  645  ssh root@10.82.75.134
+  646  ssh 10.82.75.138
+  647  ssh root@10.82.75.138
+  648  service ssh status
+  649  vim .Xresources
+  650  su
+  651  vim
+  652  vim 123
+  653  mv ~/Загрузки/ru.* ~/.vim/spell
+  654  su
+  655  cd /mnt/share/Вопросы_+_программа_для_тестирования/Новая папка/Test_для подразд (2017)/Data/Results/
+  656  cd "/mnt/share/Вопросы_+_программа_для_тестирования/Новая папка/Test_для подразд (2017)/Data/Results/"
+  657  ls
+  658  vim Воловикова\ \ Оксана\ Вячеславовна\ -\ Тест\ №\ 1.txt 
+  659  su
+  660  mount -t cifs //10.82.74.34/pksp/ /mnt/pksp -o username=admin,password=cloud82020,dir_mode=0777,file_mode=0777,sec=none
+  661  su
+  662  ls -h
+  663  ls -lh
+  664  ls -lah
+  665  vim .Xresources
+  666  vim .config/i3/config
+  667  ls /mnt/pksp
+  668  vim .config/i3/config
+  669  vim .config/i3/config
+  670  su
+  671  vim .config/i3/config
+  672  vim .config/i3/conf
+  673  vim .config/i3/config
+  674  ls .config/i3/
+  675  ls -lah .config/i3
+  676  rm .config/i3/.config.swp 
+  677  vim .config/i3/config
+  678  rm .config/i3/.config
+  679  rm .config/i3/.config*
+  680  vim .config/i3/config
+  681  su
+  682  git clone 'https://github.com/programming086/Hibernate-Annotation-Mapping.git'
+  683  java -version
+  684  echo $JAVA_HOME
+  685  git clone https://github.com/spring-guides/gs-accessing-data-mysql.git
+  686  git clone https://github.com/kuidreS/Hibernate-Annotation-Mapping.git
+  687  ssh root@10.82.75.137
+  688  su
+  689  ls
+  690  cd other
+  691  ls
+  692  vim bk2
+  693  exit
+  694  su
+  695  cd opt
+  696  cd /opt
+  697  git clone https://github.com/andmarti1424/sc-im.git
+  698  cd ~/
+  699  git clone https://github.com/andmarti1424/sc-im.git
+  700  cd sc-im/
+  701  cd src/
+  702  ls
+  703  editor Makefile
+  704  make
+  705  su
+  706  ~/config/ranger/rc.conf
+  707  ~/.config/ranger/rc.conf
+  708  vim ~/.config/ranger/rc.conf
+  709  ranger --copy-config=scope
+  710  vim ~/.config/ranger/rc.conf
+  711  vim ~/.config/ranger/scope.sh
+  712  ranger
+  713  cd Загрузки/
+  714  ls
+  715  su
+  716  cd ~/
+  717  ls
+  718  java -jar squirrel-sql-3.9.1-standard.jar 
+  719  su
+  720  ssh root@10.82.75.144
+  721  cd /eclipse
+  722  ls
+  723  cd ~/eclipse
+  724  ls
+  725  cd workspace
+  726  ls
+  727  cd payment-order
+  728  ls
+  729  cd src
+  730  ls
+  731  cd main
+  732  ls
+  733  cd java
+  734  ls
+  735  cd ru
+  736  ls
+  737  cd fssprus
+  738  ls
+  739  cd r82
+  740  ls
+  741  cd model
+  742  ls
+  743  cd ..
+  744  ls
+  745  cd utils
+  746  ls
+  747  cd pdf
+  748  ls
+  749  cd..
+  750  cd...
+  751  cd ..
+  752  ls
+  753  cd ..
+  754  ls
+  755  cd view
+  756  ls
+  757  cd swing
+  758  ls
+  759  cd main
+  760  ls
+  761  cd menu
+  762  ls
+  763  cd listeners/
+  764  ls
+  765  vim MenuOpenListeners.java 
+  766  cd ~/
+  767  cd eclipse
+  768  cd testing/
+  769  ls
+  770  cd FsspTestingApp/
+  771  ls
+  772  cd src
+  773  ls
+  774  cd main
+  775  ls
+  776  cd resources/
+  777  ls
+  778  cd questions/
+  779  ls
+  780  vim Исполнители.csv
+  781  cd ~/Загрузки/
+  782  ls
+  783  sq java -jar squirrel-sql-snapshot-20190320_2215-standard.jar 
+  784  java -jar squirrel-sql-snapshot-20190320_2215-standard.jar 
+  785  java -version
+  786  su
+  787  ranger
+  788  vim .config/ranger/rc.conf
+  789  ranger
+  790  sda
+  791  cd ~/
+  792  htop
+  793  exit
+  794  screenfetch
+  795  su
+  796  su
+  797  vim ./commands/lin
+  798  cd ./commands/
+  799  ls
+  800  vim linux
+  801  cd ~/Загрузки/
+  802  ls
+  803  su
+  804  cd ~
+  805  vim .Xresources
+  806  vim .config/i3/config
+  807  vim ~/.config/i3/config
+  808  xrdb .Xresources
+  809  cd ~
+  810  xrdb .Xresources
+  811  vim .config/i3/config
+  812  ranger
+  813  ls
+  814  ls -a
+  815  rm .Xresources.s*
+  816  vim .Xresources
+  817  xrdb .Xresources
+  818  vim .Xresources
+  819  xrdb .Xresources
+  820  vim .Xresources
+  821  xrdb .Xresources
+  822  vim .Xresources
+  823  xprop
+  824  su
+  825  java -jar squirrel-sql-3.9.1-standard.jar 
+  826  terminal
+  827  locate .vimrc
+  828  touch ~/.vimrc
+  829  vim .vimrc
+  830  rm .vimrc.*
+  831  vim .vimrc
+  832  ranger
+  833  vim .vimrc
+  834  vim .vim/vim.rc
+  835  ls -a
+  836  cd .vim
+  837  ls
+  838  cd shell
+  839  cd spell
+  840  cd ..
+  841  ls
+  842  cd ..
+  843  ls
+  844  cd .config/
+  845  ls
+  846  ls -a
+  847  vim .config/i3/config
+  848  cd .config/i3/
+  849  ls
+  850  vim i3blocks.conf 
+  851  vi /etc/vimrc
+  852  ~/.vimrc
+  853  su
+  854  vim .config/ranger/rc.conf
+  855  cd .config/ranger
+  856  ls
+  857  vim rifle.conf 
+  858  clear
+  859  ls -la
+  860  vim .Xresources
+  861  gvim .Xresources
+  862  su
+  863  vim 123
+  864  gvim .Xresources
+  865  vim .Xresources
+  866  apt install gvim
+  867  su
+  868  vim .Xresources
+  869  fdisk -l
+  870  su
+  871  vim .Xresources
+  872  vim commands/vim
+  873  vim .Xresources
+  874  xrdb .Xresources
+  875  vim .Xresources
+  876  xrdb .Xresources
+  877  htop
+  878  vim .Xresources
+  879  xrdb .Xresources
+  880  xrdb .Xresources
+  881  vim .Xresources
+  882  xrdb .Xresources
+  883  su
+  884  cd /media
+  885  ls
+  886  su
+  887  exit
+  888  mount -a
+  889  su
+  890  su
+  891  apt upgrade
+  892  su
+  893  CD Документы/
+  894  ды
+  895  ls
+  896  cd Документы/
+  897  ls
+  898  tar xvzf 120_pdf_tar.gz
+  899  xprop
+  900  xkill
+  901  su
+  902  su
+  903  xkill
+  904  cd .thunderbird
+  905  ls
+  906  cd zt5236ad.default/
+  907  ls
+  908  rm -rf prefs*
+  909  ls
+  910  rm -rf downloads*
+  911  ls
+  912  rm -rf *-3g*
+  913  ls
+  914  cd Mail
+  915  ls
+  916  cd 10.82.12.142/
+  917  ls
+  918  ls -lah
+  919  chmod 777 Inbox*
+  920  su
+  921  vim .config/i3/config
+  922  su
+  923  pwd
+  924  cd ~/
+  925  ls
+  926  cd /home/dmitry/eclipse/testing/FSSPTestingApp/
+  927  ls
+  928  cd ..
+  929  ls
+  930  cd FsspTestingApp/
+  931  ;s
+  932  ls
+  933  cd srd
+  934  cd src
+  935  ls
+  936  cd test
+  937  ls
+  938  cd ..
+  939  cd main
+  940  ls
+  941  cd resources/
+  942  ls
+  943  cd ..
+  944  ls
+  945  cd ..
+  946  ls
+  947  cd ..
+  948  ls
+  949  su
+  950  vim ./other/status_change
+  951  gvim ./other/status_change
+  952  rvim
+  953  vim ./other/status_change
+  954  xprop
+  955  su
+  956  ping 10.82.74.34
+  957  cd /mnt
+  958  ls
+  959  cd pksp
+  960  ls
+  961  startclient.sh
+  962  ./startclient.sh
+  963  su
+  964  exit
+  965  su
+  966  xprop
+  967  su
+  968  exit
+  969  exit
+  970  su
+  971  ping 10.82.74.34
+  972  ping 10.82.75.150
+  973  mount -a
+  974  su
+  975  ping 10.82.74.34
+  976  ping 10.82.75.150
+  977  ping 10.82.74.34
+  978  su
+  979  ыг
+  980  su
+  981  ssh 10.82.75.136
+  982  su
+  983  exit
+  984  su
+  985  su
+  986  exit
+  987  cd /home/chernyj
+  988  su
+  989  cd Рабочий\ стол/
+  990  ls
+  991  ./Terminal_GlobalNet.desktop 
+  992  (xfce4-panel:15123): GLib-WARNING **: (/build/glib2.0-B1uXKV/glib2.0-2.50.3/./glib/gerror.c:405):g_error_new_valist: runtime check failed: (domain != 0)
+  993  (xfce4-panel:15123): Gtk-WARNING **: Загружаемый модуль тем не найден в module_path: «murrine»,
+  994  dmitry@O82023-20100260:~/Рабочий стол$ 
+  995  (xfce4-panel:15123): GLib-WARNING **: (/build/glib2.0-B1uXKV/glib2.0-2.50.3/./glib/gerror.c:405):g_error_new_valist: runtime check failed: (domain != 0)
+  996  (xfce4-panel:15123): Gtk-WARNING **: Загружаемый модуль тем не найден в module_path: «murrine»,
+  997  dmitry@O82023-20100260:~/Рабочий стол$ 
+  998  ./Terminal_GlobalNet.desktop 
+  999  exec=xfreerdp -a 16 -g 1600x850 --plugin cliprdp --plugin drdynvc --data audio -- 10.82.6.107
+ 1000  xfreerdp -a 16 -g 1600x850 --plugin cliprdp --plugin drdynvc --data audio -- 10.82.6.107
+ 1001  quit
+ 1002  exit
+ 1003  su
+ 1004  cd Рабочий\ стол/
+ 1005  ls
+ 1006  su
+ 1007  ls
+ 1008  mkdir dist
+ 1009  ls
+ 1010  cd dist
+ 1011  wget https://release.gitkraken.com/linux/gitkraken-amd64.deb
+ 1012  dpkg -i gitkraken-amd64.deb 
+ 1013  su
+ 1014  mkdir gittest
+ 1015  cd gittest
+ 1016  touch hello
+ 1017  touch hello2
+ 1018  touch hello3
+ 1019  cd gittest/
+ 1020  ls
+ 1021  cd gittest/
+ 1022  ls
+ 1023  touch 1
+ 1024  touch 2
+ 1025  touch 3
+ 1026  ls
+ 1027  su
+ 1028  uname -n
+ 1029  su
+ 1030  java -jar FsspTestingApp-1.0-SNAPSHOT.jar 
+ 1031  java -jar FsspTestingApp-1.0-SNAPSHOT.jarp
+ 1032  java -jar FsspTestingApp-1.0-SNAPSHOT.jar
+ 1033  java -jar FsspTestingApp-1.0-SNAPSHOT.jar 
+ 1034  debugfs -w /dev/mapper/wks01-root
+ 1035  su
+ 1036  java -jar FsspTestingApp-1.0-SNAPSHOT.jar 
+ 1037  pidof eclipse
+ 1038  kill 3333
+ 1039  exit
+ 1040  cd commands/
+ 1041  ls
+ 1042  vim linux
+ 1043  su
+ 1044  pulseaudio 
+ 1045  su
+ 1046  pavucontrol 
+ 1047  su
+ 1048  exit
+ 1049  su
+ 1050  exit
+ 1051  su
+ 1052  дзй
+ 1053  lpq
+ 1054  xprop 'Очередь печати'
+ 1055  cd /home/dmitry/eclipse
+ 1056  ls
+ 1057  cd testing/
+ 1058  ls
+ 1059  cd FsspTestingApp/
+ 1060  ls
+ 1061  wget -O h2.jar http://repo2.maven.org/maven2/com/h2database/h2/1.4.197/h2-1.4.197.jar
+ 1062  echo "SCRIPT TO 'db-dump.sql'" > query.sql
+ 1063  ls
+ 1064  vim query.sql 
+ 1065  java -cp h2.jar org.h2.tools.RunScript -url "jdbc:h2:file:./test" -user root -password 123456 -script query.sql -showResults
+ 1066  ls
+ 1067  vim db-dump.sql 
+ 1068  cd /home/eclipse/testing
+ 1069  cd /home/dmitry/eclipse/testing/
+ 1070  ls
+ 1071  cd FsspTestingApp/
+ 1072  ls
+ 1073  java -cp h2.jar org.h2.tools.RunScript -url "jdbc:h2:file:./test" -user root -password 123456 -script query.sql -showResults
+ 1074  vim db-dump.sql 
+ 1075  cd /home/dmitry
+ 1076  ls
+ 1077  file -i fileName.txt
+ 1078  iconv -f us-ascii -t UTF-8//TRANSLIT fileName.txt -o out.file
+ 1079  ls
+ 1080  vim out.file
+ 1081  iconv -f us-ascii -t UTF-8 fileName.txt -o out2.file
+ 1082  vim out2.file
+ 1083  cd /home/dmitry/eclipse/testing/
+ 1084  cd FsspTestingApp/
+ 1085  ls
+ 1086  java -cp h2.jar org.h2.tools.RunScript -url "jdbc:h2:file:./test" -user root -password 123456 -script query.sql -showResults
+ 1087  cd Рабочий\ стол/
+ 1088  ls
+ 1089  vim Terminal_GlobalNet.desktop 
+ 1090  xfreerdp -a 16 -g 1600x850 --plugin cliprdp --plugin drdynvc --data audio -- 10.82.6.107
+ 1091  java -cp h2.jar org.h2.tools.RunScript -url "jdbc:h2:file:./test" -user root -password 123456 -script query.sql -showResults
+ 1092  xfreerdp -a 16 -g 1600x850 --plugin cliprdp --plugin drdynvc --data audio -- 10.82.6.107
+ 1093  su
+ 1094  vim
+ 1095  ls
+ 1096  cd commands
+ 1097  ls
+ 1098  vim ic5
+ 1099  shutdown -P 200
+ 1100  man shutdown
+ 1101  shutdown -P 10:00
+ 1102  shutdown 10:00 -P
+ 1103  shutdown 10:00
+ 1104  su
+ 1105  ls
+ 1106  cd commands/
+ 1107  ls
+ 1108  man linux
+ 1109  cat linux
+ 1110  vim linux
+ 1111  man dd
+ 1112  vim linux
+ 1113  exit
+ 1114  ls
+ 1115  cd other
+ 1116  ls
+ 1117  cat ГАРАНТ
+ 1118  exit
+ 1119  ыг
+ 1120  su
+ 1121  cd ..
+ 1122  chmod 777 -R ./Test_для\ подразд\ \(2017\)/
+ 1123  su
+ 1124  ыг
+ 1125  su
+ 1126  xprop
+ 1127  u
+ 1128  su
+ 1129  chrontab -e
+ 1130  crontab -e
+ 1131  xprop
+ 1132  su
+ 1133  ;s
+ 1134  ls
+ 1135  cd commands
+ 1136  ls
+ 1137  cat linux
+ 1138  ls
+ 1139  ll
+ 1140  cd solutions
+ 1141  ls
+ 1142  mkdir 6
+ 1143  cd 5
+ 1144  ls
+ 1145  cd ..
+ 1146  cd 6
+ 1147  touch problem
+ 1148  touch solution
+ 1149  nano problem
+ 1150  nano solution
+ 1151  su
+ 1152  exit
+ 1153  su
+ 1154  exit
+ 1155  pidof firefox
+ 1156  pidof mozilla
+ 1157  htop
+ 1158  xprop
+ 1159  su system-config-printer
+ 1160  su
+ 1161  ыг
+ 1162  su
+ 1163  exit
+ 1164  su
+ 1165  exit
+ 1166  su
+ 1167  history > 123.txt
