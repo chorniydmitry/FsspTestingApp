@@ -3,12 +3,12 @@ package ru.fssprus.r82.swing.dialogs.adminDialog;
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.dialogs.addingSetDialog.LoadingQuestionSetController;
 import ru.fssprus.r82.swing.dialogs.addingSetDialog.LoadingQuestionSetDialog;
+import ru.fssprus.r82.swing.dialogs.configDialog.ConfigController;
+import ru.fssprus.r82.swing.dialogs.configDialog.ConfigDialog;
 import ru.fssprus.r82.swing.dialogs.passwordManageDialog.PasswordManageController;
 import ru.fssprus.r82.swing.dialogs.passwordManageDialog.PasswordManageDialog;
 import ru.fssprus.r82.swing.dialogs.questionListDialog.QuestionListController;
 import ru.fssprus.r82.swing.dialogs.questionListDialog.QuestionListDialog;
-import ru.fssprus.r82.swing.dialogs.settingsDialog.ConfigController;
-import ru.fssprus.r82.swing.dialogs.settingsDialog.ConfigDialog;
 
 public class AdminController extends CommonController<AdminDialog> {
 

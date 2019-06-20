@@ -1,4 +1,4 @@
-package ru.fssprus.r82.swing.ulils;
+package ru.fssprus.r82.swing.table;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;

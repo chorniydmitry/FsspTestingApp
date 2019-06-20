@@ -1,4 +1,4 @@
-package ru.fssprus.r82.swing.ulils;
+package ru.fssprus.r82.swing.table;
 
 import java.awt.Color;
 import java.util.ArrayList;

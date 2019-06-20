@@ -1,8 +1,9 @@
 package ru.fssprus.r82.swing.dialogs.statisticsDialog;
 
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
-import ru.fssprus.r82.swing.ulils.CommonTable;
-import ru.fssprus.r82.swing.ulils.TablePanel;
+import ru.fssprus.r82.swing.table.CommonTable;
+import ru.fssprus.r82.swing.table.CommonTableModel;
+import ru.fssprus.r82.swing.table.TablePanel;
 import ru.fssprus.r82.utils.AppConstants;
 
 public class StatisticsDialog extends DialogWithPassword {
@@ -32,6 +33,10 @@ public class StatisticsDialog extends DialogWithPassword {
 	
 	public CommonTable getTable() {
 		return tablePanel.getCommonTable();
+	}
+	
+	public  CommonTableModel getTableModel() {
+		return getTable().getTabModel();
 	}
 
 	@Override

@@ -1,6 +1,4 @@
-package ru.fssprus.r82.swing.ulils;
-
-import java.util.List;
+package ru.fssprus.r82.swing.table;
 
 import javax.swing.ListSelectionModel;
 
@@ -10,7 +8,7 @@ public class TablePanelController {
 
 	private TablePanel tablePanel;
 	private CommonTable table;
-	private UpdatableController subscriberController;
+	private CommonTableAbstractController subscriberController;
 
 	public TablePanelController(TablePanel tablePanel) {
 		this.tablePanel = tablePanel;
@@ -19,10 +17,6 @@ public class TablePanelController {
 		setListeners();
 	}
 
-	public void addData(List<Object[]> data) {
-
-	}
-	
 	private void setListeners() {
 		tablePanel.getBtnAdd().addActionListener(listener -> doAddAction());
 		tablePanel.getBtnDelete().addActionListener(listener -> doDeleteAction());
@@ -85,11 +79,11 @@ public class TablePanelController {
 		tablePanel.getCommonTable().scrollTableDown();
 	}
 
-	public void setSubscriber(UpdatableController subscriberController) {
+	public void setSubscriber(CommonTableAbstractController subscriberController) {
 		this.subscriberController = subscriberController;
 	}
 
-	public UpdatableController getSubscriber() {
+	public CommonTableAbstractController getSubscriber() {
 		return subscriberController;
 	}
 

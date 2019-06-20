@@ -12,42 +12,36 @@ import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.service.QuestionService;
 import ru.fssprus.r82.service.SpecificationService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
-import ru.fssprus.r82.swing.ulils.CommonTable;
-import ru.fssprus.r82.swing.ulils.CommonTableModel;
+import ru.fssprus.r82.swing.table.TablePanelController;
 import ru.fssprus.r82.swing.ulils.MessageBox;
-import ru.fssprus.r82.swing.ulils.TablePanelController;
-import ru.fssprus.r82.swing.ulils.UpdatableController;
 import ru.fssprus.r82.utils.AppConstants;
 
 public class QuestionListController extends CommonController<QuestionListDialog> implements UpdatableController {
 	private static final int ENTRIES_FOR_PAGE = AppConstants.TABLE_ROWS_LIMIT;
-	private int currentPage = 0;
+	private int currentPage;
 	private int totalPages;
-	private int totalQuestions;
-	private List<Question> questionsOnScreenList = new ArrayList<Question>();
+	
+	private List<Question> questionsOnScreenList;
+
 	private Question currentQuestion = null;
 	private boolean questionEditing = false;
-
-	private CommonTable table;
-	private CommonTableModel tableModel;
+	
+	private int totalQuestions;
 
 	public QuestionListController(QuestionListDialog dialog) {
 		super(dialog);
-		this.table = dialog.getTabPanel().getCommonTable();
-		this.tableModel = dialog.getTabPanel().getCommonTable().getTabModel();
 
 		TablePanelController tablePanelController = new TablePanelController(dialog.getTabPanel());
 		tablePanelController.setSubscriber(this);
 
 		blockQuestionEditPanel(true);
 
-		doFilterAction();
-		showQuestions();
+		updateTable();
 	}
 
 	@Override
 	protected void setListeners() {
-		dialog.getBtnFilter().addActionListener(listener -> doFilterAction());
+		dialog.getBtnFilter().addActionListener(listener -> updateTable());
 		dialog.getBtnDiscardQuestionEditChanges().addActionListener(listener -> doDiscardChangesAction());
 		dialog.getBtnEditQuestion().addActionListener(listener -> doEditAction());
 		dialog.getBtnClearFilters().addActionListener(listener -> doClearFiltersAction());
@@ -55,7 +49,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	}
 
 	private void doEditAction() {
-		if (table.getLastSelectedIndex()== -1)
+		if (dialog.getTable().getLastSelectedIndex()== -1)
 			return;
 		if (questionEditing) {
 			blockQuestionEditPanel(false);
@@ -78,31 +72,30 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		else
 			service.update(questionToSave.getId(), questionToSave);
 
-		doFilterAction();
+		updateTable();
 		blockQuestionEditPanel(true);
 	}
 
 	private void doClearFiltersAction() {
 		clearQuestionEditPanelContents();
-		table.unselectAll();
+		dialog.getTable().unselectAll();
 
 		dialog.getTfId().setText(null);
 		dialog.getTfQuestionName().setText(null);
 		dialog.getTfSpecs().setText(null);
 		dialog.getTfLevels().setText(null);
 
-		doFilterAction();
+		updateTable();
 	}
 
 	private void doDiscardChangesAction() {
 		clearQuestionEditPanelContents();
 		showQuestion(currentQuestion);
-
 	}
 
-	private void doFilterAction() {
+	private void updateTable() {
 		clearQuestionEditPanelContents();
-		table.unselectAll();
+		dialog.getTable().unselectAll();
 
 		QuestionService questionService = new QuestionService();
 		String idText = dialog.getTfId().getText();
@@ -129,7 +122,11 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 			questionsOnScreenList = questionService.getByNameSpecListLvlListAndId(start, max, questTitleText, specs,
 					levels, id);
 			
-			showQuestions();
+			dialog.getTabPanel().getTfPage().setText(String.valueOf(currentPage + 1));
+			dialog.getTabPanel().getLblPagesTotal().setText(" из " + countTotalPages(totalQuestions));
+
+			dialog.getTable().getTabModel().clearTable();
+			convertAndAddToTable(questionsOnScreenList);
 
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
@@ -329,12 +326,11 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		return null;
 
 	}
+	
+	private void convertAndAddToTable(List<Question> questions) {
 
-	private ArrayList<Object[]> convertToDataForTable() {
-		ArrayList<Object[]> data = new ArrayList<>();
-
-		for (int i = 0; i < questionsOnScreenList.size(); i++) {
-			Question question = questionsOnScreenList.get(i);
+		for (int i = 0; i < questions.size(); i++) {
+			Question question = questions.get(i);
 
 			Long id = question.getId();
 			String title = question.getTitle();
@@ -347,19 +343,11 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 			String specString = specification.getName();
 
 			Object[] row = { id, title, lvlsString, specString };
-
-			data.add(row);
-
+			
+			dialog.getTableModel().setRow(row, i);
+			
+			dialog.getTableModel().update();
 		}
-		return data;
-	}
-
-	private void showQuestions() {
-		dialog.getTabPanel().getTfPage().setText(String.valueOf(currentPage + 1));
-		dialog.getTabPanel().getLblPagesTotal().setText(" из " + countTotalPages(totalQuestions));
-
-		tableModel.clearTable();
-		tableModel.addData(convertToDataForTable());
 	}
 
 	private void addBlankQuestion() {
@@ -387,7 +375,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	public void nextPage() {
 		if(currentPage+1 < totalPages)
 			currentPage++;
-		doFilterAction();
+		updateTable();
 		blockQuestionEditPanel(true);
 	}
 
@@ -395,7 +383,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 	public void previousPage() {
 		if(currentPage > 0)
 			currentPage--;
-		doFilterAction();
+		updateTable();
 		blockQuestionEditPanel(true);
 	}
 
@@ -405,7 +393,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 			QuestionService service = new QuestionService();
 			service.delete(currentQuestion);
 		}
-		doFilterAction();
+		updateTable();
 		
 	}
 
@@ -414,7 +402,7 @@ public class QuestionListController extends CommonController<QuestionListDialog>
 		if(page <= totalPages && page > 0)
 			currentPage = page -1;
 		
-		doFilterAction();
+		updateTable();
 	}
 
 }

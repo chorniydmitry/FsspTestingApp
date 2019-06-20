@@ -20,7 +20,9 @@ import g.cope.swing.autocomplete.jcombobox.StringSearchable;
 import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.service.SpecificationService;
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
-import ru.fssprus.r82.swing.ulils.TablePanel;
+import ru.fssprus.r82.swing.table.CommonTable;
+import ru.fssprus.r82.swing.table.CommonTableModel;
+import ru.fssprus.r82.swing.table.TablePanel;
 import ru.fssprus.r82.utils.AppConstants;
 
 public class QuestionListDialog extends DialogWithPassword {
@@ -59,7 +61,7 @@ public class QuestionListDialog extends DialogWithPassword {
 	private JLabel lblSpecName = new JLabel("Специализация: ");
 	private AutocompleteJComboBox accbSpecNames = new AutocompleteJComboBox(null);
 	
-	private TablePanel tabPanel;
+	private TablePanel tablePanel;
 
 	public QuestionListDialog(int width, int height) {
 		super(width, height);
@@ -68,7 +70,7 @@ public class QuestionListDialog extends DialogWithPassword {
 	private void initTable() {
 		int[] widths = {20, 550, 200, 200};
 		String[] names = {"id","Формулировка", "Уровни", "Спецификация" };
-		tabPanel = new TablePanel(widths, names);
+		tablePanel = new TablePanel(widths, names);
 	}
 	
 	@Override
@@ -80,7 +82,7 @@ public class QuestionListDialog extends DialogWithPassword {
 		layoutPanelQuestionEdit();
 		
 		add(pnlFilter);
-		add(tabPanel);
+		add(tablePanel);
 		
 		add(pnlBottom);
 		add(pnlQuestionEdit);
@@ -337,11 +339,19 @@ public class QuestionListDialog extends DialogWithPassword {
 	}
 
 	public TablePanel getTabPanel() {
-		return tabPanel;
+		return tablePanel;
 	}
 
 	public void setTabPanel(TablePanel tabPanel) {
-		this.tabPanel = tabPanel;
+		this.tablePanel = tabPanel;
+	}
+	
+	public CommonTable getTable() {
+		return tablePanel.getCommonTable();
+	}
+	
+	public CommonTableModel getTableModel() {
+		return getTable().getTabModel();
 	}
 	
 	

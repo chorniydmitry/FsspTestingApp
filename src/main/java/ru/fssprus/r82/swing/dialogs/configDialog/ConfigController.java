@@ -1,4 +1,4 @@
-package ru.fssprus.r82.swing.dialogs.settingsDialog;
+package ru.fssprus.r82.swing.dialogs.configDialog;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
