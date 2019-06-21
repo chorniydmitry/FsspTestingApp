@@ -38,7 +38,6 @@ public class CommonTable extends JTable {
 	}
 	
 	public void unselectAll() {
-		getTabModel().uncolorAll();
 		setLastSelectedIndex(-1);
 	}
 	

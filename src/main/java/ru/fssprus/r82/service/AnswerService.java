@@ -8,7 +8,7 @@ import ru.fssprus.r82.dao.impl.AnswerDatabaseDao;
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Question;
 
-public class AnswerService {
+public class AnswerService{
 	//TODO: autowired
 	private AnswerDao answerDao = new AnswerDatabaseDao();
 	
@@ -28,11 +28,12 @@ public class AnswerService {
 		return answerDao.getCorrectByQuestionSet(startPos, endPos, questions);
 	}
 	
-	public void delete(Answer ans) {
-		answerDao.remove(ans);
-	}
-	
 	public void save(Answer ans) {
 		answerDao.add(ans);
+	}
+
+	public void delete(Answer ans) {
+		answerDao.remove(ans);
+		
 	}
 }

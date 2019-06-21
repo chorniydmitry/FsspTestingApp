@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import ru.fssprus.r82.utils.AppConstants;
 
 public class CommonTableModel extends AbstractTableModel {
 
@@ -26,7 +25,6 @@ public class CommonTableModel extends AbstractTableModel {
 		rowColors = new ArrayList<Color>();
 		for (int i = 0; i < onScreenDataList.size(); i++) {
 			onScreenDataList.add(new Object[getColumnCount()]);
-			rowColors.add(Color.GREEN);
 		}
 	}
 
@@ -88,11 +86,6 @@ public class CommonTableModel extends AbstractTableModel {
 		fireTableRowsUpdated(row, row);
 	}
 	
-	public void setRowSelected(int row) {
-		uncolorAll();
-		setRowColor(row, AppConstants.TABLE_SELECTION_COLOR);
-	}
-
 	public void setRowColor(int row, int color) {
 		Color c = new Color(color);
 		rowColors.set(row, c);

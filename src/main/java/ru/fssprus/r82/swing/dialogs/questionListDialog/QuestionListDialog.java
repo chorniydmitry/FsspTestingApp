@@ -65,6 +65,7 @@ public class QuestionListDialog extends DialogWithPassword {
 
 	public QuestionListDialog(int width, int height) {
 		super(width, height);
+		initTable();
 	}
 	
 	private void initTable() {

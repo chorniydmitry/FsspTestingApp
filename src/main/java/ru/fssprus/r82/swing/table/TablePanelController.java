@@ -1,14 +1,17 @@
 package ru.fssprus.r82.swing.table;
 
+import java.awt.Color;
+
 import javax.swing.ListSelectionModel;
 
+import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.Utils;
 
 public class TablePanelController {
 
 	private TablePanel tablePanel;
 	private CommonTable table;
-	private CommonTableAbstractController subscriberController;
+	private UpdatableController subscriberController;
 
 	public TablePanelController(TablePanel tablePanel) {
 		this.tablePanel = tablePanel;
@@ -25,6 +28,8 @@ public class TablePanelController {
 		tablePanel.getTfPage().addActionListener(listener -> doChangePageAction());
 
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setSelectionForeground(AppConstants.TABLE_SELECTION_COLOR);
+		table.setSelectionBackground(Color.BLACK);	
 		ListSelectionModel cellSelectionModel = table.getSelectionModel();
 
 		cellSelectionModel.addListSelectionListener(listener -> doTableRowChangedAction());
@@ -43,7 +48,6 @@ public class TablePanelController {
 	private void doTableRowChangedAction() {
 		if (table.getSelectedRows().length > 0) {
 			int[] selectedRow = table.getSelectedRows();
-			table.getTabModel().setRowSelected(selectedRow[0]);
 			
 			table.setLastSelectedIndex(selectedRow[0]);
 			subscriberController.edit(selectedRow[0]);
@@ -79,11 +83,11 @@ public class TablePanelController {
 		tablePanel.getCommonTable().scrollTableDown();
 	}
 
-	public void setSubscriber(CommonTableAbstractController subscriberController) {
-		this.subscriberController = subscriberController;
+	public void setSubscriber(UpdatableController updatableController) {
+		this.subscriberController = updatableController;
 	}
 
-	public CommonTableAbstractController getSubscriber() {
+	public UpdatableController getSubscriber() {
 		return subscriberController;
 	}
 
