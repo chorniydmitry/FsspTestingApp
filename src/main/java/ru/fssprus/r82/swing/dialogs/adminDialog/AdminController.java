@@ -9,6 +9,7 @@ import ru.fssprus.r82.swing.dialogs.passwordManageDialog.PasswordManageControlle
 import ru.fssprus.r82.swing.dialogs.passwordManageDialog.PasswordManageDialog;
 import ru.fssprus.r82.swing.dialogs.questionListDialog.QuestionListController;
 import ru.fssprus.r82.swing.dialogs.questionListDialog.QuestionListDialog;
+import ru.fssprus.r82.utils.AppConstants;
 
 public class AdminController extends CommonController<AdminDialog> {
 
@@ -25,21 +26,29 @@ public class AdminController extends CommonController<AdminDialog> {
 	}
 
 	private void doOpenSettingsDialog() {
-		new ConfigController(new ConfigDialog(800, 600));
+		new ConfigController(new ConfigDialog(
+				AppConstants.DIALOG_CONFIG_WIDTH, 
+				AppConstants.DIALOG_CONFIG_HEIGHT));
 
 	}
 
 	private void doOpenQuestionLoagingDialog() {
-		new LoadingQuestionSetController(new LoadingQuestionSetDialog(600, 200));
+		new LoadingQuestionSetController(new LoadingQuestionSetDialog(
+				AppConstants.DIALOG_LOADING_QUESTION_SET_WIDTH, 
+				AppConstants.DIALOG_LOADING_QUESTION_SET_HEIGHT));
 	}
 
 	private void doOpenQuestionEditDialog() {
-		new QuestionListController(new QuestionListDialog(1024, 768));
+		new QuestionListController(new QuestionListDialog(
+				AppConstants.DIALOG_QUESTUIN_EDIT_WIDTH, 
+				AppConstants.DIALOG_QUESTUIN_EDIT_HEIGHT));
 
 	}
 
 	private void doOpenManagePasswordsDialog() {
-		new PasswordManageController(new PasswordManageDialog(600, 300));
+		new PasswordManageController(new PasswordManageDialog(
+				AppConstants.DIALOG_MANAGE_PASSWORDS_WIDTH, 
+				AppConstants.DIALOG_MANAGE_PASSWORDS_HEIGHT));
 
 	}
 }

@@ -87,7 +87,6 @@ public class QuestionListDialog extends DialogWithPassword {
 		
 		add(pnlBottom);
 		add(pnlQuestionEdit);
-		
 	}
 	
 	@Override

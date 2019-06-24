@@ -352,7 +352,7 @@ public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implemen
 
 			List<Predicate> predicates = new ArrayList<Predicate>();
 
-			if (id != 0) {
+			if (id != 0 && id != null) {
 				predicates.add(builder.equal(root.get("id"), id));
 			}
 

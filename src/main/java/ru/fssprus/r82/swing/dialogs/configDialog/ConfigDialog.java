@@ -83,6 +83,7 @@ public class ConfigDialog extends DialogWithPassword {
 		fillTfsList();
 		layoutDialog();
 		
+		setLocationRelativeTo(null);
 		setResizable(true);
 		setVisible(true);
 	}

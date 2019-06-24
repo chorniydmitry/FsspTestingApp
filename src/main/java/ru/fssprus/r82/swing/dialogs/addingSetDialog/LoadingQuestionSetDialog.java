@@ -21,11 +21,7 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 	private static final long serialVersionUID = -4114441914928348354L;
 	private static final String SECTION = AppConstants.QUESTION_LOAD_SECTION;
 	
-	private static final String MSG = "<html><p width = 580>Данная форма предназначена"
-			+ "для загрузки в базу данных вопросов, выгруженных из базы данных "
-			+ "приложения ФССП тест в фотматах XLSX или ODS</p><html>";
-
-	private JLabel lblMsg = new JLabel(MSG);
+	private JLabel lblMsg = new JLabel(AppConstants.DIALOG_LOADING_QUEST_SET_ABOUT_INFO);
 	
 	private JButton btnOpenTextFile = new JButton("Открыть файл");
 	private JTextField tfFilePath = new JTextField();
@@ -38,7 +34,6 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 
 	public LoadingQuestionSetDialog(int width, int height) {
 		super(width, height);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override

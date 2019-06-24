@@ -7,15 +7,18 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.Past;
 
 @Entity
 @Table(name="test")
 public class Test extends Model {
-	
+	@Valid
 	@ManyToOne
 	@JoinColumn(name="user_id", nullable=false)
 	private User user;
 	
+	@Past
 	@Column(name="date")
 	private Date date;
 	
@@ -34,9 +37,11 @@ public class Test extends Model {
 	@Column(name="testing_time")
 	private int testingTime;
 	
+	@Valid
 	@Column(name="level")
 	private String level;
 	
+	@Valid
 	@ManyToOne
 	@JoinColumn(name="specification_id")
 	private Specification specification;

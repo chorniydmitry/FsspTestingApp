@@ -68,6 +68,8 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 			dialog.getTableModel().update();
 		}
 	}
+	
+	
 
 	private void updateTable() {
 		TestService testService = new TestService();

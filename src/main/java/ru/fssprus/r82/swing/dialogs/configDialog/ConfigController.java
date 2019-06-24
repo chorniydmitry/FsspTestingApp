@@ -1,8 +1,6 @@
 package ru.fssprus.r82.swing.dialogs.configDialog;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
@@ -12,17 +10,23 @@ import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.utils.ApplicationConfiguration;
 import ru.fssprus.r82.utils.Utils;
 
-public class ConfigController extends CommonController<ConfigDialog> implements ActionListener, DocumentListener {
-	
+public class ConfigController extends CommonController<ConfigDialog> implements DocumentListener {
 
 	public ConfigController(ConfigDialog dialog) {
 		super(dialog);
 	}
-	
+
 	@Override
 	protected void setListeners() {
-		dialog.getBtnSave().addActionListener(this);
+		dialog.getBtnSave().addActionListener(listener -> doSaveAction());
 		dialog.getTfsList().forEach((n) -> n.getDocument().addDocumentListener(this));
+	}
+
+	private void doSaveAction() {
+		doSave();
+		dialog.fillTfsList();
+		dialog.revalidate();
+		dialog.repaint();
 	}
 
 	private void enableBtnSave(boolean action) {
@@ -44,24 +48,16 @@ public class ConfigController extends CommonController<ConfigDialog> implements 
 		enableBtnSave(true);
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == dialog.getBtnSave()) {
-			doSave();
-			dialog.fillTfsList();
-			dialog.revalidate();
-			dialog.repaint();
-		}
-	}
-
 	private void doSave() {
-		if (validateFields()) {
-			dialog.getTfsList().forEach((n) -> ApplicationConfiguration.saveItem(n.getName(), n.getText()));
-			enableBtnSave(false);
-			uncolorFields();
-		}
+		if (!validateFields())
+			return;
+		dialog.getTfsList().forEach((n) -> ApplicationConfiguration.saveItem(n.getName(), n.getText()));
+		enableBtnSave(false);
+		uncolorFields();
+
 	}
 
+	// TODO
 	private boolean validateFields() {
 		boolean fieldsValidated = true;
 		for (JTextField tf : dialog.getTfsList()) {

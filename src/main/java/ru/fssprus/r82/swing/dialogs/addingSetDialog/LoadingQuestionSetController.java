@@ -19,7 +19,6 @@ public class LoadingQuestionSetController extends CommonController<LoadingQuesti
 
 	public LoadingQuestionSetController(LoadingQuestionSetDialog dialog) {
 		super(dialog);
-		setKeyWords();
 	}
 
 	@Override
@@ -28,36 +27,74 @@ public class LoadingQuestionSetController extends CommonController<LoadingQuesti
 		dialog.getBtnOpenTextFile().addActionListener(listener -> doOpenTestFile());
 	}
 
-	private void setKeyWords() {
-
-	}
 
 	private void doLoadQuestionSet() {
+		if(!validate())
+			return;
+
+		dialog.getBtnLoadQuestionsSet().setEnabled(false);
+
+		saveQuestionSetToDB(getQuestionsParsed());
+
+		dialog.getBtnLoadQuestionsSet().setEnabled(true);
+		
+		MessageBox.showReadyDialog(dialog);
+	}
+
+	//TODO
+	/**
+	 * @return
+	 */
+	private boolean validate() {
 		if (!validateFile()) {
 			MessageBox.showFileNotLoadedErrorDialog(dialog);
 			dialog.getTfFilePath().requestFocus();
-			return;
+			return false;
 		}
 
 		if (!validateSpecTf()) {
 			MessageBox.showWrongSpecSpecifiedErrorDialog(dialog);
 			dialog.getAccbSpecName().requestFocus();
-			return;
+			return false;
 		}
+		
+		return true;
+	}
+	
+	//TODO
+	private boolean validateFile() {
+		if (testFile == null || dialog.getTfFilePath().getText().isEmpty()
+				|| ((!dialog.getTfFilePath().getText().toUpperCase().endsWith(".ODS"))
+						&& (!dialog.getTfFilePath().getText().toUpperCase().endsWith(".XLSX")))) {
+			return false;
 
-		dialog.getBtnLoadQuestionsSet().setEnabled(false);
+		}
+		return true;
+	}
+	//TODO
+	private boolean validateSpecTf() {
+		if (dialog.getAccbSpecName().getSelectedItem().toString().isEmpty())
+			return false;
+		return true;
+	}
 
+	/**
+	 * @return
+	 */
+	private HashSet<Question> getQuestionsParsed() {
 		SpreadSheetParser parser = new SpreadSheetParser();
 		
+		HashSet<Question> questions = parser.parse(testFile, configureLevelsSet(), getSpecification());
+		return questions;
+	}
+
+	/**
+	 * @return
+	 */
+	private Specification getSpecification() {
 		Specification spec = new Specification();
 		spec.setName(dialog.getAccbSpecName().getSelectedItem().toString());
-
-		HashSet<Question> questions = parser.parse(testFile, configureLevelsSet(), spec);
-
-		saveQuestionSetToDB(questions);
-
-		dialog.getBtnLoadQuestionsSet().setEnabled(true);
-		MessageBox.showReadyDialog(dialog);
+		return spec;
 	}
 
 	private void doOpenTestFile() {
@@ -69,22 +106,6 @@ public class LoadingQuestionSetController extends CommonController<LoadingQuesti
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-	}
-
-	private boolean validateFile() {
-		if (testFile == null || dialog.getTfFilePath().getText().isEmpty()
-				|| ((!dialog.getTfFilePath().getText().toUpperCase().endsWith(".ODS"))
-						&& (!dialog.getTfFilePath().getText().toUpperCase().endsWith(".XLSX")))) {
-			return false;
-
-		}
-		return true;
-	}
-
-	private boolean validateSpecTf() {
-		if (dialog.getAccbSpecName().getSelectedItem().toString().isEmpty())
-			return false;
-		return true;
 	}
 
 	private Set<QuestionLevel> configureLevelsSet() {

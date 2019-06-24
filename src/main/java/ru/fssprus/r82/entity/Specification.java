@@ -8,6 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import ru.fssprus.r82.utils.AppConstants;
 
 @Entity
 @Table(name = "specification")
@@ -16,6 +21,9 @@ public class Specification extends Model {
 	@OneToMany(cascade= CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy="specification")
 	private Set<Question> questionList;
 
+	@NotNull
+	@NotEmpty(message=AppConstants.VALIDATION_SPECIFICATION_TITLE_EMPTY)
+	@Size(min=2, max=2048, message=AppConstants.VALIDATION_SPECIFICATION_TITLE_SIZE)
 	@Column(name = "name", length = 2048, unique = true, nullable = false, updatable = false)
 	private String name;
 
