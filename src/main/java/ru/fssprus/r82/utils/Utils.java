@@ -18,10 +18,25 @@ public class Utils {
 		return 0;
 		
 	}
+	
+	public static int countTestDialogTaQuestionHeight(int height) {
+		return (2 * height / 3) - 60;
+	}
+
+	public static int countTestDialogPnlAnswersHeight(int height) {
+		return height / 3;
+	}
+	
+	public static int countCommonQuestsAmount(int amountOfQuestions, int commonPercent) {
+		return (int) Math.round((double) (amountOfQuestions * (commonPercent / 100.0)));
+	}
+	
+	public static int countSpecQuestsAmount(int amountOfQuestions, int commonQuestsAmount) { 
+		return amountOfQuestions - commonQuestsAmount;
+	}
 
 	public static int countMinimumCommonQuestionsForLevel(int selectedLevel) {
 		return countMinimumCommonQuestionsForLevel(QuestionLevel.values()[selectedLevel]);
-	
 	}
 	
 	public static int countMinimumCommonQuestionsForLevel(QuestionLevel qlevel) {
