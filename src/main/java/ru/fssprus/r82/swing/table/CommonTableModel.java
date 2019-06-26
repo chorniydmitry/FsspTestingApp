@@ -9,8 +9,10 @@ import javax.swing.table.AbstractTableModel;
 
 
 public class CommonTableModel extends AbstractTableModel {
-
 	private static final long serialVersionUID = -9209664050296683407L;
+
+	private static final String WRONG_COLUMN_INDEX_TEXT = "Не верный индекс столбца!";
+	private static final String WRONG_TABLE_DATA_TEXT = "Не правильные данные для добавления в таблицу!";
 
 	private String[] columnNames;
 	private int columnCount;
@@ -31,7 +33,7 @@ public class CommonTableModel extends AbstractTableModel {
 	@Override
 	public String getColumnName(int column) {
 		if(column < 0 || column >= columnCount) {
-			System.err.println("Не верный индекс столбца!");
+			System.err.println(WRONG_COLUMN_INDEX_TEXT);
 			return null;
 		}
 		return columnNames[column];
@@ -109,7 +111,7 @@ public class CommonTableModel extends AbstractTableModel {
 
 	public void setRow(Object[] row, int rowIndex) {
 		if (!(row.length == columnCount)) {
-			System.err.println("Не правильные данные для добавления в таблицу!" + row.length + " " + columnCount);
+			System.err.println(WRONG_TABLE_DATA_TEXT + row.length + " " + columnCount);
 			return;
 		}
 		onScreenDataList.add(rowIndex, row);

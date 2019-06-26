@@ -11,8 +11,8 @@ import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.service.QuestionService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.ulils.MessageBox;
-import ru.fssprus.r82.utils.SpreadSheetParser;
-import ru.fssprus.r82.utils.TestFileChooser;
+import ru.fssprus.r82.utils.spreadsheet.SpreadSheetParser;
+import ru.fssprus.r82.utils.spreadsheet.TestFileChooser;
 
 public class LoadingQuestionSetController extends CommonController<LoadingQuestionSetDialog> {
 	private File testFile;

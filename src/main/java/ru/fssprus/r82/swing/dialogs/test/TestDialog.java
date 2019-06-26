@@ -70,7 +70,6 @@ public class TestDialog extends CommonDialog {
 		layoutPanelDown();
 
 		setFonts();
-		layoutPanelAnswers();
 		layoutPanelQuestAndAnswers();
 		setLayout(new BorderLayout());
 
@@ -106,7 +105,13 @@ public class TestDialog extends CommonDialog {
 		pnlDown.add(btnNext);
 	}
 
-	private void layoutPanelAnswers() {
+	private void initPanelAnswers() {
+		pnlAnswers.setAlignmentX(JComponent.LEFT_ALIGNMENT);
+		
+		pnlAnswers.setPreferredSize(new Dimension(
+				this.getWidth(), 
+				Utils.countTestDialogPnlAnswersHeight(this.getHeight())));
+		
 		pnlAnswers.setLayout(new BoxLayout(pnlAnswers, BoxLayout.Y_AXIS));
 
 		for (int i = 0; i < AMT_RAD_BUTTONS; i++) {
@@ -131,32 +136,32 @@ public class TestDialog extends CommonDialog {
 		taQuestionText.setAlignmentX(JComponent.LEFT_ALIGNMENT);
 		
 	}
+	
+	private void initLblQuestionInfo() {
+		lblQuestionInfo.setPreferredSize(new Dimension(
+				this.getWidth(), 
+				AppConstants.TESTDIALOG_LBL_QUESTION_INFO_HEIGHT));
+		
+		lblQuestionInfo.setAlignmentX(JComponent.LEFT_ALIGNMENT);
+	}
 
 	private void layoutPanelQuestAndAnswers() {
 		initTaQuestionText();
+		initPanelAnswers();
+		initLblQuestionInfo();
 
-		JPanel pnl = pnlQuestAndAnswers;
+		pnlQuestAndAnswers.setLayout(new BoxLayout(pnlQuestAndAnswers, BoxLayout.Y_AXIS));
 
-		lblQuestionInfo.setPreferredSize(new Dimension(
-						this.getWidth(), 
-						AppConstants.TESTDIALOG_LBL_QUESTION_INFO_HEIGHT));
-		
-		pnlAnswers.setPreferredSize(new Dimension(
-				this.getWidth(), 
-				Utils.countTestDialogPnlAnswersHeight(this.getHeight())));
+		pnlQuestAndAnswers.add(Box.createRigidArea(new Dimension(
+				AppConstants.TESTDIALOG_PNLQNA_RIGID_AREA_WIDTH, 
+				AppConstants.TESTDIALOG_PNLQNA_RIGID_AREA_HEIGHT)));
 
 		
-
-		pnl.setLayout(new BoxLayout(pnl, BoxLayout.Y_AXIS));
-
-		pnl.add(Box.createRigidArea(new Dimension(50, 50)));
-
-		lblQuestionInfo.setAlignmentX(JComponent.LEFT_ALIGNMENT);
-		pnl.add(lblQuestionInfo);
+		pnlQuestAndAnswers.add(lblQuestionInfo);
 		
-		pnl.add(taQuestionText);
-		pnlAnswers.setAlignmentX(JComponent.LEFT_ALIGNMENT);
-		pnl.add(pnlAnswers);
+		pnlQuestAndAnswers.add(taQuestionText);
+		
+		pnlQuestAndAnswers.add(pnlAnswers);
 	}
 
 	public void hideInterface(boolean hide) {

@@ -21,7 +21,7 @@ public class WrongAnswersController extends ControllerWithTimer<WrongAnswersDial
 	}
 	
 	public void startCountdown() {
-		initTimer(TIME_OFFSET_SEC + getTimeLeft() * TIME_FOR_ANSWER_MULTIPLIER);
+		initTimer(TIME_OFFSET_SEC + (getTimeLeft() * TIME_FOR_ANSWER_MULTIPLIER));
 	}
 
 	@Override

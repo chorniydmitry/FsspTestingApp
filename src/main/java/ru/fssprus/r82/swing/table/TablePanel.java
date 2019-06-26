@@ -12,6 +12,17 @@ import javax.swing.JTextField;
 public class TablePanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
+	private static final String BTN_ADD_CAPTION = "+";
+	private static final String BTN_REMOVE_CAPTION = "-";
+	private static final String BTN_NEXT_CAPTION = ">";
+	private static final String BTN_PREVIOUS_CAPTION = "<";
+	private static final String LBL_PAGE_CAPTION = "Страница: ";
+
+	private static final String TF_PAGE_DEF_TEXT = "1";
+	private static final String LBL_PAGES_TOTAL_DEF_TEXT = " из ";
+	
+	private static final int TF_PAGE_LENGTH = 3;
+	
 	private JButton btnAdd;
 	private JButton btnDelete;
 	private JPanel pnlTop;
@@ -42,18 +53,18 @@ public class TablePanel extends JPanel{
 	}
 	
 	private void initComponents() {
-		btnAdd = new JButton("+");
-		btnDelete = new JButton("-");
+		btnAdd = new JButton(BTN_ADD_CAPTION);
+		btnDelete = new JButton(BTN_REMOVE_CAPTION);
 		pnlTop = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
 		scrollPane = new JScrollPane(commonTable);
 		
-		btnNext = new JButton(">");
-		lblPage = new JLabel("Страница:");
-		tfPage = new JTextField(3);
-		tfPage.setText("1");
-		lblPagesTotal = new JLabel("из 1");
-		btnPrevious = new JButton("<");
+		btnNext = new JButton(BTN_NEXT_CAPTION);
+		lblPage = new JLabel(LBL_PAGE_CAPTION);
+		tfPage = new JTextField(TF_PAGE_LENGTH);
+		tfPage.setText(TF_PAGE_DEF_TEXT);
+		lblPagesTotal = new JLabel(LBL_PAGES_TOTAL_DEF_TEXT);
+		btnPrevious = new JButton(BTN_PREVIOUS_CAPTION);
 		pnlBottom = new JPanel();
 			
 	}

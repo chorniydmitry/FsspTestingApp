@@ -61,6 +61,9 @@ public class AppConstants {
 	
 	public static final int DIALOG_STATISTICS_WIDTH = 1024;
 	public static final int DIALOG_STATISTICS_HEIGHT = 600;
+
+	public static final int DIALOG_RESULTING_WIDTH = 400;
+	public static final int DIALOG_RESULTING_HEIGHT = 250;
 	
 	// Константы шрифтов
 	public static final Font RESULTDIALOG_TEXT_FONT = new Font("Courier New", Font.BOLD, 18);
@@ -77,6 +80,7 @@ public class AppConstants {
 	public static final int TESTDIALOG_LBL_QUESTION_INFO_HEIGHT = 60;
 	public static final int TESTDIALOG_PNLQNA_RIGID_AREA_WIDTH = 50;
 	public static final int TESTDIALOG_PNLQNA_RIGID_AREA_HEIGHT = 50;
+	public static final int WADIALOG_TAWRONGS_HEIGHT_PADDING = 50;
 	
 	
 	// QuestionListDialog константы
@@ -98,6 +102,7 @@ public class AppConstants {
 	public static final SimpleDateFormat STATDIALOG_TABLE_DATE_FORMAT = new SimpleDateFormat("dd MMMMM yyyy HH:mm", new Locale("ru", "RU"));
 	
 	// Прочие константы
+	public static final String CONTENT_TYPE_HTML = "text/html";
 	public static final String PASSWORD_IS_SET_DEFAULT_MASK = "******";
 	public static final int TABLE_ROWS_LIMIT = 20;
 	public static final int MAX_ANSWERS_AMOUNT = 5;

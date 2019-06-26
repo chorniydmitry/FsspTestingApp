@@ -1,7 +1,5 @@
 package ru.fssprus.r82.swing.dialogs.test;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -14,12 +12,17 @@ import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.swing.dialogs.ControllerWithTimer;
 import ru.fssprus.r82.swing.dialogs.resulting.ResultingController;
 import ru.fssprus.r82.swing.dialogs.resulting.ResultingDialog;
+import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.ApplicationConfiguration;
 import ru.fssprus.r82.utils.TestingProcess;
+import ru.fssprus.r82.utils.Utils;
 
-public class TestController extends ControllerWithTimer<TestDialog> implements ActionListener, KeyListener {
+public class TestController extends ControllerWithTimer<TestDialog> implements KeyListener {
+	private static final int ANSWERS_OFFSET = 250;
+	private static final String OF_TEXT = " из ";
+	private static final String QUESITON_NUM_TEXT = "Вопрос № ";
 	private static final int NEXT = 1;
-	private static final int PREVIOS = -1;
+	private static final int PREVIOUS = -1;
 
 	private List<Specification> specs;
 	private TestingProcess testingProcess;
@@ -40,30 +43,34 @@ public class TestController extends ControllerWithTimer<TestDialog> implements A
 	@Override
 	protected void setListeners() {
 		setOnCloseListener();
-		dialog.getBtnNext().addActionListener(this);
-		dialog.getBtnPrevious().addActionListener(this);
-		dialog.getBtnFinish().addActionListener(this);
-		dialog.getBtnPause().addActionListener(this);
-		dialog.getBtnNextUnanswered().addActionListener(this);
+		dialog.getBtnNext().addActionListener(listener -> doNextAction());
+		dialog.getBtnPrevious().addActionListener(listeber -> doPreviousAction());
+		dialog.getBtnFinish().addActionListener(listener -> doFinishAction());
+		dialog.getBtnPause().addActionListener(listener -> doPauseAction());
+		dialog.getBtnNextUnanswered().addActionListener(listener -> doNextUnansweredAction());
 		dialog.addKeyListener(this);
 
 	}
-
+	
 	private void setOnCloseListener() {
 		dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-				ResultingDialog dialog = new ResultingDialog(400, 250);
-				dialog.setCaptions(testingProcess.getCorrectAnswersAmount(), testingProcess.getQuestions().size(),
-						testingProcess.getMarkPercent(), testingProcess.getMarkOneToFive(),
-						testingProcess.getMarkText(), testingProcess.getMarkLetter());
-
-				dialog.setMarkColor(testingProcess.getMarkColor());
-
-				ResultingController resultingController = new ResultingController(dialog);
-				resultingController.setTestingProcess(testingProcess);
+				initResultingDialog();
 			}
 		});
+	}
+	
+	private void initResultingDialog() {
+		ResultingDialog dialog = new ResultingDialog(AppConstants.DIALOG_RESULTING_WIDTH, AppConstants.DIALOG_RESULTING_HEIGHT);
+		dialog.setCaptions(testingProcess.getCorrectAnswersAmount(), testingProcess.getQuestions().size(),
+				testingProcess.getMarkPercent(), testingProcess.getMarkOneToFive(),
+				testingProcess.getMarkText(), testingProcess.getMarkLetter());
+
+		dialog.setMarkColor(testingProcess.getMarkColor());
+
+		ResultingController resultingController = new ResultingController(dialog);
+		resultingController.setTestingProcess(testingProcess);
 	}
 
 	@Override
@@ -76,7 +83,7 @@ public class TestController extends ControllerWithTimer<TestDialog> implements A
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (isNumeric(String.valueOf(e.getKeyChar()))) {
+		if (Utils.isNumeric(String.valueOf(e.getKeyChar()))) {
 			int num = Integer.parseInt(String.valueOf(e.getKeyChar()));
 			if (num <= dialog.getRbAnswers().size())
 				doNumAction(num);
@@ -88,29 +95,9 @@ public class TestController extends ControllerWithTimer<TestDialog> implements A
 
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		setUserChoise();
-
-		if (e.getSource() == dialog.getBtnNext())
-			doNextAction();
-
-		if (e.getSource() == dialog.getBtnPrevious())
-			doPreviousAction();
-
-		if (e.getSource() == dialog.getBtnFinish())
-			doFinishAction();
-
-		if (e.getSource() == dialog.getBtnPause())
-			doPauseAction();
-
-		if (e.getSource() == dialog.getBtnNextUnanswered())
-			doNextUnansweredAction();
-
-		doUpdate();
-	}
 
 	private void doPauseAction() {
+		setUserChoise();
 		dialog.hideInterface(!dialog.isPaused());
 	}
 
@@ -119,20 +106,28 @@ public class TestController extends ControllerWithTimer<TestDialog> implements A
 	}
 
 	private void doNextAction() {
+		setUserChoise();
 		switchQuestion(NEXT);
+		doUpdate();
 	}
 
 	private void doPreviousAction() {
-		switchQuestion(PREVIOS);
+		setUserChoise();
+		switchQuestion(PREVIOUS);
+		doUpdate();
 	}
 
 	private void doFinishAction() {
+		setUserChoise();
 		dialog.dispose();
 		testingProcess.saveResultsToDB(specs.get(0), (questTimeSec - getTimeLeft()));
+		doUpdate();
 	}
 
 	private void doNextUnansweredAction() {
+		setUserChoise();
 		goToQuestion(testingProcess.getNextUnansweredIndex());
+		doUpdate();
 	}
 
 	private void doUpdate() {
@@ -163,7 +158,7 @@ public class TestController extends ControllerWithTimer<TestDialog> implements A
 	}
 
 	private void checkNextEnabled() {
-		int goToQuestionIndex = testingProcess.getCurrentQuestionIndex() + 1;
+		int goToQuestionIndex = testingProcess.getCurrentQuestionIndex() + NEXT;
 		if (goToQuestionIndex >= testingProcess.getQuestions().size())
 			dialog.getBtnNext().setEnabled(false);
 		else if (!dialog.getBtnNext().isEnabled())
@@ -172,7 +167,7 @@ public class TestController extends ControllerWithTimer<TestDialog> implements A
 	}
 
 	private void checkPreviousEnabled() {
-		int goToQuestionIndex = testingProcess.getCurrentQuestionIndex() - 1;
+		int goToQuestionIndex = testingProcess.getCurrentQuestionIndex() + PREVIOUS;
 		if (goToQuestionIndex < 0)
 			dialog.getBtnPrevious().setEnabled(false);
 		else if (!dialog.getBtnPrevious().isEnabled())
@@ -204,15 +199,6 @@ public class TestController extends ControllerWithTimer<TestDialog> implements A
 		return timeSeconds;
 	}
 
-	private static boolean isNumeric(String strNum) {
-		try {
-			Double.parseDouble(strNum);
-		} catch (NumberFormatException | NullPointerException nfe) {
-			return false;
-		}
-		return true;
-	}
-
 	private void setUserChoise() {
 		int userSelectedIndex = getSelectedIndex();
 		testingProcess.setChoise(userSelectedIndex);
@@ -228,7 +214,7 @@ public class TestController extends ControllerWithTimer<TestDialog> implements A
 		String questionText = testingProcess.getQuestions().get(index).getTitle();
 		
 		dialog.getLblQuestionInfo()
-				.setText("Вопрос № " + (index + 1) + " из " + testingProcess.getQuestions().size());
+				.setText(QUESITON_NUM_TEXT + (index + 1) + OF_TEXT + testingProcess.getQuestions().size());
 
 		dialog.getLblQuestionText().setText(questionText);
 	}
@@ -236,17 +222,17 @@ public class TestController extends ControllerWithTimer<TestDialog> implements A
 	private void showAnswers(int index) {
 		List<Answer> answers = testingProcess.getAnswersMap().get(index);
 		for (int i = 0; i < answers.size(); i++) {
-			int width = dialog.getWidth() - 250;
+			int width = dialog.getWidth() - ANSWERS_OFFSET;
 			dialog.getRbAnswers().get(i)
 					.setText("<html><p style=\"width:" + width + "px\">" + answers.get(i).getTitle() + "</p></html>");
 		}
-		for (int i = answers.size(); i < 5; i++)
+		for (int i = answers.size(); i < AppConstants.MAX_ANSWERS_AMOUNT; i++)
 			dialog.getRbAnswers().get(i).setVisible(false);
 	}
 
 	private void showSelectedRb(int index) {
 		int selected = testingProcess.getChoises().get(index);
-		if (selected != -1)
+		if (selected != AppConstants.NO_INDEX_SELECTED)
 			dialog.getRbAnswers().get(selected).setSelected(true);
 	}
 
@@ -265,7 +251,7 @@ public class TestController extends ControllerWithTimer<TestDialog> implements A
 			if (rbs.get(i).isSelected())
 				return i;
 		}
-		return -1;
+		return AppConstants.NO_INDEX_SELECTED;
 	}
 
 	public TestDialog getTestPanel() {

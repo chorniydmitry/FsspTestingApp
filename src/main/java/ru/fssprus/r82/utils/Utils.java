@@ -5,12 +5,14 @@ import ru.fssprus.r82.swing.ulils.MessageBox;
 
 public class Utils {
 
+	private static final double MAX_PERCENT = 100.0;
+
 	public static int countMinimumCommonQuestionsForLevel(String level) {
 		try {
 		int amount = Integer.parseInt(ApplicationConfiguration.getItem(level + ".num"));
 		int commons = Integer.parseInt(ApplicationConfiguration.getItem(level + ".common.percent"));
 		
-		return (int) (amount * (commons / 100.0));
+		return (int) (amount * (commons / MAX_PERCENT));
 		
 		} catch(Exception e) {
 			MessageBox.showAppConfigFileNotFoundOrCorrupted(null);
@@ -28,7 +30,7 @@ public class Utils {
 	}
 	
 	public static int countCommonQuestsAmount(int amountOfQuestions, int commonPercent) {
-		return (int) Math.round((double) (amountOfQuestions * (commonPercent / 100.0)));
+		return (int) Math.round((double) (amountOfQuestions * (commonPercent / MAX_PERCENT)));
 	}
 	
 	public static int countSpecQuestsAmount(int amountOfQuestions, int commonQuestsAmount) { 
