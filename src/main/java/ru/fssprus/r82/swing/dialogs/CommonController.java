@@ -9,6 +9,7 @@ public abstract class CommonController<T extends CommonDialog> {
 			return;
 		}
 		dialog.init();
+		dialog.layoutPanelTop();
 		setListeners();
 	}
 

@@ -1,16 +1,15 @@
 package ru.fssprus.r82.swing.dialogs.resulting;
 
 import ru.fssprus.r82.swing.dialogs.CommonController;
-import ru.fssprus.r82.swing.dialogs.wrongAnswers.WrongAnswersController;
-import ru.fssprus.r82.swing.dialogs.wrongAnswers.WrongAnswersDialog;
-import ru.fssprus.r82.utils.AppConstants;
+import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.utils.TestingProcess;
 
 public class ResultingController extends CommonController<ResultingDialog> {
 	private TestingProcess testingProcess;
 
-	public ResultingController(ResultingDialog dialog) {
+	public ResultingController(ResultingDialog dialog, TestingProcess testingProcess) {
 		super(dialog);
+		setTestingProcess(testingProcess);
 	}
 
 	@Override
@@ -20,13 +19,7 @@ public class ResultingController extends CommonController<ResultingDialog> {
 	}
 
 	private void doShowWrongs() {
-		WrongAnswersController waController = new WrongAnswersController(
-				new WrongAnswersDialog(AppConstants.DIALOG_WRONG_ANSWERS_WIDTH,
-						AppConstants.DIALOG_WRONG_ANSWERS_HEIGHT),
-				testingProcess.getWrongAmount());
-
-		waController.setText(testingProcess.showWrongs());
-		waController.startCountdown();
+		DialogBuilder.showWrongAnswersDialog(testingProcess.getWrongAmount(), testingProcess.showWrongs());
 
 		dialog.dispose();
 	}
@@ -41,6 +34,12 @@ public class ResultingController extends CommonController<ResultingDialog> {
 
 	public void setTestingProcess(TestingProcess testingProcess) {
 		this.testingProcess = testingProcess;
+		
+		dialog.setCaptions(testingProcess.getCorrectAnswersAmount(), testingProcess.getQuestions().size(),
+				testingProcess.getMarkPercent(), testingProcess.getMarkOneToFive(),
+				testingProcess.getMarkText(), testingProcess.getMarkLetter());
+
+		dialog.setMarkColor(testingProcess.getMarkColor());
 	}
 
 }

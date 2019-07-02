@@ -11,8 +11,7 @@ import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.service.QuestionService;
 import ru.fssprus.r82.service.SpecificationService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
-import ru.fssprus.r82.swing.dialogs.test.TestController;
-import ru.fssprus.r82.swing.dialogs.test.TestDialog;
+import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.swing.ulils.MessageBox;
 import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.ApplicationConfiguration;
@@ -48,9 +47,8 @@ public class NewTestController extends CommonController<NewTestDialog> {
 		TestingProcess tp = initNewTestingProcess(specs, selectedLevel);
 		fillUserInfoForTestingProcess(tp);
 
-		new TestController(new TestDialog(AppConstants.DIALOG_TEST_WIDTH, 
-				AppConstants.DIALOG_TEST_HEIGHT), specs, tp,
-				selectedLevel);
+		DialogBuilder.showTestDialog(specs, tp, selectedLevel);
+		
 		dialog.dispose();
 	}
 

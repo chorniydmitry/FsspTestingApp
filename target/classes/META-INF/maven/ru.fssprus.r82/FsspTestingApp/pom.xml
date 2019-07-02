@@ -7,6 +7,7 @@
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<RESOURCE_PATH>${project.basedir}/src/main/resources</RESOURCE_PATH>
 	</properties>
 
 	<groupId>ru.fssprus.r82</groupId>
@@ -37,6 +38,30 @@
 				</executions>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>${RESOURCE_PATH}</directory>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<directory>src/main/resources/icons</directory>
+				<includes>
+					<include>questionload.png</include>
+					<include>admin.png</include>
+					<include>config.png</include>
+					<include>newtest.png</include>
+					<include>password.png</include>
+					<include>questionedit.png</include>
+					<include>result.png</include>
+					<include>statistics.png</include>
+					<include>quizz.png</include>
+					<include>wronganswers.png</include>
+				</includes>
+			</resource>
+		</resources>
 	</build>
 
 	<dependencies>

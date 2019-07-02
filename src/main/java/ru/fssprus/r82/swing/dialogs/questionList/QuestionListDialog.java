@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -27,7 +28,9 @@ import ru.fssprus.r82.utils.AppConstants;
 
 public class QuestionListDialog extends DialogWithPassword {
 	private static final long serialVersionUID = -8319908967500731744L;
-	private static final String SECTION = AppConstants.QUESTION_EDIT_SECTION;
+	private static final String SECTION = AppConstants.QUESTION_EDIT_DIALOG;
+	private static final String TITLE = AppConstants.QUESTION_EDIT_TEXT;
+	private static final String ICON = AppConstants.QUESTION_EDIT_ICON;
 	
 	private static final String ANSWER_TEXT = "Ответ ";
 	private static final String FILTER_PANEL_TITLE = "Панель фильтрации";
@@ -88,24 +91,27 @@ public class QuestionListDialog extends DialogWithPassword {
 	}
 	
 	@Override
+	public void layoutPanelTop() {
+		ImageIcon emblem = new ImageIcon(getClass().getResource(ICON));
+		super.layoutPanelTop(TITLE, emblem);
+	}
+	
+	@Override
 	protected void layoutDialog() {
-		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+		JPanel contentPanel = getContentPanel();
+		contentPanel.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+		
+		contentPanel.add(pnlFilter);
+		contentPanel.add(tablePanel);
+		
+		contentPanel.add(pnlBottom);
+		contentPanel.add(pnlQuestionEdit);
 		
 		layoutPanelFilter();
 		
 		layoutPanelQuestionEdit();
-		
-		addComponents();
 	}
 
-	private void addComponents() {
-		add(pnlFilter);
-		add(tablePanel);
-		
-		add(pnlBottom);
-		add(pnlQuestionEdit);
-	}
-	
 	@Override
 	public void init() {
 		initTable();
@@ -129,6 +135,11 @@ public class QuestionListDialog extends DialogWithPassword {
 	@Override
 	protected String getSection() {
 		return SECTION;
+	}
+	
+	@Override
+	protected String getTitleText() {
+		return TITLE;
 	}
 
 	private void layoutPanelQuestionEdit() {

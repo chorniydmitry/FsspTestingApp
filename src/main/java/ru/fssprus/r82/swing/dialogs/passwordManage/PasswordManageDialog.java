@@ -5,8 +5,10 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
@@ -15,7 +17,9 @@ import ru.fssprus.r82.utils.AppConstants;
 public class PasswordManageDialog extends DialogWithPassword {
 	private static final long serialVersionUID = -4879337467270588965L;
 	
-	private static final String SECTION = "PASSWORDS";
+	private static final String SECTION = AppConstants.MANAGE_PASSWORDS_DIALOG;
+	private static final String TITLE = AppConstants.MANAGE_PASSWORDS_TEXT;
+	private static final String ICON = AppConstants.MANAGE_PASSWORDS_ICON;
 	
 	private static final String CAPT_CHANGE = "Сменить";
 
@@ -30,6 +34,12 @@ public class PasswordManageDialog extends DialogWithPassword {
 	}
 	
 	@Override
+	public void layoutPanelTop() {
+		ImageIcon emblem = new ImageIcon(getClass().getResource(ICON));
+		super.layoutPanelTop(TITLE, emblem);
+	}
+	
+	@Override
 	public void init() {
 		initAndFillComponentsList();
 		super.init();
@@ -40,17 +50,22 @@ public class PasswordManageDialog extends DialogWithPassword {
 		return SECTION;
 	}
 	
+	@Override
+	protected String getTitleText() {
+		return TITLE;
+	}
+	
 	private void initAndFillComponentsList() {
 		for(int i = 0; i < AppConstants.SECTIONS_AMOUNT; i++) {
-			JLabel lbl = new JLabel(AppConstants.SECTIONS_TEXT_ARR[i]);
+			JLabel lbl = new JLabel(AppConstants.DIALOG_WITH_PASSWORDS_TEXT_ARR[i]);
 			lblList.add(lbl);
 			
 			JPasswordField pf = new JPasswordField();
-			pf.setName(AppConstants.SECTIONS_NAMES_ARR[i]);
+			pf.setName(AppConstants.DIALOG_WITH_PASSWORDS_ARR[i]);
 			pfList.add(pf);
 			
 			JButton btn = new JButton(CAPT_CHANGE);
-			btn.setName(AppConstants.SECTIONS_NAMES_ARR[i]);
+			btn.setName(AppConstants.DIALOG_WITH_PASSWORDS_ARR[i]);
 			btn.setEnabled(false);
 			btnList.add(btn);
 		}
@@ -59,22 +74,23 @@ public class PasswordManageDialog extends DialogWithPassword {
 
 	@Override
 	protected void layoutDialog() {
-		setLayout(new GridBagLayout());
+		JPanel contentPanel = getContentPanel();
+		contentPanel.setLayout(new GridBagLayout());
 
 		// gridx, gridy, gridwidth, gridheight, weightx, weighty, anchor, fill,
 		// insets(top, left, botom, right), ipadx, ipady
 
-		add(lblInfo, new GridBagConstraints(0, 0, GridBagConstraints.REMAINDER, 1, 1, 1, GridBagConstraints.CENTER,
+		contentPanel.add(lblInfo, new GridBagConstraints(0, 0, GridBagConstraints.REMAINDER, 1, 1, 1, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(10, 10, 10, 10), 0, 0));
 
 		for(int i = 0; i < AppConstants.SECTIONS_AMOUNT; i++) {
-			add(lblList.get(i), new GridBagConstraints(0, (i + 1), 1, 1, 0.2, 1, GridBagConstraints.CENTER,
+			contentPanel.add(lblList.get(i), new GridBagConstraints(0, (i + 1), 1, 1, 0.2, 1, GridBagConstraints.CENTER,
 					GridBagConstraints.HORIZONTAL, new Insets(2, 10, 10, 2), 0, 0));
 
-			add(pfList.get(i), new GridBagConstraints(1, (i + 1), 1, 1, 0.5, 1, GridBagConstraints.CENTER,
+			contentPanel.add(pfList.get(i), new GridBagConstraints(1, (i + 1), 1, 1, 0.5, 1, GridBagConstraints.CENTER,
 					GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
 
-			add(btnList.get(i), new GridBagConstraints(2, (i + 1), 1, 1, 0.2, 1, GridBagConstraints.CENTER,
+			contentPanel.add(btnList.get(i), new GridBagConstraints(2, (i + 1), 1, 1, 0.2, 1, GridBagConstraints.CENTER,
 					GridBagConstraints.HORIZONTAL, new Insets(2, 10, 10, 2), 0, 0));
 		}
 

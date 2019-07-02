@@ -20,6 +20,10 @@ public class AnswerService{
 		return answerDao.getByQuestion(startPos, endPos, question);
 	}	
 	
+	public List<Answer> getAllByQuestion(Question question) {
+		return answerDao.getByQuestion(-1, -1, question);
+	}
+	
 	public List<Answer> getCorrectByQuestion(int startPos, int endPos, Question question) {
 		return answerDao.getCorrectByQuestion(startPos, endPos, question);
 	}

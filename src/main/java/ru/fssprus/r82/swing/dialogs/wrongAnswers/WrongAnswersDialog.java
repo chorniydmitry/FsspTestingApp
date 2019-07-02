@@ -3,9 +3,11 @@ package ru.fssprus.r82.swing.dialogs.wrongAnswers;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import ru.fssprus.r82.swing.dialogs.CommonDialog;
@@ -13,7 +15,9 @@ import ru.fssprus.r82.utils.AppConstants;
 
 public class WrongAnswersDialog extends CommonDialog {
 	private static final long serialVersionUID = 3594882748640500638L;
-	private static final String SECTION = "WRONG_ANS";
+	private static final String SECTION = AppConstants.WRONG_ANSWERS_DIALOG;
+	private static final String TITLE = AppConstants.WRONG_ANSWERS_TEXT;
+	private static final String ICON = AppConstants.WRONG_ANSWERS_ICON;
 	
 	private static final String BTN_CLOSE_CAPTION = "Закрыть";
 	
@@ -23,6 +27,12 @@ public class WrongAnswersDialog extends CommonDialog {
 	
 	public WrongAnswersDialog(int width, int height) {
 		super(width, height);
+	}
+	
+	@Override
+	public void layoutPanelTop() {
+		ImageIcon emblem = new ImageIcon(getClass().getResource(ICON));
+		super.layoutPanelTop(TITLE, emblem);
 	}
 	
 	@Override
@@ -40,9 +50,10 @@ public class WrongAnswersDialog extends CommonDialog {
 	}
 
 	private void addComponents(JScrollPane scroller) {
-		this.add(lblTimeLeftSec, BorderLayout.NORTH);
-		this.add(scroller, BorderLayout.CENTER);
-		this.add(btnClose, BorderLayout.SOUTH);
+		JPanel contentPanel = getContentPanel();
+		contentPanel.add(lblTimeLeftSec, BorderLayout.NORTH);
+		contentPanel.add(scroller, BorderLayout.CENTER);
+		contentPanel.add(btnClose, BorderLayout.SOUTH);
 	}
 	
 	@Override
@@ -53,6 +64,11 @@ public class WrongAnswersDialog extends CommonDialog {
 	@Override
 	protected String getSection() {
 		return SECTION;
+	}
+	
+	@Override
+	protected String getTitleText() {
+		return TITLE;
 	}
 
 	public JEditorPane getTaWrongs() {

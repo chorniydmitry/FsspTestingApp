@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -20,7 +21,9 @@ import ru.fssprus.r82.utils.AppConstants;
 public class LoadingQuestionSetDialog extends DialogWithPassword {
 	private static final long serialVersionUID = -4114441914928348354L;
 	
-	private static final String SECTION = AppConstants.QUESTION_LOAD_SECTION;
+	private static final String SECTION = AppConstants.QUESTION_LOAD_DIALOG;
+	private static final String TITLE = AppConstants.QUESTION_LOAD_TEXT;
+	private static final String ICON = AppConstants.QUESTION_LOAD_ICON;
 	
 	private static final String BTN_OPEN_CAPTION = "Открыть файл";
 	private static final String LBL_SPEC_NAME_CAPTION = "Специализация:";
@@ -40,6 +43,13 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 
 	public LoadingQuestionSetDialog(int width, int height) {
 		super(width, height);
+		
+	}
+	
+	@Override
+	public void layoutPanelTop() {
+		ImageIcon emblem = new ImageIcon(getClass().getResource(ICON));
+		super.layoutPanelTop(TITLE, emblem);
 	}
 	
 	@Override
@@ -51,6 +61,11 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 	@Override
 	protected String getSection() {
 		return SECTION;
+	}
+	
+	@Override
+	protected String getTitleText() {
+		return TITLE;
 	}
 	
 	@Override

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,7 +20,9 @@ import ru.fssprus.r82.utils.ApplicationConfiguration;
 
 public class ConfigDialog extends DialogWithPassword {
 	private static final long serialVersionUID = -3585887095900374897L;
-	private static final String SECTION = AppConstants.CONFIG_SECTION;
+	private static final String SECTION = AppConstants.CONFIG_DIALOG;
+	private static final String TITLE = AppConstants.CONFIG_TEXT;
+	private static final String ICON = AppConstants.CONFIG_DIALOG_ICON;
 	
 	private static final String BTN_SAVE_CAPTION = "Cохранить изменения";
 	
@@ -76,6 +79,12 @@ public class ConfigDialog extends DialogWithPassword {
 	}
 	
 	@Override
+	public void layoutPanelTop() {
+		ImageIcon emblem = new ImageIcon(getClass().getResource(ICON));
+		super.layoutPanelTop(TITLE, emblem);
+	}
+	
+	@Override
 	public void init() {
 		initComponents();
 		
@@ -93,6 +102,11 @@ public class ConfigDialog extends DialogWithPassword {
 	@Override
 	protected String getSection() {
 		return SECTION;
+	}
+	
+	@Override
+	protected String getTitleText() {
+		return TITLE;
 	}
 	
 	private void loadTFsText() {
@@ -156,25 +170,26 @@ public class ConfigDialog extends DialogWithPassword {
 	
 	@Override
 	protected void layoutDialog() {
-		setLayout(new GridBagLayout());
+		JPanel contentPanel = getContentPanel();
+		contentPanel.setLayout(new GridBagLayout());
 		
 		//gridx, gridy, gridwidth, gridheight, weightx, weighty, anchor, fill, insets(top, left, botom, right), ipadx, ipady
 		
 		// 1st row
-		add(pnlBase, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
+		contentPanel.add(pnlBase, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(20, 20, 20, 20), 0, 0));
 		
-		add(pnlStandart, new GridBagConstraints(1, 0, 2, 1, 1, 1, GridBagConstraints.CENTER,
+		contentPanel.add(pnlStandart, new GridBagConstraints(1, 0, 2, 1, 1, 1, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(20, 20, 20, 20), 0, 0));
 		// 2nd row
-		add(pnlAdvanced, new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
+		contentPanel.add(pnlAdvanced, new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(20, 20, 20, 20), 0, 0));
 		
-		add(pnlReserve, new GridBagConstraints(1, 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
+		contentPanel.add(pnlReserve, new GridBagConstraints(1, 1, 1, 1, 1, 1, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(20, 20, 20, 20), 0, 0));
 		
 		// 3rd row
-		add(btnSave, new GridBagConstraints(0, 2, 2, 1, 1, 1, GridBagConstraints.CENTER,
+		contentPanel.add(btnSave, new GridBagConstraints(0, 2, 2, 1, 1, 1, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(0, 20, 0, 20), 0, 0));
 		
 	}

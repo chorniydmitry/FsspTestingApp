@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -22,22 +23,22 @@ import ru.fssprus.r82.utils.Utils;
 
 public class TestDialog extends CommonDialog {
 	private static final long serialVersionUID = 1355222097401941564L;
-	private static final String SECTION = AppConstants.TEST_SECTION;
+	private static final String SECTION = AppConstants.TEST_DIALOG;
+	private static final String TITLE = AppConstants.TEST_TEXT;
+	private static final String ICON = AppConstants.TEST_ICON;
 
 	private static final String BTN_TO_NEXT_CAPTION = "К следующему";
-	private static final String BTN_PAUSE_CAPTION = "Пауза";
 	private static final String BTN_FINISH_CAPTION = "Закончить тест";
 	private static final String BTN_NEXT_CAPTION = ">";
 	private static final String BTN_PREVIOUS_CAPTION = "<";
 
 	private static final int AMT_RAD_BUTTONS = 5;
 
-	private JPanel pnlTop = new JPanel();
+	private JPanel pnlQuizzControll = new JPanel();
 
 	private JPanel pnlQuestAndAnswers = new JPanel();
 	private JPanel pnlAnswers = new JPanel();
 	private JButton btnNextUnanswered = new JButton(BTN_TO_NEXT_CAPTION);
-	private JButton btnPause = new JButton(BTN_PAUSE_CAPTION);
 	private JButton btnFinish = new JButton(BTN_FINISH_CAPTION);
 
 	private JLabel lblQuestionInfo = new JLabel();
@@ -55,6 +56,13 @@ public class TestDialog extends CommonDialog {
 	public TestDialog(int width, int height) {
 		super(width, height);
 	}
+	
+
+	@Override
+	public void layoutPanelTop() {
+		ImageIcon emblem = new ImageIcon(getClass().getResource(ICON));
+		super.layoutPanelTop(TITLE, emblem);
+	}
 
 	@Override
 	public void init() {
@@ -66,7 +74,7 @@ public class TestDialog extends CommonDialog {
 
 	@Override
 	protected void layoutDialog() {
-		layoutPanelTop();
+		layoutPanelQuizzControll();
 		layoutPanelDown();
 
 		setFonts();
@@ -80,22 +88,27 @@ public class TestDialog extends CommonDialog {
 	}
 
 	private void addComponents() {
-		add(pnlTop, BorderLayout.NORTH);
+		JPanel contentPanel = getContentPanel();
+		contentPanel.add(pnlQuizzControll, BorderLayout.NORTH);
 
-		add(pnlQuestAndAnswers, BorderLayout.CENTER);
+		contentPanel.add(pnlQuestAndAnswers, BorderLayout.CENTER);
 
-		add(pnlDown, BorderLayout.SOUTH);
+		contentPanel.add(pnlDown, BorderLayout.SOUTH);
 	}
 
 	@Override
 	protected String getSection() {
 		return SECTION;
 	}
+	
+	@Override
+	protected String getTitleText() {
+		return TITLE;
+	}
 
-	private void layoutPanelTop() {
-		pnlTop.add(btnFinish);
-		pnlTop.add(btnPause);
-		pnlTop.add(btnNextUnanswered);
+	private void layoutPanelQuizzControll() {
+		pnlQuizzControll.add(btnFinish);
+		pnlQuizzControll.add(btnNextUnanswered);
 	}
 
 	private void layoutPanelDown() {
@@ -263,14 +276,6 @@ public class TestDialog extends CommonDialog {
 
 	public void setBtnNextUnanswered(JButton btnNextUnanswered) {
 		this.btnNextUnanswered = btnNextUnanswered;
-	}
-
-	public JButton getBtnPause() {
-		return btnPause;
-	}
-
-	public void setBtnPause(JButton btnPause) {
-		this.btnPause = btnPause;
 	}
 
 	public JButton getBtnFinish() {

@@ -56,8 +56,11 @@ public class UserDatabaseDao extends AbstractHibernateDao<User> implements UserD
 						builder.like(root.get("secondName"), "%" + secondname + "%"));
 
 				Query<User> query = session.createQuery(criteriaQuery);
-				query.setFirstResult(startPos);
-				query.setMaxResults(endPos);
+				
+				if (!(endPos == -1 || startPos == -1)) {
+					query.setFirstResult(startPos);
+					query.setMaxResults(endPos);
+				}
 
 				userList = query.getResultList();
 				

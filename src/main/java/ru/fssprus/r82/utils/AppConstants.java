@@ -8,29 +8,46 @@ import java.util.Locale;
 public class AppConstants {
 	// Константы разделов приложения
 	public static final int SECTIONS_AMOUNT = 7;
-	public static final String ADMIN_SECTION = "ADMIN";
-	public static final String CONFIG_SECTION = "CONFIG";
-	public static final String SETTINGS_SECTION = "SETTINGS";
-	public static final String QUESTION_EDIT_SECTION = "QEDIT";
-	public static final String QUESTION_LOAD_SECTION = "QLOAD";
-	public static final String MANAGE_PASSWORDS_SECTION = "PASSWORDS";
-	public static final String TEST_SECTION = "TEST";
-	public static final String STATISTICS_SECTION = "STATISTICS";
+	
+	public static final String QUESTION_LOAD_ICON = "/questionload.png";
+	public static final String ADMIN_DIALOG_ICON = "/admin.png";
+	public static final String CONFIG_DIALOG_ICON = "/config.png";
+	public static final String NEW_TEST_ICON = "/newtest.png";
+	public static final String MANAGE_PASSWORDS_ICON = "/password.png";
+	public static final String QUESTION_EDIT_ICON = "/questionedit.png";
+	public static final String RESULTING_ICON = "/result.png";
+	public static final String STATISTICS_ICON = "/statistics.png";
+	public static final String TEST_ICON = "/quizz.png";
+	public static final String WRONG_ANSWERS_ICON = "/wronganswers.png";
+	
+	public static final String QUESTION_LOAD_DIALOG = "LoadingQuestionSetDialog";
+	public static final String ADMIN_DIALOG = "AdminDialog";
+	public static final String CONFIG_DIALOG = "ConfigDialog";
+	public static final String NEW_TEST_DIALOG = "NewTestDialog";
+	public static final String MANAGE_PASSWORDS_DIALOG = "PasswordManageDialog";
+	public static final String QUESTION_EDIT_DIALOG = "QuestionListDialog";
+	public static final String RESULTING_DIALOG = "ResultingDialog";
+	public static final String STATISTICS_DIALOG = "StatisticsDialog";
+	public static final String TEST_DIALOG = "TestDialog";
+	public static final String WRONG_ANSWERS_DIALOG = "WrongAnswersDialog";
+	
+	public static final String[] DIALOG_WITH_PASSWORDS_ARR = { TEST_DIALOG, STATISTICS_DIALOG, 
+			ADMIN_DIALOG, CONFIG_DIALOG, QUESTION_EDIT_DIALOG, QUESTION_LOAD_DIALOG, 
+			MANAGE_PASSWORDS_DIALOG };
 
-	public static final String[] SECTIONS_NAMES_ARR = { TEST_SECTION, STATISTICS_SECTION, 
-			ADMIN_SECTION, CONFIG_SECTION, QUESTION_EDIT_SECTION, QUESTION_LOAD_SECTION, 
-			MANAGE_PASSWORDS_SECTION };
-
+	public static final String QUESTION_LOAD_TEXT = "Загрузка вопросов";
 	public static final String ADMIN_TEXT = "Администрирование";
 	public static final String CONFIG_TEXT = "Конфигурация";
-	public static final String SETTINGS_TEXT = "Настройки";
-	public static final String QUESTION_EDIT_TEXT = "Редактор вопросов";
-	public static final String QUESTION_LOAD_TEXT = "Загрузка вопросов";
+	public static final String NEW_TEST_TEXT = "Новый тест";
 	public static final String MANAGE_PASSWORDS_TEXT = "Редактор паролей";
-	public static final String TEST_TEXT = "Тестирование";
+	public static final String QUESTION_EDIT_TEXT = "Редактор вопросов";
+	public static final String RESULTING_TEXT = "Результаты тестирования";
 	public static final String STATISTICS_TEXT = "Статистика";
+	public static final String TEST_TEXT = "Тестирование";
+	public static final String WRONG_ANSWERS_TEXT = "Не правильные ответы";
+	
 
-	public static final String[] SECTIONS_TEXT_ARR = { TEST_TEXT, STATISTICS_TEXT, 
+	public static final String[] DIALOG_WITH_PASSWORDS_TEXT_ARR = { TEST_TEXT, STATISTICS_TEXT, 
 			ADMIN_TEXT, CONFIG_TEXT,QUESTION_EDIT_TEXT, QUESTION_LOAD_TEXT, 
 			MANAGE_PASSWORDS_TEXT };
 	
@@ -70,6 +87,7 @@ public class AppConstants {
 	public static final Font TESTDIALOG_HEADER_FONT = new Font("Courier New", Font.BOLD, 28);
 	public static final Font TESTDIALOG_QUESTION_FONT = new Font("Courier New", Font.PLAIN, 20);
 	public static final Font TESTDIALOG_ITEMS_FONT = new Font("Courier New", Font.PLAIN, 16);
+	public static final Font TOP_PANELS_TEXT_FONT = new Font("Courier New", Font.PLAIN, 20);
 	
 	// Размеры компонентов
 	public static final int MAINFRAME_BTN_WIDTHS = 200;
@@ -81,6 +99,8 @@ public class AppConstants {
 	public static final int TESTDIALOG_PNLQNA_RIGID_AREA_WIDTH = 50;
 	public static final int TESTDIALOG_PNLQNA_RIGID_AREA_HEIGHT = 50;
 	public static final int WADIALOG_TAWRONGS_HEIGHT_PADDING = 50;
+	
+	public static final int TOP_PANEL_HEIGHT = 60;
 	
 	
 	// QuestionListDialog константы
@@ -109,7 +129,9 @@ public class AppConstants {
 	public static final int MIN_ANSWERS_AMOUNT = 2;
 	public static final int QUESTION_TEXT_MIN_LENGTH = 5;
 	public static final int MINIMUM_QUESTIONS_TO_INIT_TEST = 30;
-	public static final Color TABLE_SELECTION_COLOR = new Color(0, 0, 255);
+	public static final Color TABLE_SELECTION_COLOR = new Color(0x0000ff);
+	public static final Color FSSP_COLOR = new Color(0x03a06c);
+	public static final Color TOP_PANELS_TEXT_FONT_COLOR = new Color(0xffffff);
 	public static final int NO_ROW_SELECTED = -1;
 	public static final int NO_INDEX_SELECTED = -1;
 	

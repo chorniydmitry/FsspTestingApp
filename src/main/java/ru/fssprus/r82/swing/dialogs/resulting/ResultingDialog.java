@@ -6,15 +6,19 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import ru.fssprus.r82.swing.dialogs.CommonDialog;
 import ru.fssprus.r82.utils.AppConstants;
 
 public class ResultingDialog extends CommonDialog {
 	private static final long serialVersionUID = -8599425813178121954L;
-	private static final String SECTION = "RESULTS";
+	private static final String SECTION = AppConstants.RESULTING_DIALOG;
+	private static final String TITLE = AppConstants.RESULTING_TEXT;
+	private static final String ICON = AppConstants.RESULTING_ICON;
 
 	private static final String LBL_MARK_PERCENT = "В процентах: ";
 	private static final String LBL_MARK_ONE_TO_FIVE_MARK = "Оценка: ";
@@ -41,6 +45,12 @@ public class ResultingDialog extends CommonDialog {
 	}
 	
 	@Override
+	public void layoutPanelTop() {
+		ImageIcon emblem = new ImageIcon(getClass().getResource(ICON));
+		super.layoutPanelTop(TITLE, emblem);
+	}
+	
+	@Override
 	public void init() {
 		initFonts();
 		super.init();
@@ -48,39 +58,40 @@ public class ResultingDialog extends CommonDialog {
 	
 	@Override
 	protected void layoutDialog() {
-		this.setLayout(new GridBagLayout());
+		JPanel contentPanel = getContentPanel();
+		contentPanel.setLayout(new GridBagLayout());
 		// gridx, gridy, gridwidth, gridheight, weightx, weighty, anchor, fill, insets,
 		// ipadx, ipady
 		
 		// 1st row
-		this.add(lblMessageResult, new GridBagConstraints(0, 0, 2, 1, 1, 1, GridBagConstraints.NORTH,
+		contentPanel.add(lblMessageResult, new GridBagConstraints(0, 0, 2, 1, 1, 1, GridBagConstraints.NORTH,
 				GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 		
 		// 2nd row
-		this.add(lblCorrectAnswers, new GridBagConstraints(0, 1, 2, 1, 1, 1, GridBagConstraints.NORTH,
+		contentPanel.add(lblCorrectAnswers, new GridBagConstraints(0, 1, 2, 1, 1, 1, GridBagConstraints.NORTH,
 				GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 
 		// 3rd row
-		this.add(lblMarkPercent, new GridBagConstraints(0, 2, 2, 1, 1, 1, GridBagConstraints.NORTH,
+		contentPanel.add(lblMarkPercent, new GridBagConstraints(0, 2, 2, 1, 1, 1, GridBagConstraints.NORTH,
 				GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 
 		// 4th row
-		this.add(lblMarkOneToFive, new GridBagConstraints(0, 3, 1, 1, 1, 1, GridBagConstraints.NORTH,
+		contentPanel.add(lblMarkOneToFive, new GridBagConstraints(0, 3, 1, 1, 1, 1, GridBagConstraints.NORTH,
 				GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 
 		
-		this.add(lblMarkLetter, new GridBagConstraints(1, 3, 1, 1, 1, 1, GridBagConstraints.NORTH,
+		contentPanel.add(lblMarkLetter, new GridBagConstraints(1, 3, 1, 1, 1, 1, GridBagConstraints.NORTH,
 				GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 
 		// 5th row
-		this.add(lblMarkText, new GridBagConstraints(0, 4, 2, 1, 1, 1, GridBagConstraints.NORTH,
+		contentPanel.add(lblMarkText, new GridBagConstraints(0, 4, 2, 1, 1, 1, GridBagConstraints.NORTH,
 				GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 
 		// 6th row
-		this.add(btnShowWrongs, new GridBagConstraints(0, 5, 1, 1, 1, 1, GridBagConstraints.NORTH,
+		contentPanel.add(btnShowWrongs, new GridBagConstraints(0, 5, 1, 1, 1, 1, GridBagConstraints.NORTH,
 				GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 
-		this.add(btnClose, new GridBagConstraints(1, 5, 1, 1, 1, 1, GridBagConstraints.NORTH,
+		contentPanel.add(btnClose, new GridBagConstraints(1, 5, 1, 1, 1, 1, GridBagConstraints.NORTH,
 				GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 
 	}
@@ -88,6 +99,11 @@ public class ResultingDialog extends CommonDialog {
 	@Override
 	protected String getSection() {
 		return SECTION;
+	}
+	
+	@Override
+	protected String getTitleText() {
+		return TITLE;
 	}
 
 	private void initFonts() {

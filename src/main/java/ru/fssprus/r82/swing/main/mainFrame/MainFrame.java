@@ -6,12 +6,7 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import ru.fssprus.r82.swing.dialogs.admin.AdminController;
-import ru.fssprus.r82.swing.dialogs.admin.AdminDialog;
-import ru.fssprus.r82.swing.dialogs.newTest.NewTestController;
-import ru.fssprus.r82.swing.dialogs.newTest.NewTestDialog;
-import ru.fssprus.r82.swing.dialogs.statistics.StatisticsController;
-import ru.fssprus.r82.swing.dialogs.statistics.StatisticsDialog;
+import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.utils.AppConstants;
 
 public class MainFrame extends JFrame {
@@ -63,23 +58,15 @@ public class MainFrame extends JFrame {
 	}
 	
 	private void initNewTestDialog() {
-		NewTestDialog newTestDialog = new NewTestDialog(
-				AppConstants.DIALOG_NEW_TEST_WIDTH,
-				AppConstants.DIALOG_NEW_TEST_HEIGHT);
-		new NewTestController(newTestDialog);
+		DialogBuilder.showNewTestDialog();
 	}
 	
 	private void initAdminDialog() {
-		AdminDialog adminDialog = new AdminDialog(
-				AppConstants.DIALOG_ADMIN_WIDTH,
-				AppConstants.DIALOG_ADMIN_HEIGHT);
-		new AdminController(adminDialog);
+		DialogBuilder.showAdminDialog();
 	}
 	
 	private void initStatisticsDialog() {
-		new StatisticsController(new StatisticsDialog(
-				AppConstants.DIALOG_STATISTICS_WIDTH,
-				AppConstants.DIALOG_STATISTICS_HEIGHT));
+		DialogBuilder.showStatisticsDialog();
 	}
 
 	private void addListeners() {

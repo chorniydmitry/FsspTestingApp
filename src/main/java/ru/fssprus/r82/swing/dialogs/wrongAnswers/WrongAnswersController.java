@@ -6,10 +6,11 @@ public class WrongAnswersController extends ControllerWithTimer<WrongAnswersDial
 	private static final int TIME_FOR_ANSWER_MULTIPLIER = 2;
 	private static final int TIME_OFFSET_SEC = 20;
 	
-	public WrongAnswersController(WrongAnswersDialog dialog, int timeLeft) {
-		super(dialog, timeLeft);
+	public WrongAnswersController(WrongAnswersDialog dialog, int wrongQuestionsAmount, String text) {
+		super(dialog, wrongQuestionsAmount);
 		
 		setLblForInfo(dialog.getLblTimeLeftSec());
+		setText(text);
 	}
 	
 	private void doBtnCloseAction() {

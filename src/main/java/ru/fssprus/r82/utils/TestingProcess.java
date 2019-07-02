@@ -23,6 +23,16 @@ import ru.fssprus.r82.service.TestService;
 import ru.fssprus.r82.service.UserService;
 
 public class TestingProcess {
+	private static final String WRONGS_HTML_OPEN_TAG_AND_STYLE = "<html style='font-size:14pt; font-family:Times New Roman;'>";
+	private static final String WRONGS_HTML_CLOSE_TAG = "</html>";
+	private static final String WRONGS_HTML_ANS_LIST_BOLD_TEXT = "<b>Список вопросов:</b>";
+	private static final String WRONGS_HTML_QUESTION_BOLD_TEXT = "<b>Вопрос</b>";
+	private static final String WRONGS_HTML_ANSWER_CHOSEN_BOLD_TEXT = "<b>Выбран ответ:</b>";
+	private static final String WRONGS_HTML_CORRECT_ANSWER_BOLD_TEXT = "<b>Верный ответ:</b>";
+	private static final String WRONGS_HTML_NOTHING_SELECTED_TEXT = "Ничего не выбрано";
+	private static final String HTML_BR = "<br />";
+	private static final String DELIMETER_DASHES_TEXT = "-------------------------";
+	
 	private int curQuestionIndex;
 	private List<Specification> specs;
 	private List<Question> questions;
@@ -44,26 +54,16 @@ public class TestingProcess {
 	private String level;
 
 	public TestingProcess(List<Specification> specs, List<Integer> amtQuestions, String level) {
-		System.out.println("Testing process");
-		specs.forEach((n)->System.out.println(n));
-		amtQuestions.forEach((n)-> System.out.println(n));
-		System.out.println(level);
 		this.specs = specs;
-		System.out.println(3.1);
 		this.level = level;
-		System.out.println(3.2);
 		loadQuestionsFromDB(specs, amtQuestions);
-		System.out.println(3.3);
 		initLists();
-		System.out.println(3.4);
 		loadAnswersForQuests();
-		System.out.println(3.5);
-
 	}
 
 	private void initLists() {
 		correctAnswers = new ArrayList<Integer>(questions.size());
-		choises = new ArrayList<Integer>(Collections.nCopies(questions.size(), -1));
+		choises = new ArrayList<Integer>(Collections.nCopies(questions.size(), AppConstants.NO_INDEX_SELECTED));
 		correctUserAnswersList = new ArrayList<Boolean>(Collections.nCopies(questions.size(), false));
 		answersMap = new HashMap<Integer, List<Answer>>();
 	}
@@ -146,35 +146,35 @@ public class TestingProcess {
 	public String showWrongs() {
 		countCorrectAnswers();
 		int i = 0;
-		String returnValue = "<html style='font-size:14pt; font-family:Times New Roman;'><b>Список вопросов:</b><br /><br />";
+		String returnValue = WRONGS_HTML_OPEN_TAG_AND_STYLE + WRONGS_HTML_ANS_LIST_BOLD_TEXT + HTML_BR + HTML_BR;
 		for (Boolean ans : correctUserAnswersList) {
 			if (!ans) {
-				String question = "<b>Вопрос:</b> " + questions.get(i).getTitle() + "<br /><br />";
+				String question = WRONGS_HTML_QUESTION_BOLD_TEXT + questions.get(i).getTitle() + HTML_BR + HTML_BR;
 				String answerChosen;
 				String answerCorrect;
-				String delimeter = "-------------------------<br />";
+				String delimeter = DELIMETER_DASHES_TEXT + HTML_BR;
 
 				if (choises.get(i) != -1)
-					answerChosen = "<b>Выбран ответ:</b> " + answersMap.get(i).get(choises.get(i)).getTitle()
-							+ "<br />";
+					answerChosen = WRONGS_HTML_ANSWER_CHOSEN_BOLD_TEXT  + answersMap.get(i).get(choises.get(i)).getTitle()
+							+ HTML_BR;
 				else
-					answerChosen = "Ничего не выбрано<br />";
+					answerChosen = WRONGS_HTML_NOTHING_SELECTED_TEXT + HTML_BR;
 
-				answerCorrect = "<b>Верный ответ:</b> " + answersMap.get(i).get(correctAnswers.get(i)).getTitle()
-						+ "<br />";
+				answerCorrect = WRONGS_HTML_CORRECT_ANSWER_BOLD_TEXT + answersMap.get(i).get(correctAnswers.get(i)).getTitle()
+						+ HTML_BR;
 
 				returnValue += question + answerChosen + answerCorrect + delimeter;
 			}
 			i++;
 		}
-		returnValue += "</html>";
+		returnValue += WRONGS_HTML_CLOSE_TAG;
 
 		return returnValue;
 	}
 
 	private boolean loadAnswersForQuests() {
 		for (int i = 0; i < getQuestions().size(); i++) {
-			List<Answer> ansList = answerService.getAllByQuestion(0, 20, getQuestions().get(i));
+			List<Answer> ansList = answerService.getAllByQuestion(getQuestions().get(i));
 
 			for (int j = 0; j < ansList.size(); j++) {
 				if (ansList.get(j).getIsCorrect()) {
@@ -249,7 +249,7 @@ public class TestingProcess {
 		setUserSurname(userSurname);
 		setUserSecondName(userSecondName);
 
-		List<User> usersFromDB = userService.getByNameSurnameSecondName(0, 10, userName, userSurname, userSecondName);
+		List<User> usersFromDB = userService.getByNameSurnameSecondName(userName, userSurname, userSecondName);
 
 		if (usersFromDB.size() == 0)
 			createNewUser(userName, userSurname, userSecondName);
@@ -269,7 +269,7 @@ public class TestingProcess {
 
 	public boolean checkUncheckedLeft() {
 		for (Integer choise : choises)
-			if (choise == -1)
+			if (choise == AppConstants.NO_INDEX_SELECTED)
 				return true;
 		return false;
 	}
@@ -300,10 +300,10 @@ public class TestingProcess {
 
 	public int getNextUnansweredIndex() {
 		for (int i = 0; i < choises.size(); i++)
-			if (choises.get(i) == -1)
+			if (choises.get(i) == AppConstants.NO_INDEX_SELECTED)
 				return i;
 
-		return -1;
+		return AppConstants.NO_INDEX_SELECTED;
 	}
 
 	public int getWrongAmount() {

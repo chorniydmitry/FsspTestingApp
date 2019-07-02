@@ -8,6 +8,7 @@ import java.awt.Insets;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -21,13 +22,23 @@ import ru.fssprus.r82.utils.AppConstants;
 
 public class NewTestDialog extends DialogWithPassword {
 	private static final long serialVersionUID = 1342455118946206792L;
-	private static final String SECTION = AppConstants.TEST_SECTION;
+	private static final String SECTION = AppConstants.TEST_DIALOG;
+	private static final String TITLE = AppConstants.TEST_TEXT;
+	private static final String ICON = AppConstants.NEW_TEST_ICON;
 	
-	private JLabel lblInfo = new JLabel("ИНФОРМАЦИЯ");
-	private JLabel lblName = new JLabel("Ваше имя:");
-	private JLabel lblSurname = new JLabel("Ваша фамилия:");
-	private JLabel lblSecondName = new JLabel("Ваше отчество:");
-	private JLabel lblSpecification = new JLabel("Специализация:");
+	private static final String LBL_INFO_TEXT = "ИНФОРМАЦИЯ";
+	private static final String LBL_NAME_TEXT = "Ваше имя:";
+	private static final String LBL_SURNAME_TEXT = "Ваша фамилия:";
+	private static final String LBL_SECONDNAME_TEXT = "Ваше отчество:";
+	private static final String LBL_SPECIFICATION_TEXT = "Специализация:";
+	private static final String BTN_BEGIN_CAPTION = "Начать";
+	private static final String BTN_CANCEL_CAPTION = "Отмена";
+	
+	private JLabel lblInfo = new JLabel(LBL_INFO_TEXT);
+	private JLabel lblName = new JLabel(LBL_NAME_TEXT);
+	private JLabel lblSurname = new JLabel(LBL_SURNAME_TEXT);
+	private JLabel lblSecondName = new JLabel(LBL_SECONDNAME_TEXT);
+	private JLabel lblSpecification = new JLabel(LBL_SPECIFICATION_TEXT);
 	
 	private JTextField tfName = new JTextField();
 	private JTextField tfSurname = new JTextField();
@@ -39,8 +50,8 @@ public class NewTestDialog extends DialogWithPassword {
 	private ArrayList<JRadioButton> rbLevels = new ArrayList<JRadioButton>();
 	private ButtonGroup bgLevels = new ButtonGroup();
 	
-	private JButton btnBegin = new JButton("Начать");
-	private JButton btnCancel = new JButton("Отмена");
+	private JButton btnBegin = new JButton(BTN_BEGIN_CAPTION);
+	private JButton btnCancel = new JButton(BTN_CANCEL_CAPTION);
 	
 	public NewTestDialog(int width, int height) {
 		super(width, height);
@@ -49,57 +60,69 @@ public class NewTestDialog extends DialogWithPassword {
 	}
 	
 	@Override
+	public void layoutPanelTop() {
+		ImageIcon emblem = new ImageIcon(getClass().getResource(ICON));
+		super.layoutPanelTop(TITLE, emblem);
+	}
+	
+	@Override
 	protected void layoutDialog() {
-		this.setLayout(new GridBagLayout());;
+		JPanel contentPanel = getContentPanel();
+		contentPanel.setLayout(new GridBagLayout());;
 		//gridx, gridy, gridwidth, gridheight, weightx, weighty, anchor, fill, insets, ipadx, ipady
 		
 		// 1st row
-		this.add(lblInfo, new GridBagConstraints(0, 0, 4, 1, 4, 1, GridBagConstraints.NORTHWEST,
+		contentPanel.add(lblInfo, new GridBagConstraints(0, 0, 4, 1, 4, 1, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
 		
 		// 2nd row
-		this.add(lblName, new GridBagConstraints(0, 2, 1, 1, 1, 1, GridBagConstraints.NORTH,
+		contentPanel.add(lblName, new GridBagConstraints(0, 2, 1, 1, 1, 1, GridBagConstraints.NORTH,
 				GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
 		
-		this.add(tfName, new GridBagConstraints(1, 2, 4, 1, 4, 1, GridBagConstraints.NORTHWEST,
+		contentPanel.add(tfName, new GridBagConstraints(1, 2, 4, 1, 4, 1, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
 
 		// 3rd row
-		this.add(lblSurname, new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.NORTH,
+		contentPanel.add(lblSurname, new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.NORTH,
 				GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
 		
-		this.add(tfSurname, new GridBagConstraints(1, 1, 4, 1, 4, 1, GridBagConstraints.NORTHWEST,
+		contentPanel.add(tfSurname, new GridBagConstraints(1, 1, 4, 1, 4, 1, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
 		
 		// 4th row
-		this.add(lblSecondName, new GridBagConstraints(0, 3, 1, 1, 1, 1, GridBagConstraints.NORTH,
+		contentPanel.add(lblSecondName, new GridBagConstraints(0, 3, 1, 1, 1, 1, GridBagConstraints.NORTH,
 				GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
 		
-		this.add(tfSecondName, new GridBagConstraints(1, 3, 4, 1, 4, 1, GridBagConstraints.NORTHWEST,
+		contentPanel.add(tfSecondName, new GridBagConstraints(1, 3, 4, 1, 4, 1, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
 		
 		// 5th row
-		this.add(lblSpecification, new GridBagConstraints(0, 4, 1, 1, 1, 1, GridBagConstraints.NORTH,
+		contentPanel.add(lblSpecification, new GridBagConstraints(0, 4, 1, 1, 1, 1, GridBagConstraints.NORTH,
 				GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
 		
-		this.add(cbSpecification, new GridBagConstraints(1, 4, 4, 1, 4, 1, GridBagConstraints.NORTHWEST,
+		contentPanel.add(cbSpecification, new GridBagConstraints(1, 4, 4, 1, 4, 1, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
 		
 		// 6th row
-		this.add(pnlLevels, new GridBagConstraints(0, 5, 4, 1, 4, 1, GridBagConstraints.NORTHEAST,
+		contentPanel.add(pnlLevels, new GridBagConstraints(0, 5, 4, 1, 4, 1, GridBagConstraints.NORTHEAST,
 				GridBagConstraints.BOTH, new Insets(2, 2, 2, 2), 0, 0));
 		
 		// 7 th row 
-		this.add(btnCancel, new GridBagConstraints(0, 6, 2, 1, 2, 1, GridBagConstraints.NORTHEAST,
+		contentPanel.add(btnCancel, new GridBagConstraints(0, 6, 2, 1, 2, 1, GridBagConstraints.NORTHEAST,
 				GridBagConstraints.BOTH, new Insets(2, 2, 2, 2), 0, 0));
 		
-		this.add(btnBegin, new GridBagConstraints(2, 6, 2, 1, 2, 1, GridBagConstraints.NORTHWEST,
+		contentPanel.add(btnBegin, new GridBagConstraints(2, 6, 2, 1, 2, 1, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.BOTH, new Insets(2, 2, 2, 2), 0, 0));
 	}
 	
 	@Override
 	protected String getSection() {
 		return SECTION;
+	}
+	
+	@Override
+	protected String getTitleText() {
+		return TITLE;
 	}
 	
 	private void initPanelLevels() {

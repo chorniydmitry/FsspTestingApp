@@ -10,8 +10,7 @@ import javax.swing.JRadioButton;
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.swing.dialogs.ControllerWithTimer;
-import ru.fssprus.r82.swing.dialogs.resulting.ResultingController;
-import ru.fssprus.r82.swing.dialogs.resulting.ResultingDialog;
+import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.ApplicationConfiguration;
 import ru.fssprus.r82.utils.TestingProcess;
@@ -46,7 +45,6 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 		dialog.getBtnNext().addActionListener(listener -> doNextAction());
 		dialog.getBtnPrevious().addActionListener(listeber -> doPreviousAction());
 		dialog.getBtnFinish().addActionListener(listener -> doFinishAction());
-		dialog.getBtnPause().addActionListener(listener -> doPauseAction());
 		dialog.getBtnNextUnanswered().addActionListener(listener -> doNextUnansweredAction());
 		dialog.addKeyListener(this);
 
@@ -62,15 +60,7 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 	}
 	
 	private void initResultingDialog() {
-		ResultingDialog dialog = new ResultingDialog(AppConstants.DIALOG_RESULTING_WIDTH, AppConstants.DIALOG_RESULTING_HEIGHT);
-		dialog.setCaptions(testingProcess.getCorrectAnswersAmount(), testingProcess.getQuestions().size(),
-				testingProcess.getMarkPercent(), testingProcess.getMarkOneToFive(),
-				testingProcess.getMarkText(), testingProcess.getMarkLetter());
-
-		dialog.setMarkColor(testingProcess.getMarkColor());
-
-		ResultingController resultingController = new ResultingController(dialog);
-		resultingController.setTestingProcess(testingProcess);
+		DialogBuilder.showResultingDialog(testingProcess);
 	}
 
 	@Override
@@ -93,12 +83,6 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 		if (e.getKeyCode() == KeyEvent.VK_LEFT)
 			dialog.getBtnPrevious().doClick();
 
-	}
-
-
-	private void doPauseAction() {
-		setUserChoise();
-		dialog.hideInterface(!dialog.isPaused());
 	}
 
 	private void doNumAction(int num) {
