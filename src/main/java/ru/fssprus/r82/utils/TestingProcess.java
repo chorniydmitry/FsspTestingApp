@@ -35,10 +35,15 @@ public class TestingProcess {
 	
 	private int curQuestionIndex;
 	private List<Specification> specs;
+	// cписок вопросов теста
 	private List<Question> questions;
+	// верные индексы ответов на вопросы(переделать в Map)
 	private List<Integer> correctAnswers;
+	// выбраные пользователем индексы ответов на вопросы(переделать в Map)
 	private List<Integer> choises;
+	// список с результатами ответа на вопрос верно\не верно по индексу
 	private List<Boolean> correctUserAnswersList;
+	// список всех ответов и индексы их вопросов
 	private Map<Integer, List<Answer>> answersMap;
 	private int correctAnswersAmount;
 
@@ -62,7 +67,7 @@ public class TestingProcess {
 	}
 
 	private void initLists() {
-		correctAnswers = new ArrayList<Integer>(questions.size());
+		correctAnswers = new ArrayList<Integer>();
 		choises = new ArrayList<Integer>(Collections.nCopies(questions.size(), AppConstants.NO_INDEX_SELECTED));
 		correctUserAnswersList = new ArrayList<Boolean>(Collections.nCopies(questions.size(), false));
 		answersMap = new HashMap<Integer, List<Answer>>();
@@ -144,22 +149,39 @@ public class TestingProcess {
 	}
 
 	public String showWrongs() {
+		System.out.println("---------------------------------");
+		System.out.println("Вопросов: " + questions.size());
+		System.out.println("Верных ответов: " + correctAnswers.size());
+		System.out.println("Выбрано ответов " + choises.size());
+		System.out.println("Правильных или нет ответов " + correctUserAnswersList.size());
+		System.out.println("МАР Индекс + Ответ " + answersMap.size());
+
+		
 		countCorrectAnswers();
 		int i = 0;
 		String returnValue = WRONGS_HTML_OPEN_TAG_AND_STYLE + WRONGS_HTML_ANS_LIST_BOLD_TEXT + HTML_BR + HTML_BR;
+		
+		int a = answersMap.get(i).size();
+		Integer b = correctAnswers.size();
+		
+		
+		System.out.println(a +" : "+ b);
+
 		for (Boolean ans : correctUserAnswersList) {
 			if (!ans) {
 				String question = WRONGS_HTML_QUESTION_BOLD_TEXT + questions.get(i).getTitle() + HTML_BR + HTML_BR;
 				String answerChosen;
 				String answerCorrect;
 				String delimeter = DELIMETER_DASHES_TEXT + HTML_BR;
-
-				if (choises.get(i) != -1)
+				
+				if (choises.get(i) != AppConstants.NO_INDEX_SELECTED)
 					answerChosen = WRONGS_HTML_ANSWER_CHOSEN_BOLD_TEXT  + answersMap.get(i).get(choises.get(i)).getTitle()
 							+ HTML_BR;
 				else
 					answerChosen = WRONGS_HTML_NOTHING_SELECTED_TEXT + HTML_BR;
+				
 
+				
 				answerCorrect = WRONGS_HTML_CORRECT_ANSWER_BOLD_TEXT + answersMap.get(i).get(correctAnswers.get(i)).getTitle()
 						+ HTML_BR;
 
@@ -181,6 +203,7 @@ public class TestingProcess {
 					correctAnswers.add(j);
 				}
 			}
+			System.out.println("****** " + correctAnswers + "<----("+correctAnswers.size()+")");
 			setAnswersForQuestion(i, ansList);
 		}
 		

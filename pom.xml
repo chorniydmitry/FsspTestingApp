@@ -59,6 +59,7 @@
 					<include>statistics.png</include>
 					<include>quizz.png</include>
 					<include>wronganswers.png</include>
+					<include>exit.png</include>
 				</includes>
 			</resource>
 		</resources>

@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 
 import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
+import ru.fssprus.r82.swing.ulils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
 public class NewTestDialog extends DialogWithPassword {
@@ -50,8 +51,8 @@ public class NewTestDialog extends DialogWithPassword {
 	private ArrayList<JRadioButton> rbLevels = new ArrayList<JRadioButton>();
 	private ButtonGroup bgLevels = new ButtonGroup();
 	
-	private JButton btnBegin = new JButton(BTN_BEGIN_CAPTION);
-	private JButton btnCancel = new JButton(BTN_CANCEL_CAPTION);
+	private JButton btnBegin = new JGreenButton(BTN_BEGIN_CAPTION);
+	private JButton btnCancel = new JGreenButton(BTN_CANCEL_CAPTION);
 	
 	public NewTestDialog(int width, int height) {
 		super(width, height);

@@ -8,11 +8,13 @@ import javax.swing.DropMode;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import ru.fssprus.r82.utils.AppConstants;
+
 public class CommonTable extends JTable {
 	private static final long serialVersionUID = 1281533315206385819L;
 	private CommonTableModel tabModel;
 	
-	private int lastSelectedIndex = -1;
+	private int lastSelectedIndex = AppConstants.NO_INDEX_SELECTED;
 	
 	public CommonTable(int[] widths, String[] names) {
 		initTableModel(names);
@@ -38,7 +40,7 @@ public class CommonTable extends JTable {
 	}
 	
 	public void unselectAll() {
-		setLastSelectedIndex(-1);
+		setLastSelectedIndex(AppConstants.NO_INDEX_SELECTED);
 	}
 	
 	public void scrollTableDown() {

@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JRadioButton;
+import javax.swing.JCheckBox;
 
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Specification;
@@ -75,10 +75,10 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 	public void keyReleased(KeyEvent e) {
 		if (Utils.isNumeric(String.valueOf(e.getKeyChar()))) {
 			int num = Integer.parseInt(String.valueOf(e.getKeyChar()));
-			if (num <= dialog.getRbAnswers().size())
+			if (num <= dialog.getCbAnswers().size())
 				doNumAction(num);
 		}
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_ENTER)
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
 			dialog.getBtnNext().doClick();
 		if (e.getKeyCode() == KeyEvent.VK_LEFT)
 			dialog.getBtnPrevious().doClick();
@@ -86,7 +86,7 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 	}
 
 	private void doNumAction(int num) {
-		dialog.getRbAnswers().get(num - 1).setSelected(true);
+		dialog.getCbAnswers().get(num - 1).setSelected(true);
 	}
 
 	private void doNextAction() {
@@ -185,6 +185,7 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 
 	private void setUserChoise() {
 		int userSelectedIndex = getSelectedIndex();
+		System.out.println(userSelectedIndex);
 		testingProcess.setChoise(userSelectedIndex);
 	}
 
@@ -207,30 +208,39 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 		List<Answer> answers = testingProcess.getAnswersMap().get(index);
 		for (int i = 0; i < answers.size(); i++) {
 			int width = dialog.getWidth() - ANSWERS_OFFSET;
-			dialog.getRbAnswers().get(i)
+			dialog.getCbAnswers().get(i)
 					.setText("<html><p style=\"width:" + width + "px\">" + answers.get(i).getTitle() + "</p></html>");
 		}
 		for (int i = answers.size(); i < AppConstants.MAX_ANSWERS_AMOUNT; i++)
-			dialog.getRbAnswers().get(i).setVisible(false);
+			dialog.getCbAnswers().get(i).setVisible(false);
 	}
 
 	private void showSelectedRb(int index) {
 		int selected = testingProcess.getChoises().get(index);
 		if (selected != AppConstants.NO_INDEX_SELECTED)
-			dialog.getRbAnswers().get(selected).setSelected(true);
+			dialog.getCbAnswers().get(selected).setSelected(true);
+	}
+	
+	
+	private void unselectAllCheckBoxes() {
+		for(JCheckBox cb: dialog.getCbAnswers())
+			cb.setSelected(false);
+	
 	}
 
 	private void clearRb() {
-		dialog.getBgAnswers().clearSelection();
-		ArrayList<JRadioButton> rbAnswers = dialog.getRbAnswers();
-		for (JRadioButton jrb : rbAnswers) {
+		unselectAllCheckBoxes();
+		
+		ArrayList<JCheckBox> cbAnswers = dialog.getCbAnswers();
+		for (JCheckBox jrb : cbAnswers) {
 			jrb.setText("");
 			jrb.setVisible(true);
 		}
 	}
-
+	
+	//TODO to list
 	private int getSelectedIndex() {
-		ArrayList<JRadioButton> rbs = dialog.getRbAnswers();
+		ArrayList<JCheckBox> rbs = dialog.getCbAnswers();
 		for (int i = 0; i < rbs.size(); i++) {
 			if (rbs.get(i).isSelected())
 				return i;

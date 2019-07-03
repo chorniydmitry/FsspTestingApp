@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import ru.fssprus.r82.swing.dialogs.CommonDialog;
+import ru.fssprus.r82.swing.ulils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
 public class WrongAnswersDialog extends CommonDialog {
@@ -23,7 +24,7 @@ public class WrongAnswersDialog extends CommonDialog {
 	
 	private JEditorPane taWrongs = new JEditorPane();
 	private JLabel lblTimeLeftSec = new JLabel();
-	private JButton btnClose = new JButton(BTN_CLOSE_CAPTION);
+	private JButton btnClose = new JGreenButton(BTN_CLOSE_CAPTION);
 	
 	public WrongAnswersDialog(int width, int height) {
 		super(width, height);
@@ -43,7 +44,8 @@ public class WrongAnswersDialog extends CommonDialog {
 	            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scroller.setPreferredSize(new Dimension(
 				this.getWidth(), 
-				this.getHeight() - AppConstants.WADIALOG_TAWRONGS_HEIGHT_PADDING));
+				this.getHeight() - AppConstants.WADIALOG_TAWRONGS_HEIGHT_PADDING
+				- AppConstants.TOP_PANEL_HEIGHT));
 		
 		addComponents(scroller);
 		

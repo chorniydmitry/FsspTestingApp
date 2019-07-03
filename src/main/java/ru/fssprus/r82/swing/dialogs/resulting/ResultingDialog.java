@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import ru.fssprus.r82.swing.dialogs.CommonDialog;
+import ru.fssprus.r82.swing.ulils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
 public class ResultingDialog extends CommonDialog {
@@ -35,8 +36,8 @@ public class ResultingDialog extends CommonDialog {
 	private JLabel lblMarkLetter = new JLabel();
 	private JLabel lblCorrectAnswers = new JLabel();
 
-	private JButton btnShowWrongs = new JButton(BTN_SHOW_ERRORS_CAPTION);
-	private JButton btnClose = new JButton(BTN_CLOSE_CAPTION);
+	private JButton btnShowWrongs = new JGreenButton(BTN_SHOW_ERRORS_CAPTION);
+	private JButton btnClose = new JGreenButton(BTN_CLOSE_CAPTION);
 
 	private Color markColor = Color.BLACK;
 

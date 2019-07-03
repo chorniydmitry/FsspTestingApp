@@ -9,23 +9,24 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
+import ru.fssprus.r82.swing.ulils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
 public class AdminDialog extends DialogWithPassword {
 	private static final long serialVersionUID = -2557630253920656451L;
 	private static final String SECTION = AppConstants.ADMIN_DIALOG;
 	private static final String TITLE = AppConstants.ADMIN_TEXT;
-	private static final String ICON = AppConstants.ADMIN_DIALOG_ICON;
+	private static final String ICON = AppConstants.ADMIN_ICON;
 	
 	private static final String BTN_PASSWORDS_CAPTION = "Установка паролей";
 	private static final String BTN_QEDIT_CAPTION = "Редактор вопросов";
 	private static final String BTN_QLOAD_CAPTION = "Выгрузка наборов вопросов";
 	private static final String BTN_SETTINGS_CAPTION = "Конфигурация";
 	
-	private JButton btnSettings = new JButton(BTN_SETTINGS_CAPTION);
-	private JButton btnQuestionLoad = new JButton(BTN_QLOAD_CAPTION);
-	private JButton btnQuestionEdit = new JButton(BTN_QEDIT_CAPTION);
-	private JButton btnPasswords = new JButton(BTN_PASSWORDS_CAPTION);
+	private JButton btnSettings = new JGreenButton(BTN_SETTINGS_CAPTION);
+	private JButton btnQuestionLoad = new JGreenButton(BTN_QLOAD_CAPTION);
+	private JButton btnQuestionEdit = new JGreenButton(BTN_QEDIT_CAPTION);
+	private JButton btnPasswords = new JGreenButton(BTN_PASSWORDS_CAPTION);
 	
 	public AdminDialog(int width, int height) {
 		super(width, height);

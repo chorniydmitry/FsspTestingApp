@@ -9,11 +9,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-public class TablePanel extends JPanel{
+import ru.fssprus.r82.swing.ulils.JGreenButton;
+
+public class TablePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
-	private static final String BTN_ADD_CAPTION = "+";
-	private static final String BTN_REMOVE_CAPTION = "-";
+	private static final String BTN_ADD_CAPTION = "Добавить";
+	private static final String BTN_REMOVE_CAPTION = "Удалить";
 	private static final String BTN_NEXT_CAPTION = ">";
 	private static final String BTN_PREVIOUS_CAPTION = "<";
 	private static final String LBL_PAGE_CAPTION = "Страница: ";
@@ -53,18 +55,18 @@ public class TablePanel extends JPanel{
 	}
 	
 	private void initComponents() {
-		btnAdd = new JButton(BTN_ADD_CAPTION);
-		btnDelete = new JButton(BTN_REMOVE_CAPTION);
+		btnAdd = new JGreenButton(BTN_ADD_CAPTION);
+		btnDelete = new JGreenButton(BTN_REMOVE_CAPTION);
 		pnlTop = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
 		scrollPane = new JScrollPane(commonTable);
 		
-		btnNext = new JButton(BTN_NEXT_CAPTION);
+		btnNext = new JGreenButton(BTN_NEXT_CAPTION);
 		lblPage = new JLabel(LBL_PAGE_CAPTION);
 		tfPage = new JTextField(TF_PAGE_LENGTH);
 		tfPage.setText(TF_PAGE_DEF_TEXT);
 		lblPagesTotal = new JLabel(LBL_PAGES_TOTAL_DEF_TEXT);
-		btnPrevious = new JButton(BTN_PREVIOUS_CAPTION);
+		btnPrevious = new JGreenButton(BTN_PREVIOUS_CAPTION);
 		pnlBottom = new JPanel();
 			
 	}

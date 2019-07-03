@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 
 import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
+import ru.fssprus.r82.swing.ulils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.ApplicationConfiguration;
 
@@ -22,7 +23,7 @@ public class ConfigDialog extends DialogWithPassword {
 	private static final long serialVersionUID = -3585887095900374897L;
 	private static final String SECTION = AppConstants.CONFIG_DIALOG;
 	private static final String TITLE = AppConstants.CONFIG_TEXT;
-	private static final String ICON = AppConstants.CONFIG_DIALOG_ICON;
+	private static final String ICON = AppConstants.CONFIG_ICON;
 	
 	private static final String BTN_SAVE_CAPTION = "Cохранить изменения";
 	
@@ -70,7 +71,7 @@ public class ConfigDialog extends DialogWithPassword {
 	private JTextField tfReserveCommons = new JTextField();
 	private JTextField tfReserveTime = new JTextField();
 	
-	private JButton btnSave = new JButton(BTN_SAVE_CAPTION);
+	private JButton btnSave = new JGreenButton(BTN_SAVE_CAPTION);
 	
 	private List<JTextField> tfsList = new ArrayList<JTextField>();
 	

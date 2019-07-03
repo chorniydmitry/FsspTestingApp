@@ -24,6 +24,7 @@ public abstract class CommonDialog extends JDialog {
 		
 		add(pnlTop, BorderLayout.NORTH);
 		add(pnlContent, BorderLayout.CENTER);
+		
 	}
 	
 	private void initTopPanel() {

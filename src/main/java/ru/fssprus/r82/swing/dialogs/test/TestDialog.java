@@ -4,20 +4,23 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 
 import ru.fssprus.r82.swing.dialogs.CommonDialog;
+import ru.fssprus.r82.swing.ulils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.Utils;
 
@@ -43,12 +46,11 @@ public class TestDialog extends CommonDialog {
 
 	private JLabel lblQuestionInfo = new JLabel();
 	private JTextArea taQuestionText = new JTextArea();
-	private ArrayList<JRadioButton> rbAnswers = new ArrayList<JRadioButton>(AMT_RAD_BUTTONS);
-	private ButtonGroup bgAnswers = new ButtonGroup();
+	private ArrayList<JCheckBox> cbAnswers = new ArrayList<JCheckBox>(AMT_RAD_BUTTONS);
 
 	private JPanel pnlDown = new JPanel();
-	private JButton btnNext = new JButton(BTN_NEXT_CAPTION);
-	private JButton btnPrevious = new JButton(BTN_PREVIOUS_CAPTION);
+	private JButton btnNext = new JGreenButton(BTN_NEXT_CAPTION);
+	private JButton btnPrevious = new JGreenButton(BTN_PREVIOUS_CAPTION);
 	private JLabel lblTimeLeftSec = new JLabel();
 
 	private boolean isPaused = false;
@@ -56,7 +58,6 @@ public class TestDialog extends CommonDialog {
 	public TestDialog(int width, int height) {
 		super(width, height);
 	}
-	
 
 	@Override
 	public void layoutPanelTop() {
@@ -74,21 +75,20 @@ public class TestDialog extends CommonDialog {
 
 	@Override
 	protected void layoutDialog() {
-		layoutPanelQuizzControll();
-		layoutPanelDown();
-
 		setFonts();
+
+		layoutPanelQuizzControll();
 		layoutPanelQuestAndAnswers();
-		setLayout(new BorderLayout());
+		layoutPanelDown();
 
 		addComponents();
 
 		setVisible(true);
-
 	}
 
 	private void addComponents() {
 		JPanel contentPanel = getContentPanel();
+
 		contentPanel.add(pnlQuizzControll, BorderLayout.NORTH);
 
 		contentPanel.add(pnlQuestAndAnswers, BorderLayout.CENTER);
@@ -100,7 +100,7 @@ public class TestDialog extends CommonDialog {
 	protected String getSection() {
 		return SECTION;
 	}
-	
+
 	@Override
 	protected String getTitleText() {
 		return TITLE;
@@ -118,46 +118,6 @@ public class TestDialog extends CommonDialog {
 		pnlDown.add(btnNext);
 	}
 
-	private void initPanelAnswers() {
-		pnlAnswers.setAlignmentX(JComponent.LEFT_ALIGNMENT);
-		
-		pnlAnswers.setPreferredSize(new Dimension(
-				this.getWidth(), 
-				Utils.countTestDialogPnlAnswersHeight(this.getHeight())));
-		
-		pnlAnswers.setLayout(new BoxLayout(pnlAnswers, BoxLayout.Y_AXIS));
-
-		for (int i = 0; i < AMT_RAD_BUTTONS; i++) {
-			pnlAnswers.add(rbAnswers.get(i));
-			pnlAnswers.add(Box.createRigidArea(new Dimension(AppConstants.TESTDIALOG_PNL_ANSWERS_RIGID_AREA_WIDTH,
-					AppConstants.TESTDIALOG_PNL_ANSWERS_RIGID_AREA_HEIGHT)));
-		}
-	}
-	
-	private void initTaQuestionText() {
-		taQuestionText.setEnabled(false);
-		taQuestionText.setWrapStyleWord(true);
-		taQuestionText.setLineWrap(true);
-		taQuestionText.setDisabledTextColor(Color.BLACK);
-		
-		taQuestionText.setPreferredSize(new Dimension(
-				this.getWidth(), 
-				Utils.countTestDialogTaQuestionHeight(this.getHeight())));
-		
-		taQuestionText.setBackground(pnlQuestAndAnswers.getBackground());
-		
-		taQuestionText.setAlignmentX(JComponent.LEFT_ALIGNMENT);
-		
-	}
-	
-	private void initLblQuestionInfo() {
-		lblQuestionInfo.setPreferredSize(new Dimension(
-				this.getWidth(), 
-				AppConstants.TESTDIALOG_LBL_QUESTION_INFO_HEIGHT));
-		
-		lblQuestionInfo.setAlignmentX(JComponent.LEFT_ALIGNMENT);
-	}
-
 	private void layoutPanelQuestAndAnswers() {
 		initTaQuestionText();
 		initPanelAnswers();
@@ -165,31 +125,53 @@ public class TestDialog extends CommonDialog {
 
 		pnlQuestAndAnswers.setLayout(new BoxLayout(pnlQuestAndAnswers, BoxLayout.Y_AXIS));
 
-		pnlQuestAndAnswers.add(Box.createRigidArea(new Dimension(
-				AppConstants.TESTDIALOG_PNLQNA_RIGID_AREA_WIDTH, 
+		pnlQuestAndAnswers.add(Box.createRigidArea(new Dimension(AppConstants.TESTDIALOG_PNLQNA_RIGID_AREA_WIDTH,
 				AppConstants.TESTDIALOG_PNLQNA_RIGID_AREA_HEIGHT)));
 
-		
 		pnlQuestAndAnswers.add(lblQuestionInfo);
-		
+
 		pnlQuestAndAnswers.add(taQuestionText);
-		
+
 		pnlQuestAndAnswers.add(pnlAnswers);
 	}
 
-	public void hideInterface(boolean hide) {
-		if (hide) {
-			setPaused(hide);
-			taQuestionText.setBackground(Color.BLACK);
-			pnlAnswers.setBackground(Color.BLACK);
-			rbAnswers.forEach((n) -> n.setBackground(Color.BLACK));
-		} else {
-			setPaused(hide);
-			taQuestionText.setBackground(pnlQuestAndAnswers.getBackground());
-			pnlAnswers.setBackground(pnlQuestAndAnswers.getBackground());
-			rbAnswers.forEach((n) -> n.setBackground(pnlQuestAndAnswers.getBackground()));
+	private void initTaQuestionText() {
+		taQuestionText.setEnabled(false);
+		taQuestionText.setWrapStyleWord(true);
+		taQuestionText.setLineWrap(true);
+		taQuestionText.setDisabledTextColor(Color.BLACK);
+
+		taQuestionText.setPreferredSize(
+				new Dimension(this.getWidth(), Utils.countTestDialogTaQuestionHeight(this.getHeight())));
+
+		taQuestionText.setBackground(pnlQuestAndAnswers.getBackground());
+
+		taQuestionText.setAlignmentX(JComponent.LEFT_ALIGNMENT);
+
+	}
+
+	private void initPanelAnswers() {
+		pnlAnswers.setBackground(Color.YELLOW);
+
+		pnlAnswers.setAlignmentX(JComponent.LEFT_ALIGNMENT);
+
+		pnlAnswers.setPreferredSize(
+				new Dimension(this.getWidth(), Utils.countTestDialogPnlAnswersHeight(this.getHeight())));
+
+		pnlAnswers.setLayout(new GridBagLayout());
+
+		for (int i = 0; i < AMT_RAD_BUTTONS; i++) {
+			pnlAnswers.add(cbAnswers.get(i), new GridBagConstraints(0, i, GridBagConstraints.REMAINDER, 1, 0, 0,
+					GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 10, 10, 0), 0, 0));
 		}
-		revalidate();
+	}
+
+	private void initLblQuestionInfo() {
+
+		lblQuestionInfo
+				.setPreferredSize(new Dimension(this.getWidth(), AppConstants.TESTDIALOG_LBL_QUESTION_INFO_HEIGHT));
+
+		lblQuestionInfo.setAlignmentX(JComponent.LEFT_ALIGNMENT);
 	}
 
 	private void setFonts() {
@@ -200,17 +182,16 @@ public class TestDialog extends CommonDialog {
 		lblQuestionInfo.setFont(fontHeader);
 		taQuestionText.setFont(fontQuestion);
 		for (int i = 0; i < AMT_RAD_BUTTONS; i++) {
-			rbAnswers.get(i).setFont(fontItems);
-			rbAnswers.get(i).setForeground(Color.BLACK);
+			cbAnswers.get(i).setFont(fontItems);
+			cbAnswers.get(i).setForeground(Color.BLACK);
 		}
 
 	}
 
 	private void fillBgAnswers() {
 		for (int i = 0; i < AMT_RAD_BUTTONS; i++) {
-			JRadioButton jrb = new JRadioButton();
-			rbAnswers.add(jrb);
-			bgAnswers.add(jrb);
+			JCheckBox jrb = new JCheckBox();
+			cbAnswers.add(jrb);
 		}
 	}
 
@@ -230,20 +211,12 @@ public class TestDialog extends CommonDialog {
 		this.taQuestionText = taQuestionText;
 	}
 
-	public ArrayList<JRadioButton> getRbAnswers() {
-		return rbAnswers;
+	public ArrayList<JCheckBox> getCbAnswers() {
+		return cbAnswers;
 	}
 
-	public void setRbAnswers(ArrayList<JRadioButton> rbAnswers) {
-		this.rbAnswers = rbAnswers;
-	}
-
-	public ButtonGroup getBgAnswers() {
-		return bgAnswers;
-	}
-
-	public void setBgAnswers(ButtonGroup bgAnswers) {
-		this.bgAnswers = bgAnswers;
+	public void setRbAnswers(ArrayList<JCheckBox> cbAnswers) {
+		this.cbAnswers = cbAnswers;
 	}
 
 	public JButton getBtnNext() {

@@ -1,12 +1,12 @@
 package ru.fssprus.r82.swing.dialogs.questionList;
 
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -24,6 +24,7 @@ import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
 import ru.fssprus.r82.swing.table.CommonTable;
 import ru.fssprus.r82.swing.table.CommonTableModel;
 import ru.fssprus.r82.swing.table.TablePanel;
+import ru.fssprus.r82.swing.ulils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
 public class QuestionListDialog extends DialogWithPassword {
@@ -45,7 +46,6 @@ public class QuestionListDialog extends DialogWithPassword {
 	public static final String BTN_SAVE_CAPTION_RU = "Сохранить";
 	public static final String BTN_EDIT_CAPTION_RU = "Редактировать";
 
-	private JPanel pnlBottom = new JPanel();
 	private JPanel pnlFilter = new JPanel();
 
 	private JLabel lblId = new JLabel(LBL_ID_CAPTION_RU);
@@ -58,21 +58,21 @@ public class QuestionListDialog extends DialogWithPassword {
 	private JTextField tfSpecs = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
 	private JTextField tfLevels = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
 	
-	private JButton btnFilter = new JButton(BTN_FILTER_CAPTION_RU);
-	private JButton btnClearFilters = new JButton(BTN_RESET_CAPTION_RU);
+	private JGreenButton btnFilter = new JGreenButton(BTN_FILTER_CAPTION_RU);
+	private JGreenButton btnClearFilters = new JGreenButton(BTN_RESET_CAPTION_RU);
 
 	private JPanel pnlQuestionEdit = new JPanel();
 	private JTextArea taQuestion = new JTextArea();
 
-	private ArrayList<JTextField> tfAnsList = new ArrayList<JTextField>();
-	private ArrayList<JLabel> lblAnsList = new ArrayList<JLabel>();
-	private ArrayList<JCheckBox> cbAnsList = new ArrayList<JCheckBox>();
+	private ArrayList<JTextField> tfAnsList = new ArrayList<>();
+	private ArrayList<JLabel> lblAnsList = new ArrayList<>();
+	private ArrayList<JCheckBox> cbAnsList = new ArrayList<>();
 
-	private ArrayList<JCheckBox> cbLevelsList = new ArrayList<JCheckBox>();
+	private ArrayList<JCheckBox> cbLevelsList = new ArrayList<>();
 
-	private JButton btnDiscardQuestionEditChanges = new JButton(BTN_DISCARD_Q_EDIT_CAPTION_RU);
-	private JButton btnSaveQuestion = new JButton(BTN_SAVE_CAPTION_RU);
-	private JButton btnEditQuestion = new JButton(BTN_EDIT_CAPTION_RU);
+	private JButton btnDiscardQuestionEditChanges = new JGreenButton(BTN_DISCARD_Q_EDIT_CAPTION_RU);
+	private JButton btnSaveQuestion = new JGreenButton(BTN_SAVE_CAPTION_RU);
+	private JButton btnEditQuestion = new JGreenButton(BTN_EDIT_CAPTION_RU);
 
 	private JLabel lblSpecName = new JLabel(LBL_SPECIFICATION_CAPTION_RU);
 	private AutocompleteJComboBox accbSpecNames = new AutocompleteJComboBox(null);
@@ -99,13 +99,12 @@ public class QuestionListDialog extends DialogWithPassword {
 	@Override
 	protected void layoutDialog() {
 		JPanel contentPanel = getContentPanel();
-		contentPanel.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		
-		contentPanel.add(pnlFilter);
-		contentPanel.add(tablePanel);
+		contentPanel.setLayout(new BorderLayout());
 		
-		contentPanel.add(pnlBottom);
-		contentPanel.add(pnlQuestionEdit);
+		contentPanel.add(pnlFilter, BorderLayout.NORTH);
+		contentPanel.add(tablePanel, BorderLayout.CENTER);
+		contentPanel.add(pnlQuestionEdit, BorderLayout.SOUTH);
 		
 		layoutPanelFilter();
 		
@@ -258,7 +257,7 @@ public class QuestionListDialog extends DialogWithPassword {
 		return btnFilter;
 	}
 
-	public void setBtnFilter(JButton btnFilter) {
+	public void setBtnFilter(JGreenButton btnFilter) {
 		this.btnFilter = btnFilter;
 	}
 
@@ -354,7 +353,7 @@ public class QuestionListDialog extends DialogWithPassword {
 		return btnClearFilters;
 	}
 
-	public void setBtnClearFilters(JButton btnClearFilters) {
+	public void setBtnClearFilters(JGreenButton btnClearFilters) {
 		this.btnClearFilters = btnClearFilters;
 	}
 

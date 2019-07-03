@@ -42,6 +42,10 @@ public class MessageBox extends JOptionPane {
 			+ "проверьте файл application.configurationь и приведите его к корректному формату или "
 			+ "загрузите стандартный файл application.configuration с настройками\"по-умолчанию\" "
 			+ "в корневую папку приложения, заменив существующий";
+	
+	private static final String ERROR_WRONG_QUESTION = "Не правильный вопрос для ответа!";
+	
+	private static final String ERROR_WRONG_ANSWERS_SELECTED = "Выбраны не правильные ответы или ответы, не принадлежащие этому вопросу!";
 
 	public static void showReadyDialog(Component component) {
 		MessageBox.showMessageDialog(component, READY, null, JOptionPane.INFORMATION_MESSAGE);
@@ -117,5 +121,17 @@ public class MessageBox extends JOptionPane {
 	public static void showAppConfigFileNotFoundOrCorrupted(Component component) {
 		MessageBox.showMessageDialog(component, ERROR_APPCONFIG_FILE_PROBLEMS, null, JOptionPane.ERROR_MESSAGE);
 
+	}
+
+	public static void showWrongQuestionToAnswerErrorMessage(Component component) {
+		MessageBox.showMessageDialog(component, ERROR_WRONG_QUESTION, null, JOptionPane.ERROR_MESSAGE);
+		
+		
+	}
+
+	public static void showWrongAnswerListForQuestionErrorMessage(Component component) {
+		MessageBox.showMessageDialog(component, ERROR_WRONG_ANSWERS_SELECTED, null, JOptionPane.ERROR_MESSAGE);
+		
+		
 	}
 }

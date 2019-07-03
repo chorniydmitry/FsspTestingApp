@@ -1,12 +1,15 @@
 package ru.fssprus.r82.swing.main.mainFrame;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;
+import ru.fssprus.r82.swing.ulils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
 public class MainFrame extends JFrame {
@@ -17,16 +20,20 @@ public class MainFrame extends JFrame {
 	private static final String BTN_STATISTICS_CAPTION = "Статистика";
 	private static final String BTN_EXIT_CAPTION = "Выход";
 
-	private JButton btnTest = new JButton(BTN_TESTING_CAPTION);
-	private JButton btnAdmin = new JButton(BTN_ADMIN_CAPTION);
-	private JButton btnStatistics = new JButton(BTN_STATISTICS_CAPTION);
-	private JButton btnExit = new JButton(BTN_EXIT_CAPTION);
+	private JButton btnTest = new JGreenButton(BTN_TESTING_CAPTION);
+	private JButton btnAdmin = new JGreenButton(BTN_ADMIN_CAPTION);
+	private JButton btnStatistics = new JGreenButton(BTN_STATISTICS_CAPTION);
+	private JButton btnExit = new JGreenButton(BTN_EXIT_CAPTION);
 
 	private Dimension dimButtonSize = new Dimension(
 			AppConstants.MAINFRAME_BTN_WIDTHS,
 			AppConstants.MAINFRAME_BTN_HEIGHTS);
 
 	public MainFrame() {
+		btnTest.setIcon(new ImageIcon(getClass().getResource(AppConstants.TEST_ICON)));
+		btnStatistics.setIcon(new ImageIcon(getClass().getResource(AppConstants.STATISTICS_ICON)));
+		btnAdmin.setIcon(new ImageIcon(getClass().getResource(AppConstants.ADMIN_ICON)));
+		btnExit.setIcon(new ImageIcon(getClass().getResource(AppConstants.EXIT_ICON)));
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setUndecorated(true);
 

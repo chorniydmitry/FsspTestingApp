@@ -10,8 +10,8 @@ public class AppConstants {
 	public static final int SECTIONS_AMOUNT = 7;
 	
 	public static final String QUESTION_LOAD_ICON = "/questionload.png";
-	public static final String ADMIN_DIALOG_ICON = "/admin.png";
-	public static final String CONFIG_DIALOG_ICON = "/config.png";
+	public static final String ADMIN_ICON = "/admin.png";
+	public static final String CONFIG_ICON = "/config.png";
 	public static final String NEW_TEST_ICON = "/newtest.png";
 	public static final String MANAGE_PASSWORDS_ICON = "/password.png";
 	public static final String QUESTION_EDIT_ICON = "/questionedit.png";
@@ -19,6 +19,7 @@ public class AppConstants {
 	public static final String STATISTICS_ICON = "/statistics.png";
 	public static final String TEST_ICON = "/quizz.png";
 	public static final String WRONG_ANSWERS_ICON = "/wronganswers.png";
+	public static final String EXIT_ICON = "/exit.png";
 	
 	public static final String QUESTION_LOAD_DIALOG = "LoadingQuestionSetDialog";
 	public static final String ADMIN_DIALOG = "AdminDialog";
@@ -56,27 +57,27 @@ public class AppConstants {
 	public static final int DIALOG_CONFIG_HEIGHT = 600;
 	
 	public static final int DIALOG_LOADING_QUESTION_SET_WIDTH = 600;
-	public static final int DIALOG_LOADING_QUESTION_SET_HEIGHT = 200;
+	public static final int DIALOG_LOADING_QUESTION_SET_HEIGHT = 300;
 	
-	public static final int DIALOG_QUESTUIN_EDIT_WIDTH = 1024;
-	public static final int DIALOG_QUESTUIN_EDIT_HEIGHT = 768;
+	public static final int DIALOG_QUESTUIN_EDIT_WIDTH = 1000;
+	public static final int DIALOG_QUESTUIN_EDIT_HEIGHT = 700;
 	
 	public static final int DIALOG_MANAGE_PASSWORDS_WIDTH = 600;
-	public static final int DIALOG_MANAGE_PASSWORDS_HEIGHT = 300;
+	public static final int DIALOG_MANAGE_PASSWORDS_HEIGHT = 400;
 	
 	public static final int DIALOG_TEST_WIDTH = 1000;
-	public static final int DIALOG_TEST_HEIGHT = 800;
+	public static final int DIALOG_TEST_HEIGHT = 700;
 	
 	public static final int DIALOG_WRONG_ANSWERS_WIDTH = 800;
-	public static final int DIALOG_WRONG_ANSWERS_HEIGHT = 600;
+	public static final int DIALOG_WRONG_ANSWERS_HEIGHT = 700;
 	
 	public static final int DIALOG_NEW_TEST_WIDTH = 600;
 	public static final int DIALOG_NEW_TEST_HEIGHT = 300;
 	
 	public static final int DIALOG_ADMIN_WIDTH = 300;
-	public static final int DIALOG_ADMIN_HEIGHT = 200;
+	public static final int DIALOG_ADMIN_HEIGHT = 300;
 	
-	public static final int DIALOG_STATISTICS_WIDTH = 1024;
+	public static final int DIALOG_STATISTICS_WIDTH = 1000;
 	public static final int DIALOG_STATISTICS_HEIGHT = 600;
 
 	public static final int DIALOG_RESULTING_WIDTH = 400;
@@ -90,15 +91,15 @@ public class AppConstants {
 	public static final Font TOP_PANELS_TEXT_FONT = new Font("Courier New", Font.PLAIN, 20);
 	
 	// Размеры компонентов
-	public static final int MAINFRAME_BTN_WIDTHS = 200;
-	public static final int MAINFRAME_BTN_HEIGHTS = 50;
+	public static final int MAINFRAME_BTN_WIDTHS = 250;
+	public static final int MAINFRAME_BTN_HEIGHTS = 60;
 	
 	public static final int TESTDIALOG_PNL_ANSWERS_RIGID_AREA_WIDTH = 0;
 	public static final int TESTDIALOG_PNL_ANSWERS_RIGID_AREA_HEIGHT = 20;
-	public static final int TESTDIALOG_LBL_QUESTION_INFO_HEIGHT = 60;
+	public static final int TESTDIALOG_LBL_QUESTION_INFO_HEIGHT = 30;
 	public static final int TESTDIALOG_PNLQNA_RIGID_AREA_WIDTH = 50;
-	public static final int TESTDIALOG_PNLQNA_RIGID_AREA_HEIGHT = 50;
-	public static final int WADIALOG_TAWRONGS_HEIGHT_PADDING = 50;
+	public static final int TESTDIALOG_PNLQNA_RIGID_AREA_HEIGHT = 30;
+	public static final int WADIALOG_TAWRONGS_HEIGHT_PADDING = 100;
 	
 	public static final int TOP_PANEL_HEIGHT = 60;
 	
@@ -106,7 +107,7 @@ public class AppConstants {
 	// QuestionListDialog константы
 	public static final int QLDIALOG_TF_SIZE = 25;
 	
-	public static final int[] QLDIALOG_TABLE_COL_WIDTHS_ARR = {30, 550, 200, 200};
+	public static final int[] QLDIALOG_TABLE_COL_WIDTHS_ARR = {40, 550, 190, 190};
 	public static final String[] QLDIALOG_TABLE_COL_CAPTIONS_ARR = {"id","Формулировка", "Уровни", "Спецификация" };
 	
 	public static final String ACCP_SPEC_NAMES_PROTOTYPE_DISPLAY_VALUE = "XXXXXXXXXXXXXXXXXXXX";
@@ -129,7 +130,8 @@ public class AppConstants {
 	public static final int MIN_ANSWERS_AMOUNT = 2;
 	public static final int QUESTION_TEXT_MIN_LENGTH = 5;
 	public static final int MINIMUM_QUESTIONS_TO_INIT_TEST = 30;
-	public static final Color TABLE_SELECTION_COLOR = new Color(0x0000ff);
+	public static final Color TABLE_SELECTION_COLOR = new Color(0x03a06c);
+			//new Color(0x0000ff);
 	public static final Color FSSP_COLOR = new Color(0x03a06c);
 	public static final Color TOP_PANELS_TEXT_FONT_COLOR = new Color(0xffffff);
 	public static final int NO_ROW_SELECTED = -1;

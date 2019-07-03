@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import g.cope.swing.autocomplete.jcombobox.AutocompleteJComboBox;
@@ -16,6 +17,7 @@ import g.cope.swing.autocomplete.jcombobox.StringSearchable;
 import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.service.SpecificationService;
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
+import ru.fssprus.r82.swing.ulils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
 public class LoadingQuestionSetDialog extends DialogWithPassword {
@@ -32,18 +34,17 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 	
 	private JLabel lblMsg = new JLabel(AppConstants.DIALOG_LOADING_QUEST_SET_ABOUT_INFO);
 	
-	private JButton btnOpenTextFile = new JButton(BTN_OPEN_CAPTION);
+	private JButton btnOpenTextFile = new JGreenButton(BTN_OPEN_CAPTION);
 	private JTextField tfFilePath = new JTextField();
 	private JLabel lblSpecName = new JLabel(LBL_SPEC_NAME_CAPTION);
 	private AutocompleteJComboBox accbSpecName = new AutocompleteJComboBox(null);
 
 	private JLabel lblQuestLevel = new JLabel(LBL_QLEVEL_CAPTION);
-	private JComboBox<Object> cbQuestLevel = new JComboBox<Object>(QuestionLevel.values());
-	private JButton btnLoadQuestionsSet = new JButton(BTN_LOAD_CAPTION);
+	private JComboBox<Object> cbQuestLevel = new JComboBox<>(QuestionLevel.values());
+	private JButton btnLoadQuestionsSet = new JGreenButton(BTN_LOAD_CAPTION);
 
 	public LoadingQuestionSetDialog(int width, int height) {
 		super(width, height);
-		
 	}
 	
 	@Override
@@ -70,39 +71,40 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 	
 	@Override
 	protected void layoutDialog() {
+		JPanel contentPanel = getContentPanel();
 
-		setLayout(new GridBagLayout());
+		contentPanel.setLayout(new GridBagLayout());
 
 		// gridx, gridy, gridwidth, gridheight, weightx, weighty, anchor, fill,
 		// insets(top, left, botom, right), ipadx, ipady
 
 		// 1st row
-		add(lblMsg, new GridBagConstraints(0, 0, GridBagConstraints.REMAINDER, 1, 0, 0, GridBagConstraints.CENTER,
+		contentPanel.add(lblMsg, new GridBagConstraints(0, 0, GridBagConstraints.REMAINDER, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(15, 5, 15, 5), 0, 0));
 		
 		// 2nd row
-		add(btnOpenTextFile, new GridBagConstraints(0, 1, 1, 1, 0, 0, GridBagConstraints.NORTHWEST,
+		contentPanel.add(btnOpenTextFile, new GridBagConstraints(0, 1, 1, 1, 0, 0, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
 
-		add(tfFilePath, new GridBagConstraints(1, 1, 3, 1, 1, 1, GridBagConstraints.NORTHWEST,
+		contentPanel.add(tfFilePath, new GridBagConstraints(1, 1, 3, 1, 1, 1, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.HORIZONTAL, new Insets(10, 5, 5, 5), 0, 0));
 
 		// 3rd row
-		add(lblSpecName, new GridBagConstraints(0, 2, 2, 1, 1, 0, GridBagConstraints.NORTHWEST,
+		contentPanel.add(lblSpecName, new GridBagConstraints(0, 2, 2, 1, 1, 0, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.HORIZONTAL, new Insets(5, 5, 0, 5), 0, 0));
 
-		add(lblQuestLevel, new GridBagConstraints(2, 2, 2, 1, 1, 0, GridBagConstraints.NORTHWEST,
+		contentPanel.add(lblQuestLevel, new GridBagConstraints(2, 2, 2, 1, 1, 0, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.HORIZONTAL, new Insets(5, 5, 0, 5), 0, 0));
 
 		// 4th row
-		add(accbSpecName, new GridBagConstraints(0, 3, 2, 1, 1, 0, GridBagConstraints.NORTHWEST,
+		contentPanel.add(accbSpecName, new GridBagConstraints(0, 3, 2, 1, 1, 0, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.HORIZONTAL, new Insets(0, 5, 5, 5), 0, 0));
 
-		add(cbQuestLevel, new GridBagConstraints(2, 3, 2, 1, 1, 0, GridBagConstraints.NORTHWEST,
+		contentPanel.add(cbQuestLevel, new GridBagConstraints(2, 3, 2, 1, 1, 0, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.HORIZONTAL, new Insets(0, 5, 5, 5), 0, 0));
 
 		// 5th row
-		add(btnLoadQuestionsSet, new GridBagConstraints(0, 4, GridBagConstraints.REMAINDER, 1, 0, 0,
+		contentPanel.add(btnLoadQuestionsSet, new GridBagConstraints(0, 4, GridBagConstraints.REMAINDER, 1, 0, 0,
 				GridBagConstraints.NORTHWEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
 
 	}
