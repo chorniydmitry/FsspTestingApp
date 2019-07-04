@@ -83,8 +83,11 @@ public class AnswerDatabaseDao extends AbstractHibernateDao<Answer> implements A
 			criteriaQuery.select(root).where(builder.and(builder.equal(root.get("isCorrect"),  true), builder.equal(root.get("question"), question)));
 
 			Query<Answer> query = session.createQuery(criteriaQuery);
-			query.setFirstResult(startPos);
-			query.setMaxResults(endPos);
+			
+			if (!(endPos == -1 || startPos == -1)) {
+				query.setFirstResult(startPos);
+				query.setMaxResults(endPos);
+			}
 
 			answerList = query.getResultList();
 			

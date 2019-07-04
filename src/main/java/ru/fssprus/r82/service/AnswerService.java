@@ -28,6 +28,10 @@ public class AnswerService{
 		return answerDao.getCorrectByQuestion(startPos, endPos, question);
 	}
 	
+	public List<Answer> getCorrectByQuestion(Question question) {
+		return answerDao.getCorrectByQuestion(-1, -1, question);
+	}
+	
 	public List<Answer> getCorrectByQuestionSet(int startPos, int endPos, Set<Question> questions) {
 		return answerDao.getCorrectByQuestionSet(startPos, endPos, questions);
 	}

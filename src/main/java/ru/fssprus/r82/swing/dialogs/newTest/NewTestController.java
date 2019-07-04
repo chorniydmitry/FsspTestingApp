@@ -81,6 +81,7 @@ public class NewTestController extends CommonController<NewTestDialog> {
 		return selectedSpec;
 	}
 
+	//TODO: Перенести проверку количества в TestingProcessBuilder
 	private Specification getCommonSpec(int selectedLevel) {
 		SpecificationService specService = new SpecificationService();
 		QuestionService questionService = new QuestionService();
