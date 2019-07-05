@@ -11,7 +11,7 @@ import ru.fssprus.r82.swing.table.UpdatableController;
 import ru.fssprus.r82.swing.ulils.MessageBox;
 import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.MarkCounter;
-import ru.fssprus.r82.utils.TimeConverter;
+import ru.fssprus.r82.utils.TimeUtils;
 
 public class StatisticsController extends CommonController<StatisticsDialog> implements UpdatableController {
 	private static final int ENTRIES_FOR_PAGE = AppConstants.TABLE_ROWS_LIMIT;
@@ -50,7 +50,7 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 
 			int testSecs = test.getTestingTime();
 
-			String testTime = String.valueOf(TimeConverter.stringTimes(testSecs));
+			String testTime = String.valueOf(TimeUtils.stringTimes(testSecs));
 
 			String corrects = String.valueOf(test.getCorrectAnswers());
 			String percent = String.valueOf(test.getScore());

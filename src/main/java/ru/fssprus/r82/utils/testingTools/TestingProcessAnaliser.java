@@ -27,7 +27,7 @@ public class TestingProcessAnaliser {
 	private void initVariables() {
 		userAnswers = testingProcess.getQuestionsAndAnswersGiven();
 		correctAmount = 0;
-		questionAmount = testingProcess.getQuestionsToAskList().size();
+		questionAmount = testingProcess.getQuestionsAndAnswersGiven().keySet().size();
 	}
 	
 	public void analize() {

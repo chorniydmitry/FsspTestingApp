@@ -61,8 +61,10 @@ public class TestProcessBuilder {
 		int specQuestsAmount = Utils.countSpecQuestsAmount(amountOfQuestions, commonQuestsAmount);
 
 		List<Integer> amountQuestionsForSpecs = new ArrayList<Integer>();
+		
 		amountQuestionsForSpecs.add(specQuestsAmount);
 		amountQuestionsForSpecs.add(commonQuestsAmount);
+		
 		return amountQuestionsForSpecs;
 	}
 
@@ -87,6 +89,8 @@ public class TestProcessBuilder {
 			randomIndexesSet.forEach((n) -> questions.add(allQuestionsList.get(n)));
 
 			Collections.shuffle(questions);
+			
+			
 		}
 	}
 
@@ -94,7 +98,7 @@ public class TestProcessBuilder {
 		countAmountsOfQuestionsForSpecifications();
 		loadQuestions();
 
-		return new TestingProcessObjective(user, questions);
+		return new TestingProcessObjective(user, questions, questionLevel);
 
 	}
 

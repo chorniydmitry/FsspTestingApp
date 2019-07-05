@@ -8,15 +8,17 @@ import javax.swing.JRadioButton;
 
 import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.entity.Specification;
+import ru.fssprus.r82.entity.User;
 import ru.fssprus.r82.service.QuestionService;
 import ru.fssprus.r82.service.SpecificationService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;
-import ru.fssprus.r82.swing.ulils.MessageBox;
 import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.ApplicationConfiguration;
 import ru.fssprus.r82.utils.TestingProcess;
 import ru.fssprus.r82.utils.Utils;
+import ru.fssprus.r82.utils.testingTools.TestProcessBuilder;
+import ru.fssprus.r82.utils.testingTools.TestingProcessObjective;
 
 public class NewTestController extends CommonController<NewTestDialog> {
 
@@ -40,30 +42,28 @@ public class NewTestController extends CommonController<NewTestDialog> {
 		if (!validateFields())
 			return;
 
-		int selectedLevel = dialog.getSelectedLevelIndex();
+		QuestionLevel selectedql = QuestionLevel.values()[dialog.getSelectedLevelIndex()];
+		
+		List<Specification> specs = configureSpecsList();
+		
+		TestProcessBuilder tpBuilder = new TestProcessBuilder(specs, selectedql, getUser());
 
-		List<Specification> specs = configureSpecsList(selectedLevel);
-
-		TestingProcess tp = initNewTestingProcess(specs, selectedLevel);
-		fillUserInfoForTestingProcess(tp);
-
-		DialogBuilder.showTestDialog(specs, tp, selectedLevel);
+		DialogBuilder.showTestDialog(tpBuilder.buildTest());
 		
 		dialog.dispose();
 	}
-
-	private void fillUserInfoForTestingProcess(TestingProcess testingProcess) {
-		String userName = dialog.getTfName().getText();
-		String userSurname = dialog.getTfSurname().getText();
-		String userSecondName = dialog.getTfSecondName().getText();
-
-		testingProcess.fillUserInfo(userName, userSurname, userSecondName);
+	
+	private User getUser() {
+		return new User(dialog.getTfName().getText(), dialog.getTfSurname().getText(), dialog.getTfSecondName().getText());
 	}
 
-	private List<Specification> configureSpecsList(int selectedLevel) {
-		Specification commonSpec = getCommonSpec(selectedLevel);
-		Specification selectedSpec = getUserSelectedSpec(selectedLevel);
-
+	private List<Specification> configureSpecsList() {
+		
+		String selectedSpecName = String.valueOf(dialog.getCbSpecification().getSelectedItem());
+		
+		Specification selectedSpec = new SpecificationService().getUniqueByName(selectedSpecName);
+		Specification commonSpec = new SpecificationService().getUniqueByName(COMMON_TEXT);
+		
 		List<Specification> specs = new ArrayList<>();
 		specs.add(selectedSpec);
 		specs.add(commonSpec);
@@ -71,35 +71,6 @@ public class NewTestController extends CommonController<NewTestDialog> {
 		return specs;
 	}
 	
-	private Specification getUserSelectedSpec(int selectedLevel) {
-		SpecificationService specService = new SpecificationService();
-		
-		String userSelectedSpecText = String.valueOf(dialog.getCbSpecification().getSelectedItem());
-		
-		Specification selectedSpec = specService.getUniqueByName(userSelectedSpecText);
-		
-		return selectedSpec;
-	}
-
-	//TODO: Перенести проверку количества в TestingProcessBuilder
-	private Specification getCommonSpec(int selectedLevel) {
-		SpecificationService specService = new SpecificationService();
-		QuestionService questionService = new QuestionService();
-		
-		Specification commonSpec = specService.getUniqueByName(COMMON_TEXT);
-
-		int amountOfCommons = questionService.getCountBySpecificationAndLevel(commonSpec,
-				QuestionLevel.values()[selectedLevel]);
-		int minimumCommons = Utils.countMinimumCommonQuestionsForLevel(selectedLevel);
-
-		if ((commonSpec == null) || (amountOfCommons < minimumCommons)) {
-			MessageBox.showNotEnoughCommonQuestionError(dialog);
-			return null;
-		}
-		
-		return commonSpec;
-	}
-
 	private void doCancel() {
 		dialog.dispose();
 	}
@@ -164,55 +135,6 @@ public class NewTestController extends CommonController<NewTestDialog> {
 				continue;
 			dialog.getCbSpecification().addItem(spec.getName());
 		}
-	}
-
-	private TestingProcess initNewTestingProcess(List<Specification> specs, int level) {
-		int amountOfQuestions = 0;
-		int commonPercent = 0;
-
-		switch (level) {
-		case 0:
-			amountOfQuestions = Integer.parseInt(ApplicationConfiguration.getItem("base.num"));
-			commonPercent = Integer.parseInt(ApplicationConfiguration.getItem("base.common.percent"));
-			break;
-		case 1:
-			amountOfQuestions = Integer.parseInt(ApplicationConfiguration.getItem("standart.num"));
-			commonPercent = Integer.parseInt(ApplicationConfiguration.getItem("standart.common.percent"));
-			break;
-		case 2:
-			amountOfQuestions = Integer.parseInt(ApplicationConfiguration.getItem("advanced.num"));
-			commonPercent = Integer.parseInt(ApplicationConfiguration.getItem("advanced.common.percent"));
-			break;
-		case 3:
-			amountOfQuestions = Integer.parseInt(ApplicationConfiguration.getItem("reserve.num"));
-			commonPercent = Integer.parseInt(ApplicationConfiguration.getItem("reserve.common.percent"));
-			break;
-		}
-
-		List<Integer> amountQuestionsForSpecs = initAmountsOfQuestionsForSpecList(amountOfQuestions, commonPercent);
-		TestingProcess testingProcess = new TestingProcess(specs, amountQuestionsForSpecs, getSelectedLevel());
-		return testingProcess;
-	}
-
-	private List<Integer> initAmountsOfQuestionsForSpecList(int amountOfQuestions, int commonPercent) {
-		int commonQuestsAmount = Utils.countCommonQuestsAmount(amountOfQuestions, commonPercent);
-
-		int specQuestsAmount = Utils.countSpecQuestsAmount(amountOfQuestions, commonQuestsAmount);
-
-		List<Integer> amountQuestionsForSpecs = new ArrayList<Integer>();
-		amountQuestionsForSpecs.add(specQuestsAmount);
-		amountQuestionsForSpecs.add(commonQuestsAmount);
-		return amountQuestionsForSpecs;
-	}
-
-	private String getSelectedLevel() {
-
-		ArrayList<JRadioButton> rbs = dialog.getRbLevels();
-		for (int i = 0; i < rbs.size(); i++) {
-			if (rbs.get(i).isSelected())
-				return rbs.get(i).getText();
-		}
-		return null;
 	}
 
 }

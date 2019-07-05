@@ -7,18 +7,21 @@ import java.util.Map;
 
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Question;
+import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.entity.User;
 import ru.fssprus.r82.swing.ulils.MessageBox;
 
 public class TestingProcessObjective {
 	private User testedUser;
+	private QuestionLevel testLevel;
 	private List<Question> questionsToAskList;
 	private Map<Question, List<Answer>> questionsAndAnswersGiven;
 	boolean isQuizzFinished = false;
 
-	public TestingProcessObjective(User user, List<Question> questionsToAsk) {
+	public TestingProcessObjective(User user, List<Question> questionsToAsk, QuestionLevel testLevel) {
 		this.testedUser = user;
 		this.questionsToAskList = questionsToAsk;
+		this.testLevel = testLevel;
 		
 		initQuestionsAndAnswersGiven();
 	}
@@ -71,10 +74,6 @@ public class TestingProcessObjective {
 		this.testedUser = testedUser;
 	}
 
-	public List<Question> getQuestionsToAskList() {
-		return questionsToAskList;
-	}
-
 	public void setQuestionsToAskList(List<Question> questionsToAskList) {
 		this.questionsToAskList = questionsToAskList;
 	}
@@ -94,4 +93,13 @@ public class TestingProcessObjective {
 	public void setQuizzFinished(boolean isQuizzFinished) {
 		this.isQuizzFinished = isQuizzFinished;
 	}
+
+	public QuestionLevel getTestLevel() {
+		return testLevel;
+	}
+
+	public void setTestLevel(QuestionLevel testLevel) {
+		this.testLevel = testLevel;
+	}
+	
 }

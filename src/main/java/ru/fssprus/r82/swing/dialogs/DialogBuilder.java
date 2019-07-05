@@ -25,6 +25,7 @@ import ru.fssprus.r82.swing.dialogs.wrongAnswers.WrongAnswersController;
 import ru.fssprus.r82.swing.dialogs.wrongAnswers.WrongAnswersDialog;
 import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.TestingProcess;
+import ru.fssprus.r82.utils.testingTools.TestingProcessObjective;
 
 public class DialogBuilder {
 	
@@ -46,13 +47,21 @@ public class DialogBuilder {
 			AppConstants.DIALOG_NEW_TEST_HEIGHT));
 	}
 
-	public static void showTestDialog(List<Specification> specs, TestingProcess tp, int selectedLevel) {
+//	public static void showTestDialogOld(List<Specification> specs, TestingProcess tp, int selectedLevel) {
+//		new TestController(new TestDialog(
+//			AppConstants.DIALOG_TEST_WIDTH, 
+//			AppConstants.DIALOG_TEST_HEIGHT), 
+//			specs, 
+//			tp,
+//			selectedLevel);
+//	}
+	
+	
+	public static void showTestDialog(TestingProcessObjective testingProcess) {
 		new TestController(new TestDialog(
 			AppConstants.DIALOG_TEST_WIDTH, 
 			AppConstants.DIALOG_TEST_HEIGHT), 
-			specs, 
-			tp,
-			selectedLevel);
+			testingProcess);
 	}
 
 	public static void showConfigDialog() {

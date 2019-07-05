@@ -26,6 +26,13 @@ public class User extends Model {
 	public User() {
 		super();
 	}
+	
+	public User(String name, String surname, String secondName) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.secondName = secondName;
+	}
 
 	public User(Long id) {
 		super(id);
