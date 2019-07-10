@@ -60,7 +60,7 @@ public class TestControllerOld extends ControllerWithTimer<TestDialog> implement
 	}
 	
 	private void initResultingDialog() {
-		DialogBuilder.showResultingDialog(testingProcess);
+//		DialogBuilder.showResultingDialog(testingProcess);
 	}
 
 	@Override
@@ -185,7 +185,6 @@ public class TestControllerOld extends ControllerWithTimer<TestDialog> implement
 
 	private void setUserChoise() {
 		int userSelectedIndex = getSelectedIndex();
-		System.out.println(userSelectedIndex);
 		testingProcess.setChoise(userSelectedIndex);
 	}
 

@@ -142,5 +142,12 @@
 			<version>5.2.4.Final</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.hp.gagawa</groupId>
+			<artifactId>gagawa</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+
+
 	</dependencies>
 </project>

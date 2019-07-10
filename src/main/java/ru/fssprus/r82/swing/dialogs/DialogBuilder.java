@@ -98,7 +98,7 @@ public class DialogBuilder {
 			text).startCountdown();
 	}
 
-	public static void showResultingDialog(TestingProcess testingProcess) {
+	public static void showResultingDialog(TestingProcessObjective testingProcess) {
 		new ResultingController(new ResultingDialog(
 				AppConstants.DIALOG_RESULTING_WIDTH, 
 				AppConstants.DIALOG_RESULTING_HEIGHT), testingProcess);

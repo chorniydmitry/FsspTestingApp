@@ -1,17 +1,28 @@
 package ru.fssprus.r82.swing.dialogs.resulting;
 
+import java.awt.Color;
+
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;
-import ru.fssprus.r82.utils.TestingProcess;
+import ru.fssprus.r82.utils.testingTools.TestingProcessAnaliser;
+import ru.fssprus.r82.utils.testingTools.TestingProcessObjective;
 
 public class ResultingController extends CommonController<ResultingDialog> {
-	private TestingProcess testingProcess;
+	private TestingProcessObjective testingProcess;
+	private TestingProcessAnaliser analiser;
 
-	public ResultingController(ResultingDialog dialog, TestingProcess testingProcess) {
+	public ResultingController(ResultingDialog dialog, TestingProcessObjective testingProcess) {
 		super(dialog);
 		setTestingProcess(testingProcess);
+		initAnaliser();
+		setDialogCaptions();
 	}
-
+	
+	private void initAnaliser() {
+		analiser = new TestingProcessAnaliser(testingProcess);
+		analiser.analize();
+	}
+	
 	@Override
 	protected void setListeners() {
 		dialog.getBtnShowWrongs().addActionListener(listener -> doShowWrongs());
@@ -19,7 +30,7 @@ public class ResultingController extends CommonController<ResultingDialog> {
 	}
 
 	private void doShowWrongs() {
-		DialogBuilder.showWrongAnswersDialog(testingProcess.getWrongAmount(), testingProcess.showWrongs());
+		DialogBuilder.showWrongAnswersDialog(analiser.getWrongsAmount(), analiser.printWrongs());
 
 		dialog.dispose();
 	}
@@ -28,18 +39,25 @@ public class ResultingController extends CommonController<ResultingDialog> {
 		dialog.dispose();
 	}
 
-	public TestingProcess getTestingProcess() {
+	public TestingProcessObjective getTestingProcess() {
 		return testingProcess;
 	}
-
-	public void setTestingProcess(TestingProcess testingProcess) {
-		this.testingProcess = testingProcess;
+	
+	private void setDialogCaptions() {
+		int corrects = analiser.getCorrectAnswersAmount();
+		int total = analiser.getTotalAmount();
+		int markPers = analiser.getMarkPercent();
+		int markOneToFive = analiser.getMarkOneToFive();
+		String markText = analiser.getMarkText();
+		String markLetter = analiser.getMarkLetter();
+		Color markColor = analiser.getMarkColor();
 		
-		dialog.setCaptions(testingProcess.getCorrectAnswersAmount(), testingProcess.getQuestions().size(),
-				testingProcess.getMarkPercent(), testingProcess.getMarkOneToFive(),
-				testingProcess.getMarkText(), testingProcess.getMarkLetter());
+		dialog.setCaptions(corrects, total, markPers, markOneToFive, markText, markLetter);
+		dialog.setMarkColor(markColor);
+	}
 
-		dialog.setMarkColor(testingProcess.getMarkColor());
+	public void setTestingProcess(TestingProcessObjective testingProcess) {
+		this.testingProcess = testingProcess;
 	}
 
 }

@@ -3,6 +3,9 @@ package ru.fssprus.r82.swing.main.mainFrame;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -46,8 +49,16 @@ public class MainFrame extends JFrame {
 		addComponents();
 
 		addListeners();
-
+		
+		setFullScreen();
+		
 		setVisible(true);
+	}
+	
+	private void setFullScreen() {
+		dispose();      
+        setUndecorated(true);
+        setBounds(0,0,getToolkit().getScreenSize().width,getToolkit().getScreenSize().height);
 	}
 
 	private void addComponents() {

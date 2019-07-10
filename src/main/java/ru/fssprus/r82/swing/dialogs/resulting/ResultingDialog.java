@@ -118,7 +118,7 @@ public class ResultingDialog extends CommonDialog {
 		lblMarkText.setForeground(markColor);
 	}
 
-	public void setCaptions(int correctAnswers, int totalQuestions, String markPercent, String markOneToFive,
+	public void setCaptions(int correctAnswers, int totalQuestions, int markPercent, int markOneToFive,
 			String markText, String markLetter) {
 		lblCorrectAnswers.setText(LBL_CORRECTS_TOTAL_CORRECTS + correctAnswers + LBL_CORRECTS_TOTAL + totalQuestions);
 		lblMarkPercent.setText(LBL_MARK_PERCENT + markPercent + '%');

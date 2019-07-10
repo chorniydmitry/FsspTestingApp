@@ -34,6 +34,10 @@ public class TestingProcessObjective {
 	}
 
 	public void makeAnswer(Question question, List<Answer> answersGiven) {
+		if(answersGiven == null || answersGiven.size() == 0) {
+			questionsAndAnswersGiven.put(question, new ArrayList<>());
+			return;
+		}
 		if(!checkQuestion(question)) {
 			MessageBox.showWrongQuestionToAnswerErrorMessage(null);
 			return;

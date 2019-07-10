@@ -149,14 +149,6 @@ public class TestingProcess {
 	}
 
 	public String showWrongs() {
-		System.out.println("---------------------------------");
-		System.out.println("Вопросов: " + questions.size());
-		System.out.println("Верных ответов: " + correctAnswers.size());
-		System.out.println("Выбрано ответов " + choises.size());
-		System.out.println("Правильных или нет ответов " + correctUserAnswersList.size());
-		System.out.println("МАР Индекс + Ответ " + answersMap.size());
-
-		
 		countCorrectAnswers();
 		int i = 0;
 		String returnValue = WRONGS_HTML_OPEN_TAG_AND_STYLE + WRONGS_HTML_ANS_LIST_BOLD_TEXT + HTML_BR + HTML_BR;
