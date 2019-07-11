@@ -25,6 +25,11 @@ public class UserService {
 				AppConstants.NO_SQL_LIMIT_START_SPECIFIED, name, surname, secondName);
 	}
 	
+	public User getByNameSurnameSecondNameSingle(String name, String surname, String secondName) {
+		return userDao.getByNameSurnameSecondNameSingle(AppConstants.NO_SQL_LIMIT_START_SPECIFIED, 
+				AppConstants.NO_SQL_LIMIT_START_SPECIFIED, name, surname, secondName);
+	}
+	
 	public void add(User user) {
 		userDao.add(user);
 	}

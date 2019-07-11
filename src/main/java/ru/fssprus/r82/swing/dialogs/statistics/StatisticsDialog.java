@@ -3,6 +3,7 @@ package ru.fssprus.r82.swing.dialogs.statistics;
 import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
 import ru.fssprus.r82.swing.table.CommonTable;
@@ -18,8 +19,8 @@ public class StatisticsDialog extends DialogWithPassword {
 	
 	private TablePanel tablePanel;
 	
-	public StatisticsDialog(int width, int heigth) {
-		super(width, heigth);
+	public StatisticsDialog(int width, int heigth, JFrame parent) {
+		super(width, heigth, parent);
 		initTablePanel();
 	}
 	

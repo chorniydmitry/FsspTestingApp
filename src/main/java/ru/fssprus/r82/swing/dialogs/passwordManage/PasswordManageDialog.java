@@ -6,6 +6,7 @@ import java.awt.Insets;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -29,8 +30,8 @@ public class PasswordManageDialog extends DialogWithPassword {
 	private ArrayList<JPasswordField> pfList = new ArrayList<>();
 	private ArrayList<JGreenButton> btnList = new ArrayList<>();
 
-	public PasswordManageDialog(int width, int height) {
-		super(width, height);
+	public PasswordManageDialog(int width, int height, JFrame parent) {
+		super(width, height, parent);
 	}
 	
 	@Override

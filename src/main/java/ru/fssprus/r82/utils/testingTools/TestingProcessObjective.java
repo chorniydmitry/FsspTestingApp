@@ -8,20 +8,24 @@ import java.util.Map;
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.entity.QuestionLevel;
+import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.entity.User;
 import ru.fssprus.r82.swing.ulils.MessageBox;
 
 public class TestingProcessObjective {
 	private User testedUser;
+	private Specification specification;
 	private QuestionLevel testLevel;
 	private List<Question> questionsToAskList;
 	private Map<Question, List<Answer>> questionsAndAnswersGiven;
-	boolean isQuizzFinished = false;
+	private boolean isQuizzFinished = false;
+	//private int totalTimeForQuest;
 
-	public TestingProcessObjective(User user, List<Question> questionsToAsk, QuestionLevel testLevel) {
+	public TestingProcessObjective(User user, List<Question> questionsToAsk, QuestionLevel testLevel, Specification spec) {
 		this.testedUser = user;
 		this.questionsToAskList = questionsToAsk;
 		this.testLevel = testLevel;
+		this.specification = spec;
 		
 		initQuestionsAndAnswersGiven();
 	}
@@ -105,5 +109,21 @@ public class TestingProcessObjective {
 	public void setTestLevel(QuestionLevel testLevel) {
 		this.testLevel = testLevel;
 	}
-	
+
+//	public void setTimeForQuest(int time) {
+//		this.totalTimeForQuest = time;
+//	}
+//	
+//	public int getTimeForQuest() {
+//		return totalTimeForQuest;
+//	}
+
+	public Specification getSpecification() {
+		return specification;
+	}
+
+	public void setSpecification(Specification specification) {
+		this.specification = specification;
+	}
+
 }

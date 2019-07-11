@@ -5,12 +5,12 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.swing.JCheckBox;
 
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Question;
+import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.swing.dialogs.ControllerWithTimer;
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.utils.AppConstants;
@@ -18,6 +18,7 @@ import ru.fssprus.r82.utils.TimeUtils;
 import ru.fssprus.r82.utils.Utils;
 import ru.fssprus.r82.utils.testingTools.TestingProcessAnaliser;
 import ru.fssprus.r82.utils.testingTools.TestingProcessObjective;
+import ru.fssprus.r82.utils.testingTools.TestingResultsSaver;
 
 public class TestController extends ControllerWithTimer<TestDialog> implements KeyListener {
 
@@ -29,6 +30,7 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 	private static String ANS_HTML_OPEN = "<html><p style=\"width:";
 	private static String ANS_HTML_STYLE_CLOSE = "px\">";
 	private static String ANS_HTML_CLOSE = "</p></html>";
+	
 
 	private TestingProcessObjective testingProcess;
 	private List<Question> questionList;
@@ -36,20 +38,15 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 	private int currentIndex;
 
 	public TestController(TestDialog dialog, TestingProcessObjective testingProcess) {
-
-		super(dialog, getTime(testingProcess.getTestLevel().ordinal()));
-		initTimer(testingProcess.getTestLevel().ordinal());
-
+		super(dialog, getTime(testingProcess.getTestLevel()), dialog.getLblTimeLeftSec());
 		this.testingProcess = testingProcess;
-
-		// TODO: инициализировать время теста
 
 		initVariables();
 		showCurrentQuestionAndAnswers();
 
 		dialog.setVisible(true);
 	}
-
+	
 	private void initVariables() {
 		questionList = new ArrayList<>(testingProcess.getQuestionsAndAnswersGiven().keySet());
 		currentIndex = 0;
@@ -131,8 +128,7 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 		setUserChoise();
 		dialog.dispose();
 		TestingProcessAnaliser tpAnaliser = new TestingProcessAnaliser(testingProcess);
-		
-
+		new TestingResultsSaver().saveResultsToDB(getTimeLeft(), tpAnaliser);
 	}
 
 	private int findNextUnansweredIndex() {
@@ -232,13 +228,12 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 		DialogBuilder.showResultingDialog(testingProcess);
 	}
 
-	private static int getTime(int i) {
-		return TimeUtils.getQuizzTimeSecByLevel(i);
+	private static int getTime(QuestionLevel lvl) {
+		return TimeUtils.getQuizzTimeSecByLevel(lvl);
 	}
 
 	public TestController(TestDialog dialog, int time) {
-		super(dialog, time);
-		// TODO Auto-generated constructor stub
+		super(dialog, time, dialog.getLblTimeLeftSec());
 	}
 
 	@Override

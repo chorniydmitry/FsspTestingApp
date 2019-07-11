@@ -8,5 +8,6 @@ public interface UserDao extends ItemDao<User>{
 
 	List<User> getBySurname(int startPos, int endPos, String surname);
 	List<User> getByNameSurnameSecondName(int startPos, int endPos, String name, String surname, String secondName);
+	User getByNameSurnameSecondNameSingle(int startPos, int endPos, String name, String surname, String secondname);
 
 }

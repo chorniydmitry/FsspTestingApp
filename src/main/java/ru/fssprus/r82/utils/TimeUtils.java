@@ -1,5 +1,7 @@
 package ru.fssprus.r82.utils;
 
+import ru.fssprus.r82.entity.QuestionLevel;
+
 public class TimeUtils {
 
 	public static int[] splitToComponentTimes(int seconds) {
@@ -9,29 +11,37 @@ public class TimeUtils {
 		int[] ints = { minutes, remainder };
 		return ints;
 	}
-	
+
 	public static String stringTimes(int seconds) {
 		int[] intTimes = splitToComponentTimes(seconds);
-		return intTimes[0] + ":" + intTimes[1];
+		String min = String.valueOf(intTimes[0]);
+		String sec = String.valueOf(intTimes[1]);
+		if (intTimes[1] < 10)
+			sec = "0" + sec;
+		return min + ":" + sec;
 	}
-	
-	public static int getQuizzTimeSecByLevel(int level) {
+
+	public static int getQuizzTimeSecByLevel(QuestionLevel level) {
 		int timeSeconds = 0;
 		switch (level) {
-		case 0:
+		case Базовый:
 			timeSeconds = Integer.parseInt(ApplicationConfiguration.getItem("base.time"));
 			break;
-		case 1:
+		case Стандартный:
 			timeSeconds = Integer.parseInt(ApplicationConfiguration.getItem("standart.time"));
 			break;
-		case 2:
+		case Продвинутый:
 			timeSeconds = Integer.parseInt(ApplicationConfiguration.getItem("advanced.time"));
 			break;
-		case 3:
+		case Резерв:
 			timeSeconds = Integer.parseInt(ApplicationConfiguration.getItem("reserve.time"));
 			break;
 		}
 		return timeSeconds;
 	}
-	
+
+	public static int getQuizzTimeSecByLevel(int index) {
+		return getQuizzTimeSecByLevel(QuestionLevel.values()[index]);
+	}
+
 }

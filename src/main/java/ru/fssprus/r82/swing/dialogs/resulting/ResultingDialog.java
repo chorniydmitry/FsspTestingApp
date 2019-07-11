@@ -8,6 +8,7 @@ import java.awt.Insets;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -41,8 +42,8 @@ public class ResultingDialog extends CommonDialog {
 
 	private Color markColor = Color.BLACK;
 
-	public ResultingDialog(int width, int height) {
-		super(width, height);
+	public ResultingDialog(int width, int height, JFrame parent) {
+		super(width, height, parent);
 	}
 	
 	@Override

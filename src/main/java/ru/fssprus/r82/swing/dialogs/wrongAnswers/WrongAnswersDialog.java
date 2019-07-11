@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -26,8 +27,8 @@ public class WrongAnswersDialog extends CommonDialog {
 	private JLabel lblTimeLeftSec = new JLabel();
 	private JButton btnClose = new JGreenButton(BTN_CLOSE_CAPTION);
 	
-	public WrongAnswersDialog(int width, int height) {
-		super(width, height);
+	public WrongAnswersDialog(int width, int height, JFrame parent) {
+		super(width, height, parent);
 	}
 	
 	@Override
@@ -39,6 +40,7 @@ public class WrongAnswersDialog extends CommonDialog {
 	@Override
 	protected void layoutDialog() {
 		taWrongs.setContentType(AppConstants.CONTENT_TYPE_HTML);
+		taWrongs.setEditable(false);
 		JScrollPane scroller = new JScrollPane(taWrongs,
 	            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 	            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);

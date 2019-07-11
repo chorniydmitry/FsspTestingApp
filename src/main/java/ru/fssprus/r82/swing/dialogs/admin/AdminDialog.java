@@ -6,6 +6,7 @@ import java.awt.Insets;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
@@ -28,8 +29,8 @@ public class AdminDialog extends DialogWithPassword {
 	private JButton btnQuestionEdit = new JGreenButton(BTN_QEDIT_CAPTION);
 	private JButton btnPasswords = new JGreenButton(BTN_PASSWORDS_CAPTION);
 	
-	public AdminDialog(int width, int height) {
-		super(width, height);
+	public AdminDialog(int width, int height, JFrame parent) {
+		super(width, height, parent);
 	}
 	
 	@Override

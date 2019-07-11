@@ -11,6 +11,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -54,8 +55,8 @@ public class NewTestDialog extends DialogWithPassword {
 	private JButton btnBegin = new JGreenButton(BTN_BEGIN_CAPTION);
 	private JButton btnCancel = new JGreenButton(BTN_CANCEL_CAPTION);
 	
-	public NewTestDialog(int width, int height) {
-		super(width, height);
+	public NewTestDialog(int width, int height, JFrame parent) {
+		super(width, height, parent);
 		fillRadioButtons();
 		initPanelLevels();
 	}

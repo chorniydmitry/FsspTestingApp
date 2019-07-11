@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -19,11 +20,14 @@ public abstract class CommonDialog extends JDialog {
 	private JLabel lblEmblem = new JLabel();
 	private JLabel lblTitle = new JLabel();
 
-	public CommonDialog(int width, int height) {
+	public CommonDialog(int width, int height, JFrame parent) {
+		super(parent);
+		//super.setAlwaysOnTop(true);
 		setSize(new Dimension(width, height));
 		
 		add(pnlTop, BorderLayout.NORTH);
 		add(pnlContent, BorderLayout.CENTER);
+		
 		
 	}
 	

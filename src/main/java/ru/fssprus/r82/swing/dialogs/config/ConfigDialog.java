@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -75,8 +76,8 @@ public class ConfigDialog extends DialogWithPassword {
 	
 	private List<JTextField> tfsList = new ArrayList<JTextField>();
 	
-	public ConfigDialog(int width, int height) {
-		super(width, height);
+	public ConfigDialog(int width, int height, JFrame parent) {
+		super(width, height, parent);
 	}
 	
 	@Override

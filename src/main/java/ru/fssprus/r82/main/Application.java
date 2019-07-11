@@ -24,7 +24,9 @@ import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.service.AnswerService;
 import ru.fssprus.r82.service.QuestionService;
 import ru.fssprus.r82.service.SpecificationService;
+import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.swing.main.mainFrame.MainFrame;
+import ru.fssprus.r82.utils.CheatingStopper;
 import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.CryptWithMD5;
 import ru.fssprus.r82.utils.HibernateUtil;
@@ -35,7 +37,9 @@ public class Application {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				new MainFrame();
+				MainFrame mainFrame = new MainFrame();
+				CheatingStopper.create(mainFrame);
+				DialogBuilder.setParent(mainFrame);
 			}
 
 		});

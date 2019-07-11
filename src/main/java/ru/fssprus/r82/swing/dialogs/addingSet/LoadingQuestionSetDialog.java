@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -43,8 +44,8 @@ public class LoadingQuestionSetDialog extends DialogWithPassword {
 	private JComboBox<Object> cbQuestLevel = new JComboBox<>(QuestionLevel.values());
 	private JButton btnLoadQuestionsSet = new JGreenButton(BTN_LOAD_CAPTION);
 
-	public LoadingQuestionSetDialog(int width, int height) {
-		super(width, height);
+	public LoadingQuestionSetDialog(int width, int height, JFrame parent) {
+		super(width, height, parent);
 	}
 	
 	@Override

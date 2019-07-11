@@ -29,7 +29,7 @@ public class TestControllerOld extends ControllerWithTimer<TestDialog> implement
 
 	public TestControllerOld(TestDialog dialog, List<Specification> specs, TestingProcess testingProcess,
 			int selectedLevel) {
-		super(dialog, 0);
+		super(dialog, 0, null);
 		this.testingProcess = testingProcess;
 		this.specs = specs;
 		showQuestionContents(testingProcess.getCurrentQuestionIndex());

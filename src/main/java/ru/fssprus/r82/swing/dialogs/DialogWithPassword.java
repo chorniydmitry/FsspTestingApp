@@ -1,5 +1,7 @@
 package ru.fssprus.r82.swing.dialogs;
 
+import javax.swing.JFrame;
+
 import ru.fssprus.r82.service.PasswordService;
 import ru.fssprus.r82.swing.ulils.MessageBox;
 import ru.fssprus.r82.utils.CryptWithMD5;
@@ -7,8 +9,8 @@ import ru.fssprus.r82.utils.CryptWithMD5;
 public abstract class DialogWithPassword extends CommonDialog {
 	private static final long serialVersionUID = -3351598510558332393L;
 
-	public DialogWithPassword(int width, int height) {
-		super(width, height);
+	public DialogWithPassword(int width, int height, JFrame parent) {
+		super(width, height, parent);
 		if(checkIfPasswordIsSet(getSection())) {
 			if(checkaccess(getSection())) {
 				accesGained = true;

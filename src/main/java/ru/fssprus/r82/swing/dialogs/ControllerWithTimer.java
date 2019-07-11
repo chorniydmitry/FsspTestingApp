@@ -6,15 +6,19 @@ import java.util.TimerTask;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 
+import ru.fssprus.r82.utils.TimeUtils;
+
 public abstract class ControllerWithTimer<T extends CommonDialog> extends CommonController<T>{
 	private Timer timer = new Timer();
 	private int timeLeft;
 	private boolean isDone = false;
 	private JLabel lblForInfo;
 	
-	public ControllerWithTimer(T dialog, int time) {
+	public ControllerWithTimer(T dialog, int time, JLabel lblForInfo) {
 		super(dialog);
 		this.timeLeft = time;
+		setLblForInfo(lblForInfo);
+		initTimer(time);
 	}
 
 	protected void initTimer(int sec) {
@@ -28,7 +32,7 @@ public abstract class ControllerWithTimer<T extends CommonDialog> extends Common
 
 			public void run() {
 				setTimeLeft(--i);
-				lblForInfo.setText("Времени осталось: " + getTimeLeft());
+				lblForInfo.setText("Времени осталось: " + TimeUtils.stringTimes(getTimeLeft()));
 				if (i < 0) {
 					setDone(true);
 					done();

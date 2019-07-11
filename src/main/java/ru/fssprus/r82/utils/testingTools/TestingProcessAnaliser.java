@@ -2,6 +2,7 @@ package ru.fssprus.r82.utils.testingTools;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +17,13 @@ import com.hp.gagawa.java.elements.Ul;
 
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Question;
+import ru.fssprus.r82.entity.Test;
+import ru.fssprus.r82.entity.User;
 import ru.fssprus.r82.service.AnswerService;
+import ru.fssprus.r82.service.TestService;
+import ru.fssprus.r82.service.UserService;
 import ru.fssprus.r82.utils.MarkCounter;
+import ru.fssprus.r82.utils.TimeUtils;
 
 public class TestingProcessAnaliser {
 
@@ -42,7 +48,7 @@ public class TestingProcessAnaliser {
 		initVariables();
 
 	}
-
+	
 	private void initVariables() {
 		wrongAnswers = new HashMap<>();
 		userAnswers = testingProcess.getQuestionsAndAnswersGiven();
@@ -154,6 +160,10 @@ public class TestingProcessAnaliser {
 
 	public int getWrongsAmount() {
 		return questionAmount - correctAmount;
+	}
+
+	public TestingProcessObjective getTestingProcess() {
+		return testingProcess;
 	}
 
 }

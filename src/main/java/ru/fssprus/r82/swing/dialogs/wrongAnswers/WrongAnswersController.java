@@ -4,12 +4,11 @@ import ru.fssprus.r82.swing.dialogs.ControllerWithTimer;
 
 public class WrongAnswersController extends ControllerWithTimer<WrongAnswersDialog> {
 	private static final int TIME_FOR_ANSWER_MULTIPLIER = 2;
-	private static final int TIME_OFFSET_SEC = 20;
+	private static final int TIME_OFFSET_SEC = 10;
 	
 	public WrongAnswersController(WrongAnswersDialog dialog, int wrongQuestionsAmount, String text) {
-		super(dialog, wrongQuestionsAmount);
+		super(dialog, countTimeToDisplay(wrongQuestionsAmount), dialog.getLblTimeLeftSec());
 		
-		setLblForInfo(dialog.getLblTimeLeftSec());
 		setText(text);
 	}
 	
@@ -21,10 +20,10 @@ public class WrongAnswersController extends ControllerWithTimer<WrongAnswersDial
 		dialog.getTaWrongs().setText(showWrongs);
 	}
 	
-	public void startCountdown() {
-		initTimer(TIME_OFFSET_SEC + (getTimeLeft() * TIME_FOR_ANSWER_MULTIPLIER));
+	private static int countTimeToDisplay(int wrongQuestionsAmount) {
+		return TIME_OFFSET_SEC + (wrongQuestionsAmount * TIME_FOR_ANSWER_MULTIPLIER);
 	}
-
+	
 	@Override
 	protected void setListeners() {
 		dialog.getBtnClose().addActionListener(listener -> doBtnCloseAction());
