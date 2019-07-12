@@ -8,6 +8,9 @@ import java.util.Map.Entry;
 
 import javax.swing.JCheckBox;
 
+import com.hp.gagawa.java.elements.Html;
+import com.hp.gagawa.java.elements.P;
+
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.entity.QuestionLevel;
@@ -22,16 +25,15 @@ import ru.fssprus.r82.utils.testingTools.TestingResultsSaver;
 
 public class TestController extends ControllerWithTimer<TestDialog> implements KeyListener {
 
-	private static final String QUESTION_NUM_TEXT = "ТЕКУЩИЙ ВОПРОС: Вопрос # ";
+	private static final String QUESTION_NUM_TEXT = "ТЕКУЩИЙ ВОПРОС #";
 	private static final String OF_TEXT = " из ";
-	private static final int ANSWER_OFFSET = 250;
+	private static final int ANSWER_OFFSET = 300;
 	private static final int NEXT = 1;
 	private static final int PREVIOUS = -1;
-	private static String ANS_HTML_OPEN = "<html><p style=\"width:";
-	private static String ANS_HTML_STYLE_CLOSE = "px\">";
-	private static String ANS_HTML_CLOSE = "</p></html>";
+	private static final String ANS_P_STYLE_WIDTH = "width: ";
+	private static final String ANS_P_STYLE_PX = " px";
+	private static final String HTML_ARGUMENT_TO_REMOVE = "xmlns";
 	
-
 	private TestingProcessObjective testingProcess;
 	private List<Question> questionList;
 
@@ -60,16 +62,29 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 	private void showQuestion(Question questionToShow) {
 		dialog.getLblQuestionInfo().setText(QUESTION_NUM_TEXT + (currentIndex + 1) + OF_TEXT + questionList.size());
 
-		dialog.getLblQuestionText().setText(questionToShow.getTitle());
+		dialog.getTaQuestionText().setText(questionToShow.getTitle());
+	}
+	
+	
+	private String generateHTMLText(Answer answer) {
+		final int ansWidth = dialog.getWidth() - ANSWER_OFFSET;
+		
+		Html html = new Html();
+		P p = new P();
+		p.setStyle(ANS_P_STYLE_WIDTH + ansWidth + ANS_P_STYLE_PX);
+		p.appendText(answer.getTitle());
+		html.appendChild(p);
+		html.removeAttribute(HTML_ARGUMENT_TO_REMOVE);
+		
+		return html.write();
 	}
 
 	private void showAnswers() {
 		List<Answer> ansList = new ArrayList<>(questionList.get(currentIndex).getAnswers());
 		for (Answer ans : ansList) {
-			final int ansWidth = dialog.getWidth() - ANSWER_OFFSET;
 
 			dialog.getCbAnswers().get(ansList.indexOf(ans))
-					.setText(ANS_HTML_OPEN + ansWidth + ANS_HTML_STYLE_CLOSE + ans.getTitle() + ANS_HTML_CLOSE);
+					.setText(generateHTMLText(ans));
 
 			checkIfAlreadySelected(ans, ansList);
 		}
@@ -238,14 +253,10 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-
 	}
-
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

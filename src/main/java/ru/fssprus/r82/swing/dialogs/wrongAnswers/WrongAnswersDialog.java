@@ -91,7 +91,7 @@ public class WrongAnswersDialog extends CommonDialog {
 		this.lblTimeLeftSec = lblTimeLeftSec;
 	}
 
-	public JButton getBtnClose() {
+	public JButton getBtnBottomClose() {
 		return btnClose;
 	}
 

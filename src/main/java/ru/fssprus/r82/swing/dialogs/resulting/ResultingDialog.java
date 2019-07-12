@@ -145,7 +145,7 @@ public class ResultingDialog extends CommonDialog {
 		this.btnShowWrongs = btnShowWrongs;
 	}
 
-	public JButton getBtnClose() {
+	public JButton getBottomBtnClose() {
 		return btnClose;
 	}
 

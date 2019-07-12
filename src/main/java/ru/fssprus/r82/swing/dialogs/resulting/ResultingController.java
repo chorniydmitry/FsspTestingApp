@@ -26,7 +26,7 @@ public class ResultingController extends CommonController<ResultingDialog> {
 	@Override
 	protected void setListeners() {
 		dialog.getBtnShowWrongs().addActionListener(listener -> doShowWrongs());
-		dialog.getBtnClose().addActionListener(listener -> doClose());
+		dialog.getBottomBtnClose().addActionListener(listener -> doClose());
 	}
 
 	private void doShowWrongs() {

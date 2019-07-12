@@ -3,6 +3,9 @@ package ru.fssprus.r82.swing.dialogs;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
@@ -10,33 +13,41 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import ru.fssprus.r82.swing.ulils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
 public abstract class CommonDialog extends JDialog {
 	private static final long serialVersionUID = -933522897356606777L;
+	
+	private static final int EMBLEM_LEFT_INSET = 20;
+	private static final String BTN_CLOSE_CAPTION = "X";
+	
 	protected boolean accesGained = false;
 	private JPanel pnlTop = new JPanel(new FlowLayout(FlowLayout.LEFT));
 	private JPanel pnlContent = new JPanel();
 	private JLabel lblEmblem = new JLabel();
 	private JLabel lblTitle = new JLabel();
+	private JGreenButton btnClose = new JGreenButton(BTN_CLOSE_CAPTION);
 
 	public CommonDialog(int width, int height, JFrame parent) {
 		super(parent);
-		//super.setAlwaysOnTop(true);
 		setSize(new Dimension(width, height));
+		setUndecorated(true);
 		
 		add(pnlTop, BorderLayout.NORTH);
 		add(pnlContent, BorderLayout.CENTER);
-		
-		
 	}
 	
 	private void initTopPanel() {
 		pnlTop.setPreferredSize(new Dimension(this.getWidth(), AppConstants.TOP_PANEL_HEIGHT));
 		pnlTop.setBackground(AppConstants.FSSP_COLOR);
 		
-		pnlTop.add(lblEmblem);
-		pnlTop.add(lblTitle);
+		pnlTop.setLayout(new GridBagLayout());
+		
+		pnlTop.add(lblEmblem, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, EMBLEM_LEFT_INSET, 0, 0), 0, 0));
+		pnlTop.add(lblTitle, new GridBagConstraints(1, 0, 1, 1, 1, 1, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+		pnlTop.add(btnClose, new GridBagConstraints(2, 0, 1, 1, 1, 1, GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+		
 	}
 	
 	protected void layoutPanelTop(String text, ImageIcon emblem) {
@@ -76,6 +87,14 @@ public abstract class CommonDialog extends JDialog {
 
 	protected boolean isAccessGained() {
 		return accesGained;
+	}
+	
+	protected JPanel getPnlTop() {
+		return pnlTop;
+	}
+	
+	protected JGreenButton getBtnClose() {
+		return btnClose;
 	}
 
 }

@@ -1,5 +1,8 @@
 package ru.fssprus.r82.swing.dialogs;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 public abstract class CommonController<T extends CommonDialog> {
 	protected T dialog;
 
@@ -10,9 +13,25 @@ public abstract class CommonController<T extends CommonDialog> {
 		}
 		dialog.init();
 		dialog.layoutPanelTop();
+		setDefaultListeners();
 		setListeners();
 	}
 
 	protected abstract void setListeners();
+	
+	private void setDefaultListeners() {
+		setDialogMotionListener();
+		dialog.getBtnClose().addActionListener(listener -> dialog.dispose());
+	}
+	
+	private void setDialogMotionListener() {
+		dialog.getPnlTop().addMouseMotionListener(new MouseAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				dialog.setLocation(dialog.getLocationOnScreen().x + e.getX(),
+						dialog.getLocationOnScreen().y + e.getY());
+			}
+		});
+	}
 
 }

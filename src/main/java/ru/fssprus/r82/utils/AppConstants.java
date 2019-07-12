@@ -74,30 +74,28 @@ public class AppConstants {
 	public static final int DIALOG_NEW_TEST_WIDTH = 600;
 	public static final int DIALOG_NEW_TEST_HEIGHT = 300;
 	
-	public static final int DIALOG_ADMIN_WIDTH = 300;
+	public static final int DIALOG_ADMIN_WIDTH = 500;
 	public static final int DIALOG_ADMIN_HEIGHT = 300;
 	
 	public static final int DIALOG_STATISTICS_WIDTH = 1000;
 	public static final int DIALOG_STATISTICS_HEIGHT = 600;
 
-	public static final int DIALOG_RESULTING_WIDTH = 400;
-	public static final int DIALOG_RESULTING_HEIGHT = 250;
+	public static final int DIALOG_RESULTING_WIDTH = 600;
+	public static final int DIALOG_RESULTING_HEIGHT = 300;
 	
 	// Константы шрифтов
-	public static final Font RESULTDIALOG_TEXT_FONT = new Font("Courier New", Font.BOLD, 18);
-	public static final Font TESTDIALOG_HEADER_FONT = new Font("Courier New", Font.BOLD, 28);
-	public static final Font TESTDIALOG_QUESTION_FONT = new Font("Courier New", Font.PLAIN, 20);
-	public static final Font TESTDIALOG_ITEMS_FONT = new Font("Courier New", Font.PLAIN, 16);
-	public static final Font TOP_PANELS_TEXT_FONT = new Font("Courier New", Font.PLAIN, 20);
+	public static final Font RESULTDIALOG_TEXT_FONT = new Font("Times New Roman", Font.BOLD, 18);
+	public static final Font TESTDIALOG_HEADER_FONT = new Font("Tahoma", Font.PLAIN, 20);
+	public static final Font TESTDIALOG_QUESTION_FONT = new Font("Times New Roman", Font.PLAIN, 20);
+	public static final Font TESTDIALOG_ITEMS_FONT = new Font("Times New Roman", Font.PLAIN, 16);
+	public static final Font TOP_PANELS_TEXT_FONT = new Font("Tahoma", Font.PLAIN, 22);
 	
 	// Размеры компонентов
 	public static final int MAINFRAME_BTN_WIDTHS = 250;
 	public static final int MAINFRAME_BTN_HEIGHTS = 60;
 	
-	public static final int TESTDIALOG_PNL_ANSWERS_RIGID_AREA_WIDTH = 0;
-	public static final int TESTDIALOG_PNL_ANSWERS_RIGID_AREA_HEIGHT = 20;
 	public static final int TESTDIALOG_LBL_QUESTION_INFO_HEIGHT = 30;
-	public static final int TESTDIALOG_PNLQNA_RIGID_AREA_WIDTH = 50;
+	public static final int TESTDIALOG_PNLQNA_RIGID_AREA_WIDTH = 0;
 	public static final int TESTDIALOG_PNLQNA_RIGID_AREA_HEIGHT = 30;
 	public static final int WADIALOG_TAWRONGS_HEIGHT_PADDING = 100;
 	

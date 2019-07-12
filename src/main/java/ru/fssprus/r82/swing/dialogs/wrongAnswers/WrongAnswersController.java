@@ -26,7 +26,7 @@ public class WrongAnswersController extends ControllerWithTimer<WrongAnswersDial
 	
 	@Override
 	protected void setListeners() {
-		dialog.getBtnClose().addActionListener(listener -> doBtnCloseAction());
+		dialog.getBtnBottomClose().addActionListener(listener -> doBtnCloseAction());
 	}
 
 }

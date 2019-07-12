@@ -24,8 +24,8 @@ import ru.fssprus.r82.utils.AppConstants;
 
 public class NewTestDialog extends DialogWithPassword {
 	private static final long serialVersionUID = 1342455118946206792L;
-	private static final String SECTION = AppConstants.TEST_DIALOG;
-	private static final String TITLE = AppConstants.TEST_TEXT;
+	private static final String SECTION = AppConstants.NEW_TEST_DIALOG;
+	private static final String TITLE = AppConstants.NEW_TEST_TEXT;
 	private static final String ICON = AppConstants.NEW_TEST_ICON;
 	
 	private static final String LBL_INFO_TEXT = "ИНФОРМАЦИЯ";

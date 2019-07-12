@@ -9,12 +9,9 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -35,11 +32,12 @@ public class TestDialog extends CommonDialog {
 	private static final String BTN_FINISH_CAPTION = "Закончить тест";
 	private static final String BTN_NEXT_CAPTION = ">";
 	private static final String BTN_PREVIOUS_CAPTION = "<";
+	
+	private static final int QUESTION_TEXT_SIDE_INDENT = 25;
 
 	private static final int AMT_RAD_BUTTONS = 5;
 
 	private JPanel pnlQuizzControll = new JPanel();
-
 	private JPanel pnlQuestAndAnswers = new JPanel();
 	private JPanel pnlAnswers = new JPanel();
 	private JButton btnNextUnanswered = new JButton(BTN_TO_NEXT_CAPTION);
@@ -70,8 +68,8 @@ public class TestDialog extends CommonDialog {
 	public void init() {
 		fillBgAnswers();
 		getRootPane().setDefaultButton(btnNext);
-		requestFocus();
 		super.init();
+		requestFocus();
 	}
 
 	@Override
@@ -89,7 +87,7 @@ public class TestDialog extends CommonDialog {
 
 	private void addComponents() {
 		JPanel contentPanel = getContentPanel();
-
+		
 		contentPanel.add(pnlQuizzControll, BorderLayout.NORTH);
 
 		contentPanel.add(pnlQuestAndAnswers, BorderLayout.CENTER);
@@ -123,17 +121,26 @@ public class TestDialog extends CommonDialog {
 		initTaQuestionText();
 		initPanelAnswers();
 		initLblQuestionInfo();
+		
+		final int side = QUESTION_TEXT_SIDE_INDENT;
 
-		pnlQuestAndAnswers.setLayout(new BoxLayout(pnlQuestAndAnswers, BoxLayout.Y_AXIS));
+		pnlQuestAndAnswers.setBackground(Color.GREEN);
+		pnlQuestAndAnswers.setLayout(new GridBagLayout());
+		
+		pnlQuestAndAnswers.add(lblQuestionInfo, new GridBagConstraints(
+				0, 0, GridBagConstraints.REMAINDER, 1, 0, 0, GridBagConstraints.NORTH, GridBagConstraints.BOTH, new Insets(0, side, 0, side), 0,0));
+		pnlQuestAndAnswers.add(taQuestionText, new GridBagConstraints(
+				0, 1, GridBagConstraints.REMAINDER, 1, 0, 0, GridBagConstraints.NORTH, GridBagConstraints.BOTH, new Insets(0, side, 0, side), 0,0));
+		pnlQuestAndAnswers.add(pnlAnswers, new GridBagConstraints(
+				0, 2, GridBagConstraints.REMAINDER, 1, 0, 0, GridBagConstraints.NORTH, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0,0));
+		
+	}
+	
+	private void initLblQuestionInfo() {
+		final int sideIndents = QUESTION_TEXT_SIDE_INDENT + QUESTION_TEXT_SIDE_INDENT;
+		lblQuestionInfo
+				.setPreferredSize(new Dimension(this.getWidth() - sideIndents, AppConstants.TESTDIALOG_LBL_QUESTION_INFO_HEIGHT));
 
-		pnlQuestAndAnswers.add(Box.createRigidArea(new Dimension(AppConstants.TESTDIALOG_PNLQNA_RIGID_AREA_WIDTH,
-				AppConstants.TESTDIALOG_PNLQNA_RIGID_AREA_HEIGHT)));
-
-		pnlQuestAndAnswers.add(lblQuestionInfo);
-
-		pnlQuestAndAnswers.add(taQuestionText);
-
-		pnlQuestAndAnswers.add(pnlAnswers);
 	}
 
 	private void initTaQuestionText() {
@@ -141,20 +148,15 @@ public class TestDialog extends CommonDialog {
 		taQuestionText.setWrapStyleWord(true);
 		taQuestionText.setLineWrap(true);
 		taQuestionText.setDisabledTextColor(Color.BLACK);
+		
+		final int sideIndents = QUESTION_TEXT_SIDE_INDENT + QUESTION_TEXT_SIDE_INDENT;
 
 		taQuestionText.setPreferredSize(
-				new Dimension(this.getWidth(), Utils.countTestDialogTaQuestionHeight(this.getHeight())));
-
-		taQuestionText.setBackground(pnlQuestAndAnswers.getBackground());
-
-		taQuestionText.setAlignmentX(JComponent.LEFT_ALIGNMENT);
-
+				new Dimension(this.getWidth() - sideIndents, Utils.countTestDialogTaQuestionHeight(this.getHeight())));
 	}
-
+	
 	private void initPanelAnswers() {
-		pnlAnswers.setBackground(Color.YELLOW);
-
-		pnlAnswers.setAlignmentX(JComponent.LEFT_ALIGNMENT);
+		pnlAnswers.setBackground(Color.LIGHT_GRAY);
 
 		pnlAnswers.setPreferredSize(
 				new Dimension(this.getWidth(), Utils.countTestDialogPnlAnswersHeight(this.getHeight())));
@@ -163,17 +165,11 @@ public class TestDialog extends CommonDialog {
 
 		for (int i = 0; i < AMT_RAD_BUTTONS; i++) {
 			pnlAnswers.add(cbAnswers.get(i), new GridBagConstraints(0, i, GridBagConstraints.REMAINDER, 1, 0, 0,
-					GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 10, 10, 0), 0, 0));
+					GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 10, 0), 0, 0));
 		}
 	}
 
-	private void initLblQuestionInfo() {
 
-		lblQuestionInfo
-				.setPreferredSize(new Dimension(this.getWidth(), AppConstants.TESTDIALOG_LBL_QUESTION_INFO_HEIGHT));
-
-		lblQuestionInfo.setAlignmentX(JComponent.LEFT_ALIGNMENT);
-	}
 
 	private void setFonts() {
 		Font fontHeader = AppConstants.TESTDIALOG_HEADER_FONT;
@@ -194,22 +190,6 @@ public class TestDialog extends CommonDialog {
 			JCheckBox jrb = new JCheckBox();
 			cbAnswers.add(jrb);
 		}
-	}
-
-	public JLabel getLblQuestionInfo() {
-		return lblQuestionInfo;
-	}
-
-	public void setLblQuestionInfo(JTextArea taQuestionText) {
-		this.taQuestionText = taQuestionText;
-	}
-
-	public JTextArea getLblQuestionText() {
-		return taQuestionText;
-	}
-
-	public void setLblQuestionText(JTextArea taQuestionText) {
-		this.taQuestionText = taQuestionText;
 	}
 
 	public ArrayList<JCheckBox> getCbAnswers() {
@@ -268,4 +248,20 @@ public class TestDialog extends CommonDialog {
 		this.isPaused = isPaused;
 	}
 
+	public JLabel getLblQuestionInfo() {
+		return lblQuestionInfo;
+	}
+
+	public void setLblQuestionInfo(JLabel lblQuestionInfo) {
+		this.lblQuestionInfo = lblQuestionInfo;
+	}
+
+	public JTextArea getTaQuestionText() {
+		return taQuestionText;
+	}
+
+	public void setTaQuestionText(JTextArea taQuestionText) {
+		this.taQuestionText = taQuestionText;
+	}
+	
 }

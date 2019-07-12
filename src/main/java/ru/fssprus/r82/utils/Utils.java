@@ -26,7 +26,7 @@ public class Utils {
 	}
 
 	public static int countTestDialogPnlAnswersHeight(int height) {
-		return ((height - 60) / 3);
+		return ((height - 60) / 3) + 40;
 	}
 	
 	public static int countCommonQuestsAmount(int amountOfQuestions, int commonPercent) {

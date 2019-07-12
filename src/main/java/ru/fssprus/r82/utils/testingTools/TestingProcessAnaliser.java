@@ -108,7 +108,6 @@ public class TestingProcessAnaliser {
 			html.appendChild(new P().appendText(DELIMETER_DASHES_TEXT));
 
 		}
-		System.out.println(html.write());
 		return html.write();
 	}
 
