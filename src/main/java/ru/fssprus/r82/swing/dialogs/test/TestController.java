@@ -169,7 +169,8 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 	}
 
 	private void doNumAction(int num) {
-		dialog.getCbAnswers().get(num - 1).setSelected(true);
+		dialog.getCbAnswers().get(num - 1).setSelected(
+				!dialog.getCbAnswers().get(num - 1).isSelected());
 	}
 
 	private void goToQuestion(int questionIndex) {
@@ -216,16 +217,15 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 	private List<Answer> getAnswersByIndexes(List<Integer> indexes) {
 		if (indexes == null || indexes.size() == 0)
 			return null;
-
-		for (int i : indexes)
-			if (i >= questionList.get(currentIndex).getAnswers().size())
-				return null;
-
+		
 		List<Answer> answers = new ArrayList<Answer>();
 
-		for (int index : indexes)
+		for (int index : indexes) {
+			if (index >= questionList.get(currentIndex).getAnswers().size())
+				break;
 			answers.add(new ArrayList<Answer>(questionList.get(currentIndex).getAnswers()).get(index));
-
+		}
+		
 		return answers;
 
 	}

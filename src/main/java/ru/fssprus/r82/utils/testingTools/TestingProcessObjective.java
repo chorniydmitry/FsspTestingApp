@@ -42,6 +42,7 @@ public class TestingProcessObjective {
 			questionsAndAnswersGiven.put(question, new ArrayList<>());
 			return;
 		}
+		
 		if(!checkQuestion(question)) {
 			MessageBox.showWrongQuestionToAnswerErrorMessage(null);
 			return;

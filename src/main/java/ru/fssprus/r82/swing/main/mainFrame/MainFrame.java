@@ -50,7 +50,7 @@ public class MainFrame extends JFrame {
 
 		addListeners();
 		
-		setFullScreen();
+		//setFullScreen();
 		
 		setVisible(true);
 	}
