@@ -1,5 +1,6 @@
 package ru.fssprus.r82.swing.dialogs.statistics;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
@@ -34,7 +35,6 @@ public class StatisticsDialog extends DialogWithPassword {
 		int[] widths = AppConstants.STATDIALOG_TABLE_COL_WIDTHS_ARR;
 		String[] names = AppConstants.STATDIALOG_TABLE_COL_CAPTIONS_ARR;
 		tablePanel = new TablePanel(widths, names);
-		tablePanel.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
 	}
 	
 	public TablePanel getTabPanel() {
@@ -51,8 +51,8 @@ public class StatisticsDialog extends DialogWithPassword {
 
 	@Override
 	protected void layoutDialog() {
+		tablePanel.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()-AppConstants.TOP_PANEL_HEIGHT-5));
 		getContentPanel().add(tablePanel);
-		
 	}
 
 	@Override

@@ -10,6 +10,7 @@ public class WrongAnswersController extends ControllerWithTimer<WrongAnswersDial
 		super(dialog, countTimeToDisplay(wrongQuestionsAmount), dialog.getLblTimeLeftSec());
 		
 		setText(text);
+		dialog.getTaWrongs().setCaretPosition(0);
 	}
 	
 	private void doBtnCloseAction() {

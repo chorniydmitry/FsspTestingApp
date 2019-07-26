@@ -97,7 +97,7 @@ public class AppConstants {
 	public static final int TESTDIALOG_LBL_QUESTION_INFO_HEIGHT = 30;
 	public static final int TESTDIALOG_PNLQNA_RIGID_AREA_WIDTH = 0;
 	public static final int TESTDIALOG_PNLQNA_RIGID_AREA_HEIGHT = 30;
-	public static final int WADIALOG_TAWRONGS_HEIGHT_PADDING = 100;
+	public static final int WADIALOG_TAWRONGS_HEIGHT_PADDING = 60;
 	
 	public static final int TOP_PANEL_HEIGHT = 60;
 	

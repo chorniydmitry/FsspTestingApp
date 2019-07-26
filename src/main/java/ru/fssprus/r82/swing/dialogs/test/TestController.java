@@ -25,7 +25,7 @@ import ru.fssprus.r82.utils.testingTools.TestingResultsSaver;
 
 public class TestController extends ControllerWithTimer<TestDialog> implements KeyListener {
 
-	private static final String QUESTION_NUM_TEXT = "ТЕКУЩИЙ ВОПРОС #";
+	private static final String QUESTION_NUM_TEXT = "ВОПРОС #";
 	private static final String OF_TEXT = " из ";
 	private static final int ANSWER_OFFSET = 300;
 	private static final int NEXT = 1;
@@ -45,8 +45,10 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 
 		initVariables();
 		showCurrentQuestionAndAnswers();
-
-		dialog.setVisible(true);
+		
+		dialog.setFocusable(true);
+		dialog.requestFocusInWindow();
+		dialog.addKeyListener(this);
 	}
 	
 	private void initVariables() {
@@ -55,8 +57,12 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 	}
 
 	private void showCurrentQuestionAndAnswers() {
+		resetCheckBoxes();
 		showQuestion(questionList.get(currentIndex));
 		showAnswers();
+		
+		dialog.requestFocus();
+		update();
 	}
 
 	private void showQuestion(Question questionToShow) {
@@ -65,7 +71,20 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 		dialog.getTaQuestionText().setText(questionToShow.getTitle());
 	}
 	
-	
+	private void showAnswers() {
+		List<Answer> ansList = new ArrayList<>(questionList.get(currentIndex).getAnswers());
+		for (Answer ans : ansList) {
+		
+
+			dialog.getCbAnswers().get(ansList.indexOf(ans))
+					.setText(generateHTMLText(ans));
+
+			checkIfAlreadySelected(ans, ansList);
+		}
+
+		hideNotShowingAnswers(ansList.size());
+	}
+		
 	private String generateHTMLText(Answer answer) {
 		final int ansWidth = dialog.getWidth() - ANSWER_OFFSET;
 		
@@ -77,19 +96,6 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 		html.removeAttribute(HTML_ARGUMENT_TO_REMOVE);
 		
 		return html.write();
-	}
-
-	private void showAnswers() {
-		List<Answer> ansList = new ArrayList<>(questionList.get(currentIndex).getAnswers());
-		for (Answer ans : ansList) {
-
-			dialog.getCbAnswers().get(ansList.indexOf(ans))
-					.setText(generateHTMLText(ans));
-
-			checkIfAlreadySelected(ans, ansList);
-		}
-
-		hideNotShowingAnswers(ansList.size());
 	}
 
 	private void checkIfAlreadySelected(Answer ans, List<Answer> ansList) {
@@ -113,8 +119,6 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 		dialog.getBtnPrevious().addActionListener(listeber -> doPreviousAction());
 		dialog.getBtnFinish().addActionListener(listener -> doFinishAction());
 		dialog.getBtnNextUnanswered().addActionListener(listener -> doNextUnansweredAction());
-		dialog.addKeyListener(this);
-
 	}
 
 	private void checkButtonsEnabled() {
@@ -174,20 +178,18 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 	}
 
 	private void goToQuestion(int questionIndex) {
-		if (questionIndex >= questionList.size() || questionIndex < 0)
+		if (questionIndex >= questionList.size() || questionIndex < 0) {
+			update();
 			return;
-		resetCheckBoxes();
+		}
 
 		currentIndex = questionIndex;
 		showCurrentQuestionAndAnswers();
-		dialog.requestFocus();
-		update();
 	}
 
 	private void update() {
 		// если выбраны ответы на все вопросы кнопка "К следующему" блокируется
 		dialog.getBtnNextUnanswered().setEnabled(isUnckeckedLeft());
-
 		checkButtonsEnabled();
 	}
 
@@ -257,10 +259,6 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
 		if (Utils.isNumeric(String.valueOf(e.getKeyChar()))) {
 			int num = Integer.parseInt(String.valueOf(e.getKeyChar()));
 			if (num <= dialog.getCbAnswers().size())
@@ -270,6 +268,11 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 			dialog.getBtnNext().doClick();
 		if (e.getKeyCode() == KeyEvent.VK_LEFT)
 			dialog.getBtnPrevious().doClick();
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+
 
 	}
 

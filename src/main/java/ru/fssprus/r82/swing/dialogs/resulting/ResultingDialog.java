@@ -90,10 +90,10 @@ public class ResultingDialog extends CommonDialog {
 				GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 
 		// 6th row
-		contentPanel.add(btnShowWrongs, new GridBagConstraints(0, 5, 1, 1, 1, 1, GridBagConstraints.NORTH,
+		contentPanel.add(btnShowWrongs, new GridBagConstraints(0, 5, 1, 1, 1, 1, GridBagConstraints.SOUTH,
 				GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 
-		contentPanel.add(btnClose, new GridBagConstraints(1, 5, 1, 1, 1, 1, GridBagConstraints.NORTH,
+		contentPanel.add(btnClose, new GridBagConstraints(1, 5, 1, 1, 1, 1, GridBagConstraints.SOUTH,
 				GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 
 	}

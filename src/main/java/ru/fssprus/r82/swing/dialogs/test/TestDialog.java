@@ -40,8 +40,8 @@ public class TestDialog extends CommonDialog {
 	private JPanel pnlQuizzControll = new JPanel();
 	private JPanel pnlQuestAndAnswers = new JPanel();
 	private JPanel pnlAnswers = new JPanel();
-	private JButton btnNextUnanswered = new JButton(BTN_TO_NEXT_CAPTION);
-	private JButton btnFinish = new JButton(BTN_FINISH_CAPTION);
+	private JButton btnNextUnanswered = new JGreenButton(BTN_TO_NEXT_CAPTION);
+	private JButton btnFinish = new JGreenButton(BTN_FINISH_CAPTION);
 
 	private JLabel lblQuestionInfo = new JLabel();
 	private JTextArea taQuestionText = new JTextArea();
@@ -67,9 +67,7 @@ public class TestDialog extends CommonDialog {
 	@Override
 	public void init() {
 		fillBgAnswers();
-		getRootPane().setDefaultButton(btnNext);
 		super.init();
-		requestFocus();
 	}
 
 	@Override
@@ -124,7 +122,6 @@ public class TestDialog extends CommonDialog {
 		
 		final int side = QUESTION_TEXT_SIDE_INDENT;
 
-		pnlQuestAndAnswers.setBackground(Color.GREEN);
 		pnlQuestAndAnswers.setLayout(new GridBagLayout());
 		
 		pnlQuestAndAnswers.add(lblQuestionInfo, new GridBagConstraints(
@@ -156,7 +153,6 @@ public class TestDialog extends CommonDialog {
 	}
 	
 	private void initPanelAnswers() {
-		pnlAnswers.setBackground(Color.LIGHT_GRAY);
 
 		pnlAnswers.setPreferredSize(
 				new Dimension(this.getWidth(), Utils.countTestDialogPnlAnswersHeight(this.getHeight())));
