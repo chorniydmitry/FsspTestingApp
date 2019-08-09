@@ -94,11 +94,11 @@ public class TestProcessBuilder {
 		}
 	}
 
-	public TestingProcessObjective buildTest() {
+	public TestingProcess buildTest() {
 		countAmountsOfQuestionsForSpecifications();
 		loadQuestions();
 
-		return new TestingProcessObjective(user, questions, questionLevel, specifications.get(0));
+		return new TestingProcess(user, questions, questionLevel, specifications.get(0));
 
 	}
 

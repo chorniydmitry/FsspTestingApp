@@ -9,14 +9,17 @@ import ru.fssprus.r82.service.UserService;
 import ru.fssprus.r82.utils.TimeUtils;
 
 public class TestingResultsSaver {
+
 	
 	public void saveResultsToDB(int timeLeft, TestingProcessAnaliser analiser) {
+		
 		int correctAnswers = analiser.getCorrectAnswersAmount();
+		
 		Test test = new Test();
 		test.setCorrectAnswers(correctAnswers);
 		test.setDate(new Date());
 		
-		TestingProcessObjective testingProcess = analiser.getTestingProcess();
+		TestingProcess testingProcess = analiser.getTestingProcess();
 		
 		test.setScore(analiser.getMarkPercent());
 		test.setResult(analiser.getMarkText());

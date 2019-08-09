@@ -32,9 +32,25 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 
 	@Override
 	protected void setListeners() {
-		// TODO Auto-generated method stub
+		dialog.getBtnClearFilters().addActionListener(listener -> doClearFiltersAction());
+		dialog.getBtnFilter().addActionListener(listener -> doFilter());
 	}
 
+	private Object doFilter() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private void doClearFiltersAction() {
+
+		dialog.getTfSurNamLast().setText(null);
+		dialog.getTfSpecification().setText(null);
+		dialog.getTfLevel().setText(null);
+		dialog.getTfMark().setText(null);
+
+		updateTable();
+	}
+	
 	public void convertAndAddToTable(List<Test> tests) {
 		for (int i = 0; i < tests.size(); i++) {
 			Test test = tests.get(i);

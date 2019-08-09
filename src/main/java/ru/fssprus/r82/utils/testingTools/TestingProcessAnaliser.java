@@ -29,14 +29,14 @@ public class TestingProcessAnaliser {
 	private static final String DELIMETER_DASHES_TEXT = "-------------------------------"
 			+ "---------------------------------------------------------------------";
 
-	private TestingProcessObjective testingProcess;
+	private TestingProcess testingProcess;
 	private int correctAmount;
 	private int questionAmount;
 
 	private Map<Question, List<Answer>> userAnswers;
 	private Map<Question, List<Answer>> wrongAnswers;
 
-	public TestingProcessAnaliser(TestingProcessObjective testingProcess) {
+	public TestingProcessAnaliser(TestingProcess testingProcess) {
 		this.testingProcess = testingProcess;
 		initVariables();
 
@@ -154,7 +154,7 @@ public class TestingProcessAnaliser {
 		return questionAmount - correctAmount;
 	}
 
-	public TestingProcessObjective getTestingProcess() {
+	public TestingProcess getTestingProcess() {
 		return testingProcess;
 	}
 

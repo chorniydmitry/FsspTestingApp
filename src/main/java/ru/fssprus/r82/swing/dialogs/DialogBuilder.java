@@ -23,7 +23,8 @@ import ru.fssprus.r82.swing.dialogs.test.TestDialog;
 import ru.fssprus.r82.swing.dialogs.wrongAnswers.WrongAnswersController;
 import ru.fssprus.r82.swing.dialogs.wrongAnswers.WrongAnswersDialog;
 import ru.fssprus.r82.utils.AppConstants;
-import ru.fssprus.r82.utils.testingTools.TestingProcessObjective;
+import ru.fssprus.r82.utils.testingTools.TestingProcess;
+import ru.fssprus.r82.utils.testingTools.TestingProcessAnaliser;
 
 public class DialogBuilder {
 	private static JFrame parent;
@@ -51,7 +52,7 @@ public class DialogBuilder {
 			AppConstants.DIALOG_NEW_TEST_HEIGHT, parent));
 	}
 
-	public static void showTestDialog(TestingProcessObjective testingProcess) {
+	public static void showTestDialog(TestingProcess testingProcess) {
 		new TestController(new TestDialog(
 			AppConstants.DIALOG_TEST_WIDTH, 
 			AppConstants.DIALOG_TEST_HEIGHT, parent), 
@@ -92,10 +93,10 @@ public class DialogBuilder {
 			text);
 	}
 
-	public static void showResultingDialog(TestingProcessObjective testingProcess) {
+	public static void showResultingDialog(TestingProcessAnaliser tpAnaliser) {
 		new ResultingController(new ResultingDialog(
 				AppConstants.DIALOG_RESULTING_WIDTH, 
-				AppConstants.DIALOG_RESULTING_HEIGHT, parent), testingProcess);
+				AppConstants.DIALOG_RESULTING_HEIGHT, parent), tpAnaliser);
 		
 	}
 

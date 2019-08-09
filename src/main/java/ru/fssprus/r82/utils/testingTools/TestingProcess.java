@@ -12,7 +12,7 @@ import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.entity.User;
 import ru.fssprus.r82.swing.ulils.MessageBox;
 
-public class TestingProcessObjective {
+public class TestingProcess {
 	private User testedUser;
 	private Specification specification;
 	private QuestionLevel testLevel;
@@ -21,7 +21,7 @@ public class TestingProcessObjective {
 	private boolean isQuizzFinished = false;
 	//private int totalTimeForQuest;
 
-	public TestingProcessObjective(User user, List<Question> questionsToAsk, QuestionLevel testLevel, Specification spec) {
+	public TestingProcess(User user, List<Question> questionsToAsk, QuestionLevel testLevel, Specification spec) {
 		this.testedUser = user;
 		this.questionsToAskList = questionsToAsk;
 		this.testLevel = testLevel;

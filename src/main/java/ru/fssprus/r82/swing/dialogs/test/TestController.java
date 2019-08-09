@@ -20,7 +20,7 @@ import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.TimeUtils;
 import ru.fssprus.r82.utils.Utils;
 import ru.fssprus.r82.utils.testingTools.TestingProcessAnaliser;
-import ru.fssprus.r82.utils.testingTools.TestingProcessObjective;
+import ru.fssprus.r82.utils.testingTools.TestingProcess;
 import ru.fssprus.r82.utils.testingTools.TestingResultsSaver;
 
 public class TestController extends ControllerWithTimer<TestDialog> implements KeyListener {
@@ -34,12 +34,12 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 	private static final String ANS_P_STYLE_PX = " px";
 	private static final String HTML_ARGUMENT_TO_REMOVE = "xmlns";
 	
-	private TestingProcessObjective testingProcess;
+	private TestingProcess testingProcess;
 	private List<Question> questionList;
 
 	private int currentIndex;
 
-	public TestController(TestDialog dialog, TestingProcessObjective testingProcess) {
+	public TestController(TestDialog dialog, TestingProcess testingProcess) {
 		super(dialog, getTime(testingProcess.getTestLevel()), dialog.getLblTimeLeftSec());
 		this.testingProcess = testingProcess;
 
@@ -144,10 +144,7 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 	}
 
 	private void doFinishAction() {
-		setUserChoise();
 		dialog.dispose();
-		TestingProcessAnaliser tpAnaliser = new TestingProcessAnaliser(testingProcess);
-		new TestingResultsSaver().saveResultsToDB(getTimeLeft(), tpAnaliser);
 	}
 
 	private int findNextUnansweredIndex() {
@@ -236,14 +233,18 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 		dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-				initResultingDialog();
+				setUserChoise();
+				
+				TestingProcessAnaliser tpAnaliser = new TestingProcessAnaliser(testingProcess);
+				tpAnaliser.analize();
+				
+				new TestingResultsSaver().saveResultsToDB(getTimeLeft(), tpAnaliser);
+				
+				DialogBuilder.showResultingDialog(tpAnaliser);
 			}
 		});
 	}
 
-	private void initResultingDialog() {
-		DialogBuilder.showResultingDialog(testingProcess);
-	}
 
 	private static int getTime(QuestionLevel lvl) {
 		return TimeUtils.getQuizzTimeSecByLevel(lvl);

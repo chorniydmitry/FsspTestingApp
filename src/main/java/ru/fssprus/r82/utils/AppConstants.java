@@ -84,11 +84,17 @@ public class AppConstants {
 	public static final int DIALOG_RESULTING_HEIGHT = 300;
 	
 	// Константы шрифтов
-	public static final Font RESULTDIALOG_TEXT_FONT = new Font("Times New Roman", Font.BOLD, 18);
-	public static final Font TESTDIALOG_HEADER_FONT = new Font("Tahoma", Font.PLAIN, 20);
-	public static final Font TESTDIALOG_QUESTION_FONT = new Font("Times New Roman", Font.PLAIN, 20);
-	public static final Font TESTDIALOG_ITEMS_FONT = new Font("Times New Roman", Font.PLAIN, 16);
-	public static final Font TOP_PANELS_TEXT_FONT = new Font("Tahoma", Font.PLAIN, 22);
+	public static final Font RESULTDIALOG_TEXT_FONT = new Font("Courier New", Font.BOLD, 18);
+	public static final Font TESTDIALOG_HEADER_FONT = new Font("Courier New", Font.PLAIN, 20);
+	public static final Font TESTDIALOG_QUESTION_FONT = new Font("Courier New", Font.PLAIN, 20);
+	public static final Font TESTDIALOG_ITEMS_FONT = new Font("Courier New", Font.PLAIN, 16);
+	public static final Font TOP_PANELS_TEXT_FONT = new Font("Courier New", Font.PLAIN, 22);
+	
+//	public static final Font RESULTDIALOG_TEXT_FONT = new Font("Times New Roman", Font.BOLD, 18);
+//	public static final Font TESTDIALOG_HEADER_FONT = new Font("Tahoma", Font.PLAIN, 20);
+//	public static final Font TESTDIALOG_QUESTION_FONT = new Font("Times New Roman", Font.PLAIN, 20);
+//	public static final Font TESTDIALOG_ITEMS_FONT = new Font("Times New Roman", Font.PLAIN, 16);
+//	public static final Font TOP_PANELS_TEXT_FONT = new Font("Tahoma", Font.PLAIN, 22);
 	
 	// Размеры компонентов
 	public static final int MAINFRAME_BTN_WIDTHS = 250;

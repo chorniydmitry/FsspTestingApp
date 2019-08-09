@@ -5,22 +5,14 @@ import java.awt.Color;
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.utils.testingTools.TestingProcessAnaliser;
-import ru.fssprus.r82.utils.testingTools.TestingProcessObjective;
 
 public class ResultingController extends CommonController<ResultingDialog> {
-	private TestingProcessObjective testingProcess;
 	private TestingProcessAnaliser analiser;
 
-	public ResultingController(ResultingDialog dialog, TestingProcessObjective testingProcess) {
+	public ResultingController(ResultingDialog dialog, TestingProcessAnaliser analiser) {
 		super(dialog);
-		setTestingProcess(testingProcess);
-		initAnaliser();
+		this.analiser = analiser;
 		setDialogCaptions();
-	}
-	
-	private void initAnaliser() {
-		analiser = new TestingProcessAnaliser(testingProcess);
-		analiser.analize();
 	}
 	
 	@Override
@@ -39,10 +31,6 @@ public class ResultingController extends CommonController<ResultingDialog> {
 		dialog.dispose();
 	}
 
-	public TestingProcessObjective getTestingProcess() {
-		return testingProcess;
-	}
-	
 	private void setDialogCaptions() {
 		int corrects = analiser.getCorrectAnswersAmount();
 		int total = analiser.getTotalAmount();
@@ -55,9 +43,4 @@ public class ResultingController extends CommonController<ResultingDialog> {
 		dialog.setCaptions(corrects, total, markPers, markOneToFive, markText, markLetter);
 		dialog.setMarkColor(markColor);
 	}
-
-	public void setTestingProcess(TestingProcessObjective testingProcess) {
-		this.testingProcess = testingProcess;
-	}
-
 }

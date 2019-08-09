@@ -14,11 +14,7 @@ import ru.fssprus.r82.service.SpecificationService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.utils.AppConstants;
-import ru.fssprus.r82.utils.ApplicationConfiguration;
-import ru.fssprus.r82.utils.TestingProcess;
-import ru.fssprus.r82.utils.Utils;
 import ru.fssprus.r82.utils.testingTools.TestProcessBuilder;
-import ru.fssprus.r82.utils.testingTools.TestingProcessObjective;
 
 public class NewTestController extends CommonController<NewTestDialog> {
 
