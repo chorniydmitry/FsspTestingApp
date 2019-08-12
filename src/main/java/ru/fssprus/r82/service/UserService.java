@@ -16,6 +16,11 @@ public class UserService {
 		
 	}
 	
+	public List<User> getBySurname(String surname) {
+		return userDao.getBySurname(-1, -1, surname);
+		
+	}
+	
 	public List<User> getByNameSurnameSecondName(int startPos, int endPos, String name, String surname, String secondName) {
 		return userDao.getByNameSurnameSecondName(startPos, endPos, name, surname, secondName);
 	}

@@ -1,8 +1,43 @@
 package ru.fssprus.r82.utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import ru.fssprus.r82.entity.QuestionLevel;
 
 public class TimeUtils {
+	private static final int DATE_DAY_END_POSITION = 2;
+	private static final int DATE_MONTH_END_POSITION = 5;
+
+	public static String convertToStandart(String dateString) {
+		String convertedDate = dateString.replaceAll("[^\\d]", "");
+		
+		if(convertedDate.length() >= 7) {
+		convertedDate = convertedDate.substring(0, DATE_DAY_END_POSITION) + "."
+				+ convertedDate.substring(DATE_DAY_END_POSITION, convertedDate.length());
+		convertedDate = convertedDate.substring(0, DATE_MONTH_END_POSITION) + "."
+				+ convertedDate.substring(DATE_MONTH_END_POSITION, convertedDate.length());
+		} else convertedDate = null;
+
+		return convertedDate;
+	}
+	
+	public static Date getDate(String dateString) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+		dateFormat.setLenient(false);
+		
+		Date dateFound = null;
+		try {
+			dateFound = dateFormat.parse(dateString.trim());
+		} catch (ParseException pe) {
+			System.err.println("НЕ ВЕРНАЯ СТРОКА ВРЕМЕНИ!!!");
+			pe.printStackTrace();
+			return null;
+		}
+		
+		return dateFound;
+	}
 
 	public static int[] splitToComponentTimes(int seconds) {
 		int minutes = (int) seconds / 60;

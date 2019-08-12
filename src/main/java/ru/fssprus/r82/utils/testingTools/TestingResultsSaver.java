@@ -26,7 +26,7 @@ public class TestingResultsSaver {
 		test.setUser(getDBUser(testingProcess.getTestedUser()));
 
 		test.setSpecification(testingProcess.getSpecification());
-		test.setLevel(testingProcess.getTestLevel().toString());
+		test.setLevel(testingProcess.getTestLevel());
 		test.setTestingTime(TimeUtils.getQuizzTimeSecByLevel(testingProcess.getTestLevel()) - timeLeft);
 		test.setTotalQuestions(analiser.getTotalAmount());
 

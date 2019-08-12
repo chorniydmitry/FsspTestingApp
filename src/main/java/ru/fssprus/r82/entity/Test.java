@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -38,8 +40,8 @@ public class Test extends Model {
 	private int testingTime;
 	
 	@Valid
-	@Column(name="level")
-	private String level;
+	@Enumerated(EnumType.STRING)
+	private QuestionLevel level;
 	
 	@Valid
 	@ManyToOne
@@ -102,11 +104,11 @@ public class Test extends Model {
 		this.totalQuestions = totalQuestions;
 	}
 
-	public String getLevel() {
+	public QuestionLevel getLevel() {
 		return level;
 	}
 
-	public void setLevel(String level) {
+	public void setLevel(QuestionLevel level) {
 		this.level = level;
 	}
 

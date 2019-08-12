@@ -7,11 +7,13 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
 import ru.fssprus.r82.swing.table.CommonTable;
 import ru.fssprus.r82.swing.table.CommonTableModel;
@@ -29,11 +31,16 @@ public class StatisticsDialog extends DialogWithPassword {
 	private static final String LBL_SPEC_CAPTION = "Специализация:";
 	private static final String LBL_LVL_CAPTION = "Уровень:";
 	private static final String LBL_MARK_CAPTION = "Результат:";
+	private static final String LBL_DATE_CAPTION_LESS = "Дата МЕНЬШЕ:";
+	private static final String LBL_DATE_CAPTION_MORE = "Дата БОЛЬШЕ:";
+	private static final String LBL_SCORE_CAPTION_LESS = "% МЕНЬШЕ";
+	private static final String LBL_SCORE_CAPTION_MORE = "% БОЛЬШЕ";
+	
 
 	private static final String BTN_FILTER_CAPTION = "Фильтр";
 	private static final String LBL_CLEAR_CAPTION = "Сброс";
 
-	private static final int PNL_FILTER_HEIGHT = 55;
+	private static final int PNL_FILTER_HEIGHT = 100;
 
 	private TablePanel tablePanel;
 
@@ -43,12 +50,21 @@ public class StatisticsDialog extends DialogWithPassword {
 	private JLabel lblSpecification = new JLabel(LBL_SPEC_CAPTION);
 	private JLabel lblLevel = new JLabel(LBL_LVL_CAPTION);
 	private JLabel lblMark = new JLabel(LBL_MARK_CAPTION);
+	private JLabel lblDateLess = new JLabel(LBL_DATE_CAPTION_LESS);
+	private JLabel lblDateMore = new JLabel(LBL_DATE_CAPTION_MORE);
+	private JLabel lblScoreLess = new JLabel(LBL_SCORE_CAPTION_LESS);
+	private JLabel lblScoreMore = new JLabel(LBL_SCORE_CAPTION_MORE);
 
 	private JTextField tfSurNamLast = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
 	private JTextField tfSpecification = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
-	private JTextField tfLevel = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
 	private JTextField tfMark = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
+	private JTextField tfDateLess = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
+	private JTextField tfDateMore = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
+	private JTextField tfScoreLess = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
+	private JTextField tfScoreMore = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
 
+	private JComboBox<String> cbLevels = new JComboBox<>();
+	
 	private JGreenButton btnFilter = new JGreenButton(BTN_FILTER_CAPTION);
 	private JGreenButton btnClearFilters = new JGreenButton(LBL_CLEAR_CAPTION);
 
@@ -84,11 +100,12 @@ public class StatisticsDialog extends DialogWithPassword {
 
 		pnlFilter.add(btnClearFilters, new GridBagConstraints(5, 0, 1, 2, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
+		//
 
 		pnlFilter.add(lblLevel, new GridBagConstraints(0, 1, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 
-		pnlFilter.add(tfLevel, new GridBagConstraints(1, 1, 1, 1, 0, 0, GridBagConstraints.CENTER,
+		pnlFilter.add(cbLevels, new GridBagConstraints(1, 1, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 
 		pnlFilter.add(lblMark, new GridBagConstraints(2, 1, 1, 1, 0, 0, GridBagConstraints.CENTER,
@@ -96,6 +113,33 @@ public class StatisticsDialog extends DialogWithPassword {
 
 		pnlFilter.add(tfMark, new GridBagConstraints(3, 1, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 2), 0, 0));
+		//
+		
+		pnlFilter.add(lblScoreMore, new GridBagConstraints(0, 2, 1, 1, 0, 0, GridBagConstraints.CENTER,
+				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
+		
+		pnlFilter.add(tfScoreMore, new GridBagConstraints(1, 2, 1, 1, 0, 0, GridBagConstraints.CENTER,
+				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
+		
+		pnlFilter.add(lblScoreLess, new GridBagConstraints(2, 2, 1, 1, 0, 0, GridBagConstraints.CENTER,
+				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
+		
+		pnlFilter.add(tfScoreLess, new GridBagConstraints(3, 2, 1, 1, 0, 0, GridBagConstraints.CENTER,
+				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
+		
+		//
+		
+		pnlFilter.add(lblDateMore, new GridBagConstraints(0, 3, 1, 1, 0, 0, GridBagConstraints.CENTER,
+				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
+		
+		pnlFilter.add(tfDateMore, new GridBagConstraints(1, 3, 1, 1, 0, 0, GridBagConstraints.CENTER,
+				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
+		
+		pnlFilter.add(lblDateLess, new GridBagConstraints(2, 3, 1, 1, 0, 0, GridBagConstraints.CENTER,
+				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
+		
+		pnlFilter.add(tfDateLess, new GridBagConstraints(3, 3, 1, 1, 0, 0, GridBagConstraints.CENTER,
+				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 
 	}
 
@@ -151,12 +195,12 @@ public class StatisticsDialog extends DialogWithPassword {
 		this.tfSpecification = tfSpecification;
 	}
 
-	public JTextField getTfLevel() {
-		return tfLevel;
+	public JComboBox<String> getCbLevel() {
+		return cbLevels;
 	}
 
-	public void setTfLevel(JTextField tfLevel) {
-		this.tfLevel = tfLevel;
+	public void setCbLevel(JComboBox<String> tfLevel) {
+		this.cbLevels = tfLevel;
 	}
 
 	public JTextField getTfMark() {
@@ -182,4 +226,38 @@ public class StatisticsDialog extends DialogWithPassword {
 	public void setBtnClearFilters(JGreenButton btnClearFilters) {
 		this.btnClearFilters = btnClearFilters;
 	}
+
+	public JTextField getTfDateLess() {
+		return tfDateLess;
+	}
+
+	public void setTfDateLess(JTextField tfDateLess) {
+		this.tfDateLess = tfDateLess;
+	}
+
+	public JTextField getTfDateMore() {
+		return tfDateMore;
+	}
+
+	public void setTfDateMore(JTextField tfDateMore) {
+		this.tfDateMore = tfDateMore;
+	}
+
+	public JTextField getTfScoreLess() {
+		return tfScoreLess;
+	}
+
+	public void setTfScoreLess(JTextField tfScoreLess) {
+		this.tfScoreLess = tfScoreLess;
+	}
+
+	public JTextField getTfScoreMore() {
+		return tfScoreMore;
+	}
+
+	public void setTfScoreMore(JTextField tfScoreMore) {
+		this.tfScoreMore = tfScoreMore;
+	}
+	
+	
 }
