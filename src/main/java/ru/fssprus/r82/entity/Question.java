@@ -25,23 +25,17 @@ import ru.fssprus.r82.utils.AppConstants;
 @Entity
 @Table(name="question")
 public class Question extends Model {
-	@NotNull
-	@Valid
     @ManyToOne
     @JoinColumn(name="specification_id") 
     private Specification specification;
 	
 	@NotNull
-	@NotBlank(message=AppConstants.VALIDATION_QUESTION_TITLE_EMPTY)
-	@Size(min=5, max=2048, message=AppConstants.VALIDATION_QUESTION_TITLE_SIZE)
 	@Column(name="title", length=2048)
 	private String title;
 	
-	@Valid
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="question", fetch = FetchType.EAGER)
 	private Set<Answer> answers;
 	
-	@Valid
     @ElementCollection(targetClass = QuestionLevel.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "question_level", joinColumns = @JoinColumn(name = "question_id", unique=false))
     @Enumerated(EnumType.STRING)

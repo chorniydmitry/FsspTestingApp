@@ -15,9 +15,6 @@ import ru.fssprus.r82.utils.AppConstants;
 @Table(name="answer")
 public class Answer extends Model {
 	
-	@NotEmpty(message = AppConstants.VALIDATION_ANSWER_NOT_EMPTY)
-	@NotNull
-	@Size(min=2, max=2048, message = AppConstants.VALIDATION_ANSWER_WRONG_SIZE)
 	@Column(name="title", length=2048)
 	private String title;
 	

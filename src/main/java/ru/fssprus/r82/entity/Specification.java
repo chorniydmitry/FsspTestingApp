@@ -21,9 +21,6 @@ public class Specification extends Model {
 	@OneToMany(cascade= CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy="specification")
 	private Set<Question> questionList;
 
-	@NotNull
-	@NotEmpty(message=AppConstants.VALIDATION_SPECIFICATION_TITLE_EMPTY)
-	@Size(min=2, max=2048, message=AppConstants.VALIDATION_SPECIFICATION_TITLE_SIZE)
 	@Column(name = "name", length = 2048, unique = true, nullable = false, updatable = false)
 	private String name;
 
