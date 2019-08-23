@@ -28,6 +28,7 @@ import ru.fssprus.r82.utils.Utils;
 public class StatisticsController extends CommonController<StatisticsDialog> implements UpdatableController {
 	private static final int ENTRIES_FOR_PAGE = AppConstants.TABLE_ROWS_LIMIT;
 	private static final String FROM_TEXT = " из ";
+	private static final String COMMON_TEXT = "Общие";
 	private int currentPage;
 	private int totalPages;
 
@@ -35,13 +36,12 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 
 	public StatisticsController(StatisticsDialog dialog) {
 		super(dialog);
-		initcbLevels();
+		initCbs();
 		dialog.getTabPanel().getBtnAdd().setEnabled(false);
 
 		TablePanelController tablePanelController = new TablePanelController(dialog.getTabPanel());
 		tablePanelController.setSubscriber(this);
 
-		
 		updateTable();
 	}
 
@@ -58,10 +58,35 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 
 	}
 	
-	private void initcbLevels() {
+	private void initCbs() {
+		initCbLevels();
+		initCbMarks();
+		initCbSpecs();
+	}
+	
+	private void initCbLevels() {
 		dialog.getCbLevel().addItem(null);
 		for(QuestionLevel item: QuestionLevel.values())
-			dialog.getCbLevel().addItem(item.toString());
+			dialog.getCbLevel().addItem(item);
+	}
+	
+	private void initCbMarks() {
+		dialog.getCbMarks().addItem(null);
+		for(String mark: MarkCounter.getAllMarksWords())
+			dialog.getCbMarks().addItem(mark);
+	}
+	
+	private void initCbSpecs() {
+			SpecificationService service = new SpecificationService();
+			List<Specification> specList = service.getAll();
+
+			dialog.getCbSpecs().addItem(null);
+
+			for (Specification spec : specList) {
+				if (spec.getName().toUpperCase().equals(COMMON_TEXT.toUpperCase()))
+					continue;
+				dialog.getCbSpecs().addItem(spec.getName());
+			}
 	}
 
 	private void doFilter() {
@@ -74,19 +99,20 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 			users = new HashSet<>(userService.getBySurname(dialog.getTfSurNamLast().getText()));
 
 		Set<Specification> specs = null;
-		if (!dialog.getTfSpecification().getText().isEmpty())
-			specs = new HashSet<>(specService.getByName(dialog.getTfSpecification().getText()));
+		if (dialog.getCbSpecs().getSelectedIndex() != 0)
+			specs = new HashSet<>(specService.getByName(dialog.getCbSpecs().getSelectedItem().toString()));
 
 		QuestionLevel level = null;
 
 		if ((dialog.getCbLevel().getSelectedItem() != null)) {
 			level = (QuestionLevel.valueOf(dialog.getCbLevel().getSelectedItem().toString()));
 		}
+		
 		Date dateMore = TimeUtils.getDate(dialog.getTfDateMore().getText());
 
 		Date dateLess = TimeUtils.getDate(dialog.getTfDateLess().getText());
 
-		String result = dialog.getTfMark().getText();
+		String result = dialog.getCbMarks().getSelectedItem().toString();
 
 		String scoreMoreText = dialog.getTfScoreMore().getText();
 		String scoreLessText = dialog.getTfScoreLess().getText();
@@ -117,9 +143,9 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 	private void doClearFiltersAction() {
 
 		dialog.getTfSurNamLast().setText(null);
-		dialog.getTfSpecification().setText(null);
+		dialog.getCbSpecs().setSelectedIndex(0);
 		dialog.getCbLevel().setSelectedIndex(0);
-		dialog.getTfMark().setText(null);
+		dialog.getCbMarks().setSelectedIndex(0);
 		dialog.getTfDateLess().setText(null);
 		dialog.getTfDateMore().setText(null);
 		dialog.getTfScoreLess().setText(null);

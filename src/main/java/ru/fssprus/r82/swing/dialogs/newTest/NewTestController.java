@@ -3,8 +3,13 @@ package ru.fssprus.r82.swing.dialogs.newTest;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.JRadioButton;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.entity.Specification;
@@ -90,19 +95,27 @@ public class NewTestController extends CommonController<NewTestDialog> {
 	private boolean validateFields() {
 
 		boolean validationPassed = true;
-
-		if (dialog.getTfName().getText().isEmpty()) {
+		
+		ValidatorFactory valFact = Validation.buildDefaultValidatorFactory();
+		Validator validator = valFact.getValidator();
+		
+		Set<ConstraintViolation<User>> nameCons = validator.validateValue(User.class, "name", dialog.getTfName().getText());
+		Set<ConstraintViolation<User>> snCons = validator.validateValue(User.class, "surname", dialog.getTfSurname().getText());
+		Set<ConstraintViolation<User>> fnCons = validator.validateValue(User.class, "secondName", dialog.getTfSecondName().getText());
+		
+		if (nameCons.size() > 0) {
 			dialog.getTfName().setBackground(Color.RED);
 			validationPassed = false;
 		}
-		if (dialog.getTfSurname().getText().isEmpty()) {
+		if (snCons.size() > 0) {
 			dialog.getTfSurname().setBackground(Color.RED);
 			validationPassed = false;
 		}
-		if (dialog.getTfSecondName().getText().isEmpty()) {
+		if (fnCons.size() > 0) {
 			dialog.getTfSecondName().setBackground(Color.RED);
 			validationPassed = false;
 		}
+		
 		Object cbValue = dialog.getCbSpecification().getSelectedItem();
 
 		if (cbValue == null) {
@@ -115,6 +128,8 @@ public class NewTestController extends CommonController<NewTestDialog> {
 				lvls.setBackground(Color.RED);
 			validationPassed = false;
 		}
+		
+		valFact.close();
 
 		return validationPassed;
 

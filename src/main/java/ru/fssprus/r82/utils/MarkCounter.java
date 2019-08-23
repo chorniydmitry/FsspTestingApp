@@ -13,6 +13,8 @@ public class MarkCounter {
 	private static final String C_WORDS = "УДОВЛЕТВОРИТЕЛЬНО";
 	private static final String D_WORDS = "НЕ УДОВЛЕТВОРИТЕЛЬНО";
 	
+	private static final String[] ALL_MARKS = { A_WORDS, B_WORDS, C_WORDS, D_WORDS };
+	
 	private static final Color A_COLOR = new Color(0x00FF00);
 	private static final Color B_COLOR = new Color(0xAAFFAA);
 	private static final Color C_COLOR = new Color(0x00FFFF);
@@ -21,6 +23,10 @@ public class MarkCounter {
 	public static final int countMarkInPercent(int totalAmount, int correctAnswers) {
 		double calculations = Math.abs(((double) correctAnswers / totalAmount) * 100);
 		return (int) calculations;
+	}
+	
+	public static final String[] getAllMarksWords() {
+		return ALL_MARKS;
 	}
 
 	public static final String countMarkInECTS(int totalAmount, int correctAnswers) {

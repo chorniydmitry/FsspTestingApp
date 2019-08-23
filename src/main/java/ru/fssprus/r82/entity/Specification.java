@@ -17,10 +17,11 @@ import ru.fssprus.r82.utils.AppConstants;
 @Entity
 @Table(name = "specification")
 public class Specification extends Model {
-	
 	@OneToMany(cascade= CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy="specification")
 	private Set<Question> questionList;
 
+	@NotNull
+	@Size(min=5)
 	@Column(name = "name", length = 2048, unique = true, nullable = false, updatable = false)
 	private String name;
 

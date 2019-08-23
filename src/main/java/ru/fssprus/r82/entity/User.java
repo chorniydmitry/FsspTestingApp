@@ -7,16 +7,28 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="usr")
 public class User extends Model {
+	@NotNull
+	@Size(min=2, max=30)
+	@Pattern(regexp = "[А-Я][а-я]*")
 	@Column(name="name")
 	private String name;
 	
+	@NotNull
+	@Size(min=2, max=30)
+	@Pattern(regexp = "[А-Я][а-я]*")
 	@Column(name="surname")
 	private String surname;
 	
+	@NotNull
+	@Size(min=2, max=30)
+	@Pattern(regexp = "[А-Я][а-я]*")
 	@Column(name="second_name")
 	private String secondName;
 

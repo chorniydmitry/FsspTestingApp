@@ -25,20 +25,25 @@ import ru.fssprus.r82.utils.AppConstants;
 @Entity
 @Table(name="question")
 public class Question extends Model {
+	@NotNull
     @ManyToOne
     @JoinColumn(name="specification_id") 
     private Specification specification;
 	
 	@NotNull
+	@Size(min=AppConstants.QUESTION_TEXT_MIN_LENGTH)
 	@Column(name="title", length=2048)
 	private String title;
 	
+	@Size(min=AppConstants.MIN_ANSWERS_AMOUNT, max=AppConstants.MIN_ANSWERS_AMOUNT)
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="question", fetch = FetchType.EAGER)
 	private Set<Answer> answers;
 	
+	@NotNull
     @ElementCollection(targetClass = QuestionLevel.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "question_level", joinColumns = @JoinColumn(name = "question_id", unique=false))
     @Enumerated(EnumType.STRING)
+	@Size(min=1)
 	private Set<QuestionLevel> levels;
 
 	public String getTitle() {

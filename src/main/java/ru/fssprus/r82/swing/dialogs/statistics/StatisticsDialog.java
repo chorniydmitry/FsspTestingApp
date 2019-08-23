@@ -27,7 +27,7 @@ public class StatisticsDialog extends DialogWithPassword {
 	private static final String TITLE = AppConstants.STATISTICS_TEXT;
 	private static final String ICON = AppConstants.STATISTICS_ICON;
 
-	private static final String LBL_FIO_CAPTION = "ФИО:";
+	private static final String LBL_FIO_CAPTION = "Фамилия:";
 	private static final String LBL_SPEC_CAPTION = "Специализация:";
 	private static final String LBL_LVL_CAPTION = "Уровень:";
 	private static final String LBL_MARK_CAPTION = "Результат:";
@@ -56,14 +56,14 @@ public class StatisticsDialog extends DialogWithPassword {
 	private JLabel lblScoreMore = new JLabel(LBL_SCORE_CAPTION_MORE);
 
 	private JTextField tfSurNamLast = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
-	private JTextField tfSpecification = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
-	private JTextField tfMark = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
 	private JTextField tfDateLess = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
 	private JTextField tfDateMore = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
 	private JTextField tfScoreLess = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
 	private JTextField tfScoreMore = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
 
-	private JComboBox<String> cbLevels = new JComboBox<>();
+	private JComboBox<QuestionLevel> cbLevels = new JComboBox<>();
+	private JComboBox<String> cbMarks = new JComboBox<>();
+	private JComboBox<String> cbSpecs = new JComboBox<>();
 	
 	private JGreenButton btnFilter = new JGreenButton(BTN_FILTER_CAPTION);
 	private JGreenButton btnClearFilters = new JGreenButton(LBL_CLEAR_CAPTION);
@@ -92,13 +92,13 @@ public class StatisticsDialog extends DialogWithPassword {
 		pnlFilter.add(lblSpecification, new GridBagConstraints(2, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 
-		pnlFilter.add(tfSpecification, new GridBagConstraints(3, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
+		pnlFilter.add(cbSpecs, new GridBagConstraints(3, 0, 3, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 
-		pnlFilter.add(btnFilter, new GridBagConstraints(4, 0, 1, 2, 0, 0, GridBagConstraints.CENTER,
+		pnlFilter.add(btnFilter, new GridBagConstraints(4, 1, 1, 3, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 
-		pnlFilter.add(btnClearFilters, new GridBagConstraints(5, 0, 1, 2, 0, 0, GridBagConstraints.CENTER,
+		pnlFilter.add(btnClearFilters, new GridBagConstraints(5, 1, 1, 3, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 		//
 
@@ -111,7 +111,7 @@ public class StatisticsDialog extends DialogWithPassword {
 		pnlFilter.add(lblMark, new GridBagConstraints(2, 1, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 
-		pnlFilter.add(tfMark, new GridBagConstraints(3, 1, 1, 1, 0, 0, GridBagConstraints.CENTER,
+		pnlFilter.add(cbMarks, new GridBagConstraints(3, 1, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 2), 0, 0));
 		//
 		
@@ -187,28 +187,28 @@ public class StatisticsDialog extends DialogWithPassword {
 		this.tfSurNamLast = tfSurNamLast;
 	}
 
-	public JTextField getTfSpecification() {
-		return tfSpecification;
+	public JComboBox<String> getCbSpecs() {
+		return cbSpecs;
 	}
 
-	public void setTfSpecification(JTextField tfSpecification) {
-		this.tfSpecification = tfSpecification;
+	public void setCbSpecs(JComboBox<String> cbSpecs) {
+		this.cbSpecs = cbSpecs;
 	}
 
-	public JComboBox<String> getCbLevel() {
+	public JComboBox<QuestionLevel> getCbLevel() {
 		return cbLevels;
 	}
 
-	public void setCbLevel(JComboBox<String> tfLevel) {
+	public void setCbLevel(JComboBox<QuestionLevel> tfLevel) {
 		this.cbLevels = tfLevel;
 	}
 
-	public JTextField getTfMark() {
-		return tfMark;
+	public JComboBox<String> getCbMarks() {
+		return cbMarks;
 	}
 
-	public void setTfMark(JTextField tfMark) {
-		this.tfMark = tfMark;
+	public void setTfMark(JComboBox<String> tfMarks) {
+		this.cbMarks = tfMarks;
 	}
 
 	public JGreenButton getBtnFilter() {

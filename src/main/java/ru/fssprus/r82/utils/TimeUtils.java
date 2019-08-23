@@ -32,7 +32,6 @@ public class TimeUtils {
 			dateFound = dateFormat.parse(dateString.trim());
 		} catch (ParseException pe) {
 			System.err.println("НЕ ВЕРНАЯ СТРОКА ВРЕМЕНИ!!!");
-			pe.printStackTrace();
 			return null;
 		}
 		

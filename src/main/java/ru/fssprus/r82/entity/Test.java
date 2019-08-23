@@ -10,36 +10,47 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 @Entity
 @Table(name="test")
 public class Test extends Model {
+	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name="user_id", nullable=false)
 	private User user;
 	
+	@Past
 	@Column(name="date")
 	private Date date;
 	
+	@Min(20)
 	@Column(name="total_questions")
 	private int totalQuestions;
 	
+	@Min(0)
 	@Column(name="correct_answers")
 	private int correctAnswers;
 	
+	@Min(0)
 	@Column(name="score")
 	private int score;
 	
 	@Column(name="result")
 	private String result;
 	
+	@Min(0)
 	@Column(name="testing_time")
 	private int testingTime;
 	
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private QuestionLevel level;
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name="specification_id")
 	private Specification specification;

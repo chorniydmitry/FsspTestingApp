@@ -57,7 +57,6 @@ public class ConfigController extends CommonController<ConfigDialog> implements 
 
 	}
 
-	// TODO
 	private boolean validateFields() {
 		boolean fieldsValidated = true;
 		for (JTextField tf : dialog.getTfsList()) {
