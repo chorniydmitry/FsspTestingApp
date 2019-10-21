@@ -14,20 +14,15 @@ import javax.validation.ValidatorFactory;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.cfg.Configuration;
 
 import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Password;
 import ru.fssprus.r82.entity.Question;
-import ru.fssprus.r82.entity.QuestionLevel;
-import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.service.AnswerService;
 import ru.fssprus.r82.service.QuestionService;
-import ru.fssprus.r82.service.SpecificationService;
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.swing.main.mainFrame.MainFrame;
 import ru.fssprus.r82.utils.CheatingStopper;
-import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.CryptWithMD5;
 import ru.fssprus.r82.utils.HibernateUtil;
 

@@ -1,13 +1,22 @@
 package ru.fssprus.r82.main;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
  
 public class DragExample extends JFrame {
  
-    final private JPanel panel;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6450086787501193289L;
+	final private JPanel panel;
  
     public DragExample() {
         this.setLayout(null);
