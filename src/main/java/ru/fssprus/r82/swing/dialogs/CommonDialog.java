@@ -1,12 +1,14 @@
 package ru.fssprus.r82.swing.dialogs;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -33,6 +35,8 @@ public abstract class CommonDialog extends JDialog {
 		super(parent);
 		setSize(new Dimension(width, height));
 		setUndecorated(true);
+		getRootPane().
+		   setBorder( BorderFactory.createLineBorder(AppConstants.FSSP_COLOR) );
 		
 		add(pnlTop, BorderLayout.NORTH);
 		add(pnlContent, BorderLayout.CENTER);

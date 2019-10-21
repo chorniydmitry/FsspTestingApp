@@ -29,12 +29,12 @@ public class CheatingStopper implements Runnable {
 		try {
 			Robot robot = new Robot();
 			while (working) {
-			//	robot.keyRelease(KeyEvent.VK_ALT);
-			//	robot.keyRelease(KeyEvent.VK_TAB);
-			//	clearClipboard();
-				//frame.requestFocus();
+				robot.keyRelease(KeyEvent.VK_ALT);
+				robot.keyRelease(KeyEvent.VK_TAB);
+				clearClipboard();
+//				frame.requestFocus();
 				try {
-					Thread.sleep(10);
+					Thread.sleep(250);
 				} catch (Exception e) {
 				}
 			}

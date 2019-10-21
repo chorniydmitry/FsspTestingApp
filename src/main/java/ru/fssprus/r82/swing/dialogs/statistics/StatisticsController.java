@@ -99,9 +99,12 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 			users = new HashSet<>(userService.getBySurname(dialog.getTfSurNamLast().getText()));
 
 		Set<Specification> specs = null;
-		if (dialog.getCbSpecs().getSelectedIndex() != 0)
-			specs = new HashSet<>(specService.getByName(dialog.getCbSpecs().getSelectedItem().toString()));
-
+		if (dialog.getCbSpecs().getSelectedIndex() != -1) {
+			specs = new HashSet<>(specService.getByName(
+					dialog.getCbSpecs().
+					getSelectedItem().
+					toString()));
+		}
 		QuestionLevel level = null;
 
 		if ((dialog.getCbLevel().getSelectedItem() != null)) {
@@ -112,7 +115,9 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 
 		Date dateLess = TimeUtils.getDate(dialog.getTfDateLess().getText());
 
-		String result = dialog.getCbMarks().getSelectedItem().toString();
+		String result = null;
+		if(dialog.getCbMarks().getSelectedIndex() != -1)
+			result = dialog.getCbMarks().getSelectedItem().toString();
 
 		String scoreMoreText = dialog.getTfScoreMore().getText();
 		String scoreLessText = dialog.getTfScoreLess().getText();

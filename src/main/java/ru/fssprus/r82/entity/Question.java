@@ -14,11 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotBlank;
 
 import ru.fssprus.r82.utils.AppConstants;
 
@@ -35,7 +33,7 @@ public class Question extends Model {
 	@Column(name="title", length=2048)
 	private String title;
 	
-	@Size(min=AppConstants.MIN_ANSWERS_AMOUNT, max=AppConstants.MIN_ANSWERS_AMOUNT)
+	@Size(min=AppConstants.MIN_ANSWERS_AMOUNT, max=AppConstants.MAX_ANSWERS_AMOUNT)
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="question", fetch = FetchType.EAGER)
 	private Set<Answer> answers;
 	

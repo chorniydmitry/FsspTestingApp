@@ -18,22 +18,26 @@ public class AdminController extends CommonController<AdminDialog> {
 	}
 
 	private void doOpenSettingsDialog() {
-		DialogBuilder.showConfigDialog();
 		dialog.dispose();
+		DialogBuilder.showConfigDialog();
+		
 	}
 
 	private void doOpenQuestionLoagingDialog() {
-		DialogBuilder.showQuestionLoadingSetDialog();
 		dialog.dispose();
+		DialogBuilder.showQuestionLoadingSetDialog();
+		
 	}
 
 	private void doOpenQuestionEditDialog() {
-		DialogBuilder.showQuestionListDialog();
 		dialog.dispose();
+		DialogBuilder.showQuestionListDialog();
+		
 	}
 
 	private void doOpenManagePasswordsDialog() {
-		DialogBuilder.showPasswordManageDialog();
 		dialog.dispose();
+		DialogBuilder.showPasswordManageDialog();
+		
 	}
 }

@@ -61,47 +61,39 @@ public class TestDatabaseDao extends AbstractHibernateDao<Test> implements TestD
 
 			List<Predicate> predicates = new ArrayList<Predicate>();
 
-			if (users != null && users.size() > 0) {
-				System.out.println("users is set... " + users.size());
+			if (users != null && users.size() > 0)
 				predicates.add(root.join("user").in(users));
-			}
+			
 
-			if (specifications != null && specifications.size() > 0) {
-				System.out.println("specs is set... " + specifications.size());
+			if (specifications != null && specifications.size() > 0)
 				predicates.add(root.join("specification").in(specifications));
-			}
+			
 			if (level != null) {
-				System.out.println("level is set...");
 				Predicate p = builder.conjunction();
 				p = builder.and(p, builder.equal(root.get("level"), level));
 				predicates.add(p);
 
 			}
 
-			if (dateMore != null) {
-				System.out.println("date more than is set...");
+			if (dateMore != null) 
 				predicates.add(builder.greaterThanOrEqualTo(root.get("date"), dateMore));
-			}
 			
-			if (dateLess != null) {
-				System.out.println("date less than is set...");
+			
+			if (dateLess != null) 
 				predicates.add(builder.lessThanOrEqualTo(root.get("date"), dateLess));
-			}
 			
-			if (!result.isEmpty()) {
-				System.out.println("result is set...");
+			
+			if (result != null && !result.isEmpty()) 
 				predicates.add(builder.like(root.get("result"), "%" + result + "%"));
-			}
 			
-			if(scoreMore != 0) {
-				System.out.println("score more than is set...");
+			
+			if(scoreMore != 0) 
 				predicates.add(builder.greaterThanOrEqualTo(root.get("score"), scoreMore));
-			}
 			
-			if(scoreLess != 0) {
-				System.out.println("score less than is set...");
+			
+			if(scoreLess != 0) 
 				predicates.add(builder.lessThanOrEqualTo(root.get("score"), scoreLess));
-			}
+			
 			
 			criteriaQuery.select(root).where(predicates.toArray(new Predicate[] {}));
 
@@ -114,8 +106,6 @@ public class TestDatabaseDao extends AbstractHibernateDao<Test> implements TestD
 			}
 
 			testList = query.getResultList();
-			
-			System.out.println(testList.size());
 
 			session.close();
 

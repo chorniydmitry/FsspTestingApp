@@ -117,8 +117,9 @@ public class Application {
 
 	public static void main(String[] args) throws IOException {
 
-		Configuration configuration = new Configuration();
-		configuration.configure("hibernate.cfg.xml");
+		//Configuration configuration = new Configuration();
+		
+		//configuration.configure(Application.class.getResource("hibernate.cfg.xml"));
 
 //		Flyway flyway = Flyway.configure().dataSource(configuration.getProperty("connection.url"), 
 //				configuration.getProperty("connection.username"), 

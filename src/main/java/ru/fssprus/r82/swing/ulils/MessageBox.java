@@ -75,6 +75,8 @@ public class MessageBox extends JOptionPane {
 		panel.add(label);
 		panel.add(pass);
 		String[] options = new String[] { "OK", "Отменить" };
+		System.out.println(component.getClass());
+		
 		int option = JOptionPane.showOptionDialog(component, panel, PASSWORD_INPUT_TITLE, JOptionPane.NO_OPTION,
 				JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 		if (option == 0) {
