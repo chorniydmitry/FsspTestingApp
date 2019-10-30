@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import ru.fssprus.r82.swing.ulils.JGreenButton;
+import ru.fssprus.r82.swing.utils.JGreenButton;
 
 public class TablePanel extends JPanel {
 	private static final long serialVersionUID = 1L;

@@ -2,14 +2,16 @@ package ru.fssprus.r82.swing.main.mainFrame;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;
-import ru.fssprus.r82.swing.ulils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
+import ru.fssprus.r82.swing.utils.ImagePanel;
+import ru.fssprus.r82.swing.utils.JGreenButton;
 
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = -354084726011189758L;
@@ -18,11 +20,14 @@ public class MainFrame extends JFrame {
 	private static final String BTN_ADMIN_CAPTION = "Администрирование";
 	private static final String BTN_STATISTICS_CAPTION = "Статистика";
 	private static final String BTN_EXIT_CAPTION = "Выход";
+	private static final ImageIcon BACKGROUND_IMAGE = new ImageIcon(MainFrame.class.getResource("/gerb-1600x900.jpg"));
 
 	private JButton btnTest = new JGreenButton(BTN_TESTING_CAPTION);
 	private JButton btnAdmin = new JGreenButton(BTN_ADMIN_CAPTION);
 	private JButton btnStatistics = new JGreenButton(BTN_STATISTICS_CAPTION);
 	private JButton btnExit = new JGreenButton(BTN_EXIT_CAPTION);
+	
+	private ImagePanel contentPane = new ImagePanel(BACKGROUND_IMAGE);
 
 	private Dimension dimButtonSize = new Dimension(
 			AppConstants.MAINFRAME_BTN_WIDTHS,
@@ -41,6 +46,8 @@ public class MainFrame extends JFrame {
 		setLayout(new FlowLayout());
 
 		setButtonsSizes();
+		
+		setContentPane(contentPane);
 
 		addComponents();
 
@@ -58,10 +65,11 @@ public class MainFrame extends JFrame {
 	}
 
 	private void addComponents() {
-		add(btnTest);
-		add(btnStatistics);
-		add(btnAdmin);
-		add(btnExit);
+		contentPane.setLayout(new FlowLayout());
+		contentPane.add(btnTest);
+		contentPane.add(btnStatistics);
+		contentPane.add(btnAdmin);
+		contentPane.add(btnExit);
 	}
 
 	private void setButtonsSizes() {

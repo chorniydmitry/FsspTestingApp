@@ -1,13 +1,9 @@
 package ru.fssprus.r82.swing.dialogs.statistics;
 
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.swing.JTextField;
 
 import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.entity.Specification;
@@ -19,7 +15,7 @@ import ru.fssprus.r82.service.UserService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.table.TablePanelController;
 import ru.fssprus.r82.swing.table.UpdatableController;
-import ru.fssprus.r82.swing.ulils.MessageBox;
+import ru.fssprus.r82.swing.utils.MessageBox;
 import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.MarkCounter;
 import ru.fssprus.r82.utils.TimeUtils;
@@ -50,11 +46,11 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 		dialog.getBtnClearFilters().addActionListener(listener -> doClearFiltersAction());
 		dialog.getBtnFilter().addActionListener(listener -> updateTable());
 
-		dialog.getTfDateMore().addFocusListener(new DateTextFieldsFocusListener());
-		dialog.getTfDateMore().addActionListener(listener -> updateAndFormatDateFields(dialog.getTfDateMore()));
-
-		dialog.getTfDateLess().addFocusListener(new DateTextFieldsFocusListener());
-		dialog.getTfDateLess().addActionListener(listener -> updateAndFormatDateFields(dialog.getTfDateLess()));
+//		dialog.getDpDateMore().addFocusListener(new DateTextFieldsFocusListener());
+//		dialog.getDpDateMore().addActionListener(listener -> updateAndFormatDateFields(dialog.getTfDateMore()));
+//
+//		dialog.getDpDateLess().addFocusListener(new DateTextFieldsFocusListener());
+//		dialog.getDpDateLess().addActionListener(listener -> updateAndFormatDateFields(dialog.getTfDateLess()));
 
 	}
 	
@@ -111,9 +107,9 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 			level = (QuestionLevel.valueOf(dialog.getCbLevel().getSelectedItem().toString()));
 		}
 		
-		Date dateMore = TimeUtils.getDate(dialog.getTfDateMore().getText());
+		Date dateMore = dialog.getDpDateMore().getDate();
 
-		Date dateLess = TimeUtils.getDate(dialog.getTfDateLess().getText());
+		Date dateLess = dialog.getDpDateLess().getDate();
 
 		String result = null;
 		if(dialog.getCbMarks().getSelectedIndex() != -1)
@@ -132,27 +128,14 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 				dateLess, result, scoreMore, scoreLess);
 	}
 
-	private void updateAndFormatDateFields(Object tf) {
-		JTextField tfToUpdate = (JTextField) tf;
-		String dateMore = tfToUpdate.getText();
-
-		if (!dateMore.isEmpty())
-			dateMore = TimeUtils.convertToStandart(dateMore);
-
-		if (dateMore != null && TimeUtils.getDate(dateMore) != null)
-			tfToUpdate.setText(dateMore);
-		else
-			tfToUpdate.setText("");
-	}
-
 	private void doClearFiltersAction() {
 
 		dialog.getTfSurNamLast().setText(null);
 		dialog.getCbSpecs().setSelectedIndex(0);
 		dialog.getCbLevel().setSelectedIndex(0);
 		dialog.getCbMarks().setSelectedIndex(0);
-		dialog.getTfDateLess().setText(null);
-		dialog.getTfDateMore().setText(null);
+		dialog.getDpDateLess().clear();
+		dialog.getDpDateMore().clear();
 		dialog.getTfScoreLess().setText(null);
 		dialog.getTfScoreMore().setText(null);
 
@@ -244,19 +227,6 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 			currentPage = page - 1;
 
 		updateTable();
-	}
-
-	public class DateTextFieldsFocusListener implements FocusListener {
-
-		@Override
-		public void focusGained(FocusEvent e) {
-		}
-
-		@Override
-		public void focusLost(FocusEvent e) {
-			updateAndFormatDateFields(e.getSource());
-		}
-
 	}
 
 }

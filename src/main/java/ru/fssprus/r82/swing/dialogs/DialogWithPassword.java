@@ -3,7 +3,7 @@ package ru.fssprus.r82.swing.dialogs;
 import javax.swing.JFrame;
 
 import ru.fssprus.r82.service.PasswordService;
-import ru.fssprus.r82.swing.ulils.MessageBox;
+import ru.fssprus.r82.swing.utils.MessageBox;
 import ru.fssprus.r82.utils.CryptWithMD5;
 
 public abstract class DialogWithPassword extends CommonDialog {

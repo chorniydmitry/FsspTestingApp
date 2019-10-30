@@ -13,12 +13,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import cherny.jdatepicker.JDatePicker;
 import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
 import ru.fssprus.r82.swing.table.CommonTable;
 import ru.fssprus.r82.swing.table.CommonTableModel;
 import ru.fssprus.r82.swing.table.TablePanel;
-import ru.fssprus.r82.swing.ulils.JGreenButton;
+import ru.fssprus.r82.swing.utils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
 public class StatisticsDialog extends DialogWithPassword {
@@ -40,7 +41,7 @@ public class StatisticsDialog extends DialogWithPassword {
 	private static final String BTN_FILTER_CAPTION = "Фильтр";
 	private static final String LBL_CLEAR_CAPTION = "Сброс";
 
-	private static final int PNL_FILTER_HEIGHT = 100;
+	private static final int PNL_FILTER_HEIGHT = 120;
 
 	private TablePanel tablePanel;
 
@@ -56,8 +57,10 @@ public class StatisticsDialog extends DialogWithPassword {
 	private JLabel lblScoreMore = new JLabel(LBL_SCORE_CAPTION_MORE);
 
 	private JTextField tfSurNamLast = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
-	private JTextField tfDateLess = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
-	private JTextField tfDateMore = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
+//	private JTextField tfDateLess = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
+	private JDatePicker dpDateLess = new JDatePicker();
+	private JDatePicker dpDateMore = new JDatePicker();
+	//private JTextField tfDateMore = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
 	private JTextField tfScoreLess = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
 	private JTextField tfScoreMore = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
 
@@ -132,14 +135,14 @@ public class StatisticsDialog extends DialogWithPassword {
 		pnlFilter.add(lblDateMore, new GridBagConstraints(0, 3, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 		
-		pnlFilter.add(tfDateMore, new GridBagConstraints(1, 3, 1, 1, 0, 0, GridBagConstraints.CENTER,
-				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
+		pnlFilter.add(dpDateMore, new GridBagConstraints(1, 3, 1, 1, 0, 0, GridBagConstraints.WEST,
+				GridBagConstraints.NONE, new Insets(1, 1, 1, 1), 0, 0));
 		
 		pnlFilter.add(lblDateLess, new GridBagConstraints(2, 3, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 		
-		pnlFilter.add(tfDateLess, new GridBagConstraints(3, 3, 1, 1, 0, 0, GridBagConstraints.CENTER,
-				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
+		pnlFilter.add(dpDateLess, new GridBagConstraints(3, 3, 1, 1, 0, 0, GridBagConstraints.WEST,
+				GridBagConstraints.NONE, new Insets(1, 1, 1, 1), 0, 0));
 
 	}
 
@@ -227,20 +230,20 @@ public class StatisticsDialog extends DialogWithPassword {
 		this.btnClearFilters = btnClearFilters;
 	}
 
-	public JTextField getTfDateLess() {
-		return tfDateLess;
+	public JDatePicker getDpDateLess() {
+		return dpDateLess;
 	}
 
-	public void setTfDateLess(JTextField tfDateLess) {
-		this.tfDateLess = tfDateLess;
+	public void setDpDateLess(JDatePicker dpDateLess) {
+		this.dpDateLess = dpDateLess;
 	}
 
-	public JTextField getTfDateMore() {
-		return tfDateMore;
+	public JDatePicker getDpDateMore() {
+		return dpDateMore;
 	}
 
-	public void setTfDateMore(JTextField tfDateMore) {
-		this.tfDateMore = tfDateMore;
+	public void setDpDateMore(JDatePicker dpDateMore) {
+		this.dpDateMore = dpDateMore;
 	}
 
 	public JTextField getTfScoreLess() {

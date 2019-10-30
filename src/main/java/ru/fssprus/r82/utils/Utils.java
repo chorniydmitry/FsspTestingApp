@@ -1,7 +1,7 @@
 package ru.fssprus.r82.utils;
 
 import ru.fssprus.r82.entity.QuestionLevel;
-import ru.fssprus.r82.swing.ulils.MessageBox;
+import ru.fssprus.r82.swing.utils.MessageBox;
 
 public class Utils {
 

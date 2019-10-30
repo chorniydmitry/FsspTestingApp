@@ -14,7 +14,7 @@ import ru.fssprus.r82.service.SpecificationService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.table.TablePanelController;
 import ru.fssprus.r82.swing.table.UpdatableController;
-import ru.fssprus.r82.swing.ulils.MessageBox;
+import ru.fssprus.r82.swing.utils.MessageBox;
 import ru.fssprus.r82.utils.AppConstants;
 
 public class QuestionListController extends CommonController<QuestionListDialog> implements UpdatableController {

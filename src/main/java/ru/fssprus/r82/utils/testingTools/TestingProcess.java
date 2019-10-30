@@ -10,7 +10,7 @@ import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.entity.User;
-import ru.fssprus.r82.swing.ulils.MessageBox;
+import ru.fssprus.r82.swing.utils.MessageBox;
 
 public class TestingProcess {
 	private User testedUser;

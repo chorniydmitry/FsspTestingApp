@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import ru.fssprus.r82.swing.ulils.JGreenButton;
+import ru.fssprus.r82.swing.utils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
 public abstract class CommonDialog extends JDialog {
@@ -74,8 +74,6 @@ public abstract class CommonDialog extends JDialog {
 	protected void loadDialog() {
 		setLocationRelativeTo(null);
 		setResizable(false);
-		setAlwaysOnTop(true);
-
 		setVisible(true);
 	}
 

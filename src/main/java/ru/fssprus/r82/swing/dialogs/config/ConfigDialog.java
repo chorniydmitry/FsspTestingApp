@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 
 import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
-import ru.fssprus.r82.swing.ulils.JGreenButton;
+import ru.fssprus.r82.swing.utils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.ApplicationConfiguration;
 
