@@ -32,7 +32,7 @@ public class AppConstants {
 	public static final String TEST_DIALOG = "TestDialog";
 	public static final String WRONG_ANSWERS_DIALOG = "WrongAnswersDialog";
 	
-	public static final String[] DIALOG_WITH_PASSWORDS_ARR = { TEST_DIALOG, STATISTICS_DIALOG, 
+	public static final String[] DIALOG_WITH_PASSWORDS_ARR = { NEW_TEST_DIALOG, STATISTICS_DIALOG, 
 			ADMIN_DIALOG, CONFIG_DIALOG, QUESTION_EDIT_DIALOG, QUESTION_LOAD_DIALOG, 
 			MANAGE_PASSWORDS_DIALOG };
 
