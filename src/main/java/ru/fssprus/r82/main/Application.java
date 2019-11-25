@@ -1,5 +1,9 @@
 package ru.fssprus.r82.main;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;

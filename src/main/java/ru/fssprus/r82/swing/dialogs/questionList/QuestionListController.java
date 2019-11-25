@@ -17,6 +17,10 @@ import ru.fssprus.r82.swing.table.UpdatableController;
 import ru.fssprus.r82.swing.utils.MessageBox;
 import ru.fssprus.r82.utils.AppConstants;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class QuestionListController extends CommonController<QuestionListDialog> implements UpdatableController {
 	private static final String FROM_TEXT = " из ";
 	private static final int ENTRIES_FOR_PAGE = AppConstants.TABLE_ROWS_LIMIT;

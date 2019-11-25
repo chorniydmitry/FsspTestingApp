@@ -10,6 +10,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
  
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class DragExample extends JFrame {
  
     /**

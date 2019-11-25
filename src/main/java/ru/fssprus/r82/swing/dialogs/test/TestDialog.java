@@ -22,6 +22,10 @@ import ru.fssprus.r82.swing.utils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.Utils;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class TestDialog extends CommonDialog {
 	private static final long serialVersionUID = 1355222097401941564L;
 	private static final String SECTION = AppConstants.TEST_DIALOG;

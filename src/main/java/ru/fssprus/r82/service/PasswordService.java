@@ -1,5 +1,9 @@
 package ru.fssprus.r82.service;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 import java.util.List;
 
 import ru.fssprus.r82.dao.PasswordDao;

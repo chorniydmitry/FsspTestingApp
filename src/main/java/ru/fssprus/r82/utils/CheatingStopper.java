@@ -1,5 +1,9 @@
 package ru.fssprus.r82.utils;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;

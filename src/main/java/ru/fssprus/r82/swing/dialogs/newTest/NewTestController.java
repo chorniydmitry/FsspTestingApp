@@ -1,5 +1,9 @@
 package ru.fssprus.r82.swing.dialogs.newTest;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;

@@ -21,6 +21,10 @@ import ru.fssprus.r82.utils.MarkCounter;
 import ru.fssprus.r82.utils.TimeUtils;
 import ru.fssprus.r82.utils.Utils;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class StatisticsController extends CommonController<StatisticsDialog> implements UpdatableController {
 	private static final int ENTRIES_FOR_PAGE = AppConstants.TABLE_ROWS_LIMIT;
 	private static final String FROM_TEXT = " из ";

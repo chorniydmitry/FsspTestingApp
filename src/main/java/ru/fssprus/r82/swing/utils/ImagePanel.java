@@ -1,5 +1,9 @@
 package ru.fssprus.r82.swing.utils;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 import java.awt.Graphics;
 
 import javax.swing.ImageIcon;

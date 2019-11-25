@@ -2,6 +2,10 @@ package ru.fssprus.r82.dao;
 
 import ru.fssprus.r82.entity.Password;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public interface PasswordDao extends ItemDao<Password>{
 
 	public boolean checkBySection(String section, String passToCheckMD5);

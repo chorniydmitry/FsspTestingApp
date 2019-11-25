@@ -18,6 +18,10 @@ import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.service.AnswerService;
 import ru.fssprus.r82.utils.MarkCounter;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class TestingProcessAnaliser {
 
 	private static final String WRONGS_HTML_ANS_LIST_BOLD_TEXT = "Список вопросов:";

@@ -6,6 +6,10 @@ import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.utils.testingTools.TestingProcessAnaliser;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class ResultingController extends CommonController<ResultingDialog> {
 	private TestingProcessAnaliser analiser;
 

@@ -1,5 +1,9 @@
 package ru.fssprus.r82.swing.dialogs.admin;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 

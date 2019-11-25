@@ -16,6 +16,10 @@ import ru.fssprus.r82.entity.Answer;
 import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.utils.HibernateUtil;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class AnswerDatabaseDao extends AbstractHibernateDao<Answer> implements AnswerDao {
 
 	@Override

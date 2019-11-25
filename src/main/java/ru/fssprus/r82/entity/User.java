@@ -1,5 +1,9 @@
 package ru.fssprus.r82.entity;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 import java.util.Set;
 
 import javax.persistence.CascadeType;

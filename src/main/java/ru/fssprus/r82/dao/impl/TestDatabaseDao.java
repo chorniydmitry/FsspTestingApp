@@ -1,6 +1,9 @@
 package ru.fssprus.r82.dao.impl;
 
-
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

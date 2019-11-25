@@ -1,5 +1,9 @@
 package ru.fssprus.r82.entity;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 import java.util.Date;
 
 import javax.persistence.Column;

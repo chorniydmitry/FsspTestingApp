@@ -1,5 +1,9 @@
 package ru.fssprus.r82.swing.dialogs.config;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;

@@ -13,6 +13,10 @@ import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.swing.utils.ImagePanel;
 import ru.fssprus.r82.swing.utils.JGreenButton;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = -354084726011189758L;
 	

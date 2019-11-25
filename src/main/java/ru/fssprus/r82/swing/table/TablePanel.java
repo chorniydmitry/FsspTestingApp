@@ -11,6 +11,10 @@ import javax.swing.JTextField;
 
 import ru.fssprus.r82.swing.utils.JGreenButton;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class TablePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	

@@ -23,6 +23,10 @@ import ru.fssprus.r82.utils.testingTools.TestingProcessAnaliser;
 import ru.fssprus.r82.utils.testingTools.TestingProcess;
 import ru.fssprus.r82.utils.testingTools.TestingResultsSaver;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class TestController extends ControllerWithTimer<TestDialog> implements KeyListener {
 
 	private static final String QUESTION_NUM_TEXT = "ВОПРОС #";

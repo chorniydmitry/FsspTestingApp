@@ -22,6 +22,10 @@ import ru.fssprus.r82.swing.table.TablePanel;
 import ru.fssprus.r82.swing.utils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class StatisticsDialog extends DialogWithPassword {
 	private static final long serialVersionUID = -1487357130550152798L;
 	private static final String SECTION = AppConstants.STATISTICS_DIALOG;

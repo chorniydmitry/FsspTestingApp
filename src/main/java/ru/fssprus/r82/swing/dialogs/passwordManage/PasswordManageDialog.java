@@ -15,6 +15,10 @@ import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
 import ru.fssprus.r82.swing.utils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class PasswordManageDialog extends DialogWithPassword {
 	private static final long serialVersionUID = -4879337467270588965L;
 	

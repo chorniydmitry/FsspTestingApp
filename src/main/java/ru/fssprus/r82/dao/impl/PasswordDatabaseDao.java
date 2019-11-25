@@ -13,6 +13,10 @@ import ru.fssprus.r82.dao.PasswordDao;
 import ru.fssprus.r82.entity.Password;
 import ru.fssprus.r82.utils.HibernateUtil;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class PasswordDatabaseDao extends AbstractHibernateDao<Password> implements PasswordDao {
 
 	@Override

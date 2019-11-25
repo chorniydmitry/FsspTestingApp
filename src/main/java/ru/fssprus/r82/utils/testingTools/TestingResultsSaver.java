@@ -8,9 +8,11 @@ import ru.fssprus.r82.service.TestService;
 import ru.fssprus.r82.service.UserService;
 import ru.fssprus.r82.utils.TimeUtils;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class TestingResultsSaver {
-
-	
 	public void saveResultsToDB(int timeLeft, TestingProcessAnaliser analiser) {
 		
 		int correctAnswers = analiser.getCorrectAnswersAmount();

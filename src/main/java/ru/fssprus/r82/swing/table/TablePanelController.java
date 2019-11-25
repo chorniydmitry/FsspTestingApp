@@ -7,6 +7,10 @@ import javax.swing.ListSelectionModel;
 import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.Utils;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class TablePanelController {
 
 	private TablePanel tablePanel;

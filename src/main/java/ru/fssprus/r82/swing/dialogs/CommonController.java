@@ -1,5 +1,9 @@
 package ru.fssprus.r82.swing.dialogs;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 

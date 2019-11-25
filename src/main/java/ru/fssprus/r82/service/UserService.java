@@ -7,6 +7,10 @@ import ru.fssprus.r82.dao.impl.UserDatabaseDao;
 import ru.fssprus.r82.entity.User;
 import ru.fssprus.r82.utils.AppConstants;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class UserService {
 	// TODO: autowired
 	private UserDao userDao = new UserDatabaseDao();

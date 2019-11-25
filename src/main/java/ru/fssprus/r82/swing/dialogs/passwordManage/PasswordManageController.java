@@ -12,6 +12,10 @@ import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.CryptWithMD5;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class PasswordManageController extends CommonController<PasswordManageDialog> implements DocumentListener {
 
 	public PasswordManageController(PasswordManageDialog dialog) {

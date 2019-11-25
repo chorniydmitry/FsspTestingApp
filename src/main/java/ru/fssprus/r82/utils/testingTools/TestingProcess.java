@@ -12,6 +12,10 @@ import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.entity.User;
 import ru.fssprus.r82.swing.utils.MessageBox;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class TestingProcess {
 	private User testedUser;
 	private Specification specification;

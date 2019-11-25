@@ -6,6 +6,10 @@ import java.util.Date;
 
 import ru.fssprus.r82.entity.QuestionLevel;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class TimeUtils {
 	private static final int DATE_DAY_END_POSITION = 2;
 	private static final int DATE_MONTH_END_POSITION = 5;

@@ -5,6 +5,10 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class TestFileChooser {
 	
 	private File selectFileOption(int option, JFileChooser fileChooser, String extension) {

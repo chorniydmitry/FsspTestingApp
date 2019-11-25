@@ -1,5 +1,9 @@
 package ru.fssprus.r82.swing.dialogs;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 import javax.swing.JFrame;
 
 import ru.fssprus.r82.service.PasswordService;

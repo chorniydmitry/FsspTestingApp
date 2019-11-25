@@ -1,5 +1,9 @@
 package ru.fssprus.r82.swing.utils;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 import java.awt.Color;
 
 import javax.swing.JButton;

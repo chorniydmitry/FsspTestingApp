@@ -5,6 +5,10 @@ import javax.validation.ConstraintValidatorContext;
 
 import ru.fssprus.r82.entity.User;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class QuestionValidator implements ConstraintValidator<QuestionCheck, User>{
 
 	@Override

@@ -22,6 +22,10 @@ import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.utils.HibernateUtil;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class QuestionDatabaseDao extends AbstractHibernateDao<Question> implements QuestionDao {
 
 	public QuestionDatabaseDao() {

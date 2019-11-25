@@ -1,5 +1,9 @@
 package ru.fssprus.r82.swing.dialogs.addingSet;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;

@@ -10,10 +10,10 @@ import ru.fssprus.r82.utils.AppConstants;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-
-
-
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 @Constraint(validatedBy = {QuestionValidator.class})
 @Target({TYPE})
 @Retention(RUNTIME)

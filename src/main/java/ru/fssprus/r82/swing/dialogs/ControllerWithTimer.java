@@ -1,5 +1,9 @@
 package ru.fssprus.r82.swing.dialogs;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 import java.util.Timer;
 import java.util.TimerTask;
 

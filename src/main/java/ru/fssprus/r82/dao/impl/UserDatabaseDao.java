@@ -14,6 +14,10 @@ import ru.fssprus.r82.dao.UserDao;
 import ru.fssprus.r82.entity.User;
 import ru.fssprus.r82.utils.HibernateUtil;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class UserDatabaseDao extends AbstractHibernateDao<User> implements UserDao {
 
 	@Override

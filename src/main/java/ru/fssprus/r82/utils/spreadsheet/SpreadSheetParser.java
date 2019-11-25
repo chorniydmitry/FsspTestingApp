@@ -9,6 +9,10 @@ import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.entity.Specification;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class SpreadSheetParser {
 	
 	public HashSet<Question> parse(File f, Set<QuestionLevel> lvl, Specification spec) {

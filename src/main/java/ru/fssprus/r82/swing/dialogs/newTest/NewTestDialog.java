@@ -22,6 +22,10 @@ import ru.fssprus.r82.swing.dialogs.DialogWithPassword;
 import ru.fssprus.r82.swing.utils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class NewTestDialog extends DialogWithPassword {
 	private static final long serialVersionUID = 1342455118946206792L;
 	private static final String SECTION = AppConstants.NEW_TEST_DIALOG;

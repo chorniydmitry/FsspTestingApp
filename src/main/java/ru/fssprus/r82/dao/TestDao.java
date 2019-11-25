@@ -9,6 +9,10 @@ import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.entity.Test;
 import ru.fssprus.r82.entity.User;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public interface TestDao extends ItemDao<Test> {
 
 	int getAmountOfItems();

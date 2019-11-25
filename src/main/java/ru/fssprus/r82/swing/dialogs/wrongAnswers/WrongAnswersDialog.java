@@ -15,6 +15,10 @@ import ru.fssprus.r82.swing.dialogs.CommonDialog;
 import ru.fssprus.r82.swing.utils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class WrongAnswersDialog extends CommonDialog {
 	private static final long serialVersionUID = 3594882748640500638L;
 	private static final String SECTION = AppConstants.WRONG_ANSWERS_DIALOG;

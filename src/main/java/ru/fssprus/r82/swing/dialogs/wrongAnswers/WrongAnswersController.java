@@ -2,6 +2,10 @@ package ru.fssprus.r82.swing.dialogs.wrongAnswers;
 
 import ru.fssprus.r82.swing.dialogs.ControllerWithTimer;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class WrongAnswersController extends ControllerWithTimer<WrongAnswersDialog> {
 	private static final int TIME_FOR_ANSWER_MULTIPLIER = 2;
 	private static final int TIME_OFFSET_SEC = 10;

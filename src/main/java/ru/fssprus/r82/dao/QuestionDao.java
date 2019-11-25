@@ -8,6 +8,10 @@ import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.entity.Specification;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public interface QuestionDao extends ItemDao<Question> {
 	
 	public List<Question> getByTitle(int startPos, int endPos, String title);

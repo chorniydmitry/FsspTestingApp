@@ -7,6 +7,10 @@ import ru.fssprus.r82.dao.impl.SpecifiactionDatabaseDao;
 import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.entity.Specification;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class SpecificationService {
 	
 	//TODO: autowired

@@ -1,5 +1,9 @@
 package ru.fssprus.r82.dao;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 import java.util.List;
 import java.util.Set;
 

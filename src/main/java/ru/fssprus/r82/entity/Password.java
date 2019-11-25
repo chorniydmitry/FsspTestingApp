@@ -1,5 +1,9 @@
 package ru.fssprus.r82.entity;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;

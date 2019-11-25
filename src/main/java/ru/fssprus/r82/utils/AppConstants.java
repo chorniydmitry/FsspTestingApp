@@ -1,5 +1,9 @@
 package ru.fssprus.r82.utils;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 import java.awt.Color;
 import java.awt.Font;
 import java.text.SimpleDateFormat;

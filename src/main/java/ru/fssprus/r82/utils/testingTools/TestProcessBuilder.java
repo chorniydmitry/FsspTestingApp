@@ -15,8 +15,11 @@ import ru.fssprus.r82.service.QuestionService;
 import ru.fssprus.r82.utils.ApplicationConfiguration;
 import ru.fssprus.r82.utils.Utils;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class TestProcessBuilder {
-
 	private List<Specification> specifications;
 	private QuestionLevel questionLevel;
 	private List<Question> questions;

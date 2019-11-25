@@ -2,6 +2,10 @@ package ru.fssprus.r82.utils;
 
 import java.awt.Color;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class MarkCounter {
 
 	private static final int A = 90;

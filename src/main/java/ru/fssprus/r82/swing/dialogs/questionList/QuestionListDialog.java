@@ -28,6 +28,10 @@ import ru.fssprus.r82.swing.table.TablePanel;
 import ru.fssprus.r82.swing.utils.JGreenButton;
 import ru.fssprus.r82.utils.AppConstants;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class QuestionListDialog extends DialogWithPassword {
 	private static final long serialVersionUID = -8319908967500731744L;
 	private static final String SECTION = AppConstants.QUESTION_EDIT_DIALOG;

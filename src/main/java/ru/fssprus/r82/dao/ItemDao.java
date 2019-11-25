@@ -4,6 +4,10 @@ import java.util.List;
 
 import ru.fssprus.r82.entity.Model;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public interface ItemDao<T extends Model> {
 
 	public List<T> getAll();

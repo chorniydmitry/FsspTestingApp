@@ -3,6 +3,10 @@ package ru.fssprus.r82.utils;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class CryptWithMD5 {
 	private static MessageDigest md;
 

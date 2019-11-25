@@ -15,6 +15,10 @@ import ru.fssprus.r82.entity.Question;
 import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.utils.HibernateUtil;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class SpecifiactionDatabaseDao extends AbstractHibernateDao<Specification> implements SpecificationDao {
 
 	public SpecifiactionDatabaseDao() {

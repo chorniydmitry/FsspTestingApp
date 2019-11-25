@@ -16,6 +16,10 @@ import org.hibernate.query.Query;
 import ru.fssprus.r82.entity.Model;
 import ru.fssprus.r82.utils.HibernateUtil;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public abstract class AbstractHibernateDao<T extends Model> {
 
 	private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();

@@ -3,6 +3,10 @@ package ru.fssprus.r82.utils;
 import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.swing.utils.MessageBox;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class Utils {
 
 	private static final double MAX_PERCENT = 100.0;

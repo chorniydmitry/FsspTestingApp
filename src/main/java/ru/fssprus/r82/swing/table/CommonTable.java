@@ -10,6 +10,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 import ru.fssprus.r82.utils.AppConstants;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class CommonTable extends JTable {
 	private static final long serialVersionUID = 1281533315206385819L;
 	private CommonTableModel tabModel;

@@ -11,6 +11,10 @@ import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.entity.Test;
 import ru.fssprus.r82.entity.User;
 
+/**
+ * @author Chernyj Dmitry
+ *
+ */
 public class TestService {
 	// TODO: autowired
 	private TestDao testDao = new TestDatabaseDao();
