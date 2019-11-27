@@ -116,7 +116,7 @@ public class AppConstants {
 	public static final int QLDIALOG_TF_SIZE = 25;
 	
 	public static final int[] QLDIALOG_TABLE_COL_WIDTHS_ARR = {40, 550, 190, 190};
-	public static final String[] QLDIALOG_TABLE_COL_CAPTIONS_ARR = {"id","Формулировка", "Уровни", "Спецификация" };
+	public static final String[] QLDIALOG_TABLE_COL_CAPTIONS_ARR = {"id", "Формулировка", "Уровни", "Спецификация" };
 	
 	public static final String ACCP_SPEC_NAMES_PROTOTYPE_DISPLAY_VALUE = "XXXXXXXXXXXXXXXXXXXX";
 	

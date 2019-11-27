@@ -19,5 +19,8 @@ public interface TestDao extends ItemDao<Test> {
 	
 	List<Test> getByUserSpecifiactionLevelAndDate(int startPos, int endPos, Set<User> user, Set<Specification> specification,
 			QuestionLevel level, Date dateMore, Date dateLess, String result, int scoreMore, int scoreLess);
+
+	int countByUserSpecifiactionLevelAndDate(Set<User> users, Set<Specification> specs, QuestionLevel level,
+			Date dateMore, Date dateLess, String result, int scoreMore, int scoreLess);
 	
 }

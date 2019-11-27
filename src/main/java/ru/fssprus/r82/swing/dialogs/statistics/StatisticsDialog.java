@@ -43,13 +43,15 @@ public class StatisticsDialog extends DialogWithPassword {
 	
 
 	private static final String BTN_FILTER_CAPTION = "Фильтр";
-	private static final String LBL_CLEAR_CAPTION = "Сброс";
-
-	private static final int PNL_FILTER_HEIGHT = 120;
+	private static final String BTN_CLEAR_CAPTION = "Сброс";
+	private static final String BTN_PRINT_CAPTION = "Печать";
+	
+	private static final int PNL_FILTER_HEIGHT = 155;
 
 	private TablePanel tablePanel;
 
 	private JPanel pnlFilter = new JPanel();
+	private JPanel pnlFilterButtons = new JPanel();
 
 	private JLabel lblSurNamLast = new JLabel(LBL_FIO_CAPTION);
 	private JLabel lblSpecification = new JLabel(LBL_SPEC_CAPTION);
@@ -61,10 +63,8 @@ public class StatisticsDialog extends DialogWithPassword {
 	private JLabel lblScoreMore = new JLabel(LBL_SCORE_CAPTION_MORE);
 
 	private JTextField tfSurNamLast = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
-//	private JTextField tfDateLess = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
 	private JDatePicker dpDateLess = new JDatePicker();
 	private JDatePicker dpDateMore = new JDatePicker();
-	//private JTextField tfDateMore = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
 	private JTextField tfScoreLess = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
 	private JTextField tfScoreMore = new JTextField(AppConstants.QLDIALOG_TF_SIZE);
 
@@ -73,12 +73,16 @@ public class StatisticsDialog extends DialogWithPassword {
 	private JComboBox<String> cbSpecs = new JComboBox<>();
 	
 	private JGreenButton btnFilter = new JGreenButton(BTN_FILTER_CAPTION);
-	private JGreenButton btnClearFilters = new JGreenButton(LBL_CLEAR_CAPTION);
+	private JGreenButton btnClearFilters = new JGreenButton(BTN_CLEAR_CAPTION);
+	private JGreenButton btnPrint = new JGreenButton(BTN_PRINT_CAPTION);
 
 	public StatisticsDialog(int width, int heigth, JFrame parent) {
 		super(width, heigth, parent);
 		initTablePanel();
 		layoutFilterPanel();
+		layoutFilterPanelButtons();
+		
+		getRootPane().setDefaultButton(btnFilter);
 	}
 
 	@Override
@@ -99,20 +103,15 @@ public class StatisticsDialog extends DialogWithPassword {
 		pnlFilter.add(lblSpecification, new GridBagConstraints(2, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 
-		pnlFilter.add(cbSpecs, new GridBagConstraints(3, 0, 3, 1, 0, 0, GridBagConstraints.CENTER,
+		pnlFilter.add(cbSpecs, new GridBagConstraints(3, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 
-		pnlFilter.add(btnFilter, new GridBagConstraints(4, 1, 1, 3, 0, 0, GridBagConstraints.CENTER,
-				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
-
-		pnlFilter.add(btnClearFilters, new GridBagConstraints(5, 1, 1, 3, 0, 0, GridBagConstraints.CENTER,
-				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 		//
-
-		pnlFilter.add(lblLevel, new GridBagConstraints(0, 1, 1, 1, 0, 0, GridBagConstraints.CENTER,
+		
+		pnlFilter.add(lblScoreLess, new GridBagConstraints(0, 1, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
-
-		pnlFilter.add(cbLevels, new GridBagConstraints(1, 1, 1, 1, 0, 0, GridBagConstraints.CENTER,
+		
+		pnlFilter.add(tfScoreLess, new GridBagConstraints(1, 1, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 
 		pnlFilter.add(lblMark, new GridBagConstraints(2, 1, 1, 1, 0, 0, GridBagConstraints.CENTER,
@@ -120,6 +119,7 @@ public class StatisticsDialog extends DialogWithPassword {
 
 		pnlFilter.add(cbMarks, new GridBagConstraints(3, 1, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 2), 0, 0));
+		
 		//
 		
 		pnlFilter.add(lblScoreMore, new GridBagConstraints(0, 2, 1, 1, 0, 0, GridBagConstraints.CENTER,
@@ -128,10 +128,10 @@ public class StatisticsDialog extends DialogWithPassword {
 		pnlFilter.add(tfScoreMore, new GridBagConstraints(1, 2, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 		
-		pnlFilter.add(lblScoreLess, new GridBagConstraints(2, 2, 1, 1, 0, 0, GridBagConstraints.CENTER,
+		pnlFilter.add(lblLevel, new GridBagConstraints(2, 2, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
-		
-		pnlFilter.add(tfScoreLess, new GridBagConstraints(3, 2, 1, 1, 0, 0, GridBagConstraints.CENTER,
+
+		pnlFilter.add(cbLevels, new GridBagConstraints(3, 2, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 		
 		//
@@ -147,7 +147,18 @@ public class StatisticsDialog extends DialogWithPassword {
 		
 		pnlFilter.add(dpDateLess, new GridBagConstraints(3, 3, 1, 1, 0, 0, GridBagConstraints.WEST,
 				GridBagConstraints.NONE, new Insets(1, 1, 1, 1), 0, 0));
+		
+		//
+		
+		pnlFilter.add(pnlFilterButtons, new GridBagConstraints(0, 4, GridBagConstraints.REMAINDER, 1, 0, 0, GridBagConstraints.NORTH, 
+				GridBagConstraints.HORIZONTAL, new Insets(1, 1, 1, 1), 0, 0));
 
+	}
+	
+	private void layoutFilterPanelButtons() {
+		pnlFilterButtons.add(btnClearFilters);
+		pnlFilterButtons.add(btnFilter);
+		pnlFilterButtons.add(btnPrint);
 	}
 
 	private void initTablePanel() {
@@ -265,6 +276,9 @@ public class StatisticsDialog extends DialogWithPassword {
 	public void setTfScoreMore(JTextField tfScoreMore) {
 		this.tfScoreMore = tfScoreMore;
 	}
-	
+
+	public JGreenButton getBtnPrint() {
+		return btnPrint;
+	}
 	
 }

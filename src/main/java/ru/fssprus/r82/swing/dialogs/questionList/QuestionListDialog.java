@@ -87,6 +87,8 @@ public class QuestionListDialog extends DialogWithPassword {
 	public QuestionListDialog(int width, int height, JFrame parent) {
 		super(width, height, parent);
 		initTable();
+		
+		getRootPane().setDefaultButton(btnFilter);
 	}
 	
 	private void initTable() {

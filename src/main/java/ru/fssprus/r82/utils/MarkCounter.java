@@ -19,10 +19,10 @@ public class MarkCounter {
 	
 	private static final String[] ALL_MARKS = { A_WORDS, B_WORDS, C_WORDS, D_WORDS };
 	
-	private static final Color A_COLOR = new Color(0x00FF00);
+	private static final Color A_COLOR = new Color(0x77FF77);
 	private static final Color B_COLOR = new Color(0xAAFFAA);
-	private static final Color C_COLOR = new Color(0x00FFFF);
-	private static final Color D_COLOR = new Color(0xFF0000);
+	private static final Color C_COLOR = new Color(0xFFAA00);
+	private static final Color D_COLOR = new Color(0xFF7777);
 
 	public static final int countMarkInPercent(int totalAmount, int correctAnswers) {
 		double calculations = Math.abs(((double) correctAnswers / totalAmount) * 100);

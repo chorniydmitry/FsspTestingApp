@@ -48,4 +48,11 @@ public class TestService {
 		return testDao.getByUserSpecifiactionLevelAndDate(startX, endX, users, specs, level, dateMore, dateLess, result, scoreMore, scoreLess);
 	}
 	
+	public int countByUserSpecifiactionLevelAndDate(Set<User> users,
+			Set<Specification> specs, QuestionLevel level, Date dateMore, Date dateLess, String result, int scoreMore,
+			int scoreLess) {
+		return testDao.countByUserSpecifiactionLevelAndDate(users, specs, level, dateMore, dateLess, result, scoreMore, scoreLess);
+		
+	}
+	
 }

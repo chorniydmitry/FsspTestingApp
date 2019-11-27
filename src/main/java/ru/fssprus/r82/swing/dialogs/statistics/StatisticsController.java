@@ -1,10 +1,20 @@
+
 package ru.fssprus.r82.swing.dialogs.statistics;
 
+import java.awt.print.PrinterException;
+import java.text.MessageFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.OrientationRequested;
+import javax.swing.JTable;
+
+import ru.fssprus.r82.dao.TestDao;
+import ru.fssprus.r82.dao.impl.TestDatabaseDao;
 import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.entity.Specification;
 import ru.fssprus.r82.entity.Test;
@@ -33,6 +43,7 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 	private int totalPages;
 
 	private List<Test> testsOnScreenList;
+	private List<Test> totalEntriesList;
 
 	public StatisticsController(StatisticsDialog dialog) {
 		super(dialog);
@@ -49,87 +60,132 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 	protected void setListeners() {
 		dialog.getBtnClearFilters().addActionListener(listener -> doClearFiltersAction());
 		dialog.getBtnFilter().addActionListener(listener -> updateTable());
-
-//		dialog.getDpDateMore().addFocusListener(new DateTextFieldsFocusListener());
-//		dialog.getDpDateMore().addActionListener(listener -> updateAndFormatDateFields(dialog.getTfDateMore()));
-//
-//		dialog.getDpDateLess().addFocusListener(new DateTextFieldsFocusListener());
-//		dialog.getDpDateLess().addActionListener(listener -> updateAndFormatDateFields(dialog.getTfDateLess()));
-
+		dialog.getBtnPrint().addActionListener(listener -> doPrint());
 	}
-	
+
+	private void doPrint() {
+		try {
+
+			totalEntriesList = getByFilter(0, 0);
+			dialog.getTableModel().clearTable();
+			convertAndAddToTable(totalEntriesList);
+
+			PrintRequestAttributeSet set = new HashPrintRequestAttributeSet();
+			set.add(OrientationRequested.LANDSCAPE);
+			MessageFormat header = new MessageFormat("Статистика тестирования");
+			MessageFormat footer = new MessageFormat("Стриница {0,number,integer}");
+			dialog.getTable().print(JTable.PrintMode.FIT_WIDTH, header, footer, true, set, false);
+
+			
+		} catch (PrinterException e) {
+			e.printStackTrace();
+		}
+		
+		updateTable();
+	}
+
 	private void initCbs() {
 		initCbLevels();
 		initCbMarks();
 		initCbSpecs();
 	}
-	
+
 	private void initCbLevels() {
 		dialog.getCbLevel().addItem(null);
-		for(QuestionLevel item: QuestionLevel.values())
+		for (QuestionLevel item : QuestionLevel.values())
 			dialog.getCbLevel().addItem(item);
 	}
-	
+
 	private void initCbMarks() {
 		dialog.getCbMarks().addItem(null);
-		for(String mark: MarkCounter.getAllMarksWords())
+		for (String mark : MarkCounter.getAllMarksWords())
 			dialog.getCbMarks().addItem(mark);
 	}
-	
+
 	private void initCbSpecs() {
-			SpecificationService service = new SpecificationService();
-			List<Specification> specList = service.getAll();
+		SpecificationService service = new SpecificationService();
+		List<Specification> specList = service.getAll();
 
-			dialog.getCbSpecs().addItem(null);
+		dialog.getCbSpecs().addItem(null);
 
-			for (Specification spec : specList) {
-				if (spec.getName().toUpperCase().equals(COMMON_TEXT.toUpperCase()))
-					continue;
-				dialog.getCbSpecs().addItem(spec.getName());
-			}
+		for (Specification spec : specList) {
+			if (spec.getName().toUpperCase().equals(COMMON_TEXT.toUpperCase()))
+				continue;
+			dialog.getCbSpecs().addItem(spec.getName());
+		}
 	}
 
 	private void doFilter() {
-		TestService testService = new TestService();
-		UserService userService = new UserService();
-		SpecificationService specService = new SpecificationService();
+		testsOnScreenList = getByFilter(currentPage * ENTRIES_FOR_PAGE, ENTRIES_FOR_PAGE);
+	}
 
+	private Set<User> getUsers() {
+		UserService userService = new UserService();
 		Set<User> users = null;
 		if (!dialog.getTfSurNamLast().getText().isEmpty())
 			users = new HashSet<>(userService.getBySurname(dialog.getTfSurNamLast().getText()));
 
+		return users;
+	}
+
+	private Set<Specification> getSpecs() {
+		SpecificationService specService = new SpecificationService();
+
 		Set<Specification> specs = null;
 		if (dialog.getCbSpecs().getSelectedIndex() != -1) {
-			specs = new HashSet<>(specService.getByName(
-					dialog.getCbSpecs().
-					getSelectedItem().
-					toString()));
+			specs = new HashSet<>(specService.getByName(dialog.getCbSpecs().getSelectedItem().toString()));
 		}
+
+		return specs;
+	}
+
+	private QuestionLevel getLevel() {
 		QuestionLevel level = null;
 
-		if ((dialog.getCbLevel().getSelectedItem() != null)) {
+		if ((dialog.getCbLevel().getSelectedItem() != null))
 			level = (QuestionLevel.valueOf(dialog.getCbLevel().getSelectedItem().toString()));
-		}
-		
-		Date dateMore = dialog.getDpDateMore().getDate();
 
-		Date dateLess = dialog.getDpDateLess().getDate();
+		return level;
+	}
 
+	private Date getDateMore() {
+		return dialog.getDpDateMore().getDate();
+	}
+
+	private Date getDateLess() {
+		return dialog.getDpDateLess().getDate();
+	}
+
+	private String getResult() {
 		String result = null;
-		if(dialog.getCbMarks().getSelectedIndex() != -1)
+		if (dialog.getCbMarks().getSelectedIndex() != -1)
 			result = dialog.getCbMarks().getSelectedItem().toString();
 
+		return result;
+	}
+
+	private int getScoreMore() {
 		String scoreMoreText = dialog.getTfScoreMore().getText();
+		return Utils.isNumeric(scoreMoreText) ? Integer.parseInt(scoreMoreText) : 0;
+	}
+
+	private int getScoreLess() {
 		String scoreLessText = dialog.getTfScoreLess().getText();
+		return Utils.isNumeric(scoreLessText) ? Integer.parseInt(scoreLessText) : 0;
+	}
 
-		int scoreMore = Utils.isNumeric(scoreMoreText) ? Integer.parseInt(scoreMoreText) : 0;
-		int scoreLess = Utils.isNumeric(scoreLessText) ? Integer.parseInt(scoreLessText) : 0;
+	private List<Test> getByFilter(int start, int max) {
+		TestService testService = new TestService();
 
-		int start = currentPage * ENTRIES_FOR_PAGE;
-		int max = ENTRIES_FOR_PAGE;
-
-		testsOnScreenList = testService.getByUserSpecifiactionLevelAndDate(start, max, users, specs, level, dateMore,
-				dateLess, result, scoreMore, scoreLess);
+		if (start != 0 || max != 0) {
+			return testService.getByUserSpecifiactionLevelAndDate(start, max, getUsers(), getSpecs(), getLevel(),
+					getDateMore(), getDateLess(), getResult(), getScoreMore(), getScoreLess());
+			
+			
+		} else {
+			return testService.getByUserSpecifiactionLevelAndDate(getUsers(), getSpecs(), getLevel(), getDateMore(),
+					getDateLess(), getResult(), getScoreMore(), getScoreLess());
+		}
 	}
 
 	private void doClearFiltersAction() {
@@ -178,22 +234,23 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 	}
 
 	private void updateTable() {
+		dialog.getTable().unselectAll();
 		dialog.getTableModel().clearTable();
 
 		doFilter();
-		
-		int totalEntries = testsOnScreenList.size();
 
 		dialog.getTabPanel().getTfPage().setText(String.valueOf(currentPage + 1));
-		dialog.getTabPanel().getLblPagesTotal().setText(FROM_TEXT + countTotalPages(totalEntries));
+		dialog.getTabPanel().getLblPagesTotal().setText(FROM_TEXT + countTotalPages());
 
-		
 		convertAndAddToTable(testsOnScreenList);
 
 	}
 
-	private int countTotalPages(int amountOfQuestions) {
-		this.totalPages = amountOfQuestions / ENTRIES_FOR_PAGE + 1;
+	private int countTotalPages() {
+		TestDao testDao = new TestDatabaseDao();
+		this.totalPages = testDao.countByUserSpecifiactionLevelAndDate(getUsers(), getSpecs(), getLevel(),
+				getDateMore(), getDateLess(), getResult(), getScoreMore(), getScoreLess()) / ENTRIES_FOR_PAGE + 1;
+		
 		return totalPages;
 	}
 
