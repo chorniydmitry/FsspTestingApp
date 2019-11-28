@@ -1,7 +1,11 @@
 package ru.fssprus.r82.utils.spreadsheet;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+
+import javax.swing.JTable;
+import javax.swing.table.TableModel;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
@@ -22,6 +26,11 @@ public class SpreadSheetAdapter {
 	}
 
 	private void assignSheetType() {
+		// для сохранения в файл, если файл не существует
+		if(!file.exists()) {
+			return;
+		}
+		
 		if (file.getName().toUpperCase().endsWith("XLSX")) {
 			XSSFWorkbook wb = null;
 			try {
@@ -38,8 +47,10 @@ public class SpreadSheetAdapter {
 			try {
 				sheet = SpreadSheet.createFromFile(file).getSheet(0);
 			} catch (IOException e) {
+				sheet = SpreadSheet.createEmpty(null);
 				e.printStackTrace();
 			}
+			
 		}
 	}
 
@@ -103,4 +114,27 @@ public class SpreadSheetAdapter {
 		return null;
 
 	}
+	
+    public void exportTable(File file, JTable table) throws IOException {
+        TableModel model = table.getModel();
+        FileWriter out = new FileWriter(file);
+        String groupExport = "";
+        for (int i = 0; i < (model.getColumnCount()); i++) {//* disable export from TableHeaders
+            groupExport = String.valueOf(model.getColumnName(i));
+            out.write(String.valueOf(groupExport) + "\t");
+        }
+        out.write("\n");
+        for (int i = 0; i < model.getRowCount(); i++) {
+            for (int j = 0; j < (model.getColumnCount()); j++) {
+                if (model.getValueAt(i, j) == null) {
+                    out.write("null" + "\t");
+                } else {
+                    groupExport = String.valueOf(model.getValueAt(i, j));
+                    out.write(String.valueOf(groupExport) + "\t");
+                }
+            }
+            out.write("\n");
+        }
+        out.close();
+    }
 }

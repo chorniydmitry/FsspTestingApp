@@ -2,6 +2,8 @@
 package ru.fssprus.r82.swing.dialogs.statistics;
 
 import java.awt.print.PrinterException;
+import java.io.File;
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.HashSet;
@@ -30,6 +32,8 @@ import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.utils.MarkCounter;
 import ru.fssprus.r82.utils.TimeUtils;
 import ru.fssprus.r82.utils.Utils;
+import ru.fssprus.r82.utils.spreadsheet.SpreadSheetAdapter;
+import ru.fssprus.r82.utils.spreadsheet.SpreadsheetFileChooser;
 
 /**
  * @author Chernyj Dmitry
@@ -53,17 +57,36 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 		TablePanelController tablePanelController = new TablePanelController(dialog.getTabPanel());
 		tablePanelController.setSubscriber(this);
 
-		updateTable();
+		updateTableAction();
 	}
 
 	@Override
 	protected void setListeners() {
 		dialog.getBtnClearFilters().addActionListener(listener -> doClearFiltersAction());
-		dialog.getBtnFilter().addActionListener(listener -> updateTable());
-		dialog.getBtnPrint().addActionListener(listener -> doPrint());
+		dialog.getBtnFilter().addActionListener(listener -> updateTableAction());
+		dialog.getBtnPrint().addActionListener(listener -> doPrintAction());
+		dialog.getBtnExportSheet().addActionListener(listener -> doExportSheetAction());
 	}
 
-	private void doPrint() {
+	private void doExportSheetAction() {
+		SpreadsheetFileChooser chooser = new SpreadsheetFileChooser();
+		File fileToSave = chooser.selectSpreadSheetFileToSave();
+		SpreadSheetAdapter adapter = new SpreadSheetAdapter(fileToSave);
+		
+		totalEntriesList = getByFilter(0,0);
+		dialog.getTableModel().clearTable();
+		convertAndAddToTable(totalEntriesList);
+		
+		try {
+			adapter.exportTable(fileToSave, dialog.getTable());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		updateTableAction();
+	}
+
+	private void doPrintAction() {
 		try {
 
 			totalEntriesList = getByFilter(0, 0);
@@ -81,7 +104,7 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 			e.printStackTrace();
 		}
 		
-		updateTable();
+		updateTableAction();
 	}
 
 	private void initCbs() {
@@ -115,7 +138,7 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 		}
 	}
 
-	private void doFilter() {
+	private void doFilterAction() {
 		testsOnScreenList = getByFilter(currentPage * ENTRIES_FOR_PAGE, ENTRIES_FOR_PAGE);
 	}
 
@@ -199,7 +222,7 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 		dialog.getTfScoreLess().setText(null);
 		dialog.getTfScoreMore().setText(null);
 
-		updateTable();
+		updateTableAction();
 	}
 
 	public void convertAndAddToTable(List<Test> tests) {
@@ -233,11 +256,11 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 		}
 	}
 
-	private void updateTable() {
+	private void updateTableAction() {
 		dialog.getTable().unselectAll();
 		dialog.getTableModel().clearTable();
 
-		doFilter();
+		doFilterAction();
 
 		dialog.getTabPanel().getTfPage().setText(String.valueOf(currentPage + 1));
 		dialog.getTabPanel().getLblPagesTotal().setText(FROM_TEXT + countTotalPages());
@@ -262,14 +285,14 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 	public void nextPage() {
 		if (currentPage + 1 < totalPages)
 			currentPage++;
-		updateTable();
+		updateTableAction();
 	}
 
 	@Override
 	public void previousPage() {
 		if (currentPage > 0)
 			currentPage--;
-		updateTable();
+		updateTableAction();
 	}
 
 	@Override
@@ -278,7 +301,7 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 			TestService service = new TestService();
 			service.delete(testsOnScreenList.get(index));
 		}
-		updateTable();
+		updateTableAction();
 
 	}
 
@@ -287,7 +310,7 @@ public class StatisticsController extends CommonController<StatisticsDialog> imp
 		if (page <= totalPages && page > 0)
 			currentPage = page - 1;
 
-		updateTable();
+		updateTableAction();
 	}
 
 }

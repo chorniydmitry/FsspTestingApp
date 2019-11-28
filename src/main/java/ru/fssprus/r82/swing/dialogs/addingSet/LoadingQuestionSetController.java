@@ -16,7 +16,7 @@ import ru.fssprus.r82.service.QuestionService;
 import ru.fssprus.r82.swing.dialogs.CommonController;
 import ru.fssprus.r82.swing.utils.MessageBox;
 import ru.fssprus.r82.utils.spreadsheet.SpreadSheetParser;
-import ru.fssprus.r82.utils.spreadsheet.TestFileChooser;
+import ru.fssprus.r82.utils.spreadsheet.SpreadsheetFileChooser;
 
 public class LoadingQuestionSetController extends CommonController<LoadingQuestionSetDialog> {
 	private File testFile;
@@ -98,7 +98,7 @@ public class LoadingQuestionSetController extends CommonController<LoadingQuesti
 	}
 
 	private void doOpenTestFile() {
-		TestFileChooser chooser = new TestFileChooser();
+		SpreadsheetFileChooser chooser = new SpreadsheetFileChooser();
 		testFile = chooser.selectSpreadSheetFileToOpen();
 		if (testFile != null)
 			try {

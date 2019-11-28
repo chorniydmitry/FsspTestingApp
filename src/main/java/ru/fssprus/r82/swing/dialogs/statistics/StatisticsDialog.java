@@ -40,11 +40,11 @@ public class StatisticsDialog extends DialogWithPassword {
 	private static final String LBL_DATE_CAPTION_MORE = "Дата БОЛЬШЕ:";
 	private static final String LBL_SCORE_CAPTION_LESS = "% МЕНЬШЕ";
 	private static final String LBL_SCORE_CAPTION_MORE = "% БОЛЬШЕ";
-	
 
 	private static final String BTN_FILTER_CAPTION = "Фильтр";
 	private static final String BTN_CLEAR_CAPTION = "Сброс";
 	private static final String BTN_PRINT_CAPTION = "Печать";
+	private static final String BTN_EXPORT_CAPTION = "Экспорт таблицы";
 	
 	private static final int PNL_FILTER_HEIGHT = 155;
 
@@ -75,6 +75,7 @@ public class StatisticsDialog extends DialogWithPassword {
 	private JGreenButton btnFilter = new JGreenButton(BTN_FILTER_CAPTION);
 	private JGreenButton btnClearFilters = new JGreenButton(BTN_CLEAR_CAPTION);
 	private JGreenButton btnPrint = new JGreenButton(BTN_PRINT_CAPTION);
+	private JGreenButton btnExportSheet = new JGreenButton(BTN_EXPORT_CAPTION);
 
 	public StatisticsDialog(int width, int heigth, JFrame parent) {
 		super(width, heigth, parent);
@@ -159,6 +160,7 @@ public class StatisticsDialog extends DialogWithPassword {
 		pnlFilterButtons.add(btnClearFilters);
 		pnlFilterButtons.add(btnFilter);
 		pnlFilterButtons.add(btnPrint);
+		pnlFilterButtons.add(btnExportSheet);
 	}
 
 	private void initTablePanel() {
@@ -279,6 +281,10 @@ public class StatisticsDialog extends DialogWithPassword {
 
 	public JGreenButton getBtnPrint() {
 		return btnPrint;
+	}
+
+	public JGreenButton getBtnExportSheet() {
+		return btnExportSheet;
 	}
 	
 }
