@@ -2,6 +2,7 @@ package ru.fssprus.r82.swing.dialogs.test;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -36,7 +37,7 @@ public class TestDialog extends CommonDialog {
 	private static final String BTN_FINISH_CAPTION = "Закончить тест";
 	private static final String BTN_NEXT_CAPTION = ">";
 	private static final String BTN_PREVIOUS_CAPTION = "<";
-	
+
 	private static final int QUESTION_TEXT_SIDE_INDENT = 25;
 
 	private static final int AMT_RAD_BUTTONS = 5;
@@ -57,9 +58,13 @@ public class TestDialog extends CommonDialog {
 	private JLabel lblTimeLeftSec = new JLabel();
 
 	private boolean isPaused = false;
+	
+	private JFrame mainFrame;
+	
 
 	public TestDialog(int width, int height, JFrame parent) {
 		super(width, height, parent);
+		mainFrame = parent;
 	}
 
 	@Override
@@ -89,7 +94,7 @@ public class TestDialog extends CommonDialog {
 
 	private void addComponents() {
 		JPanel contentPanel = getContentPanel();
-		
+
 		contentPanel.add(pnlQuizzControll, BorderLayout.NORTH);
 
 		contentPanel.add(pnlQuestAndAnswers, BorderLayout.CENTER);
@@ -123,24 +128,24 @@ public class TestDialog extends CommonDialog {
 		initTaQuestionText();
 		initPanelAnswers();
 		initLblQuestionInfo();
-		
+
 		final int side = QUESTION_TEXT_SIDE_INDENT;
 
 		pnlQuestAndAnswers.setLayout(new GridBagLayout());
-		
-		pnlQuestAndAnswers.add(lblQuestionInfo, new GridBagConstraints(
-				0, 0, GridBagConstraints.REMAINDER, 1, 0, 0, GridBagConstraints.NORTH, GridBagConstraints.BOTH, new Insets(0, side, 0, side), 0,0));
-		pnlQuestAndAnswers.add(taQuestionText, new GridBagConstraints(
-				0, 1, GridBagConstraints.REMAINDER, 1, 0, 0, GridBagConstraints.NORTH, GridBagConstraints.BOTH, new Insets(0, side, 0, side), 0,0));
-		pnlQuestAndAnswers.add(pnlAnswers, new GridBagConstraints(
-				0, 2, GridBagConstraints.REMAINDER, 1, 0, 0, GridBagConstraints.NORTH, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0,0));
-		
+
+		pnlQuestAndAnswers.add(lblQuestionInfo, new GridBagConstraints(0, 0, GridBagConstraints.REMAINDER, 1, 0, 0,
+				GridBagConstraints.NORTH, GridBagConstraints.BOTH, new Insets(0, side, 0, side), 0, 0));
+		pnlQuestAndAnswers.add(taQuestionText, new GridBagConstraints(0, 1, GridBagConstraints.REMAINDER, 1, 0, 0,
+				GridBagConstraints.NORTH, GridBagConstraints.BOTH, new Insets(0, side, 0, side), 0, 0));
+		pnlQuestAndAnswers.add(pnlAnswers, new GridBagConstraints(0, 2, GridBagConstraints.REMAINDER, 1, 0, 0,
+				GridBagConstraints.NORTH, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+
 	}
-	
+
 	private void initLblQuestionInfo() {
 		final int sideIndents = QUESTION_TEXT_SIDE_INDENT + QUESTION_TEXT_SIDE_INDENT;
-		lblQuestionInfo
-				.setPreferredSize(new Dimension(this.getWidth() - sideIndents, AppConstants.TESTDIALOG_LBL_QUESTION_INFO_HEIGHT));
+		lblQuestionInfo.setPreferredSize(
+				new Dimension(this.getWidth() - sideIndents, AppConstants.TESTDIALOG_LBL_QUESTION_INFO_HEIGHT));
 
 	}
 
@@ -149,13 +154,13 @@ public class TestDialog extends CommonDialog {
 		taQuestionText.setWrapStyleWord(true);
 		taQuestionText.setLineWrap(true);
 		taQuestionText.setDisabledTextColor(Color.BLACK);
-		
+
 		final int sideIndents = QUESTION_TEXT_SIDE_INDENT + QUESTION_TEXT_SIDE_INDENT;
 
 		taQuestionText.setPreferredSize(
 				new Dimension(this.getWidth() - sideIndents, Utils.countTestDialogTaQuestionHeight(this.getHeight())));
 	}
-	
+
 	private void initPanelAnswers() {
 
 		pnlAnswers.setPreferredSize(
@@ -168,8 +173,6 @@ public class TestDialog extends CommonDialog {
 					GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 10, 0), 0, 0));
 		}
 	}
-
-
 
 	private void setFonts() {
 		Font fontHeader = AppConstants.TESTDIALOG_HEADER_FONT;
@@ -263,5 +266,9 @@ public class TestDialog extends CommonDialog {
 	public void setTaQuestionText(JTextArea taQuestionText) {
 		this.taQuestionText = taQuestionText;
 	}
-	
+
+	public JFrame getMainFrame() {
+		return mainFrame;
+	}
+
 }

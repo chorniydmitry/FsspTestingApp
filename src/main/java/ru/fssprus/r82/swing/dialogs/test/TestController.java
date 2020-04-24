@@ -17,6 +17,7 @@ import ru.fssprus.r82.entity.QuestionLevel;
 import ru.fssprus.r82.swing.dialogs.ControllerWithTimer;
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.utils.AppConstants;
+import ru.fssprus.r82.utils.CheatingStopper;
 import ru.fssprus.r82.utils.TimeUtils;
 import ru.fssprus.r82.utils.Utils;
 import ru.fssprus.r82.utils.testingTools.TestingProcessAnaliser;
@@ -44,8 +45,11 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 	private int currentIndex;
 
 	public TestController(TestDialog dialog, TestingProcess testingProcess) {
+		
 		super(dialog, getTime(testingProcess.getTestLevel()), dialog.getLblTimeLeftSec());
 		this.testingProcess = testingProcess;
+		
+		CheatingStopper.create(dialog.getMainFrame());
 
 		initVariables();
 		showCurrentQuestionAndAnswers();
@@ -243,6 +247,8 @@ public class TestController extends ControllerWithTimer<TestDialog> implements K
 				tpAnaliser.analize();
 				
 				new TestingResultsSaver().saveResultsToDB(getTimeLeft(), tpAnaliser);
+				
+				CheatingStopper.stop();
 				
 				DialogBuilder.showResultingDialog(tpAnaliser);
 			}

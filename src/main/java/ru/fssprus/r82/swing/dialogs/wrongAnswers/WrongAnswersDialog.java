@@ -31,8 +31,11 @@ public class WrongAnswersDialog extends CommonDialog {
 	private JLabel lblTimeLeftSec = new JLabel();
 	private JButton btnClose = new JGreenButton(BTN_CLOSE_CAPTION);
 	
+	private JFrame mainFrame;
+	
 	public WrongAnswersDialog(int width, int height, JFrame parent) {
 		super(width, height, parent);
+		mainFrame = parent;
 	}
 	
 	@Override
@@ -101,5 +104,9 @@ public class WrongAnswersDialog extends CommonDialog {
 
 	public void setBtnClose(JButton btnClose) {
 		this.btnClose = btnClose;
+	}
+	
+	public JFrame getMainFrame() {
+		return mainFrame;
 	}
 }
