@@ -84,7 +84,7 @@ public class TestDatabaseDao extends AbstractHibernateDao<Test> implements TestD
 				predicates.add(builder.lessThanOrEqualTo(root.get("date"), dateLess));
 
 			if (result != null && !result.isEmpty())
-				predicates.add(builder.like(root.get("result"), "%" + result + "%"));
+				predicates.add(builder.like(root.get("result"), result));
 
 			if (scoreMore != 0)
 				predicates.add(builder.greaterThanOrEqualTo(root.get("score"), scoreMore));

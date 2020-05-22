@@ -1,10 +1,7 @@
 package ru.fssprus.r82.swing.dialogs.wrongAnswers;
 
 import ru.fssprus.r82.swing.dialogs.ControllerWithTimer;
-import ru.fssprus.r82.swing.dialogs.DialogBuilder;
 import ru.fssprus.r82.utils.CheatingStopper;
-import ru.fssprus.r82.utils.testingTools.TestingProcessAnaliser;
-import ru.fssprus.r82.utils.testingTools.TestingResultsSaver;
 
 /**
  * @author Chernyj Dmitry

@@ -2,16 +2,15 @@ package ru.fssprus.r82.swing.main.mainFrame;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import ru.fssprus.r82.swing.dialogs.DialogBuilder;
-import ru.fssprus.r82.utils.AppConstants;
 import ru.fssprus.r82.swing.utils.ImagePanel;
 import ru.fssprus.r82.swing.utils.JGreenButton;
+import ru.fssprus.r82.utils.AppConstants;
 
 /**
  * @author Chernyj Dmitry
